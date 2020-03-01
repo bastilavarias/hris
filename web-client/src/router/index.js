@@ -12,7 +12,14 @@ const routes = [
 
     {
         path: "/home",
-        component: () => import("../layouts/Home")
+        component: () => import("../layouts/Home"),
+        children: [
+            {
+                path: "daily-time-record",
+                name: "daily-time-record",
+                component: () => import("../pages/home/DailyTimeRecord")
+            }
+        ]
     },
 ];
 

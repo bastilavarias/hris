@@ -10,7 +10,7 @@
 									<v-img :src="require('../assets/udmLogo.png')"/>
 								</v-avatar>
 							</v-row>
-							<v-card-title class="font-weight-bold my-5">
+							<v-card-title class="font-weight-bold mt-5 mb-10">
 								<div class="flex-grow-1"></div>
 								Human Resource Information System
 								<div class="flex-grow-1"></div>
@@ -30,6 +30,7 @@
 										color="primary"
 										block
 										class="mt-4"
+										:to="{name: 'daily-time-record'}"
 								>Login
 								</v-btn>
 								<div class="pb-5"></div>
@@ -44,9 +45,3 @@
 		</v-content>
 	</v-app>
 </template>
-
-<script>
-    export default {
-        name: "login"
-    };
-</script>
