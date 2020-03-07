@@ -69,24 +69,23 @@
 			<v-app-bar-nav-icon @click.stop="isDrawerOpen = !isDrawerOpen"></v-app-bar-nav-icon>
 			<v-icon class="mx-4">fab fa-youtube</v-icon>
 			<v-spacer></v-spacer>
-			<v-toolbar-items>
-				<v-btn icon light>
-					<v-icon>mdi-bell</v-icon>
-				</v-btn>
-				<v-menu offset-y>
-					<template v-slot:activator="{ on }">
-						<v-btn color="transparent" dark depressed exact v-on="on">
-							<v-avatar :size="30">
-								<v-img src="https://firebasestorage.googleapis.com/v0/b/portfolio-77930.appspot.com/o/resource%2FmyPicture.jpeg?alt=media&token=6b7c665c-60a0-4c59-a3b6-3bdc72c68fbe"></v-img>
-							</v-avatar>
-						</v-btn>
-					</template>
-					<v-list>
-						<v-list-item :to="{ name: 'user-information' }" exact>Settings</v-list-item>
-						<v-list-item :to="{ name: 'login' }" exact>Logout</v-list-item>
-					</v-list>
-				</v-menu>
-			</v-toolbar-items>
+			<v-btn icon light>
+				<v-icon>mdi-bell</v-icon>
+			</v-btn>
+			<v-menu offset-y>
+				<template v-slot:activator="{ on }">
+					<v-btn color="transparent" dark depressed exact v-on="on">
+						<v-avatar :size="30">
+							<v-img src="https://firebasestorage.googleapis.com/v0/b/portfolio-77930.appspot.com/o/resource%2FmyPicture.jpeg?alt=media&token=6b7c665c-60a0-4c59-a3b6-3bdc72c68fbe"></v-img>
+						</v-avatar>
+					</v-btn>
+				</template>
+				<v-list>
+					<v-list-item exact>Profile</v-list-item>
+					<v-list-item :to="{ name: 'user-information' }" exact>Settings</v-list-item>
+					<v-list-item :to="{ name: 'login' }" exact>Logout</v-list-item>
+				</v-list>
+			</v-menu>
 		</v-app-bar>
 		<v-content>
 			<v-container>
@@ -97,12 +96,12 @@
 </template>
 <script>
     const userActions = [
-		{
-		    name: "Personal Data Sheet",
-			icon: "clipboard-account",
-			route: {name: "personal-data-sheet-manager"},
-			subActions: []
-		}
+        {
+            name: "Personal Data Sheet",
+            icon: "clipboard-account",
+            route: {name: "personal-data-sheet-manager"},
+            subActions: []
+        }
     ];
 
     export default {
@@ -111,7 +110,7 @@
         data() {
             return {
                 isDrawerOpen: true,
-				userActions
+                userActions
             };
         }
     };

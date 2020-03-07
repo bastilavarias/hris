@@ -5,7 +5,7 @@
 			<div class="flex-grow-1"></div>
 			<v-tooltip bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn icon color="primary" v-on="on">
+					<v-btn icon color="primary" v-on="on" :to="{name: 'personal-data-sheet-form', params: {operation: 'create'}}">
 						<v-icon>mdi-plus</v-icon>
 					</v-btn>
 				</template>
@@ -16,11 +16,11 @@
 			<template v-slot:top>
 				<v-card-text>
 					<v-row dense>
-						<v-col cols="12" :md="isInDefaultSearchOption ? '2' : '3'">
+						<v-col cols="12" :md="isInDefaultSearchOption ? '1' : '3'">
 							<v-select solo label="Search By" :items="searchOptions" item-text="name" item-value="id"
 									  v-model="selectedSearchOption"></v-select>
 						</v-col>
-						<v-col cols="12" :md="isInDefaultSearchOption ? '8' : '7'">
+						<v-col cols="12" :md="isInDefaultSearchOption ? '9' : '7'">
 							<v-text-field solo label="Search" :disabled="isInDefaultSearchOption"></v-text-field>
 						</v-col>
 						<v-col cols="12" md="2">
