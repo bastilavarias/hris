@@ -1,66 +1,152 @@
 <template>
-	<v-row dense>
-		<v-col cols="12" md="8" order="2" order-md="1">
+	<v-card tile>
+		<v-card-subtitle>
+			Personal Information
+		</v-card-subtitle>
+		<v-card-text>
 			<v-row dense>
-				<v-col cols="12">
-					<v-text-field label="First Name"></v-text-field>
+				<v-col cols="12" md="8" order="2" order-md="1">
+					<v-row dense>
+						<v-col cols="10">
+							<v-text-field label="Surname"></v-text-field>
+						</v-col>
+						<v-col cols="2">
+							<v-select label="Extension"></v-select>
+						</v-col>
+						<v-col cols="12">
+							<v-text-field label="Middle Name"></v-text-field>
+						</v-col>
+						<v-col cols="12">
+							<v-text-field label="First Name"></v-text-field>
+						</v-col>
+					</v-row>
 				</v-col>
-				<v-col cols="12">
-					<v-text-field label="Middle Name"></v-text-field>
+				<v-col cols="12" md="4" order="1" order-md="2">
+					<div class="text-center">
+						<generic-image-input></generic-image-input>
+					</div>
 				</v-col>
-				<v-col cols="10">
-					<v-text-field label="Surname"></v-text-field>
-				</v-col>
-				<v-col cols="2">
-					<v-select label="Extension"></v-select>
+				<v-col cols="12" order="3">
+					<v-row dense>
+						<v-col cols="12" md="4">
+							<generic-date-input label="Date Of Birth"></generic-date-input>
+						</v-col>
+						<v-col cols="12" md="8">
+							<v-autocomplete label="Birth Place"></v-autocomplete>
+						</v-col>
+						<v-col cols="12" md="2">
+							<v-select label="Sex"></v-select>
+						</v-col>
+						<v-col cols="12" md="5">
+							<v-select label="Civil Status"></v-select>
+						</v-col>
+						<v-col cols="12" md="5">
+							<v-autocomplete label="Citizenship"></v-autocomplete>
+						</v-col>
+						<v-col cols="12" md="6">
+							<v-select label="Blood Type"></v-select>
+						</v-col>
+						<v-col cols="12" md="3">
+							<v-text-field type="number" label="Height (m)"></v-text-field>
+						</v-col>
+						<v-col cols="12" md="3">
+							<v-text-field type="number" label="Weight (kg)"></v-text-field>
+						</v-col>
+						<v-col cols="12" md="4">
+							<v-text-field label="GSIS ID No." placeholder="XXXX-XXX-XXX"></v-text-field>
+						</v-col>
+						<v-col cols="12" md="4">
+							<v-text-field label="PAGIBIG ID No." placeholder="XXXX-XXX-XXX"></v-text-field>
+						</v-col>
+						<v-col cols="12" md="4">
+							<v-text-field label="PHILHEALTH TIN ID No." placeholder="XXXX-XXX-XXX"></v-text-field>
+						</v-col>
+						<v-col cols="12" md="4">
+							<v-text-field label="SSS No." placeholder="XXXX-XXX-XXX"></v-text-field>
+						</v-col>
+						<v-col cols="12" md="4">
+							<v-text-field label="TIN No." placeholder="XXXX-XXX-XXX"></v-text-field>
+						</v-col>
+						<v-col cols="12" md="4">
+							<v-text-field label="Agency Employee No." placeholder="XXXX-XXX-XXX"></v-text-field>
+						</v-col>
+					</v-row>
 				</v-col>
 			</v-row>
-		</v-col>
-		<v-col cols="12" md="4" order="1" order-md="2">
-			<div class="text-center">
-				<generic-image-input></generic-image-input>
-			</div>
-		</v-col>
-		<v-col cols="12" md="6" order="3">
+		</v-card-text>
+		<v-card-subtitle>
+			Residential Address
+		</v-card-subtitle>
+		<v-card-text>
 			<v-row dense>
 				<v-col cols="12" md="6">
-					<generic-date-input label="Date Of Birth"></generic-date-input>
+					<v-text-field label="House/Block/Lot No."></v-text-field>
 				</v-col>
 				<v-col cols="12" md="6">
-					<v-autocomplete label="Birth Place"></v-autocomplete>
-				</v-col>
-				<v-col cols="12">
-					<v-radio-group row>
-						<template v-slot:label>
-							Sex
-						</template>
-						<v-radio label="Male" value="radio-1"></v-radio>
-						<v-radio label="Female" value="radio-2"></v-radio>
-					</v-radio-group>
-				</v-col>
-				<v-col cols="12">
-					<v-radio-group row>
-						<template v-slot:label>
-							Civil Status
-						</template>
-						<v-radio label="Single" value="radio-1"></v-radio>
-						<v-radio label="Married" value="radio-2"></v-radio>
-						<v-radio label="Widowed" value="radio-3"></v-radio>
-						<v-radio label="Separated" value="radio-4"></v-radio>
-					</v-radio-group>
+					<v-text-field label="Street"></v-text-field>
 				</v-col>
 				<v-col cols="12" md="6">
-					<v-text-field type="number" label="Height (m)"></v-text-field>
+					<v-text-field label="Subdivision/Village"></v-text-field>
 				</v-col>
 				<v-col cols="12" md="6">
-					<v-text-field type="number" label="Weight (kg)"></v-text-field>
+					<v-text-field label="Barangay"></v-text-field>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-select label="City/Municipality"></v-select>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-select label="Province"></v-select>
 				</v-col>
 				<v-col cols="12">
-					<v-select label="Blood Type"></v-select>
+					<v-text-field label="ZIP Code"></v-text-field>
 				</v-col>
 			</v-row>
-		</v-col>
-	</v-row>
+		</v-card-text>
+		<v-card-subtitle>
+			Permanent Address
+		</v-card-subtitle>
+		<v-card-text>
+			<v-row dense>
+				<v-col cols="12" md="6">
+					<v-text-field label="House/Block/Lot No."></v-text-field>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-text-field label="Street"></v-text-field>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-text-field label="Subdivision/Village"></v-text-field>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-text-field label="Barangay"></v-text-field>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-select label="City/Municipality"></v-select>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-select label="Province"></v-select>
+				</v-col>
+				<v-col cols="12">
+					<v-text-field label="ZIP Code"></v-text-field>
+				</v-col>
+			</v-row>
+		</v-card-text>
+		<v-card-subtitle>
+			Contact
+		</v-card-subtitle>
+		<v-card-text>
+			<v-row dense>
+				<v-col cols="12" md="6">
+					<v-text-field label="Telephone No."></v-text-field>
+				</v-col>
+				<v-col cols="12" md="6">
+					<v-text-field label="Mobile No."></v-text-field>
+				</v-col>
+				<v-col cols="12">
+					<v-text-field label="E-mail Address"></v-text-field>
+				</v-col>
+			</v-row>
+		</v-card-text>
+	</v-card>
 </template>
 
 <script>
