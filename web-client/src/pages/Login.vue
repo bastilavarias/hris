@@ -18,7 +18,7 @@
 							<v-card-subtitle>Account Login</v-card-subtitle>
 							<v-card-text>
 								<v-text-field
-										label="Identification Number"
+										label="Employee Number"
 										outlined
 								/>
 								<v-text-field
@@ -30,7 +30,7 @@
 										color="primary"
 										block
 										class="mt-4"
-										:to="{name: 'daily-time-record'}"
+										:to="{name: 'personal-data-sheet-manager'}"
 								>Login
 								</v-btn>
 								<div class="pb-5"></div>

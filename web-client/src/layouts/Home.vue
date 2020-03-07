@@ -29,7 +29,7 @@
 							v-if="action.subActions.length <= 0"
 					>
 						<v-list-item-action>
-							<v-icon>{{ action.icon }}</v-icon>
+							<v-icon>mdi-{{ action.icon }}</v-icon>
 						</v-list-item-action>
 						<v-list-item-content>
 							<v-list-item-title>
@@ -47,7 +47,7 @@
 							<v-list-item :key="subActionIndex" :to="subAction.route" active-class="primary white--text"
 										 exact>
 								<v-list-item-action>
-									<v-icon>{{ subAction.icon }}</v-icon>
+									<v-icon>mdi-{{ subAction.icon }}</v-icon>
 								</v-list-item-action>
 								<v-list-item-content>
 									<v-list-item-title
@@ -95,15 +95,14 @@
 		</v-content>
 	</v-app>
 </template>
-
 <script>
     const userActions = [
-        {
-            name: "Daily Time Record",
-            icon: "mdi-file-table",
-            route: {name: "daily-time-record"},
-            subActions: []
-        }
+		{
+		    name: "Personal Data Sheet",
+			icon: "clipboard-account",
+			route: {name: "personal-data-sheet-manager"},
+			subActions: []
+		}
     ];
 
     export default {

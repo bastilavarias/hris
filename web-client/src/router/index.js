@@ -15,9 +15,21 @@ const routes = [
         component: () => import("../layouts/Home"),
         children: [
             {
-                path: "daily-time-record",
-                name: "daily-time-record",
-                component: () => import("../pages/home/DailyTimeRecord")
+                path: "personal-data-sheet",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "personal-data-sheet-manager",
+                        component: () => import("../pages/personal-data-sheet/Manager"),
+                    },
+
+                    {
+                        path: ":operation/:employeeId?",
+                        name: "personal-data-sheet-form",
+                        component: () => import("../pages/personal-data-sheet/Form"),
+                    },
+                ]
             }
         ]
     },
