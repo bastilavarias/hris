@@ -4,7 +4,7 @@
 		<v-file-input
 				:rules="imageSelectorValidation"
 				accept="image/png, image/jpeg, image/bmp"
-				placeholder="Pick a image"
+				placeholder="Pick an image"
 				prepend-icon="mdi-image"
 				label="Image"
 		></v-file-input>
