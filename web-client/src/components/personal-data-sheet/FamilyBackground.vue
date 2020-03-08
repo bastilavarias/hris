@@ -21,6 +21,15 @@
 					</v-row>
 				</v-card-text>
 			</v-col>
+			<v-col cols="12">
+				<v-card-title>
+					<span class="v-card__subtitle" style="padding-left: 0 !important;">Children Information</span>
+					<div class="flex-grow-1"></div>
+					<family-background-add-child-information-dialog
+							:dialog.sync="dialog"></family-background-add-child-information-dialog>
+				</v-card-title>
+				<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
+			</v-col>
 			<v-col cols="12" md="6">
 				<v-card-subtitle>Father Information</v-card-subtitle>
 				<v-card-text>
@@ -59,24 +68,14 @@
 					</v-row>
 				</v-card-text>
 			</v-col>
-			<v-col cols="12">
-				<v-card-title>
-					<span class="v-card__subtitle" style="padding-left: 0 !important;">Children Information</span>
-					<div class="flex-grow-1"></div>
-					<personal-data-sheet-family-background-add-child-information-dialog
-							:dialog.sync="dialog"></personal-data-sheet-family-background-add-child-information-dialog>
-				</v-card-title>
-				<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
-			</v-col>
 		</v-row>
 	</v-card>
 </template>
 
 <script>
 
-    import PersonalDataSheetFamilyBackgroundAddChildInformationDialog
-        from "./FamilyBackgroundAddChildInformationDialog";
 
+    import FamilyBackgroundAddChildInformationDialog from "./FamilyBackgroundAddChildInformationDialog";
     const tableHeaders = [
         {
             text: "Name"
@@ -92,9 +91,7 @@
 
     export default {
         name: "personal-data-sheet-family-background",
-        components: {
-            PersonalDataSheetFamilyBackgroundAddChildInformationDialog
-        },
+        components: {FamilyBackgroundAddChildInformationDialog},
         data() {
             return {
                 tableHeaders,

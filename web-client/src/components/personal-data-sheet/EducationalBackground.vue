@@ -3,8 +3,8 @@
 		<v-card-title>
 			Educational Background
 			<div class="flex-grow-1"></div>
-			<personal-data-sheet-educational-background-add-education-dialog
-					:dialog.sync="dialog"></personal-data-sheet-educational-background-add-education-dialog>
+			<educational-background-add-information-dialog
+					:dialog.sync="dialog"></educational-background-add-information-dialog>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
 	</v-card>
@@ -12,7 +12,8 @@
 
 
 <script>
-    import PersonalDataSheetEducationalBackgroundAddEducationDialog from "./EducationalBackgroundAddEducationDialog";
+
+    import EducationalBackgroundAddInformationDialog from "./EducationalBackgroundAddInformationDialog";
 
     const tableHeaders = [
         {
@@ -40,13 +41,14 @@
             text: "Scholarship/Academic Honors"
         },
         {
-            text: "Actions"
+            text: "Actions",
+            align: "right"
         }
     ];
 
     export default {
         name: "personal-data-sheet-educational-background",
-        components: {PersonalDataSheetEducationalBackgroundAddEducationDialog},
+        components: {EducationalBackgroundAddInformationDialog},
         data() {
             return {
                 tableHeaders,

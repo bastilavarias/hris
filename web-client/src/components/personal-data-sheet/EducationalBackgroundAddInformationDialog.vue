@@ -1,21 +1,39 @@
 <template>
-	<v-dialog v-model="dialogLocal" max-width="500">
+	<v-dialog v-model="dialogLocal" max-width="800">
 		<template v-slot:activator="{ on }">
-			<v-btn small class="ml-4" color="primary" v-on="on">
-				Add Child Information
+			<v-btn class="ml-4" color="primary" v-on="on">
+				Add Information
 			</v-btn>
 		</template>
 		<v-card>
 			<v-card-title>
-				<span>Child Information</span>
+				<span>Education Details</span>
 			</v-card-title>
 			<v-card-text>
 				<v-row dense>
-					<v-col cols="12">
-						<v-text-field label="Name"></v-text-field>
+					<v-col cols="12" md="4">
+						<v-select label="Level"></v-select>
 					</v-col>
-					<v-col cols="12">
-						<generic-date-input label="Birth Date"></generic-date-input>
+					<v-col cols="12" md="8">
+						<v-text-field label="School Name"></v-text-field>
+					</v-col>
+					<v-col cols="12" md="6">
+						<v-text-field label="Education/Degree/Course"></v-text-field>
+					</v-col>
+					<v-col cols="12" md="3">
+						<v-select label="From"></v-select>
+					</v-col>
+					<v-col cols="12" md="3">
+						<v-select label="To"></v-select>
+					</v-col>
+					<v-col cols="12" md="9">
+						<v-text-field label="Highest Level/Unit Earned"></v-text-field>
+					</v-col>
+					<v-col cols="12" md="3">
+						<v-select label="Year Graduated"></v-select>
+					</v-col>
+					<v-col cols="12" md="12">
+						<v-text-field label="Scholarship/Academic Honors"></v-text-field>
 					</v-col>
 				</v-row>
 			</v-card-text>
@@ -29,11 +47,10 @@
 </template>
 
 <script>
-    import GenericDateInput from "../generic/DateInput";
 
     export default {
-        name: "family-background-add-child-information-dialog",
-        components: {GenericDateInput},
+        name: "educational-background-add-information-dialog",
+
         props: {
             dialog: {
                 type: Boolean,

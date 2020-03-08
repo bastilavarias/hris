@@ -11,11 +11,14 @@
 				<v-col cols="12">
 					<v-select label="Position"></v-select>
 				</v-col>
-				<v-col cols="10">
+				<v-col cols="6">
 					<v-select label="Salary Grade"></v-select>
 				</v-col>
-				<v-col cols="2">
+				<v-col cols="3">
 					<v-select label="Step Increment"></v-select>
+				</v-col>
+				<v-col cols="3">
+					<v-text-field label="Salary" readonly></v-text-field>
 				</v-col>
 			</v-row>
 		</v-card-text>
