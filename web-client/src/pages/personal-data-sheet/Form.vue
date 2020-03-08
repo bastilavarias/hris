@@ -55,6 +55,9 @@
 					<v-col cols="12">
 						<personal-data-sheet-work-experience></personal-data-sheet-work-experience>
 					</v-col>
+					<v-col cols="12">
+						<personal-data-sheet-voluntary-work-experience></personal-data-sheet-voluntary-work-experience>
+					</v-col>
 				</v-row>
 			</v-tab-item>
 		</v-tabs-items>
@@ -71,6 +74,7 @@
     import PersonalDataSheetEducationalBackground from "../../components/personal-data-sheet/EducationalBackground";
     import PersonalDataSheetCivilServiceEligibility from "../../components/personal-data-sheet/CivilServiceEligibility";
     import PersonalDataSheetWorkExperience from "../../components/personal-data-sheet/WorkExperience";
+    import PersonalDataSheetVoluntaryWorkExperience from "../../components/personal-data-sheet/VoluntaryWorkExperience";
 
     const tabActions = [
         "Work Information",
@@ -83,6 +87,7 @@
     export default {
         name: "personal-data-sheet-form",
         components: {
+            PersonalDataSheetVoluntaryWorkExperience,
             PersonalDataSheetWorkExperience,
             PersonalDataSheetCivilServiceEligibility,
             PersonalDataSheetEducationalBackground,

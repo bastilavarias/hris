@@ -40,7 +40,8 @@
 		{
 		    text: "Government Service"
 		},
-	];
+        {text: "Actions", align: "right"}
+    ];
 
     export default {
 	    name: "personal-data-sheet-work-experience",
