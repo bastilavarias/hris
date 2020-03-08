@@ -42,6 +42,9 @@
 					<v-col cols="12">
 						<personal-data-sheet-family-background></personal-data-sheet-family-background>
 					</v-col>
+					<v-col cols="12">
+						<personal-data-sheet-educational-background></personal-data-sheet-educational-background>
+					</v-col>
 				</v-row>
 			</v-tab-item>
 		</v-tabs-items>
@@ -55,6 +58,7 @@
     import PersonalDataSheetContactInformation from "../../components/personal-data-sheet/ContactInformation";
     import PersonalDataSheetBenefitsInformation from "../../components/personal-data-sheet/BenefitsInformation";
     import PersonalDataSheetFamilyBackground from "../../components/personal-data-sheet/FamilyBackground";
+    import PersonalDataSheetEducationalBackground from "../../components/personal-data-sheet/EducationalBackground";
 
     const tabActions = [
         "Work Information",
@@ -67,6 +71,7 @@
     export default {
         name: "personal-data-sheet-form",
         components: {
+            PersonalDataSheetEducationalBackground,
             PersonalDataSheetFamilyBackground,
             PersonalDataSheetBenefitsInformation,
             PersonalDataSheetContactInformation,

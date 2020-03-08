@@ -1,13 +1,13 @@
 <template>
 	<v-dialog v-model="dialogLocal" max-width="500">
 		<template v-slot:activator="{ on }">
-			<v-btn small color="primary" v-on="on">
-				Add New Children
+			<v-btn small class="ml-4" color="primary" v-on="on">
+				Add Child Information
 			</v-btn>
 		</template>
 		<v-card>
 			<v-card-title>
-				<span>Add New Children</span>
+				<span>Child Information</span>
 			</v-card-title>
 			<v-card-text>
 				<v-row dense>
@@ -29,35 +29,36 @@
 </template>
 
 <script>
-	import GenericDateInput from "../generic/DateInput";
+    import GenericDateInput from "../generic/DateInput";
+
     export default {
-	    name: "personal-data-sheet-family-background-add-children-dialog",
+        name: "personal-data-sheet-family-background-add-child-information-dialog",
         components: {GenericDateInput},
         props: {
-	        dialog: {
-	            type: Boolean,
-				required: true
-			}
-		},
+            dialog: {
+                type: Boolean,
+                required: true
+            }
+        },
 
-		data() {
-	        return {
-	            dialogLocal: false
-			}
-		},
+        data() {
+            return {
+                dialogLocal: false
+            };
+        },
 
-		watch: {
-	        dialog(value) {
-	            this.dialogLocal = value;
-			},
+        watch: {
+            dialog(value) {
+                this.dialogLocal = value;
+            },
 
-			dialogLocal(value) {
+            dialogLocal(value) {
                 this.$emit("update:dialog", value);
-			}
-		},
+            }
+        },
 
-		created() {
-	        this.dialogLocal = this.dialog;
+        created() {
+            this.dialogLocal = this.dialog;
         }
-    }
+    };
 </script>
