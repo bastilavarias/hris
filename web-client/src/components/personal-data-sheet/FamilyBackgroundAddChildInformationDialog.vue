@@ -1,7 +1,7 @@
 <template>
 	<v-dialog v-model="dialogLocal" max-width="500">
 		<template v-slot:activator="{ on }">
-			<v-btn small class="ml-4" color="primary" v-on="on">
+			<v-btn small color="primary" v-on="on">
 				Add Child Information
 			</v-btn>
 		</template>

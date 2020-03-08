@@ -1,12 +1,14 @@
 <template>
-	<v-card>
+	<div>
 		<v-card-title>
 			Voluntary Work Experience
 			<div class="flex-grow-1"></div>
 			<voluntary-work-experience-add-information-dialog :dialog.sync="dialog"></voluntary-work-experience-add-information-dialog>
 		</v-card-title>
-		<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
-	</v-card>
+		<v-card-text>
+			<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
+		</v-card-text>
+	</div>
 </template>
 
 <script>

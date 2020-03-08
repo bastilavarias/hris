@@ -1,13 +1,15 @@
 <template>
-	<v-card>
+	<div>
 		<v-card-title>
 			Educational Background
 			<div class="flex-grow-1"></div>
 			<educational-background-add-information-dialog
 					:dialog.sync="dialog"></educational-background-add-information-dialog>
 		</v-card-title>
-		<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
-	</v-card>
+		<v-card-text>
+			<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
+		</v-card-text>
+	</div>
 </template>
 
 

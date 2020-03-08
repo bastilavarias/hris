@@ -1,5 +1,5 @@
 <template>
-	<v-card>
+	<div>
 		<v-card-title>Benefits</v-card-title>
 		<v-card-text>
 			<v-row dense>
@@ -23,7 +23,7 @@
 				</v-col>
 			</v-row>
 		</v-card-text>
-	</v-card>
+	</div>
 </template>
 
 <script>

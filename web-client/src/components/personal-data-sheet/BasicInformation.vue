@@ -1,8 +1,6 @@
 <template>
-	<v-card>
-		<v-card-title>
-			Basic Information
-		</v-card-title>
+	<div>
+		<v-card-title>Basic Information</v-card-title>
 		<v-card-text>
 			<v-row dense>
 				<v-col cols="12" md="8" order="2" order-md="1">
@@ -56,7 +54,7 @@
 				</v-col>
 			</v-row>
 		</v-card-text>
-	</v-card>
+	</div>
 </template>
 
 <script>
@@ -64,7 +62,7 @@
     import GenericDateInput from "../generic/DateInput";
 
     export default {
-        name: "personal-data-sheet-personal-information",
+        name: "personal-data-sheet-basic-information",
         components: {GenericDateInput, GenericImageInput}
     };
 </script>
