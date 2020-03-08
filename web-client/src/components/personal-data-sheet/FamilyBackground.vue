@@ -64,14 +64,10 @@
 					Children Information
 				</v-card-subtitle>
 				<v-card-text>
-					<v-data-table hide-default-footer :headers="tableHeaders" dense>
+					<v-data-table hide-default-footer :headers="tableHeaders">
 						<template v-slot:top>
-							<v-toolbar flat color="white" dense>
-								<v-spacer></v-spacer>
-								<v-btn icon>
-									<v-icon>mdi-plus</v-icon>
-								</v-btn>
-							</v-toolbar>
+							<personal-data-sheet-family-background-add-children-dialog
+									:dialog.sync="dialog"></personal-data-sheet-family-background-add-children-dialog>
 						</template>
 					</v-data-table>
 				</v-card-text>
@@ -81,22 +77,29 @@
 </template>
 
 <script>
-	const tableHeaders = [
-		{
-		    text: "Name"
-		},
-		{
-		    text: "Birth Date"
-		},
-	];
+    import PersonalDataSheetFamilyBackgroundAddChildrenDialog from "./FamilyBackgroundAddChildrenDialog";
+
+    const tableHeaders = [
+        {
+            text: "Name"
+        },
+        {
+            text: "Birth Date"
+        },
+        {
+            text: "Actions",
+			align: "right"
+        }
+    ];
 
     export default {
         name: "personal-data-sheet-family-background",
-
-		data() {
+        components: {PersonalDataSheetFamilyBackgroundAddChildrenDialog},
+        data() {
             return {
-                tableHeaders
-			}
-		}
+                tableHeaders,
+                dialog: false
+            };
+        }
     };
 </script>
