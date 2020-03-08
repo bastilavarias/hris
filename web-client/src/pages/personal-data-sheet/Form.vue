@@ -9,7 +9,7 @@
 				Fill Up Personal Data Sheet
 			</span>
 			</v-card-title>
-			<v-tabs v-model="tab" show-arrows fixed-tabs>
+			<v-tabs v-model="tab" show-arrows>
 				<template v-for="(action, index) in tabActions">
 					<v-tab :key="index">
 						{{action}}
@@ -19,7 +19,11 @@
 		</v-card>
 		<v-tabs-items v-model="tab">
 			<v-tab-item>
-				<personal-data-sheet-work-information></personal-data-sheet-work-information>
+				<v-row>
+					<v-col cols="12">
+						<personal-data-sheet-work-information></personal-data-sheet-work-information>
+					</v-col>
+				</v-row>
 			</v-tab-item>
 			<v-tab-item>
 				<v-row>
@@ -35,6 +39,9 @@
 					<v-col cols="12">
 						<personal-data-sheet-contact-information></personal-data-sheet-contact-information>
 					</v-col>
+					<v-col cols="12">
+						<personal-data-sheet-family-background></personal-data-sheet-family-background>
+					</v-col>
 				</v-row>
 			</v-tab-item>
 		</v-tabs-items>
@@ -47,10 +54,11 @@
     import PersonalDataSheetAddressDetails from "../../components/personal-data-sheet/AddressDetails";
     import PersonalDataSheetContactInformation from "../../components/personal-data-sheet/ContactInformation";
     import PersonalDataSheetBenefitsInformation from "../../components/personal-data-sheet/BenefitsInformation";
+    import PersonalDataSheetFamilyBackground from "../../components/personal-data-sheet/FamilyBackground";
 
     const tabActions = [
         "Work Information",
-        "Personal",
+        "Personal Information",
         "Experience",
         "Credentials",
         "Others"
@@ -59,6 +67,7 @@
     export default {
         name: "personal-data-sheet-form",
         components: {
+            PersonalDataSheetFamilyBackground,
             PersonalDataSheetBenefitsInformation,
             PersonalDataSheetContactInformation,
             PersonalDataSheetAddressDetails,

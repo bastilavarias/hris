@@ -1,6 +1,6 @@
 <template>
 	<v-card>
-		<v-card-subtitle>Benefits</v-card-subtitle>
+		<v-card-title>Benefits</v-card-title>
 		<v-card-text>
 			<v-row dense>
 				<v-col cols="12" md="4">

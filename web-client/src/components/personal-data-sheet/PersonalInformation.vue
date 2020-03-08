@@ -1,8 +1,8 @@
 <template>
 	<v-card>
-		<v-card-subtitle>
-			Personal Information
-		</v-card-subtitle>
+		<v-card-title>
+			Basic Information
+		</v-card-title>
 		<v-card-text>
 			<v-row dense>
 				<v-col cols="12" md="8" order="2" order-md="1">

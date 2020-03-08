@@ -1,8 +1,8 @@
 <template>
 	<v-card>
-		<v-card-subtitle>
-			Contact
-		</v-card-subtitle>
+		<v-card-title>
+			Contact Details
+		</v-card-title>
 		<v-card-text>
 			<v-row dense>
 				<v-col cols="12" md="6">
