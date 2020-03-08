@@ -1,5 +1,5 @@
 <template>
-	<v-card tile>
+	<v-card>
 		<v-card-subtitle>Work Information</v-card-subtitle>
 		<v-card-text>
 			<v-row dense>

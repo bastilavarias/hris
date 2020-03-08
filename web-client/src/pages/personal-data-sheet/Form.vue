@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-card tile>
+		<v-card>
 			<v-card-title>
 				<v-btn icon class="mr-1" @click="$router.go(-1)">
 					<v-icon>mdi-chevron-left</v-icon>
@@ -22,7 +22,20 @@
 				<personal-data-sheet-work-information></personal-data-sheet-work-information>
 			</v-tab-item>
 			<v-tab-item>
-				<personal-data-sheet-personal-information></personal-data-sheet-personal-information>
+				<v-row>
+					<v-col cols="12">
+						<personal-data-sheet-personal-information></personal-data-sheet-personal-information>
+					</v-col>
+					<v-col cols="12">
+						<personal-data-sheet-benefits-information></personal-data-sheet-benefits-information>
+					</v-col>
+					<v-col cols="12">
+						<personal-data-sheet-address-details></personal-data-sheet-address-details>
+					</v-col>
+					<v-col cols="12">
+						<personal-data-sheet-contact-information></personal-data-sheet-contact-information>
+					</v-col>
+				</v-row>
 			</v-tab-item>
 		</v-tabs-items>
 	</div>
@@ -31,6 +44,9 @@
 <script>
     import PersonalDataSheetWorkInformation from "../../components/personal-data-sheet/WorkInformation";
     import PersonalDataSheetPersonalInformation from "../../components/personal-data-sheet/PersonalInformation";
+    import PersonalDataSheetAddressDetails from "../../components/personal-data-sheet/AddressDetails";
+    import PersonalDataSheetContactInformation from "../../components/personal-data-sheet/ContactInformation";
+    import PersonalDataSheetBenefitsInformation from "../../components/personal-data-sheet/BenefitsInformation";
 
     const tabActions = [
         "Work Information",
@@ -42,7 +58,11 @@
 
     export default {
         name: "personal-data-sheet-form",
-        components: {PersonalDataSheetPersonalInformation, PersonalDataSheetWorkInformation},
+        components: {
+            PersonalDataSheetBenefitsInformation,
+            PersonalDataSheetContactInformation,
+            PersonalDataSheetAddressDetails,
+            PersonalDataSheetPersonalInformation, PersonalDataSheetWorkInformation},
         data() {
             return {
                 tab: 0,

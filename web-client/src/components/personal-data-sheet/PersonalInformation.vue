@@ -1,5 +1,5 @@
 <template>
-	<v-card tile>
+	<v-card>
 		<v-card-subtitle>
 			Personal Information
 		</v-card-subtitle>
@@ -52,97 +52,7 @@
 						<v-col cols="12" md="3">
 							<v-text-field type="number" label="Weight (kg)"></v-text-field>
 						</v-col>
-						<v-col cols="12" md="4">
-							<v-text-field label="GSIS ID No." placeholder="XXXX-XXX-XXX"></v-text-field>
-						</v-col>
-						<v-col cols="12" md="4">
-							<v-text-field label="PAGIBIG ID No." placeholder="XXXX-XXX-XXX"></v-text-field>
-						</v-col>
-						<v-col cols="12" md="4">
-							<v-text-field label="PHILHEALTH TIN ID No." placeholder="XXXX-XXX-XXX"></v-text-field>
-						</v-col>
-						<v-col cols="12" md="4">
-							<v-text-field label="SSS No." placeholder="XXXX-XXX-XXX"></v-text-field>
-						</v-col>
-						<v-col cols="12" md="4">
-							<v-text-field label="TIN No." placeholder="XXXX-XXX-XXX"></v-text-field>
-						</v-col>
-						<v-col cols="12" md="4">
-							<v-text-field label="Agency Employee No." placeholder="XXXX-XXX-XXX"></v-text-field>
-						</v-col>
 					</v-row>
-				</v-col>
-			</v-row>
-		</v-card-text>
-		<v-card-subtitle>
-			Residential Address
-		</v-card-subtitle>
-		<v-card-text>
-			<v-row dense>
-				<v-col cols="12" md="6">
-					<v-text-field label="House/Block/Lot No."></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Street"></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Subdivision/Village"></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Barangay"></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-select label="City/Municipality"></v-select>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-select label="Province"></v-select>
-				</v-col>
-				<v-col cols="12">
-					<v-text-field label="ZIP Code"></v-text-field>
-				</v-col>
-			</v-row>
-		</v-card-text>
-		<v-card-subtitle>
-			Permanent Address
-		</v-card-subtitle>
-		<v-card-text>
-			<v-row dense>
-				<v-col cols="12" md="6">
-					<v-text-field label="House/Block/Lot No."></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Street"></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Subdivision/Village"></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Barangay"></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-select label="City/Municipality"></v-select>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-select label="Province"></v-select>
-				</v-col>
-				<v-col cols="12">
-					<v-text-field label="ZIP Code"></v-text-field>
-				</v-col>
-			</v-row>
-		</v-card-text>
-		<v-card-subtitle>
-			Contact
-		</v-card-subtitle>
-		<v-card-text>
-			<v-row dense>
-				<v-col cols="12" md="6">
-					<v-text-field label="Telephone No."></v-text-field>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Mobile No."></v-text-field>
-				</v-col>
-				<v-col cols="12">
-					<v-text-field label="E-mail Address"></v-text-field>
 				</v-col>
 			</v-row>
 		</v-card-text>
