@@ -11,7 +11,7 @@
 				<div class="flex-grow-1"></div>
 				<v-btn color="primary">
 					<span class="mr-1">Save</span>
-					<v-icon>mdi-database-plus</v-icon>
+					<v-icon>mdi-content-save</v-icon>
 				</v-btn>
 			</v-card-title>
 			<v-tabs v-model="tab" show-arrows color="primary">
@@ -72,6 +72,9 @@
 						<v-col cols="12">
 							<personal-data-sheet-other-information>	</personal-data-sheet-other-information>
 						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-related-questions></personal-data-sheet-related-questions>
+						</v-col>
 					</v-row>
 				</v-tab-item>
 			</v-tabs-items>
@@ -92,6 +95,7 @@
     import PersonalDataSheetBasicInformation from "../../components/personal-data-sheet/personal-information/BasicInformation";
     import PersonalDataSheetTrainingProgramsDetails from "../../components/personal-data-sheet/experience/TrainingProgramsDetails";
     import PersonalDataSheetOtherInformation from "../../components/personal-data-sheet/others/OtherInformation";
+    import PersonalDataSheetRelatedQuestions from "../../components/personal-data-sheet/others/RelatedQuestions";
 
     const tabActions = [
         "Work Information",
@@ -103,6 +107,7 @@
     export default {
         name: "personal-data-sheet-form",
         components: {
+            PersonalDataSheetRelatedQuestions,
             PersonalDataSheetOtherInformation,
             PersonalDataSheetTrainingProgramsDetails,
             PersonalDataSheetBasicInformation,
