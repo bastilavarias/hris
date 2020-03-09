@@ -3,7 +3,7 @@
 		<v-card-title>
 			Training Programs
 			<div class="flex-grow-1"></div>
-			<training-programs-details-add-child-information-dialog :dialog="dialog"></training-programs-details-add-child-information-dialog>
+			<training-programs-details-add-child-information-dialog :dialog.sync="dialog"></training-programs-details-add-child-information-dialog>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
 	</v-card>

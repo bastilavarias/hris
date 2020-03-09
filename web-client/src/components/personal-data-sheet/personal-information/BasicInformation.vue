@@ -58,8 +58,8 @@
 </template>
 
 <script>
-    import GenericImageInput from "../generic/ImageInput";
-    import GenericDateInput from "../generic/DateInput";
+    import GenericImageInput from "../../generic/ImageInput";
+    import GenericDateInput from "../../generic/DateInput";
 
     export default {
         name: "personal-data-sheet-basic-information",

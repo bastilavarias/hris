@@ -7,39 +7,27 @@
 		</template>
 		<v-card>
 			<v-card-title>
-				<span>Work Experience Information</span>
+				<span>Training Information</span>
 			</v-card-title>
 			<v-card-text>
 				<v-row dense>
 					<v-col cols="12" md="12">
-						<v-text-field label="Company"></v-text-field>
+						<v-text-field label="Program Title"></v-text-field>
 					</v-col>
-					<v-col cols="12" md="6">
-						<v-text-field label="Position"></v-text-field>
-					</v-col>
-					<v-col cols="12" md="3">
+					<v-col cols="12" md="4">
 						<generic-date-input label="From"></generic-date-input>
 					</v-col>
-					<v-col cols="12" md="3">
+					<v-col cols="12" md="4">
 						<generic-date-input label="To"></generic-date-input>
 					</v-col>
-					<v-col cols="12" md="6">
-						<v-select label="Salary Grade"></v-select>
+					<v-col cols="12" md="4">
+						<v-text-field label="Number Of Hours"></v-text-field>
 					</v-col>
-					<v-col cols="12" md="3">
-						<v-select label="Step Increment"></v-select>
+					<v-col cols="12" md="4">
+						<v-select label="Type Of LD"></v-select>
 					</v-col>
-					<v-col cols="12" md="3">
-						<v-select label="Monthly Salary"></v-select>
-					</v-col>
-					<v-col cols="12" md="7">
-						<v-select label="Appointment Status"></v-select>
-					</v-col>
-					<v-col cols="12" md="5">
-						<v-radio-group row label="Is in Govt Service?">
-							<v-radio label="Yes" value="yes"></v-radio>
-							<v-radio label="No" value="no"></v-radio>
-						</v-radio-group>
+					<v-col cols="12" md="8">
+						<v-text-field label="Sponsor"></v-text-field>
 					</v-col>
 				</v-row>
 			</v-card-text>
@@ -54,9 +42,9 @@
 
 <script>
 
-    import GenericDateInput from "../generic/DateInput";
+    import GenericDateInput from "../../generic/DateInput";
     export default {
-        name: "work-experience-add-information-dialog",
+        name: "training-programs-details-add-child-information-dialog",
         components: {GenericDateInput},
         props: {
             dialog: {

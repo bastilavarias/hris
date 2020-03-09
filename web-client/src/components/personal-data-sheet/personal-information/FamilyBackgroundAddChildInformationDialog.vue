@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import GenericDateInput from "../generic/DateInput";
+    import GenericDateInput from "../../generic/DateInput";
 
     export default {
         name: "family-background-add-child-information-dialog",

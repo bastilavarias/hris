@@ -65,6 +65,10 @@
 						<v-col cols="12">
 							<personal-data-sheet-training-programs-details></personal-data-sheet-training-programs-details>
 						</v-col>
+					</v-row>
+				</v-tab-item>
+				<v-tab-item>
+					<v-row>
 						<v-col cols="12">
 							<personal-data-sheet-other-information>	</personal-data-sheet-other-information>
 						</v-col>
@@ -77,23 +81,22 @@
 
 <script>
     import PersonalDataSheetWorkInformation from "../../components/personal-data-sheet/WorkInformation";
-    import PersonalDataSheetAddressDetails from "../../components/personal-data-sheet/AddressDetails";
-    import PersonalDataSheetContactInformation from "../../components/personal-data-sheet/ContactInformation";
-    import PersonalDataSheetBenefitsInformation from "../../components/personal-data-sheet/BenefitsInformation";
-    import PersonalDataSheetFamilyBackground from "../../components/personal-data-sheet/FamilyBackground";
-    import PersonalDataSheetEducationalBackground from "../../components/personal-data-sheet/EducationalBackground";
-    import PersonalDataSheetCivilServiceEligibility from "../../components/personal-data-sheet/CivilServiceEligibility";
-    import PersonalDataSheetWorkExperience from "../../components/personal-data-sheet/WorkExperience";
-    import PersonalDataSheetVoluntaryWorkExperience from "../../components/personal-data-sheet/VoluntaryWorkExperience";
-    import PersonalDataSheetBasicInformation from "../../components/personal-data-sheet/BasicInformation";
-    import PersonalDataSheetTrainingProgramsDetails from "../../components/personal-data-sheet/TrainingProgramsDetails";
-    import PersonalDataSheetOtherInformation from "../../components/personal-data-sheet/OtherInformation";
+    import PersonalDataSheetAddressDetails from "../../components/personal-data-sheet/personal-information/AddressDetails";
+    import PersonalDataSheetContactInformation from "../../components/personal-data-sheet/personal-information/ContactInformation";
+    import PersonalDataSheetBenefitsInformation from "../../components/personal-data-sheet/personal-information/BenefitsInformation";
+    import PersonalDataSheetFamilyBackground from "../../components/personal-data-sheet/personal-information/FamilyBackground";
+    import PersonalDataSheetEducationalBackground from "../../components/personal-data-sheet/personal-information/EducationalBackground";
+    import PersonalDataSheetCivilServiceEligibility from "../../components/personal-data-sheet/personal-information/CivilServiceEligibility";
+    import PersonalDataSheetWorkExperience from "../../components/personal-data-sheet/experience/WorkExperience";
+    import PersonalDataSheetVoluntaryWorkExperience from "../../components/personal-data-sheet/experience/VoluntaryWorkExperience";
+    import PersonalDataSheetBasicInformation from "../../components/personal-data-sheet/personal-information/BasicInformation";
+    import PersonalDataSheetTrainingProgramsDetails from "../../components/personal-data-sheet/experience/TrainingProgramsDetails";
+    import PersonalDataSheetOtherInformation from "../../components/personal-data-sheet/others/OtherInformation";
 
     const tabActions = [
         "Work Information",
         "Personal Information",
         "Experience",
-        "Credentials",
         "Others"
     ];
 

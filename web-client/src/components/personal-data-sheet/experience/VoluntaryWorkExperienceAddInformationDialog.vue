@@ -7,27 +7,27 @@
 		</template>
 		<v-card>
 			<v-card-title>
-				<span>License Information</span>
+				<span>Voluntary Work Experience Information</span>
 			</v-card-title>
 			<v-card-text>
 				<v-row dense>
-					<v-col cols="12" md="10">
-						<v-text-field label="License Title"></v-text-field>
-					</v-col>
-					<v-col cols="12" md="2">
-						<v-text-field label="Rating"></v-text-field>
+					<v-col cols="12" md="8">
+						<v-text-field label="Company"></v-text-field>
 					</v-col>
 					<v-col cols="12" md="4">
-						<generic-date-input label="Examination Date"></generic-date-input>
+						<v-text-field label="Position"></v-text-field>
 					</v-col>
-					<v-col cols="12" md="8">
-						<v-text-field label="Examination Place"></v-text-field>
-					</v-col>
-					<v-col cols="12" md="8">
-						<v-text-field label="License Number"></v-text-field>
+					<v-col cols="12" md="12">
+						<v-text-field label="Address"></v-text-field>
 					</v-col>
 					<v-col cols="12" md="4">
-						<generic-date-input label="Validity Date"></generic-date-input>
+						<generic-date-input label="From"></generic-date-input>
+					</v-col>
+					<v-col cols="12" md="4">
+						<generic-date-input label="To"></generic-date-input>
+					</v-col>
+					<v-col cols="12" md="4">
+						<v-text-field type="number" label="Number Of Hours" hint="Estimate"></v-text-field>
 					</v-col>
 				</v-row>
 			</v-card-text>
@@ -42,9 +42,10 @@
 
 <script>
 
-    import GenericDateInput from "../generic/DateInput";
+    import GenericDateInput from "../../generic/DateInput";
+
     export default {
-        name: "civil-service-eligibility-add-information-dialog",
+        name: "voluntary-work-experience-add-information-dialog",
         components: {GenericDateInput},
         props: {
             dialog: {
