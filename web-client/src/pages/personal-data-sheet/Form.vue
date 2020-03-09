@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-card>
+		<v-card color="transparent" flat>
 			<v-card-title>
 				<v-btn icon class="mr-1" @click="$router.go(-1)">
 					<v-icon>mdi-chevron-left</v-icon>
@@ -23,19 +23,49 @@
 			</v-tabs>
 			<v-tabs-items v-model="tab">
 				<v-tab-item>
-					<personal-data-sheet-work-information></personal-data-sheet-work-information>
+					<v-row>
+						<v-col cols="12">
+							<personal-data-sheet-work-information></personal-data-sheet-work-information>
+						</v-col>
+					</v-row>
 				</v-tab-item>
 				<v-tab-item>
-					<personal-data-sheet-basic-information></personal-data-sheet-basic-information>
-					<personal-data-sheet-benefits-information></personal-data-sheet-benefits-information>
-					<personal-data-sheet-address-details></personal-data-sheet-address-details>
-					<personal-data-sheet-family-background></personal-data-sheet-family-background>
-					<personal-data-sheet-educational-background></personal-data-sheet-educational-background>
-					<personal-data-sheet-civil-service-eligibility></personal-data-sheet-civil-service-eligibility>
+					<v-row>
+						<v-col cols="12">
+							<personal-data-sheet-basic-information></personal-data-sheet-basic-information>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-benefits-information></personal-data-sheet-benefits-information>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-contact-information></personal-data-sheet-contact-information>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-address-details></personal-data-sheet-address-details>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-family-background></personal-data-sheet-family-background>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-educational-background></personal-data-sheet-educational-background>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-civil-service-eligibility></personal-data-sheet-civil-service-eligibility>
+						</v-col>
+					</v-row>
 				</v-tab-item>
 				<v-tab-item>
-					<personal-data-sheet-work-experience></personal-data-sheet-work-experience>
-					<personal-data-sheet-voluntary-work-experience></personal-data-sheet-voluntary-work-experience>
+					<v-row>
+						<v-col cols="12">
+							<personal-data-sheet-work-experience></personal-data-sheet-work-experience>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-voluntary-work-experience></personal-data-sheet-voluntary-work-experience>
+						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-training-programs-details></personal-data-sheet-training-programs-details>
+						</v-col>
+					</v-row>
 				</v-tab-item>
 			</v-tabs-items>
 		</v-card>
@@ -53,6 +83,7 @@
     import PersonalDataSheetWorkExperience from "../../components/personal-data-sheet/WorkExperience";
     import PersonalDataSheetVoluntaryWorkExperience from "../../components/personal-data-sheet/VoluntaryWorkExperience";
     import PersonalDataSheetBasicInformation from "../../components/personal-data-sheet/BasicInformation";
+    import PersonalDataSheetTrainingProgramsDetails from "../../components/personal-data-sheet/TrainingProgramsDetails";
 
     const tabActions = [
         "Work Information",
@@ -65,6 +96,7 @@
     export default {
         name: "personal-data-sheet-form",
         components: {
+            PersonalDataSheetTrainingProgramsDetails,
             PersonalDataSheetBasicInformation,
             PersonalDataSheetVoluntaryWorkExperience,
             PersonalDataSheetWorkExperience,

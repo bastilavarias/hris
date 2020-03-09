@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-card>
 		<v-card-title>Basic Information</v-card-title>
 		<v-card-text>
 			<v-row dense>
@@ -54,7 +54,7 @@
 				</v-col>
 			</v-row>
 		</v-card-text>
-	</div>
+	</v-card>
 </template>
 
 <script>

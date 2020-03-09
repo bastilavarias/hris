@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-card>
 		<v-card-title>Address Details</v-card-title>
 		<v-row dense>
 			<v-col cols="12" md="6">
@@ -63,7 +63,7 @@
 				</v-card-text>
 			</v-col>
 		</v-row>
-	</div>
+	</v-card>
 </template>
 
 <script>

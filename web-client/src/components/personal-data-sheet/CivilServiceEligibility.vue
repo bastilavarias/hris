@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-card>
 		<v-card-title>
 			Civil Service Eligibility
 			<div class="flex-grow-1"></div>
@@ -9,7 +9,7 @@
 		<v-card-text>
 			<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
 		</v-card-text>
-	</div>
+	</v-card>
 </template>
 
 <script>
