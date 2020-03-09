@@ -6,9 +6,7 @@
 			<civil-service-eligibility-add-information-dialog
 					:dialog.sync="dialog"></civil-service-eligibility-add-information-dialog>
 		</v-card-title>
-		<v-card-text>
-			<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
-		</v-card-text>
+		<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
 	</v-card>
 </template>
 

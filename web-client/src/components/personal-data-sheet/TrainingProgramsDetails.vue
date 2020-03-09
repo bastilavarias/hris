@@ -5,9 +5,7 @@
 			<div class="flex-grow-1"></div>
 			<training-programs-details-add-child-information-dialog :dialog="dialog"></training-programs-details-add-child-information-dialog>
 		</v-card-title>
-		<v-card-text>
-			<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
-		</v-card-text>
+		<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
 	</v-card>
 </template>
 

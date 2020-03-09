@@ -5,9 +5,7 @@
 			<div class="flex-grow-1"></div>
 			<voluntary-work-experience-add-information-dialog :dialog.sync="dialog"></voluntary-work-experience-add-information-dialog>
 		</v-card-title>
-		<v-card-text>
-			<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
-		</v-card-text>
+		<v-data-table hide-default-footer :headers="tableHeaders"></v-data-table>
 	</v-card>
 </template>
 
