@@ -65,6 +65,9 @@
 						<v-col cols="12">
 							<personal-data-sheet-training-programs-details></personal-data-sheet-training-programs-details>
 						</v-col>
+						<v-col cols="12">
+							<personal-data-sheet-other-information>	</personal-data-sheet-other-information>
+						</v-col>
 					</v-row>
 				</v-tab-item>
 			</v-tabs-items>
@@ -84,6 +87,7 @@
     import PersonalDataSheetVoluntaryWorkExperience from "../../components/personal-data-sheet/VoluntaryWorkExperience";
     import PersonalDataSheetBasicInformation from "../../components/personal-data-sheet/BasicInformation";
     import PersonalDataSheetTrainingProgramsDetails from "../../components/personal-data-sheet/TrainingProgramsDetails";
+    import PersonalDataSheetOtherInformation from "../../components/personal-data-sheet/OtherInformation";
 
     const tabActions = [
         "Work Information",
@@ -96,6 +100,7 @@
     export default {
         name: "personal-data-sheet-form",
         components: {
+            PersonalDataSheetOtherInformation,
             PersonalDataSheetTrainingProgramsDetails,
             PersonalDataSheetBasicInformation,
             PersonalDataSheetVoluntaryWorkExperience,

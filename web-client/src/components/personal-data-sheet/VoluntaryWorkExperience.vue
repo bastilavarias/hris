@@ -30,7 +30,7 @@
 		    text: "Number Of Hours"
 		},
 		{
-		    text: "Position/Work Nature"
+		    text: "Position"
 		},
 		{text: "Actions", align: "right"}
 	];

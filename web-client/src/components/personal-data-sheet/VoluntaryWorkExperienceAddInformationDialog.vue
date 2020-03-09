@@ -1,7 +1,7 @@
 <template>
 	<v-dialog v-model="dialogLocal" max-width="800">
 		<template v-slot:activator="{ on }">
-			<v-btn class="ml-4" color="primary" v-on="on">
+			<v-btn color="primary" v-on="on">
 				Add Information
 			</v-btn>
 		</template>
