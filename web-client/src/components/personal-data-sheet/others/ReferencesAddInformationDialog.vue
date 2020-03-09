@@ -7,27 +7,18 @@
 		</template>
 		<v-card>
 			<v-card-title>
-				<span>Training Information</span>
+				<span>Reference Information</span>
 			</v-card-title>
 			<v-card-text>
 				<v-row dense>
-					<v-col cols="12" md="12">
-						<v-text-field label="Program Title"></v-text-field>
-					</v-col>
-					<v-col cols="12" md="4">
-						<generic-date-input label="From"></generic-date-input>
-					</v-col>
-					<v-col cols="12" md="4">
-						<generic-date-input label="To"></generic-date-input>
-					</v-col>
-					<v-col cols="12" md="4">
-						<v-text-field label="Number Of Hours"></v-text-field>
-					</v-col>
-					<v-col cols="12" md="4">
-						<v-select label="Type Of LD"></v-select>
+					<v-col cols="12">
+						<v-text-field label="Name"></v-text-field>
 					</v-col>
 					<v-col cols="12" md="8">
-						<v-text-field label="Sponsors"></v-text-field>
+						<v-text-field label="Address"></v-text-field>
+					</v-col>
+					<v-col cols="12" md="4">
+						<v-text-field label="Contact #"></v-text-field>
 					</v-col>
 				</v-row>
 			</v-card-text>
@@ -44,7 +35,7 @@
 
     import GenericDateInput from "../../generic/DateInput";
     export default {
-        name: "training-programs-details-add-information-dialog",
+        name: "references-add-information-dialog",
         components: {GenericDateInput},
         props: {
             dialog: {
