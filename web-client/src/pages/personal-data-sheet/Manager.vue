@@ -57,7 +57,7 @@
         },
         {
             text: "Action",
-            value: "action"
+            value: "action", align: "right"
         },
     ];
 

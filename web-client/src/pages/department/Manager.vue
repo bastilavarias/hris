@@ -39,7 +39,7 @@
         },
         {
             text: "Actions",
-            value: "actions"
+            value: "actions", align: "right"
         }
     ];
     const searchOptions = [

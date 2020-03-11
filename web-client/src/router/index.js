@@ -161,6 +161,23 @@ const routes = [
                     }
                 ]
             },
+
+            {
+                path: "time-card",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "monthly",
+                        name: "monthly-time-card",
+                        component: () => import("../pages/time-card/Monthly")
+                    },
+                    {
+                        path: "daily",
+                        name: "daily-time-card",
+                        component: () => import("../pages/time-card/Daily")
+                    },
+                ]
+            },
         ]
     },
 ];

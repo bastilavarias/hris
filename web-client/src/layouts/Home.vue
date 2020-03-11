@@ -155,7 +155,25 @@
             icon: "badge-account",
             route: {name: "employee-manager"},
             subActions: []
-        },
+        },{
+            name: "Time Card",
+            icon: "timetable",
+            route: {},
+            subActions: [
+				{
+				    name: "Monthly",
+					icon: "calendar-account",
+					route: {name: "monthly-time-card"},
+					subActions: []
+				},
+				{
+				    name: "Daily",
+					icon: "calendar",
+					route: {name: "daily-time-card"},
+					subActions: []
+				},
+			]
+        }
     ];
 
     export default {
