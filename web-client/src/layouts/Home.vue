@@ -150,6 +150,12 @@
             route: {name: "schedule-manager"},
             subActions: []
         },
+        {
+            name: "Employee",
+            icon: "badge-account",
+            route: {name: "employee-manager"},
+            subActions: []
+        },
     ];
 
     export default {

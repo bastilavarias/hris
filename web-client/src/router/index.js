@@ -149,6 +149,18 @@ const routes = [
                     },
                 ]
             },
+
+            {
+                path: "employee",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "employee-manager",
+                        component: () => import("../pages/employee/Manager")
+                    }
+                ]
+            },
         ]
     },
 ];
