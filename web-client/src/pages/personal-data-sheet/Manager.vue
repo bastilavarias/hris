@@ -3,14 +3,8 @@
 		<v-card-title>
 			<span class="font-weight-bold">Personal Data Sheet Manager</span>
 			<div class="flex-grow-1"></div>
-			<v-tooltip bottom>
-				<template v-slot:activator="{ on }">
-					<v-btn icon color="primary" v-on="on" :to="{name: 'personal-data-sheet-form', params: {operation: 'create'}}">
-						<v-icon>mdi-plus</v-icon>
-					</v-btn>
-				</template>
-				<span>Create New PDS</span>
-			</v-tooltip>
+			<generic-tooltip-button icon="plus" color="primary" title="Create New PDS"
+									:to="{name: 'personal-data-sheet-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="dummyData">
 			<template v-slot:top>
@@ -41,6 +35,8 @@
 
 <script>
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
+    import GenericTooltipButton from "../../components/generic/TooltipButton";
+
     const tableHeaders = [
         {
             text: "Employee Number",
@@ -82,11 +78,11 @@
 
     export default {
         name: "personal-data-sheet-manager",
-        components: {GenericSearchToolbar},
+        components: {GenericTooltipButton, GenericSearchToolbar},
         data() {
             return {
                 tableHeaders,
-				searchOptions,
+                searchOptions,
                 dummyData: [
                     {
                         employeeNumber: "xxxx-xxx-xxxx",
@@ -98,10 +94,10 @@
             };
         },
 
-		computed: {
+        computed: {
             isInDefaultSearchOption() {
                 return this.selectedSearchOption === 0;
-			}
-		}
+            }
+        }
     };
 </script>

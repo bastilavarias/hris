@@ -46,7 +46,24 @@ const routes = [
                         component: () => import("../pages/subject/Form")
                     },
                 ]
-            }
+            },
+
+            {
+                path: "section",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "section-manager",
+                        component: () => import("../pages/section/Manager")
+                    },
+                    {
+                        path: ":operation/:sectionId?",
+                        name: "section-form",
+                        component: () => import("../pages/section/Form")
+                    },
+                ]
+            },
         ]
     },
 ];

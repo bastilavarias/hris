@@ -107,7 +107,13 @@
             icon: "text-subject",
             route: {name: "subject-manager"},
             subActions: []
-        }
+        },
+        {
+            name: "Section",
+            icon: "google-classroom",
+            route: {name: "section-manager"},
+            subActions: []
+        },
     ];
 
     export default {
