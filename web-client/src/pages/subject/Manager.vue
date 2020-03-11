@@ -12,12 +12,6 @@
 					<generic-search-toolbar :search-options="searchOptions"></generic-search-toolbar>
 				</v-card-text>
 			</template>
-			<template v-slot:item.position="{item}">
-				<span class="text-capitalize">{{item.position}}</span>
-			</template>
-			<template v-slot:item.college="{item}">
-				<span class="text-uppercase font-weight-bold">{{item.college}}</span>
-			</template>
 			<template v-slot:item.actions="{item}">
 				<v-btn icon color="secondary">
 					<v-icon>mdi-pencil</v-icon>

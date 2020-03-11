@@ -20,7 +20,6 @@
 			</v-list>
 			<v-divider></v-divider>
 			<v-list dense rounded>
-				<v-subheader class="text-truncate mb-4">ACTIONS</v-subheader>
 				<template v-for="(action, index) in userActions">
 					<v-list-item
 							:key="index"
@@ -37,15 +36,14 @@
 							</v-list-item-title>
 						</v-list-item-content>
 					</v-list-item>
-					<v-list-group :key="index" :prepend-icon="action.icon" v-else>
+					<v-list-group :key="index" :prepend-icon="`mdi-${action.icon}`" v-else>
 						<template v-slot:activator>
-							<v-list-item-title class="subtitle-2"
+							<v-list-item-title
 							>{{ action.name }}
 							</v-list-item-title>
 						</template>
 						<template v-for="(subAction, subActionIndex) in action.subActions">
-							<v-list-item :key="subActionIndex" :to="subAction.route" active-class="primary white--text"
-										 exact>
+							<v-list-item :key="subActionIndex" :to="subAction.route" active-class="primary white--text">
 								<v-list-item-action>
 									<v-icon>mdi-{{ subAction.icon }}</v-icon>
 								</v-list-item-action>
@@ -103,17 +101,30 @@
             subActions: []
         },
         {
-            name: "Subject",
-            icon: "text-subject",
-            route: {name: "subject-manager"},
-            subActions: []
-        },
-        {
-            name: "Section",
-            icon: "google-classroom",
-            route: {name: "section-manager"},
-            subActions: []
-        },
+            name: "Academic Maintenance",
+            icon: "cog-transfer",
+            route: {},
+            subActions: [
+                {
+                    name: "Subject",
+                    icon: "text-subject",
+                    route: {name: "subject-manager"},
+                    subActions: []
+                },
+                {
+                    name: "Section",
+                    icon: "google-classroom",
+                    route: {name: "section-manager"},
+                    subActions: []
+                },
+                {
+                    name: "College",
+                    icon: "school",
+                    route: {name: "college-manager"},
+                    subActions: []
+                },
+            ]
+        }
     ];
 
     export default {

@@ -64,6 +64,23 @@ const routes = [
                     },
                 ]
             },
+
+            {
+                path: "college",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "college-manager",
+                        component: () => import("../pages/college/Manager")
+                    },
+                    {
+                        path: ":operation/:collegeId?",
+                        name: "college-form",
+                        component: () => import("../pages/college/Form")
+                    },
+                ]
+            },
         ]
     },
 ];

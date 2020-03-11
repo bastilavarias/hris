@@ -1,10 +1,10 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Section Manager</span>
+			<span class="font-weight-bold">College Manager</span>
 			<div class="flex-grow-1"></div>
-			<generic-tooltip-button icon="plus" color="primary" title="Create New Section"
-									:to="{name: 'section-form', params: {operation: 'create'}}"></generic-tooltip-button>
+			<generic-tooltip-button icon="plus" color="primary" title="Create New College"
+									:to="{name: 'college-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>
@@ -34,18 +34,6 @@
             value: "description"
         },
         {
-            text: "College",
-            value: "college"
-        },
-        {
-            text: "Department",
-            value: "department"
-        },
-        {
-            text: "Course",
-            value: "course"
-        },
-        {
             text: "Actions",
             value: "actions"
         }
@@ -62,7 +50,7 @@
     ];
 
     export default {
-        name: "section-manager",
+        name: "college-manager",
         components: {GenericTooltipButton, GenericSearchToolbar},
 
         data() {
