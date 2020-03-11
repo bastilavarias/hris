@@ -19,6 +19,7 @@
 				</v-list-item>
 			</v-list>
 			<v-divider></v-divider>
+			<v-subheader>Available Actions</v-subheader>
 			<v-list dense rounded>
 				<template v-for="(action, index) in userActions">
 					<v-list-item
