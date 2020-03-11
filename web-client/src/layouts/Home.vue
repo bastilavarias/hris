@@ -123,6 +123,12 @@
                     route: {name: "college-manager"},
                     subActions: []
                 },
+                {
+                    name: "Course",
+                    icon: "book",
+                    route: {name: "course-manager"},
+                    subActions: []
+                },
             ]
         }
     ];
