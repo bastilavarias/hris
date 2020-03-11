@@ -129,6 +129,12 @@
                     route: {name: "course-manager"},
                     subActions: []
                 },
+                {
+                    name: "Department",
+                    icon: "window-closed-variant",
+                    route: {name: "department-manager"},
+                    subActions: []
+                },
             ]
         }
     ];

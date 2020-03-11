@@ -98,6 +98,23 @@ const routes = [
                     },
                 ]
             },
+
+            {
+                path: "department",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "department-manager",
+                        component: () => import("../pages/department/Manager")
+                    },
+                    {
+                        path: ":operation/:departmentId?",
+                        name: "department-form",
+                        component: () => import("../pages/department/Form")
+                    },
+                ]
+            },
         ]
     },
 ];
