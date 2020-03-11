@@ -143,6 +143,12 @@
             route: {name: "room-manager"},
             subActions: []
         },
+        {
+            name: "Schedule",
+            icon: "clock",
+            route: {name: "schedule-manager"},
+            subActions: []
+        },
     ];
 
     export default {

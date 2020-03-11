@@ -132,6 +132,23 @@ const routes = [
                     },
                 ]
             },
+
+            {
+                path: "schedule",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "schedule-manager",
+                        component: () => import("../pages/schedule/Manager")
+                    },
+                    {
+                        path: ":operation/:scheduleId?",
+                        name: "schedule-form",
+                        component: () => import("../pages/schedule/Form")
+                    },
+                ]
+            },
         ]
     },
 ];
