@@ -115,6 +115,23 @@ const routes = [
                     },
                 ]
             },
+
+            {
+                path: "room",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "room-manager",
+                        component: () => import("../pages/room/Manager")
+                    },
+                    {
+                        path: ":operation/:roomId?",
+                        name: "room-form",
+                        component: () => import("../pages/room/Form")
+                    },
+                ]
+            },
         ]
     },
 ];

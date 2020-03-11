@@ -1,16 +1,13 @@
 <template>
 	<v-card>
-		<generic-card-back-button title="Department Information"></generic-card-back-button>
+		<generic-card-back-button title="Room Information"></generic-card-back-button>
 		<v-card-text>
 			<v-row>
 				<v-col cols="12">
 					<v-text-field label="Name"></v-text-field>
 				</v-col>
 				<v-col cols="12">
-					<v-text-field label="Description"></v-text-field>
-				</v-col>
-				<v-col cols="12">
-					<v-autocomplete label="College"></v-autocomplete>
+					<v-autocomplete label="Room"></v-autocomplete>
 				</v-col>
 			</v-row>
 		</v-card-text>
@@ -23,7 +20,7 @@
 <script>
     import GenericCardBackButton from "../../components/generic/CardBackButton";
     export default {
-        name: "department-form",
+        name: "room-form",
         components: {GenericCardBackButton}
     }
 </script>

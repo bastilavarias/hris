@@ -136,7 +136,13 @@
                     subActions: []
                 },
             ]
-        }
+        },
+        {
+            name: "Room",
+            icon: "door",
+            route: {name: "room-manager"},
+            subActions: []
+        },
     ];
 
     export default {
