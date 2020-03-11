@@ -101,6 +101,12 @@
             icon: "clipboard-account",
             route: {name: "personal-data-sheet-manager"},
             subActions: []
+        },
+        {
+            name: "Subject",
+            icon: "text-subject",
+            route: {name: "subject-manager"},
+            subActions: []
         }
     ];
 

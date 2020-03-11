@@ -30,6 +30,22 @@ const routes = [
                         component: () => import("../pages/personal-data-sheet/Form"),
                     },
                 ]
+            },
+            {
+                path: "subject",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "subject-manager",
+                        component: () => import("../pages/subject/Manager")
+                    },
+                    {
+                        path: ":operation/:subjectId?",
+                        name: "subject-form",
+                        component: () => import("../pages/subject/Form")
+                    },
+                ]
             }
         ]
     },

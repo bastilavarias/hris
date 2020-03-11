@@ -1,19 +1,14 @@
 <template>
 	<div>
 		<v-card color="transparent" flat>
-			<v-card-title>
-				<v-btn icon class="mr-1" @click="$router.go(-1)">
-					<v-icon>mdi-chevron-left</v-icon>
-				</v-btn>
-				<span class="font-weight-bold">
-				Fill Up Personal Data Sheet
-				</span>
-				<div class="flex-grow-1"></div>
-				<v-btn color="primary">
-					<span class="mr-1">Save</span>
-					<v-icon>mdi-content-save</v-icon>
-				</v-btn>
-			</v-card-title>
+			<generic-card-back-button title="Fill Up Personal Data Sheet">
+				<template v-slot:right>
+					<v-btn color="primary">
+						<span class="mr-1">Save</span>
+						<v-icon>mdi-content-save</v-icon>
+					</v-btn>
+				</template>
+			</generic-card-back-button>
 			<v-tabs v-model="tab" show-arrows color="primary">
 				<template v-for="(action, index) in tabActions">
 					<v-tab :key="index">
@@ -27,10 +22,6 @@
 						<v-col cols="12">
 							<personal-data-sheet-work-information></personal-data-sheet-work-information>
 						</v-col>
-					</v-row>
-				</v-tab-item>
-				<v-tab-item>
-					<v-row>
 						<v-col cols="12">
 							<personal-data-sheet-basic-information></personal-data-sheet-basic-information>
 						</v-col>
@@ -100,9 +91,9 @@
     import PersonalDataSheetOtherInformation from "../../components/personal-data-sheet/others/OtherInformation";
     import PersonalDataSheetRelatedQuestions from "../../components/personal-data-sheet/others/RelatedQuestions";
     import PersonalDataSheetReferences from "../../components/personal-data-sheet/others/References";
+    import GenericCardBackButton from "../../components/generic/CardBackButton";
 
     const tabActions = [
-        "Work Information",
         "Personal Information",
         "Experience",
         "Others"
@@ -111,6 +102,7 @@
     export default {
         name: "personal-data-sheet-form",
         components: {
+            GenericCardBackButton,
             PersonalDataSheetReferences,
             PersonalDataSheetRelatedQuestions,
             PersonalDataSheetOtherInformation,

@@ -1,5 +1,6 @@
 <template>
 	<v-card>
+		<v-card-title>Work Information</v-card-title>
 		<v-card-text>
 			<v-row dense>
 				<v-col cols="12">

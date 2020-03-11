@@ -15,21 +15,7 @@
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="dummyData">
 			<template v-slot:top>
 				<v-card-text>
-					<v-row dense>
-						<v-col cols="12" :md="isInDefaultSearchOption ? '1' : '3'">
-							<v-select solo label="Search By" :items="searchOptions" item-text="name" item-value="id"
-									  v-model="selectedSearchOption"></v-select>
-						</v-col>
-						<v-col cols="12" :md="isInDefaultSearchOption ? '9' : '7'">
-							<v-text-field solo label="Search" :disabled="isInDefaultSearchOption"></v-text-field>
-						</v-col>
-						<v-col cols="12" md="2">
-							<v-btn color="primary" large block>
-								<span class="mr-1">Process</span>
-								<v-icon>mdi-database-search</v-icon>
-							</v-btn>
-						</v-col>
-					</v-row>
+					<generic-search-toolbar :search-options="searchOptions"></generic-search-toolbar>
 				</v-card-text>
 			</template>
 			<template v-slot:item.employeeNumber="{item}">
@@ -54,6 +40,7 @@
 </template>
 
 <script>
+    import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     const tableHeaders = [
         {
             text: "Employee Number",
@@ -95,11 +82,11 @@
 
     export default {
         name: "personal-data-sheet-manager",
-
+        components: {GenericSearchToolbar},
         data() {
             return {
                 tableHeaders,
-                searchOptions,
+				searchOptions,
                 dummyData: [
                     {
                         employeeNumber: "xxxx-xxx-xxxx",
@@ -107,8 +94,7 @@
                         position: "Instructor 3",
                         college: "CET"
                     }
-                ],
-                selectedSearchOption: 0
+                ]
             };
         },
 
