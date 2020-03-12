@@ -194,7 +194,24 @@ const routes = [
                         component: () => import("../pages/time-card/Daily")
                     },
                 ]
-            }
+            },
+
+            {
+                path: "final-teaching-assignment/faculty",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "final-teaching-assignment-faculty-list",
+                        component: () => import("../pages/final-teaching-assignment/faculty/List")
+                    },
+                    {
+                        path: ":operation/:finalTeachingAssignmentId?",
+                        name: "final-teaching-assignment-faculty-form",
+                        component: () => import("../pages/final-teaching-assignment/faculty/Form")
+                    },
+                ]
+            },
         ]
     },
 ];

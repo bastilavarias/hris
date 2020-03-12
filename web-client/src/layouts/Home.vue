@@ -169,24 +169,30 @@
             route: {name: "employee-list"},
             subActions: []
         },
-		{
+        {
             name: "Time Card",
             icon: "timetable",
             route: {},
             subActions: [
-				{
-				    name: "Monthly",
-					icon: "calendar-account",
-					route: {name: "monthly-time-card"},
-					subActions: []
-				},
-				{
-				    name: "Daily",
-					icon: "calendar",
-					route: {name: "daily-time-card"},
-					subActions: []
-				},
-			]
+                {
+                    name: "Monthly",
+                    icon: "calendar-account",
+                    route: {name: "monthly-time-card"},
+                    subActions: []
+                },
+                {
+                    name: "Daily",
+                    icon: "calendar",
+                    route: {name: "daily-time-card"},
+                    subActions: []
+                },
+            ]
+        },
+        {
+            name: "Final Teaching Assignment",
+            icon: "account-details",
+            route: {name: "final-teaching-assignment-faculty-list"},
+            subActions: []
         }
     ];
 
