@@ -151,13 +151,13 @@
             subActions: [
                 {
                     name: "Faculty",
-                    icon: "clock",
+                    icon: "calendar-clock",
                     route: {name: "schedule-faculty-list"},
                     subActions: []
                 },
                 {
                     name: "Personnel",
-                    icon: "clock",
+                    icon: "calendar-arrow-right",
                     route: {name: "schedule-personnel-tagger"},
                     subActions: []
                 }

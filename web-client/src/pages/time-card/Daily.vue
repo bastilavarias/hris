@@ -9,7 +9,7 @@
 				<v-card-text>
 					<v-row dense>
 						<v-col cols="12" md="4">
-							<v-select label="Month" solo></v-select>
+							<generic-date-input solo label="Date"></generic-date-input>
 						</v-col>
 						<v-col cols="12" md="6">
 							<v-autocomplete label="Department" solo readonly></v-autocomplete>
@@ -31,11 +31,16 @@
 </template>
 
 <script>
+    import GenericDateInput from "../../components/generic/DateInput";
     const tableHeaders = [
         {
             text: "Name",
             value: "name",
             align: "left"
+        },
+        {
+            text: "Date",
+            value: "date",
         },
         {
             text: "Time In",
@@ -54,7 +59,7 @@
 
     export default {
         name: "daily-time-card",
-
+        components: {GenericDateInput},
         data() {
             return {
                 tableHeaders
