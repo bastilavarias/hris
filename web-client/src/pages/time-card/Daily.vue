@@ -16,7 +16,7 @@
 						</v-col>
 						<v-col cols="12" md="2">
 							<v-btn color="primary" large block>
-								<span class="mr-1">Process</span>
+								<span class="mr-1">Search</span>
 								<v-icon>mdi-database-search</v-icon>
 							</v-btn>
 						</v-col>

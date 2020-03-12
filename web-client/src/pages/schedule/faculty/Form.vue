@@ -55,11 +55,11 @@
 </template>
 
 <script>
-    import GenericCardBackButton from "../../components/generic/CardBackButton";
-    import GenericTimePicker from "../../components/generic/TimePicker";
+    import GenericCardBackButton from "../../../components/generic/CardBackButton";
+    import GenericTimePicker from "../../../components/generic/TimePicker";
 
     export default {
-        name: "schedule-form",
+        name: "schedule-schedule-form",
         components: {GenericTimePicker, GenericCardBackButton},
 
         data() {

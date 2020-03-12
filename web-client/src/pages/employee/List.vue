@@ -1,10 +1,7 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Room Manager</span>
-			<div class="flex-grow-1"></div>
-			<generic-tooltip-button icon="plus" color="primary" title="Create New Room"
-									:to="{name: 'room-form', params: {operation: 'create'}}"></generic-tooltip-button>
+			<span class="font-weight-bold">Employee List</span>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>
@@ -24,18 +21,25 @@
 <script>
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../components/generic/TooltipButton";
+
     const tableHeaders = [
+        {
+            text: "Employee Number",
+            value: "name",
+			align: "left"
+        },
         {
             text: "Name",
             value: "name"
         },
         {
-            text: "Building",
-            value: "building"
+            text: "Department",
+            value: "departments"
         },
         {
             text: "Actions",
-            value: "actions", align: "right"
+            value: "actions",
+			align: "right"
         }
     ];
     const searchOptions = [
@@ -45,19 +49,27 @@
         },
         {
             id: 1,
-            name: "Name"
+            name: "Employee Number"
+        },
+        {
+            id: 2,
+            name: "Last Name"
+        },
+        {
+            id: 3,
+            name: "Department"
         }
     ];
 
     export default {
-        name: "room-manager",
+        name: "employee-manager",
         components: {GenericTooltipButton, GenericSearchToolbar},
 
         data() {
             return {
                 searchOptions,
                 tableHeaders,
-            }
+            };
         }
-    }
+    };
 </script>

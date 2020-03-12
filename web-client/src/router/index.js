@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: "/",
-        name:  "login",
+        name: "login",
         component: () => import("../pages/Login")
     },
 
@@ -20,8 +20,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "personal-data-sheet-manager",
-                        component: () => import("../pages/personal-data-sheet/Manager"),
+                        name: "personal-data-sheet-list",
+                        component: () => import("../pages/personal-data-sheet/List"),
                     },
 
                     {
@@ -37,8 +37,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "subject-manager",
-                        component: () => import("../pages/subject/Manager")
+                        name: "subject-list",
+                        component: () => import("../pages/subject/List")
                     },
                     {
                         path: ":operation/:subjectId?",
@@ -54,8 +54,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "section-manager",
-                        component: () => import("../pages/section/Manager")
+                        name: "section-list",
+                        component: () => import("../pages/section/List")
                     },
                     {
                         path: ":operation/:sectionId?",
@@ -71,8 +71,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "college-manager",
-                        component: () => import("../pages/college/Manager")
+                        name: "college-list",
+                        component: () => import("../pages/college/List")
                     },
                     {
                         path: ":operation/:collegeId?",
@@ -88,8 +88,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "course-manager",
-                        component: () => import("../pages/course/Manager")
+                        name: "course-list",
+                        component: () => import("../pages/course/List")
                     },
                     {
                         path: ":operation/:courseId?",
@@ -105,8 +105,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "department-manager",
-                        component: () => import("../pages/department/Manager")
+                        name: "department-list",
+                        component: () => import("../pages/department/List")
                     },
                     {
                         path: ":operation/:departmentId?",
@@ -122,8 +122,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "room-manager",
-                        component: () => import("../pages/room/Manager")
+                        name: "room-list",
+                        component: () => import("../pages/room/List")
                     },
                     {
                         path: ":operation/:roomId?",
@@ -138,14 +138,31 @@ const routes = [
                 component: () => import("../layouts/Sub"),
                 children: [
                     {
-                        path: "",
-                        name: "schedule-manager",
-                        component: () => import("../pages/schedule/Manager")
+                        path: "faculty",
+                        component: () => import("../layouts/Sub"),
+                        children: [
+                            {
+                                path: "",
+                                name: "schedule-faculty-list",
+                                component: () => import("../pages/schedule/faculty/List")
+                            },
+                            {
+                                path: ":operation/:scheduleId?",
+                                name: "schedule-faculty-form",
+                                component: () => import("../pages/schedule/faculty/Form")
+                            },
+                        ]
                     },
                     {
-                        path: ":operation/:scheduleId?",
-                        name: "schedule-form",
-                        component: () => import("../pages/schedule/Form")
+                        path: "personnel",
+                        component: () => import("../layouts/Sub"),
+                        children: [
+                            {
+                                path: "tagger",
+                                name: "schedule-personnel-tagger",
+                                component: () => import("../pages/schedule/personnel/Tagger")
+                            }
+                        ]
                     },
                 ]
             },
@@ -156,8 +173,8 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "employee-manager",
-                        component: () => import("../pages/employee/Manager")
+                        name: "employee-list",
+                        component: () => import("../pages/employee/List")
                     }
                 ]
             },
@@ -177,7 +194,7 @@ const routes = [
                         component: () => import("../pages/time-card/Daily")
                     },
                 ]
-            },
+            }
         ]
     },
 ];

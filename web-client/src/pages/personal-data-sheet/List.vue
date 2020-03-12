@@ -1,7 +1,7 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Personal Data Sheet Manager</span>
+			<span class="font-weight-bold">Personal Data Sheet List</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New PDS"
 									:to="{name: 'personal-data-sheet-form', params: {operation: 'create'}}"></generic-tooltip-button>

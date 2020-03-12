@@ -12,6 +12,7 @@
 					readonly
 					v-on="on"
 					@click:clear="dateLocal = null"
+					:solo="solo"
 			></v-text-field>
 		</template>
 		<v-date-picker
@@ -35,7 +36,12 @@
 
             date: {
                 required: false
-            }
+            },
+
+			solo: {
+                type: Boolean,
+				required: false
+			}
         },
 
         data() {

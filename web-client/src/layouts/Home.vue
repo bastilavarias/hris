@@ -98,7 +98,7 @@
         {
             name: "Personal Data Sheet",
             icon: "clipboard-account",
-            route: {name: "personal-data-sheet-manager"},
+            route: {name: "personal-data-sheet-list"},
             subActions: []
         },
         {
@@ -109,31 +109,31 @@
                 {
                     name: "Subject",
                     icon: "text-subject",
-                    route: {name: "subject-manager"},
+                    route: {name: "subject-list"},
                     subActions: []
                 },
                 {
                     name: "Section",
                     icon: "google-classroom",
-                    route: {name: "section-manager"},
+                    route: {name: "section-list"},
                     subActions: []
                 },
                 {
                     name: "College",
                     icon: "school",
-                    route: {name: "college-manager"},
+                    route: {name: "college-list"},
                     subActions: []
                 },
                 {
                     name: "Course",
                     icon: "book",
-                    route: {name: "course-manager"},
+                    route: {name: "course-list"},
                     subActions: []
                 },
                 {
                     name: "Department",
                     icon: "window-closed-variant",
-                    route: {name: "department-manager"},
+                    route: {name: "department-list"},
                     subActions: []
                 },
             ]
@@ -141,21 +141,35 @@
         {
             name: "Room",
             icon: "door",
-            route: {name: "room-manager"},
+            route: {name: "room-list"},
             subActions: []
         },
         {
             name: "Schedule",
             icon: "clock",
-            route: {name: "schedule-manager"},
-            subActions: []
+            route: {},
+            subActions: [
+                {
+                    name: "Faculty",
+                    icon: "clock",
+                    route: {name: "schedule-faculty-list"},
+                    subActions: []
+                },
+                {
+                    name: "Personnel",
+                    icon: "clock",
+                    route: {name: "schedule-personnel-tagger"},
+                    subActions: []
+                }
+            ]
         },
         {
             name: "Employee",
             icon: "badge-account",
-            route: {name: "employee-manager"},
+            route: {name: "employee-list"},
             subActions: []
-        },{
+        },
+		{
             name: "Time Card",
             icon: "timetable",
             route: {},

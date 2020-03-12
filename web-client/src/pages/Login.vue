@@ -30,7 +30,7 @@
 										color="primary"
 										block
 										class="mt-4"
-										:to="{name: 'personal-data-sheet-manager'}"
+										:to="{name: 'personal-data-sheet-list'}"
 								>Login
 								</v-btn>
 								<div class="pb-5"></div>
