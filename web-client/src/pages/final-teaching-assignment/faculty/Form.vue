@@ -1,19 +1,16 @@
 <template>
-	<v-card>
+	<div>
 		<generic-card-back-button title="Final Teaching Assignment Information"></generic-card-back-button>
-		<v-card-text>
-			<v-row dense></v-row>
-		</v-card-text>
-		<v-card-actions>
-			<v-btn block color="primary">Submit</v-btn>
-		</v-card-actions>
-	</v-card>
+		<final-teaching-assignment-faculty-credentials></final-teaching-assignment-faculty-credentials>
+	</div>
 </template>
 
 <script>
     import GenericCardBackButton from "../../../components/generic/CardBackButton";
+    import FinalTeachingAssignmentFacultyCredentials
+        from "../../../components/final-teaching-assigment/faculty/credentials";
     export default {
         name: "final-teaching-assignment-faculty-form",
-        components: {GenericCardBackButton}
+        components: {FinalTeachingAssignmentFacultyCredentials, GenericCardBackButton}
     };
 </script>

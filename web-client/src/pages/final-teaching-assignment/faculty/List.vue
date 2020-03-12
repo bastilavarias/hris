@@ -53,6 +53,9 @@
             text: "Version"
         },
         {
+            text: "Approve"
+        },
+        {
             text: "Actions",
             value: "actions",
             align: "right"
