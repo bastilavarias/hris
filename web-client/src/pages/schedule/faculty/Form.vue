@@ -49,7 +49,7 @@
 			</v-row>
 		</v-card-text>
 		<v-card-actions>
-			<v-btn class="primary" block>Submit</v-btn>
+			<v-btn color="primary" block>Submit</v-btn>
 		</v-card-actions>
 	</v-card>
 </template>

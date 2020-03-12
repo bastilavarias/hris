@@ -15,6 +15,7 @@
 					:label="label"
 					readonly
 					:value="convertMilitaryTime(timeLocal)"
+					:solo="solo"
 					v-on="on"
 			></v-text-field>
 		</template>
@@ -42,6 +43,11 @@
 
 			label: {
 	            type: String,
+				required: false
+			},
+
+			solo: {
+	            type: Boolean,
 				required: false
 			}
 		},
