@@ -1,8 +1,6 @@
 <template>
 	<v-card>
-		<v-card-title>
-			<div class="font-weight-bold">Personnel Schedule Tagger</div>
-		</v-card-title>
+		<generic-card-back-button title="Personnel Schedule Tagger"></generic-card-back-button>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>
 				<v-card-text>

@@ -10,7 +10,6 @@
     import FinalTeachingAssignmentFacultyCredentials
         from "../../../components/final-teaching-assigment/faculty/credentials";
     export default {
-        name: "final-teaching-assignment-faculty-form",
         components: {FinalTeachingAssignmentFacultyCredentials, GenericCardBackButton}
     };
 </script>

@@ -4,7 +4,7 @@
 			<span class="font-weight-bold">Personnel Schedule List</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Schedule"
-									:to="{name: 'schedule-personnel-form', params: {operation: 'create'}}"></generic-tooltip-button>
+									:to="{name: 'personnel-schedule-tagger', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:item.actions="{item}">
@@ -21,29 +21,19 @@
 
     const tableHeaders = [
         {
-            text: "Section",
-            value: "section"
+            text: "Date",
+			align: "left"
         },
         {
-            text: "Subject",
-            value: "subject"
+            text: "Name"
         },
         {
-            text: "Units",
-            value: "units"
+            text: "Department"
         },
         {
-            text: "Personnel",
-            value: "personnel"
+            text: "Time"
         },
-        {
-            text: "Day & Time",
-            value: "dayTime"
-        },
-        {
-            text: "Room",
-            value: "room"
-        },
+
         {
             text: "Actions",
             value: "actions", align: "right"

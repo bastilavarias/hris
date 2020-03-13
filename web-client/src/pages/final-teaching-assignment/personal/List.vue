@@ -1,10 +1,10 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Your Final Teaching Assignment List</span>
+			<span class="font-weight-bold">Final Teaching Assignment List</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New FTA"
-									:to="{name: 'final-teaching-assignment-faculty-form', params: {operation: 'create'}}"></generic-tooltip-button>
+									:to="{name: 'personal-final-teaching-assignment-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>
@@ -41,6 +41,7 @@
 
     import GenericSearchToolbar from "../../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../../components/generic/TooltipButton";
+
     const tableHeaders = [
         {
             text: "Date Issued",
@@ -63,7 +64,6 @@
     ];
 
     export default {
-        name: "final-teaching-assignment-faculty-list",
         components: {GenericTooltipButton, GenericSearchToolbar},
 
         data() {

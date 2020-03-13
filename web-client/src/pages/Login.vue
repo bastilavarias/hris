@@ -20,17 +20,20 @@
 								<v-text-field
 										label="Employee Number"
 										outlined
+										v-model="form.employeeNumber"
 								/>
 								<v-text-field
 										label="Password"
 										type="password"
 										outlined
+										v-model="form.password"
+										@keyup.enter="login"
 								/>
 								<v-btn
 										color="primary"
 										block
 										class="mt-4"
-										:to="{name: 'personal-data-sheet-list'}"
+										@click="login"
 								>Login
 								</v-btn>
 								<div class="pb-5"></div>
@@ -45,3 +48,33 @@
 		</v-content>
 	</v-app>
 </template>
+
+<script>
+    const defaultForm = {
+        employeeNumber: "",
+        password: ""
+    };
+
+    export default {
+        data() {
+            return {
+                defaultForm,
+                form: Object.assign({}, defaultForm)
+            };
+        },
+
+		watch: {
+            "$store.state.auth.isAuthenticated"(isAuth) {
+                if (isAuth) return this.$router.push({name: 'personal-data-sheet'});
+			}
+		},
+
+        methods: {
+            login() {
+                if (this.form.employeeNumber && this.form.password) {
+                    this.$store.dispatch("login", this.form);
+				}
+            }
+        }
+    };
+</script>

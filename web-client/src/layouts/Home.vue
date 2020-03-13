@@ -68,9 +68,7 @@
 			<v-app-bar-nav-icon @click.stop="isDrawerOpen = !isDrawerOpen"></v-app-bar-nav-icon>
 			<v-icon class="mx-4">fab fa-youtube</v-icon>
 			<v-spacer></v-spacer>
-			<v-btn icon light>
-				<v-icon>mdi-bell</v-icon>
-			</v-btn>
+			<generic-notification></generic-notification>
 			<v-menu offset-y>
 				<template v-slot:activator="{ on }">
 					<v-btn color="transparent" dark depressed exact v-on="on">
@@ -80,9 +78,7 @@
 					</v-btn>
 				</template>
 				<v-list>
-					<v-list-item exact>Profile</v-list-item>
-					<v-list-item :to="{ name: 'user-information' }" exact>Settings</v-list-item>
-					<v-list-item :to="{ name: 'login' }" exact>Logout</v-list-item>
+					<v-list-item @click="purgeAuth" exact>Logout</v-list-item>
 				</v-list>
 			</v-menu>
 		</v-app-bar>
@@ -94,116 +90,153 @@
 	</v-app>
 </template>
 <script>
-    const userActions = [
-        {
-            name: "Personal Data Sheet",
-            icon: "clipboard-account",
-            route: {name: "personal-data-sheet-list"},
-            subActions: []
-        },
-        {
-            name: "Academic Maintenance",
-            icon: "cog-transfer",
-            route: {},
-            subActions: [
-                {
-                    name: "Subject",
-                    icon: "text-subject",
-                    route: {name: "subject-list"},
-                    subActions: []
-                },
-                {
-                    name: "Section",
-                    icon: "google-classroom",
-                    route: {name: "section-list"},
-                    subActions: []
-                },
-                {
-                    name: "College",
-                    icon: "school",
-                    route: {name: "college-list"},
-                    subActions: []
-                },
-                {
-                    name: "Course",
-                    icon: "book",
-                    route: {name: "course-list"},
-                    subActions: []
-                },
-                {
-                    name: "Department",
-                    icon: "window-closed-variant",
-                    route: {name: "department-list"},
-                    subActions: []
-                },
-            ]
-        },
-        {
-            name: "Room",
-            icon: "door",
-            route: {name: "room-list"},
-            subActions: []
-        },
-        {
-            name: "Schedule",
-            icon: "clock",
-            route: {},
-            subActions: [
-                {
-                    name: "Faculty",
-                    icon: "calendar-clock",
-                    route: {name: "schedule-faculty-list"},
-                    subActions: []
-                },
-                {
-                    name: "Personnel",
-                    icon: "calendar-arrow-right",
-                    route: {name: "schedule-personnel-tagger"},
-                    subActions: []
-                }
-            ]
-        },
-        {
-            name: "Employee",
-            icon: "badge-account",
-            route: {name: "employee-list"},
-            subActions: []
-        },
-        {
-            name: "Time Card",
-            icon: "timetable",
-            route: {},
-            subActions: [
-                {
-                    name: "Monthly",
-                    icon: "calendar-account",
-                    route: {name: "monthly-time-card"},
-                    subActions: []
-                },
-                {
-                    name: "Daily",
-                    icon: "calendar",
-                    route: {name: "daily-time-card"},
-                    subActions: []
-                },
-            ]
-        },
-        {
-            name: "Final Teaching Assignment",
-            icon: "account-details",
-            route: {name: "final-teaching-assignment-faculty-list"},
-            subActions: []
-        }
-    ];
+    import GenericNotification from "../components/generic/Notification";
+    // const userActions = [
+    //     {
+    //         name: "Personal Data Sheet",
+    //         icon: "clipboard-account",
+    //         route: {name: "personal-data-sheet"},
+    //         subActions: []
+    //     },
+    //
+    //     {
+    //         name: "Schedule",
+    //         icon: "clock",
+    //         route: {name: "personal-schedule"},
+    //         subActions: []
+    //     },
+    //
+    //     {
+    //         name: "Final Teaching Assignment",
+    //         icon: "account-details",
+    //         route: {name: "personal-final-teaching-assignment"},
+    //         subActions: []
+    //     },
+    //
+    //
+    //     // {
+    //     //     name: "Academic Maintenance",
+    //     //     icon: "cog-transfer",
+    //     //     route: {},
+    //     //     subActions: [
+    //     //         {
+    //     //             name: "Subject",
+    //     //             icon: "text-subject",
+    //     //             route: {name: "subject-list"},
+    //     //             subActions: []
+    //     //         },
+    //     //         {
+    //     //             name: "Section",
+    //     //             icon: "google-classroom",
+    //     //             route: {name: "section-list"},
+    //     //             subActions: []
+    //     //         },
+    //     //         {
+    //     //             name: "College",
+    //     //             icon: "school",
+    //     //             route: {name: "college-list"},
+    //     //             subActions: []
+    //     //         },
+    //     //         {
+    //     //             name: "Course",
+    //     //             icon: "book",
+    //     //             route: {name: "course-list"},
+    //     //             subActions: []
+    //     //         },
+    //     //         {
+    //     //             name: "Department",
+    //     //             icon: "window-closed-variant",
+    //     //             route: {name: "department-list"},
+    //     //             subActions: []
+    //     //         },
+    //     //     ]
+    //     // },
+    //     // {
+    //     //     name: "Room",
+    //     //     icon: "door",
+    //     //     route: {name: "room-list"},
+    //     //     subActions: []
+    //     // },
+    //     // {
+    //     //     name: "Schedule",
+    //     //     icon: "clock",
+    //     //     route: {},
+    //     //     subActions: [
+    //     //         {
+    //     //             name: "Faculty",
+    //     //             icon: "calendar-clock",
+    //     //             route: {name: "schedule-faculty-list"},
+    //     //             subActions: []
+    //     //         },
+    //     //         {
+    //     //             name: "Personnel",
+    //     //             icon: "calendar-arrow-right",
+    //     //             route: {name: "schedule-personnel-tagger"},
+    //     //             subActions: []
+    //     //         }
+    //     //     ]
+    //     // },
+    //     // {
+    //     //     name: "Employee",
+    //     //     icon: "badge-account",
+    //     //     route: {name: "employee-list"},
+    //     //     subActions: []
+    //     // },
+    //     // {
+    //     //     name: "Time Card",
+    //     //     icon: "timetable",
+    //     //     route: {},
+    //     //     subActions: [
+    //     //         {
+    //     //             name: "Monthly",
+    //     //             icon: "calendar-account",
+    //     //             route: {name: "monthly-time-card"},
+    //     //             subActions: []
+    //     //         },
+    //     //         {
+    //     //             name: "Daily",
+    //     //             icon: "calendar",
+    //     //             route: {name: "daily-time-card"},
+    //     //             subActions: []
+    //     //         },
+    //     //     ]
+    //     // },
+    //     // {
+    //     //     name: "Final Teaching Assignment",
+    //     //     icon: "account-details",
+    //     //     route: {name: "final-teaching-assignment-faculty-list"},
+    //     //     subActions: []
+    //     // }
+    // ];
 
     export default {
         name: "home-layout",
-
+        components: {GenericNotification},
         data() {
             return {
                 isDrawerOpen: true,
-                userActions
             };
+        },
+
+		computed: {
+            userActions() {
+                return this.$store.state.auth.userActions;
+			},
+
+			isAuthenticated() {
+                return this.$store.state.auth.isAuthenticated;
+			}
+		},
+
+		methods: {
+            purgeAuth() {
+                this.$store.dispatch('purgeAuth');
+                this.$router.push({name: 'login'});
+			}
+		},
+
+		created() {
+            if (!this.isAuthenticated) return this.$router.push({name: 'login'});
         }
     };
 </script>
