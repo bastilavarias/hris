@@ -1,7 +1,7 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Faculty Schedule List</span>
+			<span class="font-weight-bold">Faculty Schedule Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Schedule"
 									:to="{name: 'faculty-schedule-form', params: {operation: 'create'}}"></generic-tooltip-button>

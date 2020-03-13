@@ -1,5 +1,5 @@
 <template>
-	<v-card color="transparent" flat>
+	<div>
 		<v-toolbar dense extended>
 			<v-toolbar-title class="font-weight-bold">Personal Data Sheet</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -75,7 +75,7 @@
 				</v-row>
 			</v-tab-item>
 		</v-tabs-items>
-	</v-card>
+	</div>
 </template>
 
 <script>

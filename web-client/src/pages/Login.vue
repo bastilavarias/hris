@@ -21,6 +21,7 @@
 										label="Employee Number"
 										outlined
 										v-model="form.employeeNumber"
+										autofocus
 								/>
 								<v-text-field
 										label="Password"

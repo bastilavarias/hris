@@ -1,7 +1,7 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Employee List</span>
+			<span class="font-weight-bold">Employee Management</span>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>

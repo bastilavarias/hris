@@ -20,7 +20,6 @@
 <script>
     import GenericCardBackButton from "../../components/generic/CardBackButton";
     export default {
-        name: "college-form",
         components: {GenericCardBackButton}
     }
 </script>

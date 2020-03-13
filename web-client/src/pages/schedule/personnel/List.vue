@@ -1,7 +1,7 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Personnel Schedule List</span>
+			<span class="font-weight-bold">Personnel Schedule Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Schedule"
 									:to="{name: 'personnel-schedule-tagger', params: {operation: 'create'}}"></generic-tooltip-button>

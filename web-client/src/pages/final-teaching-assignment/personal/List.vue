@@ -1,7 +1,7 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Final Teaching Assignment List</span>
+			<span class="font-weight-bold">Final Teaching Assignment Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New FTA"
 									:to="{name: 'personal-final-teaching-assignment-form', params: {operation: 'create'}}"></generic-tooltip-button>

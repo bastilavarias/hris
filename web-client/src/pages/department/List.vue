@@ -1,10 +1,10 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Department List</span>
+			<span class="font-weight-bold">Department Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Department"
-									:to="{name: 'department-form', params: {operation: 'create'}}"></generic-tooltip-button>
+									:to="{name: 'department-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>

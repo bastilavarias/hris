@@ -1,10 +1,10 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Course List</span>
+			<span class="font-weight-bold">Course Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Course"
-									:to="{name: 'course-form', params: {operation: 'create'}}"></generic-tooltip-button>
+									:to="{name: 'course-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>
@@ -62,7 +62,6 @@
     ];
 
     export default {
-        name: "course-manager",
         components: {GenericTooltipButton, GenericSearchToolbar},
 
         data() {

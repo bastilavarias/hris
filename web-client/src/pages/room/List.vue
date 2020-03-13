@@ -1,7 +1,7 @@
 <template>
 	<v-card>
 		<v-card-title>
-			<span class="font-weight-bold">Room List</span>
+			<span class="font-weight-bold">Room Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Room"
 									:to="{name: 'room-form', params: {operation: 'create'}}"></generic-tooltip-button>

@@ -61,7 +61,7 @@ const personnelDepartmentHeadActions = [
             {
                 name: "Leave Management",
                 icon: "message-arrow-right",
-                route: {name: "department-leave-management"},
+                route: {name: "department-level-leave-management"},
                 subActions: []
             },
         ]
@@ -95,12 +95,105 @@ const deanActions = [
             {
                 name: "Leave Management",
                 icon: "message-arrow-right",
-                route: {name: "department-leave-management"},
+                route: {name: "department-level-leave-management"},
                 subActions: []
             }
         ]
     }
 ];
+
+const vpaaActions = [
+    {
+        name: "Personal Data Sheet",
+        icon: "clipboard-account",
+        route: {name: "personal-data-sheet"},
+        subActions: []
+    },
+    {
+        name: "Schedule",
+        icon: "calendar-month",
+        route: {name: "personal-schedule"},
+        subActions: []
+    },
+    {
+        name: "Academic Maintenance",
+        icon: "file-cog",
+        route: {},
+        subActions: [
+            {
+                name: "Subject Management",
+                icon: "text-subject",
+                route: {name: "subject-management"},
+                subActions: []
+            },
+            {
+                name: "College Management",
+                icon: "school",
+                route: {name: "college-management"},
+                subActions: []
+            },
+            {
+                name: "Course Management",
+                icon: "book",
+                route: {name: "course-management"},
+                subActions: []
+            }
+        ]
+    }
+];
+
+const hrActions = [
+    {
+        name: "Personal Data Sheet",
+        icon: "clipboard-account",
+        route: {name: "personal-data-sheet"},
+        subActions: []
+    },
+    {
+        name: "Schedule",
+        icon: "calendar-month",
+        route: {name: "personal-schedule"},
+        subActions: []
+    },
+    {
+        name: "Employee Maintenance",
+        icon: "account-cog",
+        route: {},
+        subActions: [
+            {
+                name: "Schedule Management",
+                icon: "clock",
+                route: {name: "personnel-schedule-management"},
+                subActions: []
+            },
+            {
+                name: "Leave Management",
+                icon: "message-arrow-right",
+                route: {name: "department-level-leave-management"},
+                subActions: []
+            },
+            {
+                name: "Time Card Management",
+                icon: "calendar-clock",
+                route: {name: "time-card-management"},
+                subActions: []
+            },
+            {
+                name: "Employee Management",
+                icon: "account",
+                route: {name: "employee-management"},
+                subActions: []
+            },
+            {
+                name: "Department Management",
+                icon: "window-closed-variant",
+                route: {name: "department-management"},
+                subActions: []
+            },
+        ]
+    }
+];
+
 
 export default {
     state: {
@@ -138,6 +231,18 @@ export default {
             if (employeeNumber && password === "dean") {
                 commit(setAuthenticated, true);
                 commit(setUserActions, deanActions);
+                return;
+            }
+
+            if (employeeNumber && password === "vpaa") {
+                commit(setAuthenticated, true);
+                commit(setUserActions, vpaaActions);
+                return;
+            }
+
+            if (employeeNumber && password === "hr") {
+                commit(setAuthenticated, true);
+                commit(setUserActions, hrActions);
                 return;
             }
         },
