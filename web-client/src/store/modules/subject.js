@@ -6,6 +6,7 @@ import {
     setSubjectFormErrors
 } from "../types/subject";
 import {subjectService} from "../../services/api";
+import {setNotificationMessage} from "../types/notification";
 
 export default {
     state: {
@@ -34,14 +35,21 @@ export default {
         [createSubject]: async ({commit}, {code, title, description, units, categoryId, prerequisiteSubjectId}) => {
             commit(setSubjectActionStart, true);
             try {
-                const result = await subjectService.create({code, title, description, units, categoryId, prerequisiteSubjectId});
+                const result = await subjectService.create({
+                    code,
+                    title,
+                    description,
+                    units,
+                    categoryId,
+                    prerequisiteSubjectId
+                });
                 const {errors, message} = result.data;
                 commit(setSubjectActionStart, false);
                 if (errors.length > 0) {
                     commit(setSubjectFormErrors, errors);
                     return;
                 }
-
+                commit(setNotificationMessage, message);
             } catch (errors) {
                 commit(setSubjectActionStart, false);
                 throw new Error(`[RWV] ApiService ${errors}`);
