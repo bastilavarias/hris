@@ -55,5 +55,15 @@ module.exports = {
             console.log(errors);
             res.status(400).json(errors);
         }
+    },
+
+    getCategories: async (req, res) => {
+        try {
+            const result = await subjectService.getCategories();
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
     }
 };

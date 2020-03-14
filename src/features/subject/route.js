@@ -8,5 +8,6 @@ router.put("/:subjectId", subjectController.update);
 router.get("/", subjectController.getAll);
 router.get("/:searchBy/:searchValue", subjectController.search);
 router.delete("/:subjectId", subjectController.delete);
+router.get("/categories", subjectController.getCategories)
 
 module.exports = router;

@@ -72,7 +72,8 @@ module.exports = {
                                from subject_prerequisite sp
                                         join subject s on sp.child_subject_id = s.id
                                where sp.parent_subject_id = mainSubject.id) as prerequisite
-                       from subject mainSubject where mainSubject.is_deleted = ?;`;
+                       from subject mainSubject
+                       where mainSubject.is_deleted = ?;`;
         const params = [
             false
         ];
@@ -101,11 +102,22 @@ module.exports = {
     },
 
     delete: async subjectId => {
-        const query = `update subject set is_deleted = ?, deleted_at = now() where id = ?;`;
+        const query = `update subject
+                       set is_deleted = ?,
+                           deleted_at = now()
+                       where id = ?;`;
         const params = [
             true,
             subjectId
         ];
         await db.executeQuery(query, params);
+    },
+
+    getCategories: async () => {
+        const query = `select id, name
+                       from subject_category order by id;`;
+        const result = await db.executeQuery(query);
+        return result[0] ? result[0] : [];
+
     }
 };

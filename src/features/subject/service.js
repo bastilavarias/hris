@@ -75,5 +75,9 @@ module.exports = {
             message,
             errors
         };
+    },
+
+    getCategories: async () =>{
+        return await subjectModel.getCategories();
     }
 };
