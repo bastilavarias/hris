@@ -1,5 +1,5 @@
 <template>
-	<v-card>
+	<v-card :loading="isLoading">
 		<generic-card-back-button title="Subject Information"></generic-card-back-button>
 		<v-card-text>
 			<generic-form-error-list :errors="errors"></generic-form-error-list>
@@ -15,7 +15,8 @@
 					<v-text-field label="Description" v-model="form.description"></v-text-field>
 				</v-col>
 				<v-col cols="12" md="4">
-					<v-select type="number" label="Units" :items="subjectUnitsOptions" v-model="form.units"></v-select>
+					<v-select type="number" label="Units" :items="subjectUnitsOptions"
+							  v-model="form.units"></v-select>
 				</v-col>
 				<v-col cols="12">
 					<v-select label="Category" :items="subjectCategories" item-text="name" item-value="id"
@@ -40,13 +41,15 @@
         getAllSubjects,
         getSingleSubject,
         getSubjectCategories,
-        setSubjectFormErrors, setSubjects,
+        setSubjectErrors,
+        setSubjects,
         updateSubject
     } from "../../store/types/subject";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import {setActionName} from "../../store/types/action";
     import GenericSubjectSelection from "../../components/generic/SubjectSelection";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
+    import GenericConfirmDialog from "../../components/generic/CustomDialog";
 
     const defaultForm = {
         code: "",
@@ -64,7 +67,10 @@
     ];
 
     export default {
-        components: {GenericFormActionButton, GenericSubjectSelection, GenericFormErrorList, GenericCardBackButton},
+        components: {
+            GenericConfirmDialog,
+            GenericFormActionButton, GenericSubjectSelection, GenericFormErrorList, GenericCardBackButton
+        },
 
         data() {
             return {
@@ -102,7 +108,7 @@
             "$store.state.action.name"(name) {
                 if (name === createSubject) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setSubjectFormErrors, []);
+                    this.$store.commit(setSubjectErrors, []);
                     this.$store.commit(setActionName, "");
                     this.$store.commit(setSubjects, []);
                     this.isLoading = false;
@@ -110,7 +116,7 @@
 
                 if (name === updateSubject) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setSubjectFormErrors, []);
+                    this.$store.commit(setSubjectErrors, []);
                     this.$store.commit(setActionName, "");
                     this.$store.commit(setSubjects, []);
                     this.$router.push({name: "subject-management"});
@@ -124,6 +130,7 @@
                 this.form.description = subject.description;
                 this.form.categoryId = subject.category.id;
                 this.form.prerequisiteSubjectId = subject.prerequisite ? subject.prerequisite.id : null;
+                this.isLoading = false;
             }
         },
 
@@ -137,8 +144,8 @@
                 const subjectId = this.$route.params.subjectId;
                 this.$store.dispatch(updateSubject, {
                     subjectId,
-					details: this.form
-				});
+                    details: this.form
+                });
                 this.isLoading = true;
             }
         },
@@ -152,11 +159,12 @@
                 const subjectId = this.$route.params.subjectId;
                 this.operation = operation;
                 this.$store.dispatch(getSingleSubject, subjectId);
+                this.isLoading = true;
             }
         },
 
         destroyed() {
-            this.$store.commit(setSubjectFormErrors, []);
+            this.$store.commit(setSubjectErrors, []);
         }
     };
 </script>

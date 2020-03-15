@@ -38,4 +38,5 @@ export const subjectService = {
     getSingle: subjectId => apiService.get(`/subject/getSingle/${subjectId}`),
     search: ({option, value}) => apiService.get(`/subject/search/${option}/${value}`),
     update: (subjectId, details) => apiService.put(`/subject/update/${subjectId}`, details),
+    delete: subjectId => apiService.delete(`/subject/delete/${subjectId}`)
 };

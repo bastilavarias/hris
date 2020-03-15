@@ -1,12 +1,12 @@
 import {
-    createSubject,
+    createSubject, deleteSubject,
     getAllSubjects,
     getSingleSubject,
     getSubjectCategories,
     searchSubjects,
     setCurrentSubject,
     setSubjectCategories,
-    setSubjectFormErrors,
+    setSubjectErrors,
     setSubjects,
     updateSubject
 } from "../types/subject";
@@ -25,7 +25,7 @@ export default {
 
     mutations: {
         [setSubjectCategories]: (state, categories) => state.categories = categories,
-        [setSubjectFormErrors]: (state, errors) => state.errors = errors,
+        [setSubjectErrors]: (state, errors) => state.errors = errors,
         [setSubjects]: (state, subjects) => state.list = subjects,
         [setCurrentSubject]: (state, subject) => state.current = subject
     },
@@ -54,7 +54,7 @@ export default {
                 const {errors, message} = result.data;
                 commit(setActionName, updateSubject);
                 if (errors.length > 0) {
-                    commit(setSubjectFormErrors, errors);
+                    commit(setSubjectErrors, errors);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
@@ -78,12 +78,11 @@ export default {
         },
 
         [getSingleSubject]: async ({commit}, subjectId) => {
-            commit(setActionName, getSingleSubject);
             try {
                 const result = await subjectService.getSingle(subjectId);
                 const subject = result.data;
                 commit(setCurrentSubject, subject);
-                commit(setActionName, "");
+                commit(setActionName, getSingleSubject);
             } catch (errors) {
                 commit(setActionName, "");
                 throw new Error(`[RWV] ApiService ${errors}`);
@@ -107,13 +106,30 @@ export default {
                 const result = await subjectService.update(subjectId, details);
                 const {message, errors} = result.data;
                 if (errors.length > 0) {
-                    commit(setSubjectFormErrors, errors);
+                    commit(setSubjectErrors, errors);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateSubject);
             } catch (errors) {
                 commit(setActionName, updateSubject);
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
+
+        [deleteSubject]: async ({commit}, subjectId) => {
+            try {
+                const result = await subjectService.delete(subjectId);
+                const {message, errors} = result.data;
+                if (errors.length > 0) {
+                    commit(setSubjectErrors, errors);
+                    commit(setActionName, `${deleteSubject}-errors`);
+                    return;
+                }
+                commit(setActionName, deleteSubject);
+                commit(setNotificationConfig, {message, type: "success"});
+            } catch (errors) {
+                commit(setActionName, deleteSubject);
                 throw new Error(`[RWV] ApiService ${errors}`);
             }
         }

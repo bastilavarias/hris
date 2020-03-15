@@ -1,10 +1,11 @@
 export const getSubjectCategories = "getSubjectCategories";
 export const setSubjectCategories = "setSubjectCategories";
 export const createSubject = "createSubject";
-export const setSubjectFormErrors = "setSubjectFormErrors";
+export const setSubjectErrors = "setSubjectErrors";
 export const getAllSubjects = "getAllSubjects";
 export const setSubjects = "setSubjects";
 export const searchSubjects = "searchSubjects";
 export const getSingleSubject = "getSingleSubject";
 export const setCurrentSubject = "setCurrentSubject";
 export const updateSubject = "updateSubject";
+export const deleteSubject = "deleteSubject";
