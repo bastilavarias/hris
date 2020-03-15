@@ -5,7 +5,8 @@
 			<generic-form-error-list :errors="errors"></generic-form-error-list>
 			<v-row>
 				<v-col cols="12" md="6">
-					<v-text-field label="Code" v-model="form.code" autofocus></v-text-field>
+					<v-text-field label="Code" v-model="form.code" autofocus
+								  :readonly="operation === 'update'"></v-text-field>
 				</v-col>
 				<v-col cols="12" md="6">
 					<v-text-field label="Title" v-model="form.title"></v-text-field>
@@ -26,10 +27,9 @@
 				</v-col>
 			</v-row>
 		</v-card-text>
-		<v-card-actions>
-			<v-btn block color="primary" :disabled="!isFormValid" :loading="isActionStart" @click="create">Submit
-			</v-btn>
-		</v-card-actions>
+		<generic-form-action-button :operation="operation" :create="create" :update="update"
+									:disabled="!isFormValid"
+									:is-loading="isActionStart"></generic-form-action-button>
 	</v-card>
 </template>
 
@@ -45,6 +45,7 @@
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import {setActionName} from "../../store/types/action";
     import GenericSubjectSelection from "../../components/generic/SubjectSelection";
+    import GenericFormActionButton from "../../components/generic/FormActionButton";
 
     const defaultForm = {
         code: "",
@@ -62,14 +63,16 @@
     ];
 
     export default {
-        components: {GenericSubjectSelection, GenericFormErrorList, GenericCardBackButton},
+        components: {GenericFormActionButton, GenericSubjectSelection, GenericFormErrorList, GenericCardBackButton},
 
         data() {
             return {
                 form: Object.assign({}, defaultForm),
                 defaultForm,
                 subjectUnitsOptions,
-                operation: "create"
+                operation: "create",
+                isCreating: false,
+                isUpdating: false
             };
         },
 
@@ -104,7 +107,7 @@
                 }
             },
 
-			"$store.state.subject.current"(subject) {
+            "$store.state.subject.current"(subject) {
                 this.form.code = subject.code;
                 this.form.title = subject.title;
                 this.form.units = subject.units;
@@ -117,6 +120,10 @@
         methods: {
             create() {
                 this.$store.dispatch(createSubject, this.form);
+            },
+
+            update() {
+
             }
         },
 
