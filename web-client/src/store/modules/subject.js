@@ -1,24 +1,29 @@
 import {
     createSubject,
+    getAllSubjects,
     getSubjectCategories,
     setSubjectActionStart,
     setSubjectCategories,
-    setSubjectFormErrors
+    setSubjectFormErrors,
+    setSubjects
 } from "../types/subject";
 import {subjectService} from "../../services/api";
-import {setNotificationMessage} from "../types/notification";
+import {setNotificationConfig} from "../types/notification";
+import {setActionName} from "../types/action";
 
 export default {
     state: {
         categories: [],
         errors: [],
-        isActionStart: false
+        isActionStart: false,
+        list: [],
     },
 
     mutations: {
         [setSubjectCategories]: (state, categories) => state.categories = categories,
         [setSubjectFormErrors]: (state, errors) => state.errors = errors,
-        [setSubjectActionStart]: (state, isActionStart) => state.isActionStart = isActionStart
+        [setSubjectActionStart]: (state, isActionStart) => state.isActionStart = isActionStart,
+        [setSubjects]: (state, subjects) => state.list = subjects
     },
 
     actions: {
@@ -33,7 +38,7 @@ export default {
         },
 
         [createSubject]: async ({commit}, {code, title, description, units, categoryId, prerequisiteSubjectId}) => {
-            commit(setSubjectActionStart, true);
+            commit(setSubjectActionStart, true); // change it to  commit(setActionName, createSubject); later
             try {
                 const result = await subjectService.create({
                     code,
@@ -44,14 +49,28 @@ export default {
                     prerequisiteSubjectId
                 });
                 const {errors, message} = result.data;
-                commit(setSubjectActionStart, false);
+                commit(setSubjectActionStart, false); // change it to  commit(setActionName, createSubject); later
                 if (errors.length > 0) {
                     commit(setSubjectFormErrors, errors);
                     return;
                 }
-                commit(setNotificationMessage, message);
+                commit(setNotificationConfig, {message, type: "success"});
+                commit(setActionName, createSubject);
             } catch (errors) {
-                commit(setSubjectActionStart, false);
+                commit(setSubjectActionStart, false); // change it to  commit(setActionName, createSubject); later
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
+
+        [getAllSubjects]: async ({commit}) => {
+            commit(setActionName, getAllSubjects);
+            try {
+                const result = await subjectService.getAll();
+                const subjects = result.data;
+                commit(setSubjects, subjects);
+                commit(setActionName, "");
+            } catch (errors) {
+                commit(setActionName, "");
                 throw new Error(`[RWV] ApiService ${errors}`);
             }
         }

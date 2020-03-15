@@ -1,1 +1,1 @@
-export const setNotificationMessage = "setNotificationMessage";
+export const setNotificationConfig = "setNotificationConfig";

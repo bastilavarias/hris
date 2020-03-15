@@ -6,10 +6,11 @@
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Subject"
 									:to="{name: 'subject-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
-		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
+		<v-data-table hide-default-footer :headers="tableHeaders" :items="subjects" :loading="isLoading">
 			<template v-slot:top>
 				<v-card-text>
-					<generic-search-toolbar :search-options="searchOptions"></generic-search-toolbar>
+					<generic-search-toolbar :search-options="searchOptions" :search-option.sync="searchOption"
+											:search-value.sync="searchValue" :action="search"></generic-search-toolbar>
 				</v-card-text>
 			</template>
 			<template v-slot:item.actions="{item}">
@@ -24,59 +25,74 @@
 <script>
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../components/generic/TooltipButton";
+    import {getAllSubjects} from "../../store/types/subject";
+
     const tableHeaders = [
-		{
-		    text: "Code",
-			value: "code"
-		},
-		{
-		    text: "Title",
-			value: "title"
-		},
-		{
-		    text: "Description",
-			value: "description"
-		},
-		{
-		    text: "Units",
-			value: "units"
-		},
-		{
-		    text: "Category",
-			value: "category"
-		},
-		{
-		    text: "Prerequisites",
-			value: "Prerequisites"
-		},
+        {
+            text: "Code",
+            value: "code"
+        },
+        {
+            text: "Title",
+            value: "title"
+        },
+        {
+            text: "Description",
+            value: "description"
+        },
+        {
+            text: "Units",
+            value: "units"
+        },
+        {
+            text: "Category",
+            value: "category"
+        },
+        {
+            text: "Prerequisite",
+            value: "Prerequisite"
+        },
         {
             text: "Actions",
             value: "actions", align: "right"
         }
     ];
     const searchOptions = [
-        {
-            id: 0,
-            name: "All"
-        },
-        {
-            id: 1,
-            name: "Code"
-        },
-        {
-            id: 2,
-            name: "Title"
-        }
+        "All",
+        "Code",
+        "Title"
     ];
 
     export default {
         components: {GenericTooltipButton, GenericSearchToolbar},
 
-		data() {
-	        return {
-	            searchOptions,
-	            tableHeaders,
+        data() {
+            return {
+                searchOptions,
+                tableHeaders,
+                isLoading: false,
+                searchOption: "All",
+                searchValue: ""
+            };
+        },
+
+        computed: {
+            subjects() {
+                return this.$store.state.subject.list;
             }
-		}
-    }
+        },
+
+        watch: {
+            "$store.state.action.name"(name) {
+                if (name === "") return this.isLoading = false;
+                if (name === getAllSubjects) return this.isLoading = true;
+            }
+        },
+
+        methods: {
+            search() {
+                if (this.searchOption.toLowerCase() === "all") return this.$store.dispatch(getAllSubjects);
+            }
+        }
+    };
 </script>

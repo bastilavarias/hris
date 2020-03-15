@@ -33,5 +33,6 @@ export default apiService;
 
 export const subjectService = {
     getCategories: () => apiService.get("/subject/categories"),
-    create: (details) => apiService.post("/subject", details)
+    create: (details) => apiService.post("/subject", details),
+    getAll: () => apiService.get("/subject")
 };

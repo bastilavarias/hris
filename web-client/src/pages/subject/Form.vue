@@ -5,7 +5,7 @@
 			<generic-form-error-list :errors="errors"></generic-form-error-list>
 			<v-row>
 				<v-col cols="12" md="6">
-					<v-text-field label="Code" v-model="form.code"></v-text-field>
+					<v-text-field label="Code" v-model="form.code" autofocus></v-text-field>
 				</v-col>
 				<v-col cols="12" md="6">
 					<v-text-field label="Title" v-model="form.title"></v-text-field>
@@ -36,6 +36,7 @@
     import GenericCardBackButton from "../../components/generic/CardBackButton";
     import {createSubject, getSubjectCategories, setSubjectFormErrors} from "../../store/types/subject";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
+    import {setActionName} from "../../store/types/action";
 
     const defaultForm = {
         code: "",
@@ -78,6 +79,16 @@
 
             isActionStart() {
                 return this.$store.state.subject.isActionStart;
+            }
+        },
+
+        watch: {
+            "$store.state.action.name"(name) {
+                if (name === createSubject) {
+                    this.form = Object.assign({}, this.defaultForm);
+                    this.$store.commit(setSubjectFormErrors, []);
+                    this.$store.commit(setActionName, "");
+                }
             }
         },
 

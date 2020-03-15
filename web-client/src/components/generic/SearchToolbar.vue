@@ -1,14 +1,14 @@
 <template>
 	<v-row dense>
 		<v-col cols="12" :md="isInDefaultSearchOption ? '1' : '3'">
-			<v-select solo label="Search By" :items="searchOptions" item-text="name" item-value="id"
-					  v-model="selectedSearchOption"></v-select>
+			<v-select solo label="Search By" :items="searchOptions" item-text="name"
+					  v-model="searchOptionLocal"></v-select>
 		</v-col>
 		<v-col cols="12" :md="isInDefaultSearchOption ? '9' : '7'">
-			<v-text-field solo label="Search" :disabled="isInDefaultSearchOption"></v-text-field>
+			<v-text-field solo label="Search" :disabled="isInDefaultSearchOption" v-model="searchValueLocal" :keyup.enter="action"></v-text-field>
 		</v-col>
 		<v-col cols="12" md="2">
-			<v-btn color="primary" large block>
+			<v-btn color="primary" large block @click="action">
 				<span class="mr-1">Search</span>
 				<v-icon>mdi-database-search</v-icon>
 			</v-btn>
@@ -18,25 +18,58 @@
 
 <script>
     export default {
-	    name: "generic-search-toolbar",
+        name: "generic-search-toolbar",
 
-		props: {
-	        searchOptions: {
-	            type: Array,
+        props: {
+            searchOptions: {
+                type: Array,
+                required: true
+            },
+            searchOption: {
+                type: String,
+                required: true
+            },
+            searchValue: {
+                type: String,
+                required: true
+            },
+			action: {
+                type: Function,
 				required: true
 			}
-		},
+        },
 
         data() {
             return {
-                selectedSearchOption: 0
+                searchOptionLocal: "",
+                searchValueLocal: ""
             };
         },
 
         computed: {
             isInDefaultSearchOption() {
-                return this.selectedSearchOption === 0;
+                return this.searchOptionLocal.toLowerCase() === "all";
             }
+        },
+
+        watch: {
+            searchOption(value) {
+                this.searchOptionLocal = value;
+            },
+            searchValue(value) {
+                this.searchValueLocal = value;
+            },
+            searchOptionLocal(value) {
+                this.$emit("update:searchOption", value);
+            },
+            searchValueLocal(value) {
+                this.$emit("update:searchValue", value);
+            }
+        },
+
+        created() {
+            this.searchOptionLocal = this.searchOption;
+            this.searchValueLocal = this.searchValue;
         }
-	}
+    };
 </script>

@@ -86,15 +86,17 @@
 			<v-container>
 				<router-view></router-view>
 			</v-container>
+			<global-notification></global-notification>
 		</v-content>
 	</v-app>
 </template>
 <script>
     import GenericNotification from "../components/generic/Notification";
+    import GlobalNotification from "../components/global/Notification";
 
     export default {
         name: "home-layout",
-        components: {GenericNotification},
+        components: {GlobalNotification, GenericNotification},
         data() {
             return {
                 isDrawerOpen: true,

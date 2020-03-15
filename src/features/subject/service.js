@@ -6,7 +6,7 @@ module.exports = {
         let message = "";
         const isExists = await subjectModel.checkIfExists("code", code);
         if (isExists) {
-            errors.push("Subject was already exists.");
+            errors.push("Subject was already code used.");
             return {
                 message,
                 errors
