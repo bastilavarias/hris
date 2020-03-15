@@ -121,7 +121,7 @@
 		},
 
 		created() {
-            if (!this.isAuthenticated) return this.$router.push({name: 'login'});
+            // if (!this.isAuthenticated) return this.$router.push({name: 'login'});
         }
     };
 </script>

@@ -6,16 +6,34 @@
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Subject"
 									:to="{name: 'subject-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
-		<v-data-table hide-default-footer :headers="tableHeaders" :items="subjects" :loading="isLoading">
+		<v-data-table :headers="tableHeaders" :items="subjects" :loading="isLoading">
 			<template v-slot:top>
 				<v-card-text>
 					<generic-search-toolbar :search-options="searchOptions" :search-option.sync="searchOption"
 											:search-value.sync="searchValue" :action="search"></generic-search-toolbar>
 				</v-card-text>
 			</template>
+			<template v-slot:item.code="{item}">
+				<span class="font-weight-bold text-uppercase">{{item.code}}</span>
+			</template>
+			<template v-slot:item.title="{item}">
+				<span class="text-capitalize">{{item.title}}</span>
+			</template>
+			<template v-slot:item.description="{item}">
+				<span class="text-capitalize">{{item.description ? item.description : 'N/A'}}</span>
+			</template>
+			<template v-slot:item.category="{item}">
+				<span class="text-capitalize">{{item.category.name}}</span>
+			</template>
+			<template v-slot:item.prerequisite="{item}">
+				<span class="text-capitalize">{{item.prerequisite ? item.prerequisite.title : 'N/A' }}</span>
+			</template>
 			<template v-slot:item.actions="{item}">
-				<v-btn icon color="secondary">
+				<v-btn icon>
 					<v-icon>mdi-pencil</v-icon>
+				</v-btn>
+				<v-btn icon>
+					<v-icon>mdi-trash-can</v-icon>
 				</v-btn>
 			</template>
 		</v-data-table>
@@ -50,7 +68,7 @@
         },
         {
             text: "Prerequisite",
-            value: "Prerequisite"
+            value: "prerequisite"
         },
         {
             text: "Actions",
@@ -86,7 +104,11 @@
             "$store.state.action.name"(name) {
                 if (name === "") return this.isLoading = false;
                 if (name === getAllSubjects || searchSubjects) return this.isLoading = true;
-            }
+            },
+
+            searchOption(opt) {
+                if (opt === "all") return this.$store.dispatch(getAllSubjects);
+			}
         },
 
         methods: {

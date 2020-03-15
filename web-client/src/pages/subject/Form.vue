@@ -21,7 +21,8 @@
 							  v-model="form.categoryId"></v-select>
 				</v-col>
 				<v-col cols="12">
-					<v-autocomplete label="Prerequisite" v-model="form.prerequisiteSubjectId"></v-autocomplete>
+					<generic-subject-selection label="Prerequisite" :subjects="subjects"
+											   :subject-id.sync="form.prerequisiteSubjectId"></generic-subject-selection>
 				</v-col>
 			</v-row>
 		</v-card-text>
@@ -34,9 +35,10 @@
 
 <script>
     import GenericCardBackButton from "../../components/generic/CardBackButton";
-    import {createSubject, getSubjectCategories, setSubjectFormErrors} from "../../store/types/subject";
+    import {createSubject, getAllSubjects, getSubjectCategories, setSubjectFormErrors} from "../../store/types/subject";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import {setActionName} from "../../store/types/action";
+    import GenericSubjectSelection from "../../components/generic/SubjectSelection";
 
     const defaultForm = {
         code: "",
@@ -54,7 +56,7 @@
     ];
 
     export default {
-        components: {GenericFormErrorList, GenericCardBackButton},
+        components: {GenericSubjectSelection, GenericFormErrorList, GenericCardBackButton},
 
         data() {
             return {
@@ -79,6 +81,10 @@
 
             isActionStart() {
                 return this.$store.state.subject.isActionStart;
+            },
+
+            subjects() {
+                return this.$store.state.subject.list;
             }
         },
 
@@ -100,6 +106,7 @@
 
         created() {
             this.$store.dispatch(getSubjectCategories);
+            this.$store.dispatch(getAllSubjects);
         },
 
         destroyed() {
