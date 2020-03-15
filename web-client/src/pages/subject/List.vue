@@ -25,7 +25,7 @@
 <script>
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../components/generic/TooltipButton";
-    import {getAllSubjects} from "../../store/types/subject";
+    import {getAllSubjects, searchSubjects, setSubjects} from "../../store/types/subject";
 
     const tableHeaders = [
         {
@@ -58,9 +58,9 @@
         }
     ];
     const searchOptions = [
-        "All",
-        "Code",
-        "Title"
+        "all",
+        "code",
+        "title"
     ];
 
     export default {
@@ -71,7 +71,7 @@
                 searchOptions,
                 tableHeaders,
                 isLoading: false,
-                searchOption: "All",
+                searchOption: "all",
                 searchValue: ""
             };
         },
@@ -85,13 +85,21 @@
         watch: {
             "$store.state.action.name"(name) {
                 if (name === "") return this.isLoading = false;
-                if (name === getAllSubjects) return this.isLoading = true;
+                if (name === getAllSubjects || searchSubjects) return this.isLoading = true;
             }
         },
 
         methods: {
             search() {
-                if (this.searchOption.toLowerCase() === "all") return this.$store.dispatch(getAllSubjects);
+                if (this.searchOption === "all") return this.$store.dispatch(getAllSubjects);
+                if (this.searchValue.trim() && ["code", "title"].includes(this.searchOption)) {
+                    const searchConfig = {
+                        option: this.searchOption,
+                        value: this.searchValue
+                    };
+                    return this.$store.dispatch(searchSubjects, searchConfig);
+                }
+                return this.$store.commit(setSubjects, []);
             }
         }
     };

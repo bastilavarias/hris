@@ -35,10 +35,10 @@ module.exports = {
     },
 
     search: async (req, res) => {
-        const searchBy = req.params.searchBy;
-        const searchValue = req.params.searchValue;
+        const searchOption = req.params.searchOption.trim().toLowerCase();
+        const searchValue = req.params.searchValue.trim().toLowerCase();
         try {
-            const result = await subjectService.search(searchBy, searchValue);
+            const result = await subjectService.search(searchOption, searchValue);
             res.status(200).json(result);
         } catch (errors) {
             console.log(errors);

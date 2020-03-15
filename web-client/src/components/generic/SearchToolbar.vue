@@ -1,11 +1,19 @@
 <template>
 	<v-row dense>
 		<v-col cols="12" :md="isInDefaultSearchOption ? '1' : '3'">
-			<v-select solo label="Search By" :items="searchOptions" item-text="name"
-					  v-model="searchOptionLocal"></v-select>
+			<v-select solo label="Search By" :items="searchOptions"
+					  v-model="searchOptionLocal">
+				<template v-slot:item="{item}">
+					<span class="text-capitalize">{{item}}</span>
+				</template>
+				<template v-slot:selection="{item}">
+					<span class="text-capitalize">{{item}}</span>
+				</template>
+			</v-select>
 		</v-col>
 		<v-col cols="12" :md="isInDefaultSearchOption ? '9' : '7'">
-			<v-text-field solo label="Search" :disabled="isInDefaultSearchOption" v-model="searchValueLocal" :keyup.enter="action"></v-text-field>
+			<v-text-field solo label="Search" :disabled="isInDefaultSearchOption" v-model="searchValueLocal"
+						  @keyup="action"></v-text-field>
 		</v-col>
 		<v-col cols="12" md="2">
 			<v-btn color="primary" large block @click="action">
@@ -33,10 +41,10 @@
                 type: String,
                 required: true
             },
-			action: {
+            action: {
                 type: Function,
-				required: true
-			}
+                required: true
+            }
         },
 
         data() {
@@ -48,7 +56,7 @@
 
         computed: {
             isInDefaultSearchOption() {
-                return this.searchOptionLocal.toLowerCase() === "all";
+                return this.searchOptionLocal === "all";
             }
         },
 

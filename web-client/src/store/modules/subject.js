@@ -1,7 +1,7 @@
 import {
     createSubject,
     getAllSubjects,
-    getSubjectCategories,
+    getSubjectCategories, searchSubjects,
     setSubjectActionStart,
     setSubjectCategories,
     setSubjectFormErrors,
@@ -66,6 +66,19 @@ export default {
             commit(setActionName, getAllSubjects);
             try {
                 const result = await subjectService.getAll();
+                const subjects = result.data;
+                commit(setSubjects, subjects);
+                commit(setActionName, "");
+            } catch (errors) {
+                commit(setActionName, "");
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
+
+        [searchSubjects]: async ({commit}, {option, value}) => {
+            commit(setActionName, searchSubjects);
+            try {
+                const result = await subjectService.search({option, value});
                 const subjects = result.data;
                 commit(setSubjects, subjects);
                 commit(setActionName, "");

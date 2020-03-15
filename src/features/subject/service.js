@@ -50,12 +50,12 @@ module.exports = {
         return await subjectModel.getAll();
     },
 
-    search: async (by, value) => {
-        const option = {
+    search: async (option, value) => {
+        const options = {
             code: "code",
             title: "title"
         };
-        return await subjectModel.search(option[by], value);
+        return await subjectModel.search(options[option], value);
     },
 
     delete: async (subjectId) => {
