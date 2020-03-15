@@ -1,7 +1,7 @@
 import {
     createSubject,
-    getAllSubjects,
-    getSubjectCategories, searchSubjects,
+    getAllSubjects, getSingleSubject,
+    getSubjectCategories, searchSubjects, setCurrentSubject,
     setSubjectActionStart,
     setSubjectCategories,
     setSubjectFormErrors,
@@ -17,13 +17,15 @@ export default {
         errors: [],
         isActionStart: false,
         list: [],
+        current: {}
     },
 
     mutations: {
         [setSubjectCategories]: (state, categories) => state.categories = categories,
         [setSubjectFormErrors]: (state, errors) => state.errors = errors,
         [setSubjectActionStart]: (state, isActionStart) => state.isActionStart = isActionStart,
-        [setSubjects]: (state, subjects) => state.list = subjects
+        [setSubjects]: (state, subjects) => state.list = subjects,
+        [setCurrentSubject]: (state, subject) => state.current = subject
     },
 
     actions: {
@@ -68,6 +70,19 @@ export default {
                 const result = await subjectService.getAll();
                 const subjects = result.data;
                 commit(setSubjects, subjects);
+                commit(setActionName, "");
+            } catch (errors) {
+                commit(setActionName, "");
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
+
+        [getSingleSubject]: async ({commit}, subjectId) => {
+            commit(setActionName, getSingleSubject);
+            try {
+                const result = await subjectService.getSingle(subjectId);
+                const subject = result.data;
+                commit(setCurrentSubject, subject);
                 commit(setActionName, "");
             } catch (errors) {
                 commit(setActionName, "");

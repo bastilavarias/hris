@@ -106,7 +106,7 @@ const routes = [
                         component: () => import("../pages/subject/List")
                     },
                     {
-                        path: ":operation",
+                        path: ":operation/:subjectId?",
                         name: "subject-management-form",
                         component: () => import("../pages/subject/Form")
                     }

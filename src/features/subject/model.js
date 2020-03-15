@@ -67,7 +67,7 @@ module.exports = {
                               (select json_object('id', id, 'name', name)
                                from subject_category
                                where id = mainSubject.subject_category_id)  as category,
-                              (select json_object('code', s.code, 'title', s.title, 'description',
+                              (select json_object('id', s.id, 'code', s.code, 'title', s.title, 'description',
                                                   s.description, 'units', s.units)
                                from subject_prerequisite sp
                                         join subject s on sp.child_subject_id = s.id
@@ -79,6 +79,31 @@ module.exports = {
         ];
         const results = await db.executeQuery(query, params);
         return results[0] ? results[0] : [];
+    },
+
+    getSingle: async (subjectId) => {
+        const query = `select mainSubject.id,
+                              mainSubject.code,
+                              mainSubject.title,
+                              mainSubject.description,
+                              mainSubject.units,
+                              (select json_object('id', id, 'name', name)
+                               from subject_category
+                               where id = mainSubject.subject_category_id)  as category,
+                              (select json_object('id', s.id, 'code', s.code, 'title', s.title, 'description',
+                                                  s.description, 'units', s.units)
+                               from subject_prerequisite sp
+                                        join subject s on sp.child_subject_id = s.id
+                               where sp.parent_subject_id = mainSubject.id) as prerequisite
+                       from subject mainSubject
+                       where mainSubject.id = ?
+                         AND mainSubject.is_deleted = ?;`;
+        const params = [
+            subjectId,
+            false
+        ];
+        const results = await db.executeQuery(query, params);
+        return results[0][0] ? results[0][0] : {};
     },
 
     search: async (option, value) => {
@@ -115,7 +140,8 @@ module.exports = {
 
     getCategories: async () => {
         const query = `select id, name
-                       from subject_category order by id;`;
+                       from subject_category
+                       order by id;`;
         const result = await db.executeQuery(query);
         return result[0] ? result[0] : [];
 

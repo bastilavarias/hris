@@ -20,16 +20,16 @@
 				<span class="text-capitalize">{{item.title}}</span>
 			</template>
 			<template v-slot:item.description="{item}">
-				<span class="text-capitalize">{{item.description ? item.description : 'N/A'}}</span>
+				<span class="text-capitalize">{{item.description ? item.description : "N/A"}}</span>
 			</template>
 			<template v-slot:item.category="{item}">
 				<span class="text-capitalize">{{item.category.name}}</span>
 			</template>
 			<template v-slot:item.prerequisite="{item}">
-				<span class="text-capitalize">{{item.prerequisite ? item.prerequisite.title : 'N/A' }}</span>
+				<span class="text-capitalize">{{item.prerequisite ? item.prerequisite.title : "N/A" }}</span>
 			</template>
 			<template v-slot:item.actions="{item}">
-				<v-btn icon>
+				<v-btn icon @click="update(item)">
 					<v-icon>mdi-pencil</v-icon>
 				</v-btn>
 				<v-btn icon>
@@ -108,7 +108,7 @@
 
             searchOption(opt) {
                 if (opt === "all") return this.$store.dispatch(getAllSubjects);
-			}
+            }
         },
 
         methods: {
@@ -122,7 +122,19 @@
                     return this.$store.dispatch(searchSubjects, searchConfig);
                 }
                 return this.$store.commit(setSubjects, []);
-            }
+            },
+
+			update({id}) {
+                this.$router.push(
+					{
+						name: "subject-management-form",
+						params: {
+						    operation: "update",
+							subjectId: id
+						}
+					}
+				);
+			}
         }
     };
 </script>

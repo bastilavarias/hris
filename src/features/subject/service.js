@@ -50,6 +50,10 @@ module.exports = {
         return await subjectModel.getAll();
     },
 
+    getSingle: async (subjectId) => {
+        return await subjectModel.getSingle(subjectId);
+    },
+
     search: async (option, value) => {
         const options = {
             code: "code",

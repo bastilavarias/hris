@@ -35,7 +35,13 @@
 
 <script>
     import GenericCardBackButton from "../../components/generic/CardBackButton";
-    import {createSubject, getAllSubjects, getSubjectCategories, setSubjectFormErrors} from "../../store/types/subject";
+    import {
+        createSubject,
+        getAllSubjects,
+        getSingleSubject,
+        getSubjectCategories,
+        setSubjectFormErrors
+    } from "../../store/types/subject";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import {setActionName} from "../../store/types/action";
     import GenericSubjectSelection from "../../components/generic/SubjectSelection";
@@ -62,7 +68,8 @@
             return {
                 form: Object.assign({}, defaultForm),
                 defaultForm,
-                subjectUnitsOptions
+                subjectUnitsOptions,
+                operation: "create"
             };
         },
 
@@ -95,6 +102,15 @@
                     this.$store.commit(setSubjectFormErrors, []);
                     this.$store.commit(setActionName, "");
                 }
+            },
+
+			"$store.state.subject.current"(subject) {
+                this.form.code = subject.code;
+                this.form.title = subject.title;
+                this.form.units = subject.units;
+                this.form.description = subject.description;
+                this.form.categoryId = subject.category.id;
+                this.form.prerequisiteSubjectId = subject.prerequisite ? subject.prerequisite.id : null;
             }
         },
 
@@ -107,6 +123,13 @@
         created() {
             this.$store.dispatch(getSubjectCategories);
             this.$store.dispatch(getAllSubjects);
+
+            const operation = this.$route.params.operation;
+            if (operation === "update") {
+                const subjectId = this.$route.params.subjectId;
+                this.operation = operation;
+                this.$store.dispatch(getSingleSubject, subjectId);
+            }
         },
 
         destroyed() {

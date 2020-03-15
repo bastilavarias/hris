@@ -32,8 +32,9 @@ const apiService = {
 export default apiService;
 
 export const subjectService = {
-    getCategories: () => apiService.get("/subject/categories"),
-    create: (details) => apiService.post("/subject", details),
-    getAll: () => apiService.get("/subject"),
-    search: ({option, value}) => apiService.get(`/subject/${option}/${value}`)
+    getCategories: () => apiService.get("/subject/getAll/categories"),
+    create: details => apiService.post("/subject/create", details),
+    getAll: () => apiService.get("/subject/getAll"),
+    getSingle: subjectId => apiService.get(`/subject/getSingle/${subjectId}`),
+    search: ({option, value}) => apiService.get(`/subject/search/${option}/${value}`)
 };
