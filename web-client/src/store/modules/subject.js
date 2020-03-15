@@ -1,11 +1,14 @@
 import {
     createSubject,
-    getAllSubjects, getSingleSubject,
-    getSubjectCategories, searchSubjects, setCurrentSubject,
-    setSubjectActionStart,
+    getAllSubjects,
+    getSingleSubject,
+    getSubjectCategories,
+    searchSubjects,
+    setCurrentSubject,
     setSubjectCategories,
     setSubjectFormErrors,
-    setSubjects
+    setSubjects,
+    updateSubject
 } from "../types/subject";
 import {subjectService} from "../../services/api";
 import {setNotificationConfig} from "../types/notification";
@@ -23,7 +26,6 @@ export default {
     mutations: {
         [setSubjectCategories]: (state, categories) => state.categories = categories,
         [setSubjectFormErrors]: (state, errors) => state.errors = errors,
-        [setSubjectActionStart]: (state, isActionStart) => state.isActionStart = isActionStart,
         [setSubjects]: (state, subjects) => state.list = subjects,
         [setCurrentSubject]: (state, subject) => state.current = subject
     },
@@ -40,7 +42,6 @@ export default {
         },
 
         [createSubject]: async ({commit}, {code, title, description, units, categoryId, prerequisiteSubjectId}) => {
-            commit(setSubjectActionStart, true); // change it to  commit(setActionName, createSubject); later
             try {
                 const result = await subjectService.create({
                     code,
@@ -51,7 +52,7 @@ export default {
                     prerequisiteSubjectId
                 });
                 const {errors, message} = result.data;
-                commit(setSubjectActionStart, false); // change it to  commit(setActionName, createSubject); later
+                commit(setActionName, updateSubject);
                 if (errors.length > 0) {
                     commit(setSubjectFormErrors, errors);
                     return;
@@ -59,18 +60,17 @@ export default {
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, createSubject);
             } catch (errors) {
-                commit(setSubjectActionStart, false); // change it to  commit(setActionName, createSubject); later
+                commit(setActionName, updateSubject);
                 throw new Error(`[RWV] ApiService ${errors}`);
             }
         },
 
         [getAllSubjects]: async ({commit}) => {
-            commit(setActionName, getAllSubjects);
             try {
                 const result = await subjectService.getAll();
                 const subjects = result.data;
                 commit(setSubjects, subjects);
-                commit(setActionName, "");
+                commit(setActionName, getAllSubjects);
             } catch (errors) {
                 commit(setActionName, "");
                 throw new Error(`[RWV] ApiService ${errors}`);
@@ -91,14 +91,29 @@ export default {
         },
 
         [searchSubjects]: async ({commit}, {option, value}) => {
-            commit(setActionName, searchSubjects);
             try {
                 const result = await subjectService.search({option, value});
                 const subjects = result.data;
                 commit(setSubjects, subjects);
-                commit(setActionName, "");
+                commit(setActionName, searchSubjects);
             } catch (errors) {
                 commit(setActionName, "");
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
+
+        [updateSubject]: async ({commit}, {subjectId, details}) => {
+            try {
+                const result = await subjectService.update(subjectId, details);
+                const {message, errors} = result.data;
+                if (errors.length > 0) {
+                    commit(setSubjectFormErrors, errors);
+                    return;
+                }
+                commit(setNotificationConfig, {message, type: "success"});
+                commit(setActionName, updateSubject);
+            } catch (errors) {
+                commit(setActionName, updateSubject);
                 throw new Error(`[RWV] ApiService ${errors}`);
             }
         }

@@ -44,6 +44,7 @@
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../components/generic/TooltipButton";
     import {getAllSubjects, searchSubjects, setSubjects} from "../../store/types/subject";
+    import {setActionName} from "../../store/types/action";
 
     const tableHeaders = [
         {
@@ -102,8 +103,10 @@
 
         watch: {
             "$store.state.action.name"(name) {
-                if (name === "") return this.isLoading = false;
-                if (name === getAllSubjects || searchSubjects) return this.isLoading = true;
+                if (name === getAllSubjects || searchSubjects) {
+                    this.isLoading = false;
+                    this.$store.commit(setActionName, "");
+				}
             },
 
             searchOption(opt) {
@@ -113,6 +116,7 @@
 
         methods: {
             search() {
+                this.isLoading = true;
                 if (this.searchOption === "all") return this.$store.dispatch(getAllSubjects);
                 if (this.searchValue.trim() && ["code", "title"].includes(this.searchOption)) {
                     const searchConfig = {
@@ -121,6 +125,7 @@
                     };
                     return this.$store.dispatch(searchSubjects, searchConfig);
                 }
+                this.isLoading = false;
                 return this.$store.commit(setSubjects, []);
             },
 

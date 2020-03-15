@@ -36,5 +36,6 @@ export const subjectService = {
     create: details => apiService.post("/subject/create", details),
     getAll: () => apiService.get("/subject/getAll"),
     getSingle: subjectId => apiService.get(`/subject/getSingle/${subjectId}`),
-    search: ({option, value}) => apiService.get(`/subject/search/${option}/${value}`)
+    search: ({option, value}) => apiService.get(`/subject/search/${option}/${value}`),
+    update: (subjectId, details) => apiService.put(`/subject/update/${subjectId}`, details),
 };

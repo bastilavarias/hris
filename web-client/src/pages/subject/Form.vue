@@ -29,7 +29,7 @@
 		</v-card-text>
 		<generic-form-action-button :operation="operation" :create="create" :update="update"
 									:disabled="!isFormValid"
-									:is-loading="isActionStart"></generic-form-action-button>
+									:is-loading="isLoading"></generic-form-action-button>
 	</v-card>
 </template>
 
@@ -40,7 +40,8 @@
         getAllSubjects,
         getSingleSubject,
         getSubjectCategories,
-        setSubjectFormErrors
+        setSubjectFormErrors, setSubjects,
+        updateSubject
     } from "../../store/types/subject";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import {setActionName} from "../../store/types/action";
@@ -71,8 +72,7 @@
                 defaultForm,
                 subjectUnitsOptions,
                 operation: "create",
-                isCreating: false,
-                isUpdating: false
+                isLoading: false
             };
         },
 
@@ -104,6 +104,16 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setSubjectFormErrors, []);
                     this.$store.commit(setActionName, "");
+                    this.$store.commit(setSubjects, []);
+                    this.isLoading = false;
+                }
+
+                if (name === updateSubject) {
+                    this.form = Object.assign({}, this.defaultForm);
+                    this.$store.commit(setSubjectFormErrors, []);
+                    this.$store.commit(setActionName, "");
+                    this.$store.commit(setSubjects, []);
+                    this.$router.push({name: "subject-management"});
                 }
             },
 
@@ -120,10 +130,16 @@
         methods: {
             create() {
                 this.$store.dispatch(createSubject, this.form);
+                this.isLoading = true;
             },
 
             update() {
-
+                const subjectId = this.$route.params.subjectId;
+                this.$store.dispatch(updateSubject, {
+                    subjectId,
+					details: this.form
+				});
+                this.isLoading = true;
             }
         },
 
