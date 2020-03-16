@@ -49,3 +49,12 @@ export const collegeService = {
     update: (collegeId, details) => apiService.put(`/college/update/${collegeId}`, details),
     delete: collegeId => apiService.delete(`/college/delete/${collegeId}`)
 };
+
+export const courseService = {
+    create: details => apiService.post("/course/create", details),
+    getAll: () => apiService.get("/course/getAll"),
+    getSingle: courseId => apiService.get(`/course/getSingle/${courseId}`),
+    search: ({option, value}) => apiService.get(`/course/search/${option}/${value}`),
+    update: (courseId, details) => apiService.put(`/course/update/${courseId}`, details),
+    delete: courseId => apiService.delete(`/course/delete/${courseId}`)
+};
