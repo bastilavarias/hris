@@ -30,14 +30,13 @@ module.exports = {
     },
 
     getAll: async () => {
-        const query = `select (mainCourse.code,
-                               mainCourse.name,
-                               mainCourse.description,
-                               (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
-                                                   c.description)
-                                from college c
-                                where c.id = mainCourse.college_id)
-                                  ) as college
+        const query = `select mainCourse.code,
+                              mainCourse.name,
+                              mainCourse.description,
+                              (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
+                                                  c.description)
+                               from college c
+                               where c.id = mainCourse.college_id) as college
                        from course mainCourse
                        where mainCourse.is_deleted = ?;`;
         const params = [
@@ -48,14 +47,13 @@ module.exports = {
     },
 
     getSingle: async (courseId) => {
-        const query = `select (mainCourse.code,
-                               mainCourse.name,
-                               mainCourse.description,
-                               (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
-                                                   c.description)
-                                from college c
-                                where c.id = mainCourse.college_id)
-                                  ) as college
+        const query = `select mainCourse.code,
+                              mainCourse.name,
+                              mainCourse.description,
+                              (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
+                                                  c.description)
+                               from college c
+                               where c.id = mainCourse.college_id) as college
                        from course mainCourse
                        where mainCourse.id = ?
                          AND mainCourse.is_deleted = ?;`;
@@ -68,14 +66,13 @@ module.exports = {
     },
 
     search: async (option, value) => {
-        const query = `select (mainCourse.code,
-                               mainCourse.name,
-                               mainCourse.description,
-                               (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
-                                                   c.description)
-                                from college c
-                                where c.id = mainCourse.college_id)
-                                  ) as college
+        const query = `select mainCourse.code,
+                              mainCourse.name,
+                              mainCourse.description,
+                              (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
+                                                  c.description)
+                               from college c
+                               where c.id = mainCourse.college_id) as college
                        from course mainCourse where mainCourse.${option} like '%${value}%' and mainCourse.is_deleted = ?;`;
         const params = [false];
         const results = await db.executeQuery(query, params);

@@ -4,6 +4,7 @@ const subjectController = require("./controller");
 const router = express.Router();
 
 router.post("/create", subjectController.create);
+router.put("/update/:subjectId", subjectController.update);
 router.get("/getAll", subjectController.getAll);
 router.get("/getSingle/:subjectId", subjectController.getSingle);
 router.get("/getAll/categories", subjectController.getCategories);
