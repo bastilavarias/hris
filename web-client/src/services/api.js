@@ -40,3 +40,10 @@ export const subjectService = {
     update: (subjectId, details) => apiService.put(`/subject/update/${subjectId}`, details),
     delete: subjectId => apiService.delete(`/subject/delete/${subjectId}`)
 };
+
+export const collegeService = {
+    create: details => apiService.post("/college/create", details),
+    getAll: () => apiService.get("/college/getAll"),
+    getSingle: collegeId => apiService.get(`/college/getSingle/${collegeId}`),
+    search: ({option, value}) => apiService.get(`/college/search/${option}/${value}`),
+};

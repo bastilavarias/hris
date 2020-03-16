@@ -1,0 +1,9 @@
+export const createCollege = "createCollege";
+export const setCollegeErrors = "setCollegeErrors";
+export const getAllColleges = "getAllColleges";
+export const setColleges = "setColleges";
+export const searchColleges = "searchColleges";
+export const getSingleCollege = "getSingleCollege";
+export const setCurrentCollege = "setCurrentCollege";
+export const updateCollege = "updateCollege";
+export const deleteCollege = "deleteCollege";

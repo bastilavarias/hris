@@ -18,7 +18,6 @@ export default {
     state: {
         categories: [],
         errors: [],
-        isActionStart: false,
         list: [],
         current: {}
     },
@@ -60,7 +59,7 @@ export default {
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, createSubject);
             } catch (errors) {
-                commit(setActionName, updateSubject);
+                commit(setActionName, createSubject);
                 throw new Error(`[RWV] ApiService ${errors}`);
             }
         },

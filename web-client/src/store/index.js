@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./modules/auth";
 import subject from "./modules/subject";
+import college from "./modules/college";
 import notification from "./modules/notification";
 import action from "./modules/action";
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     modules: {
         auth,
         subject,
+        college,
         notification,
         action
     }
