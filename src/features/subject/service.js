@@ -5,7 +5,7 @@ module.exports = {
     create: async ({code, title, description, units, categoryId, prerequisiteSubjectId}) => {
         let errors = [];
         let message = "";
-        const isSubjectExists = await helper.checkIfExists("subject", "code", code);
+        const isSubjectExists = await helper.checkIfExists("subject", "code", code.toLowerCase());
         if (isSubjectExists) {
             errors.push("Subject was already code used.");
             return {

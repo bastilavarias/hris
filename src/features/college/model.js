@@ -1,18 +1,15 @@
 const db = require("../../db");
 
 module.exports = {
-    create: async ({code, title, description, units, categoryId}) => {
-        const query = `insert into subject (subject_category_id, code, title, description, units)
-                       values (?, ?, ?, ?, ?);`;
+    create: async ({customId, name, description}) => {
+        const query = `insert into college (custom_id, name, description)
+                       values (?, ?, ?);`;
         const params = [
-            parseInt(categoryId),
-            code.toLowerCase(),
-            title.toLowerCase(),
-            description.toLowerCase(),
-            units
+            customId.toLowerCase(),
+            name.toLowerCase(),
+            description.toLowerCase()
         ];
-        const result = await db.executeQuery(query, params);
-        return result[0].insertId;
+        await db.executeQuery(query, params);
     },
 
     // checkIfExists: async (option, value) => {

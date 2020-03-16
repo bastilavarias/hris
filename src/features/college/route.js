@@ -5,5 +5,4 @@ const router = express.Router();
 
 router.post("/create", collegeController.create);
 
-
 module.exports = router;

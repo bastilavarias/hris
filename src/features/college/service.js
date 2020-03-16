@@ -2,19 +2,19 @@ const collegeModel = require("./model");
 const helper = require("../../helper");
 
 module.exports = {
-    create: async ({name, description}) => {
+    create: async ({customId, name, description}) => {
         let errors = [];
         let message = "";
-        const isExists = await helper.checkIfExists("college", "name", name);
-        if (isExists) {
-            errors.push("Subject was already code used.");
+        const isCollegeIsExists = await helper.checkIfExists("college", "custom_id", customId.toLowerCase());
+        if (isCollegeIsExists) {
+            errors.push("College id was already used.");
             return {
                 message,
                 errors
             };
         }
-        const createdSubjectId = await collegeModel.create({code, title, description, units, categoryId});
-        message = "New subject is created.";
+        await collegeModel.create({customId, name, description});
+        message = "New college is created.";
         return {
             errors,
             message
