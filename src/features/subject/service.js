@@ -1,11 +1,12 @@
 const subjectModel = require("./model");
+const helper = require("../../helper");
 
 module.exports = {
     create: async ({code, title, description, units, categoryId, prerequisiteSubjectId}) => {
         let errors = [];
         let message = "";
-        const isExists = await subjectModel.checkIfExists("code", code);
-        if (isExists) {
+        const isSubjectExists = await helper.checkIfExists("subject", "code", code);
+        if (isSubjectExists) {
             errors.push("Subject was already code used.");
             return {
                 message,
@@ -26,7 +27,7 @@ module.exports = {
     update: async (subjectId, {title, code, description, units, categoryId, prerequisiteSubjectId}) => {
         let message = "";
         let errors = [];
-        const isSubjectExists = await subjectModel.checkIfExists("code", code);
+        const isSubjectExists = await helper.checkIfExists("subject", "code", code);
         if (!isSubjectExists) {
             errors.push(`Subject with code of ${code} is not existing in database.`);
             return {
@@ -65,8 +66,8 @@ module.exports = {
     delete: async (subjectId) => {
         let message = "";
         let errors = [];
-        const isExists = await subjectModel.checkIfExists("id", subjectId);
-        if (!isExists) {
+        const isSubjectExists = await helper.checkIfExists("subject", "id", subjectId);
+        if (!isSubjectExists) {
             errors.push("Subject is not exists.");
             return {
                 message,

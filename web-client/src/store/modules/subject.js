@@ -53,7 +53,6 @@ export default {
                 });
                 const {errors, message} = result.data;
                 if (errors.length > 0) {
-                    console.log(errors);
                     commit(setActionName, `${createSubject}-errors`);
                     commit(setSubjectErrors, errors);
                     return;
