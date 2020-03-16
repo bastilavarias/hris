@@ -30,7 +30,8 @@ module.exports = {
     },
 
     getAll: async () => {
-        const query = `select mainCourse.code,
+        const query = `select mainCourse.id,
+                              mainCourse.code,
                               mainCourse.name,
                               mainCourse.description,
                               (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
@@ -47,7 +48,8 @@ module.exports = {
     },
 
     getSingle: async (courseId) => {
-        const query = `select mainCourse.code,
+        const query = `select mainCourse.id,
+                              mainCourse.code,
                               mainCourse.name,
                               mainCourse.description,
                               (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',
@@ -66,7 +68,8 @@ module.exports = {
     },
 
     search: async (option, value) => {
-        const query = `select mainCourse.code,
+        const query = `select mainCourse.id, 
+       mainCourse.code,
                               mainCourse.name,
                               mainCourse.description,
                               (select json_object('id', c.id, 'customId', c.custom_id, 'name', c.name, 'description',

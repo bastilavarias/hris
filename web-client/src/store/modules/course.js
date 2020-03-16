@@ -27,9 +27,9 @@ export default {
     },
 
     actions: {
-        [createCourse]: async ({commit}, {customId, name, description}) => {
+        [createCourse]: async ({commit}, {code, name, description, collegeId}) => {
             try {
-                const result = await courseService.create({customId, name, description});
+                const result = await courseService.create({code, name, description, collegeId});
                 const {errors, message} = result.data;
                 if (errors.length > 0) {
                     commit(setActionName, `${createCourse}-errors`);

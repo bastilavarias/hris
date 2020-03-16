@@ -140,7 +140,7 @@ const routes = [
                         component: () => import("../pages/course/List")
                     },
                     {
-                        path: ":operation",
+                        path: ":operation/:courseId?",
                         name: "course-management-form",
                         component: () => import("../pages/course/Form")
                     }

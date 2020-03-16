@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import auth from "./modules/auth";
 import subject from "./modules/subject";
 import college from "./modules/college";
+import course from "./modules/course";
 import notification from "./modules/notification";
 import action from "./modules/action";
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
         auth,
         subject,
         college,
+        course,
         notification,
         action
     }

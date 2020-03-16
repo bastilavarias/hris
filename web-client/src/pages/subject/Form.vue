@@ -130,6 +130,7 @@
             },
 
             "$store.state.subject.current"(subject) {
+                if (Object.keys(subject).length <= 0) return this.$router.push({name: "subject-management"});
                 this.form.code = subject.code;
                 this.form.title = subject.title;
                 this.form.units = subject.units;

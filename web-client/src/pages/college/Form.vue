@@ -5,7 +5,7 @@
 			<generic-form-error-list :errors="errors"></generic-form-error-list>
 			<v-row>
 				<v-col cols="12">
-					<v-text-field label="Custom ID" v-model="form.customId"></v-text-field>
+					<v-text-field label="Custom ID" v-model="form.customId" :readonly="operation === 'update'"></v-text-field>
 				</v-col>
 				<v-col cols="12">
 					<v-text-field label="Name" v-model="form.name"></v-text-field>
@@ -92,6 +92,7 @@
             },
 
             "$store.state.college.current"(college) {
+                if (Object.keys(college).length <= 0) return this.$router.push({name: "college-management"});
                 this.form.customId = college.customId;
                 this.form.name = college.name;
                 this.form.description = college.description;
