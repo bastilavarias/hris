@@ -44,16 +44,16 @@ module.exports = {
         return await collegeModel.getAll();
     },
 
-    // getSingle: async (subjectId) => {
-    //     return await subjectModel.getSingle(subjectId);
-    // },
-
     search: async (option, value) => {
         const options = {
             customId: "custom_id",
             name: "name"
         };
         return await collegeModel.search(options[option], value.trim().toLowerCase());
+    },
+
+    getSingle: async (collegeId) => {
+        return await collegeModel.getSingle(collegeId);
     },
 
     // delete: async (subjectId) => {

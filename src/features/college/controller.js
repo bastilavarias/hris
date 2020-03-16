@@ -34,22 +34,22 @@ module.exports = {
         }
     },
 
-    // getSingle: async (req, res) => {
-    //     const subjectId = req.params.subjectId;
-    //     try {
-    //         const result = await subjectService.getSingle(subjectId);
-    //         res.status(200).json(result);
-    //     } catch (errors) {
-    //         console.log(errors);
-    //         res.status(400).json(errors);
-    //     }
-    // },
-
     search: async (req, res) => {
         const searchOption = req.params.searchOption;
         const searchValue = req.params.searchValue;
         try {
             const result = await collegeService.search(searchOption, searchValue);
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
+    },
+
+    getSingle: async (req, res) => {
+        const collegeId = req.params.collegeId;
+        try {
+            const result = await collegeService.getSingle(collegeId);
             res.status(200).json(result);
         } catch (errors) {
             console.log(errors);
