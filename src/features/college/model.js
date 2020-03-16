@@ -58,15 +58,15 @@ module.exports = {
         return results[0][0] ? results[0][0] : {};
     },
 
-    // delete: async subjectId => {
-    //     const query = `update subject
-    //                    set is_deleted = ?,
-    //                        deleted_at = now()
-    //                    where id = ?;`;
-    //     const params = [
-    //         true,
-    //         subjectId
-    //     ];
-    //     await db.executeQuery(query, params);
-    // }
+    delete: async collegeId => {
+        const query = `update college
+                       set is_deleted = ?,
+                           deleted_at = now()
+                       where id = ?;`;
+        const params = [
+            true,
+            collegeId
+        ];
+        await db.executeQuery(query, params);
+    }
 };

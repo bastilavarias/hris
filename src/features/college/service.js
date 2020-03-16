@@ -56,22 +56,22 @@ module.exports = {
         return await collegeModel.getSingle(collegeId);
     },
 
-    // delete: async (subjectId) => {
-    //     let message = "";
-    //     let errors = [];
-    //     const isExists = await subjectModel.checkIfExists("id", subjectId);
-    //     if (!isExists) {
-    //         errors.push("Subject is not exists.");
-    //         return {
-    //             message,
-    //             errors
-    //         };
-    //     }
-    //     await subjectModel.delete(subjectId);
-    //     message = "Subject is deleted.";
-    //     return {
-    //         message,
-    //         errors
-    //     };
-    // }
+    delete: async (collegeId) => {
+        let message = "";
+        let errors = [];
+        const isCollegeIsExists = await helper.checkIfExists("college", "id", collegeId);
+        if (!isCollegeIsExists) {
+            errors.push("College is not exists.");
+            return {
+                message,
+                errors
+            };
+        }
+        await collegeModel.delete(collegeId);
+        message = "College is deleted.";
+        return {
+            message,
+            errors
+        };
+    }
 };

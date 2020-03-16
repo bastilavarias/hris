@@ -8,5 +8,6 @@ router.put("/update/:collegeId", collegeController.update);
 router.get("/getAll", collegeController.getAll);
 router.get("/search/:searchOption/:searchValue", collegeController.search);
 router.get("/getSingle/:collegeId", collegeController.getSingle);
+router.delete("/delete/:collegeId", collegeController.delete);
 
 module.exports = router;

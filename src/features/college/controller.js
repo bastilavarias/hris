@@ -57,14 +57,14 @@ module.exports = {
         }
     },
 
-    // delete: async (req, res) => {
-    //     const subjectId = req.params.subjectId;
-    //     try {
-    //         const result = await subjectService.delete(subjectId);
-    //         res.status(200).json(result);
-    //     } catch (errors) {
-    //         console.log(errors);
-    //         res.status(400).json(errors);
-    //     }
-    // }
+    delete: async (req, res) => {
+        const collegeId = req.params.collegeId;
+        try {
+            const result = await collegeService.delete(collegeId);
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
+    }
 };
