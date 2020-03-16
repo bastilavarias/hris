@@ -128,7 +128,7 @@ export default {
                     return;
                 }
                 commit(setActionName, deleteSubject);
-                commit(setNotificationConfig, {message, type: "success"});
+                commit(setNotificationConfig, {message, type: "error"});
             } catch (errors) {
                 commit(setActionName, deleteSubject);
                 throw new Error(`[RWV] ApiService ${errors}`);

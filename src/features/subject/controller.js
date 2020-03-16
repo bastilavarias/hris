@@ -46,8 +46,8 @@ module.exports = {
     },
 
     search: async (req, res) => {
-        const searchOption = req.params.searchOption.trim().toLowerCase();
-        const searchValue = req.params.searchValue.trim().toLowerCase();
+        const searchOption = req.params.searchOption;
+        const searchValue = req.params.searchValue;
         try {
             const result = await subjectService.search(searchOption, searchValue);
             res.status(200).json(result);

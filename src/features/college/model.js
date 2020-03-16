@@ -34,44 +34,20 @@ module.exports = {
     //     await db.executeQuery(query, params);
     // },
 
-    // getAll: async () => {
-    //     const query = `select mainSubject.id,
-    //                           mainSubject.code,
-    //                           mainSubject.title,
-    //                           mainSubject.description,
-    //                           mainSubject.units,
-    //                           (select json_object('id', id, 'name', name)
-    //                            from subject_category
-    //                            where id = mainSubject.subject_category_id)  as category,
-    //                           (select json_object('id', s.id, 'code', s.code, 'title', s.title, 'description',
-    //                                               s.description, 'units', s.units)
-    //                            from subject_prerequisite sp
-    //                                     join subject s on sp.child_subject_id = s.id
-    //                            where sp.parent_subject_id = mainSubject.id) as prerequisite
-    //                    from subject mainSubject
-    //                    where mainSubject.is_deleted = ?;`;
-    //     const params = [
-    //         false
-    //     ];
-    //     const results = await db.executeQuery(query, params);
-    //     return results[0] ? results[0] : [];
-    // },
+    getAll: async () => {
+        const query = `select custom_id as customId, name, description
+                       from college
+                       where is_deleted = ?;`;
+        const params = [
+            false
+        ];
+        const results = await db.executeQuery(query, params);
+        return results[0] ? results[0] : [];
+    },
 
     // getSingle: async (subjectId) => {
-    //     const query = `select mainSubject.id,
-    //                           mainSubject.code,
-    //                           mainSubject.title,
-    //                           mainSubject.description,
-    //                           mainSubject.units,
-    //                           (select json_object('id', id, 'name', name)
-    //                            from subject_category
-    //                            where id = mainSubject.subject_category_id)  as category,
-    //                           (select json_object('id', s.id, 'code', s.code, 'title', s.title, 'description',
-    //                                               s.description, 'units', s.units)
-    //                            from subject_prerequisite sp
-    //                                     join subject s on sp.child_subject_id = s.id
-    //                            where sp.parent_subject_id = mainSubject.id) as prerequisite
-    //                    from subject mainSubject
+    //     const query = `select custom_id as customId, name, description
+    //                    from college
     //                    where mainSubject.id = ?
     //                      AND mainSubject.is_deleted = ?;`;
     //     const params = [
@@ -82,25 +58,13 @@ module.exports = {
     //     return results[0][0] ? results[0][0] : {};
     // },
 
-    // search: async (option, value) => {
-    //     const query = `select mainSubject.id,
-    //                           mainSubject.code,
-    //                           mainSubject.title,
-    //                           mainSubject.description,
-    //                           mainSubject.units,
-    //                           (select json_object('id', id, 'name', name)
-    //                            from subject_category
-    //                            where id = mainSubject.subject_category_id)  as category,
-    //                           (select json_object('code', s.code, 'title', s.title, 'description',
-    //                                               s.description, 'units', s.units)
-    //                            from subject_prerequisite sp
-    //                                     join subject s on sp.child_subject_id = s.id
-    //                            where sp.parent_subject_id = mainSubject.id) as prerequisite
-    //                    from subject mainSubject where mainSubject.${option} like '%${value}%' and mainSubject.is_deleted = ?;`;
-    //     const params = [false];
-    //     const results = await db.executeQuery(query, params);
-    //     return results[0] ? results[0] : [];
-    // },
+    search: async (option, value) => {
+        const query = `select custom_id as customId, name, description
+                       from college where ${option} like '%${value}%' and is_deleted = ?;`;
+        const params = [false];
+        const results = await db.executeQuery(query, params);
+        return results[0] ? results[0] : [];
+    },
 
     // delete: async subjectId => {
     //     const query = `update subject

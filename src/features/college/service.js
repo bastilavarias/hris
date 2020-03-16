@@ -40,21 +40,21 @@ module.exports = {
         };
     },
 
-    // getAll: async () => {
-    //     return await subjectModel.getAll();
-    // },
+    getAll: async () => {
+        return await collegeModel.getAll();
+    },
 
     // getSingle: async (subjectId) => {
     //     return await subjectModel.getSingle(subjectId);
     // },
 
-    // search: async (option, value) => {
-    //     const options = {
-    //         code: "code",
-    //         title: "title"
-    //     };
-    //     return await subjectModel.search(options[option], value);
-    // },
+    search: async (option, value) => {
+        const options = {
+            customId: "custom_id",
+            name: "name"
+        };
+        return await collegeModel.search(options[option], value.trim().toLowerCase());
+    },
 
     // delete: async (subjectId) => {
     //     let message = "";

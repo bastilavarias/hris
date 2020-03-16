@@ -60,7 +60,7 @@ module.exports = {
             code: "code",
             title: "title"
         };
-        return await subjectModel.search(options[option], value);
+        return await subjectModel.search(options[option], value.trim().toLowerCase());
     },
 
     delete: async (subjectId) => {
@@ -82,7 +82,7 @@ module.exports = {
         };
     },
 
-    getCategories: async () =>{
+    getCategories: async () => {
         return await subjectModel.getCategories();
     }
 };
