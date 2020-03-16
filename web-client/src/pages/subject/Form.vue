@@ -106,12 +106,24 @@
 
         watch: {
             "$store.state.action.name"(name) {
+                if (name === `${createSubject}-errors`) {
+                    this.$store.commit(setActionName, "");
+                    this.isLoading = false;
+                    return;
+                }
+
                 if (name === createSubject) {
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setSubjectErrors, []);
                     this.$store.commit(setActionName, "");
                     this.$store.commit(setSubjects, []);
                     this.isLoading = false;
+                    return;
+                }
+
+                if (name === `${updateSubject}-errors`) {
+                    this.$store.commit(setActionName, "");
+                    return;
                 }
 
                 if (name === updateSubject) {

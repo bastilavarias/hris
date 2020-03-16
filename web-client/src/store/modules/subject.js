@@ -52,8 +52,9 @@ export default {
                     prerequisiteSubjectId
                 });
                 const {errors, message} = result.data;
-                commit(setActionName, updateSubject);
                 if (errors.length > 0) {
+                    console.log(errors);
+                    commit(setActionName, `${createSubject}-errors`);
                     commit(setSubjectErrors, errors);
                     return;
                 }
@@ -106,6 +107,7 @@ export default {
                 const result = await subjectService.update(subjectId, details);
                 const {message, errors} = result.data;
                 if (errors.length > 0) {
+                    commit(setActionName, `${updateSubject}-errors`);
                     commit(setSubjectErrors, errors);
                     return;
                 }
