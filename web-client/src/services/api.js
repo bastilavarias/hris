@@ -46,4 +46,6 @@ export const collegeService = {
     getAll: () => apiService.get("/college/getAll"),
     getSingle: collegeId => apiService.get(`/college/getSingle/${collegeId}`),
     search: ({option, value}) => apiService.get(`/college/search/${option}/${value}`),
+    update: (collegeId, details) => apiService.put(`/college/update/${collegeId}`, details),
+    delete: collegeId => apiService.delete(`/college/delete/${collegeId}`)
 };

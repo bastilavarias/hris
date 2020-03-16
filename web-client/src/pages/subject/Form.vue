@@ -95,10 +95,6 @@
                 return this.$store.state.subject.errors;
             },
 
-            isActionStart() {
-                return this.$store.state.subject.isActionStart;
-            },
-
             subjects() {
                 return this.$store.state.subject.list;
             }

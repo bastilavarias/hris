@@ -46,7 +46,7 @@ module.exports = {
 
     search: async (option, value) => {
         const options = {
-            customId: "custom_id",
+            ID: "custom_id",
             name: "name"
         };
         return await collegeModel.search(options[option], value.trim().toLowerCase());

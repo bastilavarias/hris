@@ -27,7 +27,7 @@ module.exports = {
     },
 
     getAll: async () => {
-        const query = `select custom_id as customId, name, description
+        const query = `select id, custom_id as customId, name, description
                        from college
                        where is_deleted = ?;`;
         const params = [
@@ -38,7 +38,7 @@ module.exports = {
     },
 
     search: async (option, value) => {
-        const query = `select custom_id as customId, name, description
+        const query = `select id, custom_id as customId, name, description
                        from college where ${option} like '%${value}%' and is_deleted = ?;`;
         const params = [false];
         const results = await db.executeQuery(query, params);
@@ -46,7 +46,7 @@ module.exports = {
     },
 
     getSingle: async (collegeId) => {
-        const query = `select custom_id as customId, name, description
+        const query = `select id, custom_id as customId, name, description
                        from college
                        where id = ?
                          AND is_deleted = ?;`;

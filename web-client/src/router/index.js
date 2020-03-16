@@ -123,7 +123,7 @@ const routes = [
                         component: () => import("../pages/college/List")
                     },
                     {
-                        path: ":operation",
+                        path: ":operation/:collegeId?",
                         name: "college-management-form",
                         component: () => import("../pages/college/Form")
                     }
