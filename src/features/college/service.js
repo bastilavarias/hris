@@ -21,28 +21,24 @@ module.exports = {
         };
     },
 
-    // update: async (subjectId, {title, code, description, units, categoryId, prerequisiteSubjectId}) => {
-    //     let message = "";
-    //     let errors = [];
-    //     const isSubjectExists = await subjectModel.checkIfExists("code", code);
-    //     if (!isSubjectExists) {
-    //         errors.push(`Subject with code of ${code} is not existing in database.`);
-    //         return {
-    //             errors,
-    //             message
-    //         };
-    //     }
-    //     await subjectModel.update(subjectId, {title, description, units, categoryId});
-    //     await subjectModel.deleteAllPrerqeuisites(subjectId);
-    //     if (prerequisiteSubjectId) {
-    //         await subjectModel.addPrerequisite(subjectId, prerequisiteSubjectId);
-    //     }
-    //     message = "Subject is updated.";
-    //     return {
-    //         message,
-    //         errors
-    //     };
-    // },
+    update: async (collegeId, {customId, name, description}) => {
+        let message = "";
+        let errors = [];
+        const isCollegeIsExists = await helper.checkIfExists("college", "custom_id", customId.toLowerCase());
+        if (!isCollegeIsExists) {
+            errors.push(`College with id of ${customId} is not existing in database.`);
+            return {
+                errors,
+                message
+            };
+        }
+        await collegeModel.update(collegeId, {name, description});
+        message = "College is updated.";
+        return {
+            message,
+            errors
+        };
+    },
 
     // getAll: async () => {
     //     return await subjectModel.getAll();

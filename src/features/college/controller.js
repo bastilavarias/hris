@@ -12,17 +12,17 @@ module.exports = {
         }
     },
 
-    // update: async (req, res) => {
-    //     const subjectId = req.params.subjectId;
-    //     const subjectData = req.body;
-    //     try {
-    //         const result = await subjectService.update(subjectId, subjectData);
-    //         res.status(200).json(result);
-    //     } catch (errors) {
-    //         console.log(errors);
-    //         res.status(400).json(errors);
-    //     }
-    // },
+    update: async (req, res) => {
+        const collegeId = req.params.collegeId;
+        const collegeData = req.body;
+        try {
+            const result = await collegeService.update(collegeId, collegeData);
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
+    },
 
     // getAll: async (req, res) => {
     //     try {

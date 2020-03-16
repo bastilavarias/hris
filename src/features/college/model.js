@@ -12,33 +12,19 @@ module.exports = {
         await db.executeQuery(query, params);
     },
 
-    // checkIfExists: async (option, value) => {
-    //     const query = `select exists(select true from subject where ${option} = ? and is_deleted = ?) as "isExists";`;
-    //     const params = [
-    //         value,
-    //         false
-    //     ];
-    //     const result = await db.executeQuery(query, params);
-    //     return result[0][0].isExists ? result[0][0].isExists : false;
-    // },
+    update: async (collegeId, {name, description}) => {
 
-    // update: async (subjectId, {title, description, units, categoryId}) => {
-    //
-    //     const query = `update subject
-    //                    set subject_category_id = ?,
-    //                        title               = ?,
-    //                        description         = ?,
-    //                        units               = ?
-    //                    where id = ?;`;
-    //     const params = [
-    //         categoryId,
-    //         title.toLowerCase(),
-    //         description.toLowerCase(),
-    //         units,
-    //         subjectId
-    //     ];
-    //     await db.executeQuery(query, params);
-    // },
+        const query = `update college
+                       set name        = ?,
+                           description = ?
+                       where id = ?;`;
+        const params = [
+            name.toLowerCase(),
+            description.toLowerCase(),
+            collegeId
+        ];
+        await db.executeQuery(query, params);
+    },
 
     // deleteAllPrerqeuisites: async parentSubjectId => {
     //     const query = `delete
