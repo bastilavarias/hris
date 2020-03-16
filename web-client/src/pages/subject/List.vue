@@ -188,6 +188,12 @@
                 this.isLoading = true;
                 this.$store.dispatch(deleteSubject, id);
             }
+        },
+
+        destroyed() {
+            this.$store.commit(setSubjects, []);
+            this.$store.commit(setSubjectErrors, []);
+            this.$store.commit(setActionName, "");
         }
     };
 </script>

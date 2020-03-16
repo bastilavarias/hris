@@ -116,7 +116,6 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setSubjectErrors, []);
                     this.$store.commit(setActionName, "");
-                    this.$store.commit(setSubjects, []);
                     this.isLoading = false;
                     return;
                 }
@@ -130,7 +129,6 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setSubjectErrors, []);
                     this.$store.commit(setActionName, "");
-                    this.$store.commit(setSubjects, []);
                     this.$router.push({name: "subject-management"});
                 }
             },
@@ -176,7 +174,9 @@
         },
 
         destroyed() {
+            this.$store.commit(setSubjects, []);
             this.$store.commit(setSubjectErrors, []);
+            this.$store.commit(setActionName, "");
         }
     };
 </script>
