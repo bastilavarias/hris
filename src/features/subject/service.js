@@ -7,7 +7,7 @@ module.exports = {
         let message = "";
         const isSubjectExists = await helper.checkIfExists("subject", "code", code.toLowerCase());
         if (isSubjectExists) {
-            errors.push("Subject was already code used.");
+            errors.push("Subject code was already used.");
             return {
                 message,
                 errors
