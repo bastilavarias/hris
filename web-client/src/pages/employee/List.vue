@@ -6,12 +6,18 @@
 		<v-data-table hide-default-footer :headers="tableHeaders" :items="[]">
 			<template v-slot:top>
 				<v-card-text>
-					<generic-search-toolbar :search-options="searchOptions"></generic-search-toolbar>
+<!--					<generic-search-toolbar :search-options="searchOptions"></generic-search-toolbar>-->
 				</v-card-text>
 			</template>
 			<template v-slot:item.actions="{item}">
-				<v-btn icon color="secondary">
+				<v-btn icon>
 					<v-icon>mdi-pencil</v-icon>
+				</v-btn>
+				<v-btn icon>
+					<v-icon>mdi-trashcan</v-icon>
+				</v-btn>
+				<v-btn icon>
+					<v-icon>mdi-printer</v-icon>
 				</v-btn>
 			</template>
 		</v-data-table>
