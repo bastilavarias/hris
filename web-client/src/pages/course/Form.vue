@@ -86,6 +86,7 @@
 
                 if (name === `${updateCourse}-errors`) {
                     this.$store.commit(setActionName, "");
+                    this.isLoading = false;
                     return;
                 }
 

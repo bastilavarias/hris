@@ -80,6 +80,7 @@
 
                 if (name === `${updateCollege}-errors`) {
                     this.$store.commit(setActionName, "");
+                    this.isLoading = false;
                     return;
                 }
 

@@ -82,6 +82,7 @@
 
                 if (name === `${updateDesignation}-errors`) {
                     this.$store.commit(setActionName, "");
+                    this.isLoading = false;
                     return;
                 }
 
