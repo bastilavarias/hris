@@ -190,6 +190,12 @@ const hrActions = [
                 route: {name: "department-management"},
                 subActions: []
             },
+            {
+                name: "Designation Management",
+                icon: "window-closed-variant",
+                route: {name: "designation-management"},
+                subActions: []
+            }
         ]
     }
 ];

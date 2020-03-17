@@ -193,6 +193,23 @@ const routes = [
             },
 
             {
+                path: "designation-management",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "designation-management",
+                        component: () => import("../pages/designation/List")
+                    },
+                    {
+                        path: ":operation/:designationId?",
+                        name: "designation-management-form",
+                        component: () => import("../pages/designation/Form")
+                    }
+                ]
+            },
+
+            {
                 path: "employee-management",
                 component: () => import("../layouts/Sub"),
                 children: [

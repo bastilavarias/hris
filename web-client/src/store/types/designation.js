@@ -1,0 +1,9 @@
+export const createDesignation = "createDesignation";
+export const setDesignationErrors = "setDesignationErrors";
+export const getAllDesignations = "getAllDesignations";
+export const setDesignations = "setDesignations";
+export const searchDesignations = "searchDesignations";
+export const getSingleDesignation = "getSingleDesignation";
+export const setCurrentDesignation = "setCurrentDesignation";
+export const updateDesignation = "updateDesignation";
+export const deleteDesignation = "deleteDesignation";
