@@ -5,6 +5,7 @@ module.exports = `
         designation_id  mediumint                            not null,
         profile_id      mediumint                            not null,
         employee_number varchar(150) unique                  not null,
+        is_full_time    boolean                              not null,
         created_at      timestamp default now(),
         is_deleted      boolean   default false,
         foreign key (designation_id) references designation (id),

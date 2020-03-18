@@ -32,7 +32,7 @@
     import {setActionName} from "../../store/types/action";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
-    import GenericCollegeSelection from "../../components/generic/CollegeSelection";
+    import GenericCollegeSelection from "../../components/generic/selection/College";
     import {getAllColleges} from "../../store/types/college";
 
     const defaultForm = {

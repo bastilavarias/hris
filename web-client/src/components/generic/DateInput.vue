@@ -13,6 +13,7 @@
 					v-on="on"
 					@click:clear="dateLocal = null"
 					:solo="solo"
+					:outlined="outlined"
 			></v-text-field>
 		</template>
 		<v-date-picker
@@ -41,7 +42,12 @@
 			solo: {
                 type: Boolean,
 				required: false
-			}
+			},
+
+            outlined: {
+                type: Boolean,
+                required: false
+            }
         },
 
         data() {

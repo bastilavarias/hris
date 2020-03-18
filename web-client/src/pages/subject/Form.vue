@@ -47,7 +47,7 @@
     } from "../../store/types/subject";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import {setActionName} from "../../store/types/action";
-    import GenericSubjectSelection from "../../components/generic/SubjectSelection";
+    import GenericSubjectSelection from "../../components/generic/selection/Subject";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
 

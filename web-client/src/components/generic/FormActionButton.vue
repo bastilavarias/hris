@@ -1,10 +1,10 @@
 <template>
-	<v-card-actions>
+	<div>
 		<v-btn color="primary" block @click="create" :disabled="disabled" :loading="isLoading"
 			   v-if="operation === 'create'">Submit
 		</v-btn>
 		<v-btn color="secondary" block @click="update" :disabled="disabled" :loading="isLoading" v-else>Update</v-btn>
-	</v-card-actions>
+	</div>
 </template>
 
 <script>

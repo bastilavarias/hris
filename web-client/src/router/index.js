@@ -232,7 +232,7 @@ const routes = [
                 children: [
                     {
                         path: "",
-                        name: "employee-management",
+                        name: "employee-list",
                         component: () => import("../pages/employee/List")
                     },
                     {
