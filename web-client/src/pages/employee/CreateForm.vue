@@ -85,7 +85,7 @@
             middleName: "",
             lastName: "",
             extension: "",
-            photo: "",
+            photo: null,
             birthDate: null,
             birthPlace: "",
             sex: "",
@@ -119,7 +119,20 @@
 
         computed: {
             isFormValid() {
-                return true;
+                return this.form.employeeNumber &&
+                    this.form.departmentId &&
+                    this.form.designationId &&
+                    this.form.isFullTime !== null &&
+                    this.form.profile.lastName &&
+                    this.form.profile.middleName &&
+                    this.form.profile.firstName &&
+                    this.form.profile.extension &&
+                    this.form.profile.photo &&
+                    this.form.profile.birthDate &&
+                    this.form.profile.birthPlace &&
+                    this.form.profile.sex &&
+                    this.form.profile.civilStatus &&
+                    this.form.profile.citizenship;
             },
 
             error() {
@@ -179,7 +192,7 @@
                 this.form.profile.middleName = "";
                 this.form.profile.firstName = "";
                 this.form.profile.extension = "";
-                this.form.profile.photo = "";
+                this.form.profile.photo = null;
                 this.form.profile.birthDate = null;
                 this.form.profile.birthPlace = "";
                 this.form.profile.sex = "";
