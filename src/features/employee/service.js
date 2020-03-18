@@ -16,6 +16,9 @@ module.exports = {
             };
         }
         const createdProfileID = await profileModel.create(profile);
+        if (profile.citizenship.length > 0) {
+            profile.citizenship.map(async name => await profileModel.addCitizenship(createdProfileID, name));
+        }
         await employeeModel.create({
             employeeNumber,
             departmentId,

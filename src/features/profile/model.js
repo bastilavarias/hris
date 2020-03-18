@@ -21,5 +21,12 @@ module.exports = {
         ];
         const result = await db.executeQuery(query, params);
         return result[0].insertId;
+    },
+
+
+    addCitizenship: async (profileId, name) => {
+        const query = `insert into citizenship (profile_id, name) values (?, ?);`;
+        const params = [profileId, name];
+        await db.executeQuery(query, params);
     }
 };

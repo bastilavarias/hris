@@ -130,6 +130,8 @@
         watch: {
             "$store.state.action.name"(name) {
                 if (name === `${createEmployee}-error`) {
+                    this.tab = 0;
+                    this.$vuetify.goTo(0);
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;

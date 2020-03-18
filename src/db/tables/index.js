@@ -8,6 +8,7 @@ const designation = require("./modules/designation");
 const profile = require("./modules/profile");
 const department = require("./modules/department");
 const employee = require("./modules/employee");
+const citizenship = require("./modules/citizenship");
 
 module.exports = async () => {
     let message = "";
@@ -21,6 +22,7 @@ module.exports = async () => {
         await db.executeQuery(designation);
         await db.executeQuery(profile);
         await db.executeQuery(employee);
+        await db.executeQuery(citizenship);
         message ="Database tables created.";
     } catch (errors) {
         console.log(errors);
