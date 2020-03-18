@@ -8,6 +8,7 @@ import designation from "./modules/designation";
 import employee from "./modules/employee";
 import notification from "./modules/notification";
 import action from "./modules/action";
+import department from "./modules/department";
 
 Vue.use(Vuex);
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         designation,
         employee,
         notification,
-        action
+        action,
+        department
     }
 });

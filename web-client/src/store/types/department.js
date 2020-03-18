@@ -1,0 +1,9 @@
+export const createDepartment = "createDepartment";
+export const setDepartmentErrors = "setDepartmentErrors";
+export const getAllDepartments = "getAllDepartments";
+export const setDepartments = "setDepartments";
+export const searchDepartments = "searchDepartments";
+export const getSingleDepartment = "getSingleDepartment";
+export const setCurrentDepartment = "setCurrentDepartment";
+export const updateDepartment = "updateDepartment";
+export const deleteDepartment = "deleteDepartment";

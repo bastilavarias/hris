@@ -187,7 +187,7 @@ const hrActions = [
             {
                 name: "Department Management",
                 icon: "window-closed-variant",
-                route: {name: "department-management"},
+                route: {name: "department-list"},
                 subActions: []
             },
             {

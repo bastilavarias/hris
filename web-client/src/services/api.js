@@ -68,6 +68,15 @@ export const designationService = {
     delete: designationId => apiService.delete(`/designation/delete/${designationId}`)
 };
 
+export const departmentService = {
+    create: details => apiService.post("/department/create", details),
+    getAll: () => apiService.get("/department/getAll"),
+    getSingle: designationId => apiService.get(`/department/getSingle/${designationId}`),
+    search: ({option, value}) => apiService.get(`/department/search/${option}/${value}`),
+    update: (designationId, details) => apiService.put(`/department/update/${designationId}`, details),
+    delete: designationId => apiService.delete(`/department/delete/${designationId}`)
+};
+
 export const employeeService = {
     create: details => apiService.post("/employee/create", details),
 };

@@ -210,6 +210,23 @@ const routes = [
             },
 
             {
+                path: "department-management",
+                component: () => import("../layouts/Sub"),
+                children: [
+                    {
+                        path: "",
+                        name: "department-list",
+                        component: () => import("../pages/department/List")
+                    },
+                    {
+                        path: ":operation/:departmentId?",
+                        name: "department-form",
+                        component: () => import("../pages/department/Form")
+                    }
+                ]
+            },
+
+            {
                 path: "employee-management",
                 component: () => import("../layouts/Sub"),
                 children: [
