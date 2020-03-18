@@ -217,6 +217,11 @@ const routes = [
                         path: "",
                         name: "employee-management",
                         component: () => import("../pages/employee/List")
+                    },
+                    {
+                        path: "create",
+                        name: "employee-create-form",
+                        component: () => import("../pages/employee/CreateForm")
                     }
                 ]
             }

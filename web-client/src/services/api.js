@@ -67,3 +67,7 @@ export const designationService = {
     update: (designationId, details) => apiService.put(`/designation/update/${designationId}`, details),
     delete: designationId => apiService.delete(`/designation/delete/${designationId}`)
 };
+
+export const employeeService = {
+    create: details => apiService.post("/employee/create", details),
+};

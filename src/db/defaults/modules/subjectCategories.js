@@ -7,5 +7,4 @@ module.exports = `
            ('Additional Math Requirement'),
            ('PE'),
            ('NSTP') on duplicate key update name = name;
-    
 `;

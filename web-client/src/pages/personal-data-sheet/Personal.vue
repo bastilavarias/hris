@@ -96,7 +96,7 @@
     import PersonalDataSheetVoluntaryWorkExperience
         from "../../components/personal-data-sheet/experience/VoluntaryWorkExperience";
     import PersonalDataSheetBasicInformation
-        from "../../components/personal-data-sheet/personal-information/BasicInformation";
+        from "../../components/personal-data-sheet/personal-information/Profile";
     import PersonalDataSheetTrainingProgramsDetails
         from "../../components/personal-data-sheet/experience/TrainingProgramsDetails";
     import PersonalDataSheetOtherInformation from "../../components/personal-data-sheet/others/OtherInformation";

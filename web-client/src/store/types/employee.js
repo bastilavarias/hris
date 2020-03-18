@@ -1,0 +1,9 @@
+export const createEmployee = "createEmployee";
+export const setEmployeeErrors = "setEmployeeErrors";
+export const getAllEmployees = "getAllEmployees";
+export const setEmployees = "setEmployees";
+export const searchEmployees = "searchEmployees";
+export const getSingleEmployee = "getSingleEmployee";
+export const setCurrentEmployee = "setCurrentEmployee";
+export const updateEmployee = "updateEmployee";
+export const deleteEmployee = "deleteEmployee";

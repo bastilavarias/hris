@@ -25,7 +25,7 @@ module.exports = {
         let message = "";
         let errors = [];
         const foundDesignation = await designationModel.getSingleByName(name.toLowerCase());
-        if (Object.keys(foundDesignation).length > 0 && foundDesignation.id !== parseInt(designationId)) {
+        if (Object.keys(foundDesignation).length > 0 && designationId !== parseInt(foundDesignation.id)) {
             errors.push("Designation name was already used.");
             return {
                 message,
