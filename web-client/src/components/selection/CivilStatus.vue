@@ -1,6 +1,6 @@
 <template>
 	<v-select :items="civilStatuses" :label="label" :outlined="outlined"
-			  v-model="civilStatusIdLocal">
+			  v-model="civilStatusLocal">
 	</v-select>
 </template>
 
@@ -22,7 +22,7 @@
                 required: false
             },
 
-            civilStatusId: {
+            civilStatus: {
                 type: null,
                 required: true
             },
@@ -35,23 +35,23 @@
 
         data() {
             return {
-                civilStatusIdLocal: null,
+                civilStatusLocal: null,
                 civilStatuses
             };
         },
 
         watch: {
-            civilStatusId(val) {
-                this.civilStatusIdLocal = val;
+            civilStatus(val) {
+                this.civilStatusLocal = val;
             },
 
-            civilStatusIdLocal(val) {
-                this.$emit("update:civilStatusId", val);
+            civilStatusLocal(val) {
+                this.$emit("update:civilStatus", val);
             }
         },
 
         created() {
-            this.civilStatusIdLocal = this.civilStatusId;
+            this.civilStatusLocal = this.civilStatus;
         }
     };
 </script>

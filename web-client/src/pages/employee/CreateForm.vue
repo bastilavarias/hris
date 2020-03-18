@@ -6,7 +6,6 @@
 			</v-btn>
 			<span class="font-weight-bold" style="font-size: 1.5rem;">Employee Form</span>
 		</v-row>
-		<generic-form-error-list :errors="errors"></generic-form-error-list>
 		<v-tabs v-model="tab">
 			<v-tab>Work Information</v-tab>
 			<v-tab>Profile</v-tab>
@@ -16,20 +15,20 @@
 				<v-card-text>
 					<v-row dense>
 						<v-col cols="12">
-							<v-text-field label="Employee Number" outlined></v-text-field>
+							<v-text-field label="Employee Number" outlined v-model="form.employeeNumber"></v-text-field>
 						</v-col>
 						<v-col cols="12" md="8">
-							<generic-department-selection :department-id="null" label="Department"
+							<generic-department-selection :department-id.sync="form.departmentId" label="Department"
 														  outlined></generic-department-selection>
 						</v-col>
 						<v-col cols="12" md="4">
-							<generic-designation-selection :designation-id="null" label="Designation"
+							<generic-designation-selection :designation-id.sync="form.designationId" label="Designation"
 														   outlined></generic-designation-selection>
 						</v-col>
 						<v-col cols="12">
-							<v-radio-group label="Work Status" row>
-								<v-radio label="Full Time"></v-radio>
-								<v-radio label="Part Time"></v-radio>
+							<v-radio-group label="Work Status" row v-model="form.isFullTime">
+								<v-radio label="Full Time" :value="true"></v-radio>
+								<v-radio label="Part Time" :value="false"></v-radio>
 							</v-radio-group>
 						</v-col>
 					</v-row>
@@ -37,54 +36,17 @@
 			</v-tab-item>
 			<v-tab-item>
 				<v-card-text>
-					<v-row dense>
-						<v-col cols="12" md="8">
-							<v-row dense>
-								<v-col cols="10">
-									<v-text-field label="Surname" outlined></v-text-field>
-								</v-col>
-								<v-col cols="2">
-									<v-text-field label="Extension" outlined></v-text-field>
-								</v-col>
-								<v-col cols="12">
-									<v-text-field label="Middle Name" outlined></v-text-field>
-								</v-col>
-								<v-col cols="12">
-									<v-text-field label="First Name" outlined></v-text-field>
-								</v-col>
-							</v-row>
-						</v-col>
-						<v-col cols="12" md="4">
-							<div class="text-center">
-								<generic-image-input></generic-image-input>
-							</div>
-						</v-col>
-						<v-col cols="12" md="4">
-							<generic-date-input label="Date Of Birth" outlined></generic-date-input>
-						</v-col>
-						<v-col cols="12" md="8">
-							<generic-city-selection outlined :city-id="null" label="Birth Place"></generic-city-selection>
-						</v-col>
-						<v-col cols="12" md="2">
-							<generic-sex-selection outlined :sex-id="null" label="Sex"></generic-sex-selection>
-						</v-col>
-						<v-col cols="12" md="5">
-							<generic-civil-status-selection outlined civil-status-id="null" label="Civil Status"></generic-civil-status-selection>
-						</v-col>
-						<v-col cols="12" md="5">
-							<generic-citizen-selection label="Citizenship(s)" :citizens-id="[]"
-													   outlined></generic-citizen-selection>
-						</v-col>
-						<v-col cols="12" md="6">
-							<generic-blood-type-selection outlined :blood-type-id="null" label="Blood Type"></generic-blood-type-selection>
-						</v-col>
-						<v-col cols="12" md="3">
-							<v-text-field type="number" label="Height" suffix="m" outlined></v-text-field>
-						</v-col>
-						<v-col cols="12" md="3">
-							<v-text-field type="number" label="Weight" suffix="kg" outlined></v-text-field>
-						</v-col>
-					</v-row>
+					<generic-form-profile :first-name.sync="form.profile.firstName"
+										  :middle-name.sync="form.profile.middleName"
+										  :last-name.sync="form.profile.lastName" :photo.sync="form.profile.photo"
+										  :extension.sync="form.profile.extension"
+										  :birth-date.sync="form.profile.birthDate"
+										  :birth-place.sync="form.profile.birthPlace"
+										  :sex.sync="form.profile.sex" :civil-status.sync="form.profile.civilStatus"
+										  :citizenship.sync="form.profile.citizenship"
+										  :blood-type.sync="form.profile.bloodType"
+										  :height.sync="form.profile.height" :weight.sync="form.profile.weight"
+					></generic-form-profile>
 				</v-card-text>
 			</v-tab-item>
 		</v-tabs-items>
@@ -95,7 +57,7 @@
 </template>
 
 <script>
-    import GenericCardBackButton from "../../components/generic/CardBackButton";
+
     import {
         createEmployee,
         getSingleEmployee,
@@ -104,58 +66,41 @@
         updateEmployee
     } from "../../store/types/employee";
     import {setActionName} from "../../store/types/action";
-    import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
-    import GenericCollegeSelection from "../../components/generic/selection/College";
-    import GenericImageInput from "../../components/generic/PhotoInput";
-    import PersonalDataSheetWorkInformation from "../../components/personal-data-sheet/WorkInformation";
-    import PersonalDataSheetProfile from "../../components/personal-data-sheet/personal-information/Profile";
     import {getAllDesignations} from "../../store/types/designation";
     import {getAllDepartments} from "../../store/types/department";
-    import GenericDepartmentSelection from "../../components/generic/selection/Department";
-    import GenericDesignationSelection from "../../components/generic/selection/Designation";
-    import GenericDateInput from "../../components/generic/DateInput";
-    import GenericCitizenSelection from "../../components/generic/selection/Citizen";
-    import GenericCitySelection from "../../components/generic/selection/City";
-    import GenericSexSelection from "../../components/generic/selection/Sex";
-    import GenericCivilStatusSelection from "../../components/generic/selection/CivilStatus";
-    import GenericBloodTypeSelection from "../../components/generic/selection/BloodType";
+    import GenericDepartmentSelection from "../../components/selection/Department";
+    import GenericDesignationSelection from "../../components/selection/Designation";
+    import GenericFormProfile from "../../components/form/Profile";
 
     const defaultForm = {
         employeeNumber: "",
         departmentId: "",
         designationId: "",
-        workStatus: "",
+        isFullTime: null,
         profile: {
-            surname: ""
+            firstName: "",
+            middleName: "",
+            lastName: "",
+            extension: "",
+            photo: "",
+            birthDate: null,
+            birthPlace: "",
+            sex: "",
+            civilStatus: "",
+            citizenship: [],
+            bloodType: "",
+            height: 0,
+            weight: 0
         }
     };
 
-    const bloodTypes = [
-        "O+",
-        "O-",
-        "A+",
-        "A-",
-        "B+",
-        "B-",
-        "AB+",
-        "AB-",
-    ];
-
     export default {
         components: {
-            GenericBloodTypeSelection,
-            GenericCivilStatusSelection,
-            GenericSexSelection,
-            GenericCitySelection,
-            GenericCitizenSelection,
-            GenericDateInput,
+            GenericFormProfile,
             GenericDesignationSelection,
             GenericDepartmentSelection,
-            PersonalDataSheetProfile,
-            PersonalDataSheetWorkInformation,
-            GenericImageInput,
-            GenericCollegeSelection, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton
+            GenericFormActionButton
         },
 
         data() {
@@ -164,8 +109,7 @@
                 defaultForm,
                 operation: "create",
                 isLoading: false,
-                tab: 1,
-                bloodTypes
+                tab: 0
             };
         },
 
@@ -221,7 +165,8 @@
 
         methods: {
             create() {
-                this.$store.dispatch(createEmployee, this.form);
+                console.log(this.form);
+                // this.$store.dispatch(createEmployee, this.form);
                 // this.isLoading = true;
             },
 

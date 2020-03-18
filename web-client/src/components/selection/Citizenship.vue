@@ -1,6 +1,6 @@
 <template>
 	<v-autocomplete :items="citizens" item-value="value" item-text="value" :label="label" :outlined="outlined" multiple
-					v-model="citizensIdLocal">
+					v-model="citizenshipLocal">
 		<template v-slot:item="{item}">
 			<span class="black--text text-capitalize">{{item.value}}</span>
 		</template>
@@ -14,7 +14,7 @@
     import nationalities from "nationalities/src";
 
     export default {
-        name: "generic-citizen-selection",
+        name: "generic-citizenship-selection",
 
         props: {
             label: {
@@ -22,8 +22,8 @@
                 required: false
             },
 
-            citizensId: {
-                type: null,
+            citizenship: {
+                type: Array,
                 required: true
             },
 
@@ -35,23 +35,23 @@
 
         data() {
             return {
-                citizensIdLocal: [],
+                citizenshipLocal: [],
                 citizens: []
             };
         },
 
         watch: {
-            citizenId(val) {
-                this.citizensIdLocal = val;
+            citizenship(val) {
+                this.citizenshipLocal = val;
             },
 
-            citizensIdLocal(val) {
-                this.$emit("update:citizenId", val);
+            citizenshipLocal(val) {
+                this.$emit("update:citizenship", val);
             }
         },
 
         created() {
-            this.citizensIdLocal = this.citizensId;
+            this.citizenshipLocal = this.citizens;
             this.citizens = nationalities.all;
         }
     };

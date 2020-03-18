@@ -1,5 +1,5 @@
 <template>
-	<v-select :items="sexes"  :label="label" :outlined="outlined" v-model="sexIdLocal"></v-select>
+	<v-select :items="sexes"  :label="label" :outlined="outlined" v-model="sexLocal"></v-select>
 </template>
 
 <script>
@@ -18,7 +18,7 @@
                 required: false
             },
 
-            sexId: {
+            sex: {
                 type: null,
                 required: true
             },
@@ -31,23 +31,23 @@
 
         data() {
             return {
-                sexIdLocal: null,
+                sexLocal: null,
 				sexes
             };
         },
 
         watch: {
-            sexId(val) {
-                this.sexIdLocal = val;
+            sex(val) {
+                this.sexLocal = val;
             },
 
-            sexIdLocal(val) {
-                this.$emit("update:sexId", val);
+            sexLocal(val) {
+                this.$emit("update:sex", val);
             }
         },
 
         created() {
-            this.sexIdLocal = this.sexId;
+            this.sexLocal = this.sex;
         }
     };
 </script>

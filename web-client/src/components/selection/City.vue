@@ -1,5 +1,5 @@
 <template>
-	<v-autocomplete :items="cities" item-value="id" item-text="name" :label="label" :outlined="outlined" v-model="cityIdLocal" >
+	<v-autocomplete :items="cities" item-value="id" item-text="name" :label="label" :outlined="outlined" v-model="cityLocal" >
 		<template v-slot:item="{item}">
 			<v-list-item-content>
 				<v-list-item-subtitle class="text-uppercase">{{item.province}}</v-list-item-subtitle>
@@ -24,7 +24,7 @@
                 required: false
             },
 
-            cityId: {
+            city: {
                 type: null,
                 required: true
             },
@@ -37,24 +37,23 @@
 
         data() {
             return {
-                cityIdLocal: null,
+                cityLocal: null,
 				cities: []
             };
         },
 
         watch: {
-            cityId(val) {
-                this.cityIdLocal = val;
+            city(val) {
+                this.cityLocal = val;
             },
 
-            cityIdLocal(val) {
-                this.$emit("update:cityId", val);
+            cityLocal(val) {
+                this.$emit("update:city", val);
             }
         },
 
         created() {
-            this.cityIdLocal = this.cityId;
-
+            this.cityLocal = this.city;
             this.cities = philCities;
         }
     };

@@ -1,5 +1,5 @@
 <template>
-	<v-select :items="bloodTypes" :label="label" :outlined="outlined" v-model="bloodTypeIdLocal"></v-select>
+	<v-select :items="bloodTypes" :label="label" :outlined="outlined" v-model="bloodTypeLocal"></v-select>
 </template>
 
 <script>
@@ -24,7 +24,7 @@
                 required: false
             },
 
-            bloodTypeId: {
+            bloodType: {
                 type: null,
                 required: true
             },
@@ -37,23 +37,23 @@
 
         data() {
             return {
-                bloodTypeIdLocal: null,
+                bloodTypeLocal: null,
                 bloodTypes
             };
         },
 
         watch: {
-            bloodTypeId(val) {
-                this.bloodTypeIdLocal = val;
+            bloodType(val) {
+                this.bloodTypeLocal = val;
             },
 
-            bloodTypeIdLocal(val) {
-                this.$emit("update:bloodTypeId", val);
+            bloodTypeLocal(val) {
+                this.$emit("update:bloodType", val);
             }
         },
 
         created() {
-            this.bloodTypeIdLocal = this.bloodTypeId;
+            this.bloodTypeLocal = this.bloodType;
         }
     };
 </script>

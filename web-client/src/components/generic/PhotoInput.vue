@@ -10,7 +10,7 @@
 				prepend-icon="mdi-image"
 				label="Photo"
 				outlined
-				v-model="photo"
+				v-model="photoLocal"
 		></v-file-input>
 	</div>
 </template>
@@ -23,17 +23,37 @@
     export default {
         name: "generic-image-input",
 
+		props: {
+            photo: {
+                required: true
+			}
+		},
+
         data() {
             return {
                 imageSelectorValidation,
-                photo: null
+                photoLocal: null
             };
         },
 
         computed: {
             preview() {
-                return this.photo ? URL.createObjectURL(this.photo) : "";
+                return this.photoLocal ? URL.createObjectURL(this.photoLocal) : "";
             }
+        },
+
+		watch: {
+            photoLocal(val) {
+                this.$emit("update:photo", val);
+			},
+
+			photo(val) {
+                this.photoLocal = val;
+			}
+		},
+
+		created() {
+            this.photoLocal = this.photo;
         }
     };
 </script>
