@@ -3,22 +3,29 @@ const profileModel = require("../profile/model");
 const helper = require("../../helper");
 
 module.exports = {
-    create: async ({employeeNumber, designationId, profile}) => {
-        let errors = [];
+    create: async ({employeeNumber, departmentId, designationId, isFullTime, profile}) => {
+        let error = {};
         let message = "";
         const isEmployeeExists = await helper.checkIfExists("employee", "employee_number", employeeNumber.toLowerCase());
         if (isEmployeeExists) {
-            errors.push("Employee number was already used.");
+            error.employeeNumber = "Employee number was already used.";
+            helper.removeFile(profile.photo, "photos");
             return {
                 message,
-                errors
+                error
             };
         }
         const createdProfileID = await profileModel.create(profile);
-        await employeeModel.create({employeeNumber, designationId, profileId: createdProfileID});
+        await employeeModel.create({
+            employeeNumber,
+            departmentId,
+            designationId,
+            isFullTime,
+            profileId: createdProfileID
+        });
         message = "New employee is created.";
         return {
-            errors,
+            error,
             message
         };
     }

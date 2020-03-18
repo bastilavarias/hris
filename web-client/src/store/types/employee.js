@@ -1,5 +1,5 @@
 export const createEmployee = "createEmployee";
-export const setEmployeeErrors = "setEmployeeErrors";
+export const setEmployeeError = "setEmployeeError";
 export const getAllEmployees = "getAllEmployees";
 export const setEmployees = "setEmployees";
 export const searchEmployees = "searchEmployees";

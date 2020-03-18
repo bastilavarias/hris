@@ -15,7 +15,9 @@
 				<v-card-text>
 					<v-row dense>
 						<v-col cols="12">
-							<v-text-field label="Employee Number" outlined v-model="form.employeeNumber"></v-text-field>
+							<v-text-field label="Employee Number" outlined v-model="form.employeeNumber"
+										  :error="hasError(error.employeeNumber)"
+										  :error-messages="error.employeeNumber"></v-text-field>
 						</v-col>
 						<v-col cols="12" md="8">
 							<generic-department-selection :department-id.sync="form.departmentId" label="Department"
@@ -57,11 +59,10 @@
 </template>
 
 <script>
-
     import {
         createEmployee,
         getSingleEmployee,
-        setEmployeeErrors,
+        setEmployeeError,
         setEmployees,
         updateEmployee
     } from "../../store/types/employee";
@@ -72,6 +73,7 @@
     import GenericDepartmentSelection from "../../components/selection/Department";
     import GenericDesignationSelection from "../../components/selection/Designation";
     import GenericFormProfile from "../../components/form/Profile";
+    import customUtilities from "../../services/customUtilities";
 
     const defaultForm = {
         employeeNumber: "",
@@ -113,29 +115,31 @@
             };
         },
 
+        mixins: [customUtilities],
+
         computed: {
             isFormValid() {
                 return true;
             },
 
-            errors() {
-                return this.$store.state.employee.errors;
+            error() {
+                return this.$store.state.employee.error;
             }
         },
 
         watch: {
             "$store.state.action.name"(name) {
-                if (name === `${createEmployee}-errors`) {
+                if (name === `${createEmployee}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
                 }
 
                 if (name === createEmployee) {
-                    this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setEmployeeErrors, []);
+                    this.$store.commit(setEmployeeError, {});
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
+                    this.clearForm();
                     return;
                 }
 
@@ -147,7 +151,7 @@
 
                 if (name === updateEmployee) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setEmployeeErrors, []);
+                    this.$store.commit(setEmployeeError, []);
                     this.$store.commit(setActionName, "");
                     this.$router.push({name: "employee-management"});
                 }
@@ -164,10 +168,29 @@
         },
 
         methods: {
+            clearForm() {
+                this.form.employeeNumber = "";
+                this.form.departmentId = null;
+                this.form.designationId = null;
+                this.form.isFullTime = null;
+                this.form.profile.lastName = "";
+                this.form.profile.middleName = "";
+                this.form.profile.firstName = "";
+                this.form.profile.extension = "";
+                this.form.profile.photo = "";
+                this.form.profile.birthDate = null;
+                this.form.profile.birthPlace = "";
+                this.form.profile.sex = "";
+                this.form.profile.civilStatus = "";
+                this.form.profile.citizenship = [];
+                this.form.profile.bloodType = "";
+                this.form.profile.height = 0;
+                this.form.profile.weight = 0;
+            },
+
             create() {
-                console.log(this.form);
-                // this.$store.dispatch(createEmployee, this.form);
-                // this.isLoading = true;
+                this.$store.dispatch(createEmployee, this.form);
+                this.isLoading = true;
             },
 
             update() {
@@ -194,7 +217,7 @@
 
         destroyed() {
             this.$store.commit(setEmployees, []);
-            this.$store.commit(setEmployeeErrors, []);
+            this.$store.commit(setEmployeeError, []);
             this.$store.commit(setActionName, "");
         }
     };

@@ -2,12 +2,11 @@ const db = require("../../db");
 
 module.exports = {
     create: async ({name, description, employeeId}) => {
-        const query = `insert into department (name, description, employee_id)
-                       values (?, ?, ?);`;
+        const query = `insert into department (name, description)
+                       values (?, ?);`;
         const params = [
             name.toLowerCase(),
-            description.toLowerCase(),
-            employeeId
+            description.toLowerCase()
         ];
         await db.executeQuery(query, params);
     },

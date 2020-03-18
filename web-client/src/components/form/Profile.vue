@@ -40,7 +40,7 @@
 										   outlined></generic-citizenship-selection>
 		</v-col>
 		<v-col cols="12" md="6">
-			<generic-blood-type-selection outlined :blood-type="bloodTypeLocal"
+			<generic-blood-type-selection outlined :blood-type.sync="bloodTypeLocal"
 										  label="Blood Type"></generic-blood-type-selection>
 		</v-col>
 		<v-col cols="12" md="3">

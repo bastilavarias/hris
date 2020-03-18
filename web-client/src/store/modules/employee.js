@@ -8,41 +8,47 @@ import {
     getSingleEmployee,
     searchEmployees,
     setCurrentEmployee,
-    setEmployeeErrors,
+    setEmployeeError,
     setEmployees,
     updateEmployee
 } from "../types/employee";
 
 export default {
     state: {
-        errors: [],
+        error: {},
         list: [],
         current: {}
     },
 
     mutations: {
-        [setEmployeeErrors]: (state, errors) => state.errors = errors,
+        [setEmployeeError]: (state, error) => state.error = error,
         [setEmployees]: (state, employees) => state.list = employees,
         [setCurrentEmployee]: (state, employee) => state.current = employee
     },
 
     actions: {
-        [createEmployee]: async ({commit}, {}) => {
+        [createEmployee]: async ({commit}, {employeeNumber, departmentId, designationId, isFullTime, profile}) => {
             try {
                 const employeeForm = new FormData();
-                employeeForm.append("profile", profileJson);
+                employeeForm.append("employeeNumber", employeeNumber);
+                employeeForm.append("departmentId", departmentId);
+                employeeForm.append("designationId", designationId);
+                employeeForm.append("isFullTime", isFullTime);
+                employeeForm.append("profile", JSON.stringify(profile));
+                employeeForm.append("profilePhoto", profile.photo);
                 const result = await employeeService.create(employeeForm);
-                // const {errors, message} = result.data;
-                // if (errors.length > 0) {
-                //     commit(setActionName, `${createEmployee}-errors`);
-                //     commit(setEmployeeErrors, errors);
-                //     return;
-                // }
-                // commit(setNotificationConfig, {message, type: "success"});
-                // commit(setActionName, createEmployee);
+                const {error, message} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${createEmployee}-error`);
+                    commit(setEmployeeError, error);
+                    commit(setNotificationConfig, {message: "You had errors.", type: "error"});
+                    return;
+                }
+                commit(setNotificationConfig, {message, type: "success"});
+                commit(setActionName, createEmployee);
             } catch (errors) {
                 commit(setActionName, createEmployee);
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
@@ -54,7 +60,7 @@ export default {
                 commit(setActionName, getAllEmployees);
             } catch (errors) {
                 commit(setActionName, "");
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
@@ -66,7 +72,7 @@ export default {
                 commit(setActionName, getSingleEmployee);
             } catch (errors) {
                 commit(setActionName, "");
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
@@ -78,41 +84,41 @@ export default {
                 commit(setActionName, searchEmployees);
             } catch (errors) {
                 commit(setActionName, "");
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
         [updateEmployee]: async ({commit}, {employeeId, details}) => {
             try {
                 const result = await employeeService.update(employeeId, details);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${updateEmployee}-errors`);
-                    commit(setEmployeeErrors, errors);
+                const {message, error} = result.data;
+                if (error.length > 0) {
+                    commit(setActionName, `${updateEmployee}-error`);
+                    commit(setEmployeeError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateEmployee);
             } catch (errors) {
                 commit(setActionName, updateEmployee);
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
         [deleteEmployee]: async ({commit}, employeeId) => {
             try {
                 const result = await employeeService.delete(employeeId);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setEmployeeErrors, errors);
-                    commit(setActionName, `${deleteEmployee}-errors`);
+                const {message, error} = result.data;
+                if (error.length > 0) {
+                    commit(setEmployeeError, error);
+                    commit(setActionName, `${deleteEmployee}-error`);
                     return;
                 }
                 commit(setActionName, deleteEmployee);
                 commit(setNotificationConfig, {message, type: "error"});
             } catch (errors) {
                 commit(setActionName, deleteEmployee);
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         }
     }

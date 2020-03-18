@@ -9,5 +9,9 @@ export default {
         convertMilitaryTime(givenTime) {
             return givenTime ? moment(givenTime, "HH:mm").format("hh:mm A") : "";
         },
+
+        hasError(error) {
+            return !!error;
+        }
     }
 };
