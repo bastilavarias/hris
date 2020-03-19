@@ -35,7 +35,7 @@
 					<v-tab>Address Details</v-tab>
 					<v-tab>Family Details</v-tab>
 					<v-tab>Experience</v-tab>
-					<v-tab>Others</v-tab>
+					<v-tab>Other Information</v-tab>
 				</v-tabs>
 				<v-tabs-items v-model="tab">
 					<v-tab-item>
@@ -109,6 +109,33 @@
 							</v-col>
 						</v-row>
 					</v-tab-item>
+					<v-tab-item>
+						<v-row dense>
+							<v-col cols="12" md="4">
+								<generic-list-input label="Hobbies"></generic-list-input>
+							</v-col>
+							<v-col cols="12" md="4">
+								<generic-list-input label="Recognitions"></generic-list-input>
+							</v-col>
+							<v-col cols="12" md="4">
+								<generic-list-input label="Organizations"></generic-list-input>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Related Questions</generic-subtitle>
+								<template v-for="n in 5">
+									<generic-question-item :key="n"></generic-question-item>
+								</template>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>References</generic-subtitle>
+								<generic-reference-table></generic-reference-table>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Government Issued ID</generic-subtitle>
+								<generic-government-id-form></generic-government-id-form>
+							</v-col>
+						</v-row>
+					</v-tab-item>
 				</v-tabs-items>
 			</v-col>
 		</v-row>
@@ -131,8 +158,16 @@
     import GenericWorkExperience from "../../components/table/WorkExperience";
     import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
     import GenericLearningDevelopmentIntervention from "../../components/table/LearningDevelopmentIntervention";
+    import GenericListInput from "../../components/generic/ListInput";
+    import GenericQuestionItem from "../../components/generic/QuestionItem";
+    import GenericReferenceTable from "../../components/table/Reference";
+    import GenericGovernmentIdForm from "../../components/form/GovernmentId";
     export default {
         components: {
+            GenericGovernmentIdForm,
+            GenericReferenceTable,
+            GenericQuestionItem,
+            GenericListInput,
             GenericLearningDevelopmentIntervention,
             GenericVoluntaryWorkExperience,
             GenericWorkExperience,
