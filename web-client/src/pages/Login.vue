@@ -66,7 +66,7 @@
 
 		watch: {
             "$store.state.auth.isAuthenticated"(isAuth) {
-                if (isAuth) return this.$router.push({name: 'personal-data-sheet'});
+                if (isAuth) return this.$router.push({name: 'personal-schedule'});
 			}
 		},
 

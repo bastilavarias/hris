@@ -11,7 +11,7 @@
 
 <script>
     export default {
-        name: "related-question-item",
+        name: "generic-question-item",
 
         data() {
             return {

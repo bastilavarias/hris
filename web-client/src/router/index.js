@@ -15,39 +15,9 @@ const routes = [
         component: () => import("../layouts/Home"),
         children: [
             {
-                path: "personal-data-sheet",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "personal-data-sheet",
-                        component: () => import("../pages/personal-data-sheet/Personal"),
-                    }
-                ]
-            },
-
-            {
                 path: "personal-schedule",
                 name: "personal-schedule",
                 component: () => import("../pages/schedule/Personal"),
-            },
-
-            {
-                path: "personal-final-teaching-assignment",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "personal-final-teaching-assignment",
-                        component: () => import("../pages/final-teaching-assignment/personal/List"),
-                    },
-                    {
-                        path: ":operation/:finalTeachingAssignmentId?",
-                        name: "personal-final-teaching-assignment-form",
-                        component: () => import("../pages/final-teaching-assignment/personal/Form"),
-                    },
-                ]
-
             },
 
             {

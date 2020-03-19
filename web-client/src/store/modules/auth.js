@@ -1,31 +1,13 @@
 const facultyActions = [
     {
-        name: "Personal Data Sheet",
-        icon: "clipboard-account",
-        route: {name: "personal-data-sheet"},
-        subActions: []
-    },
-    {
         name: "Schedule",
         icon: "calendar-month",
         route: {name: "personal-schedule"},
-        subActions: []
-    },
-    {
-        name: "Final Teaching Assignment",
-        icon: "account-details",
-        route: {name: "personal-final-teaching-assignment"},
         subActions: []
     }
 ];
 
 const personnelActions = [
-    {
-        name: "Personal Data Sheet",
-        icon: "clipboard-account",
-        route: {name: "personal-data-sheet"},
-        subActions: []
-    },
     {
         name: "Schedule",
         icon: "calendar-month",
@@ -35,12 +17,6 @@ const personnelActions = [
 ];
 
 const personnelDepartmentHeadActions = [
-    {
-        name: "Personal Data Sheet",
-        icon: "clipboard-account",
-        route: {name: "personal-data-sheet"},
-        subActions: []
-    },
     {
         name: "Schedule",
         icon: "calendar-month",
@@ -70,12 +46,6 @@ const personnelDepartmentHeadActions = [
 
 const deanActions = [
     {
-        name: "Personal Data Sheet",
-        icon: "clipboard-account",
-        route: {name: "personal-data-sheet"},
-        subActions: []
-    },
-    {
         name: "Schedule",
         icon: "calendar-month",
         route: {name: "personal-schedule"},
@@ -103,12 +73,6 @@ const deanActions = [
 ];
 
 const vpaaActions = [
-    {
-        name: "Personal Data Sheet",
-        icon: "clipboard-account",
-        route: {name: "personal-data-sheet"},
-        subActions: []
-    },
     {
         name: "Schedule",
         icon: "calendar-month",
@@ -143,12 +107,6 @@ const vpaaActions = [
 ];
 
 const hrActions = [
-    {
-        name: "Personal Data Sheet",
-        icon: "clipboard-account",
-        route: {name: "personal-data-sheet"},
-        subActions: []
-    },
     {
         name: "Schedule",
         icon: "calendar-month",
@@ -186,13 +144,13 @@ const hrActions = [
             },
             {
                 name: "Department Management",
-                icon: "window-closed-variant",
+                icon: "account-details",
                 route: {name: "department-list"},
                 subActions: []
             },
             {
                 name: "Designation Management",
-                icon: "window-closed-variant",
+                icon: "account-box",
                 route: {name: "designation-management"},
                 subActions: []
             }
@@ -249,7 +207,6 @@ export default {
             if (employeeNumber && password === "hr") {
                 commit(setAuthenticated, true);
                 commit(setUserActions, hrActions);
-                return;
             }
         },
 
