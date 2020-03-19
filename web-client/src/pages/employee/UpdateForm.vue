@@ -34,7 +34,6 @@
 					<v-tab>Profile</v-tab>
 					<v-tab>Address Details</v-tab>
 					<v-tab>Family Details</v-tab>
-					<v-tab>Educational Background</v-tab>
 					<v-tab>Experience</v-tab>
 					<v-tab>Others</v-tab>
 				</v-tabs>
@@ -86,6 +85,30 @@
 							</v-col>
 						</v-row>
 					</v-tab-item>
+					<v-tab-item>
+						<v-row dense>
+							<v-col cols="12">
+								<generic-subtitle>Educational Background</generic-subtitle>
+								<generic-educational-background-table></generic-educational-background-table>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Civil Service Eligibility</generic-subtitle>
+								<generic-civil-service-eligibility></generic-civil-service-eligibility>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Work Experience</generic-subtitle>
+								<generic-work-experience></generic-work-experience>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Voluntary Work Experience / Voluntary Organization(s)</generic-subtitle>
+								<generic-voluntary-work-experience></generic-voluntary-work-experience>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>L & D Interventions / Training Programs Attended</generic-subtitle>
+								<generic-learning-development-intervention></generic-learning-development-intervention>
+							</v-col>
+						</v-row>
+					</v-tab-item>
 				</v-tabs-items>
 			</v-col>
 		</v-row>
@@ -103,8 +126,18 @@
     import GenericAddressForm from "../../components/form/Address";
     import GenericFamilyForm from "../../components/form/Family";
     import GenericChildrenInformationTable from "../../components/table/ChildrenInformation";
+    import GenericEducationalBackgroundTable from "../../components/table/EducationalBackground";
+    import GenericCivilServiceEligibility from "../../components/table/CivilServiceEligibility";
+    import GenericWorkExperience from "../../components/table/WorkExperience";
+    import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
+    import GenericLearningDevelopmentIntervention from "../../components/table/LearningDevelopmentIntervention";
     export default {
         components: {
+            GenericLearningDevelopmentIntervention,
+            GenericVoluntaryWorkExperience,
+            GenericWorkExperience,
+            GenericCivilServiceEligibility,
+            GenericEducationalBackgroundTable,
             GenericChildrenInformationTable,
             GenericFamilyForm,
             GenericAddressForm,

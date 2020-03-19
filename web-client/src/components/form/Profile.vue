@@ -25,7 +25,7 @@
 			<generic-civil-status-selection :civil-status="null" label="Civil Status" outlined></generic-civil-status-selection>
 		</v-col>
 		<v-col cols="5">
-			<generic-citizenship-selection :citizenship="null" label="Citizenship(s)" outlined></generic-citizenship-selection>
+			<generic-citizenship-selection :citizenship="[]" label="Citizenship(s)" outlined></generic-citizenship-selection>
 		</v-col>
 		<v-col cols="6">
 			<generic-blood-type-selection :blood-type="null" label="Blood Type" outlined></generic-blood-type-selection>

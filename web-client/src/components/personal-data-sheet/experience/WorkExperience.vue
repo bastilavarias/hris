@@ -14,16 +14,14 @@
 
 	const tableHeaders = [
 		{
-		    text: "Position Title"
+		    text: "Designation",
+			align: "left"
 		},
 		{
 		    text: "Company"
 		},
 		{
-		    text: "From"
-		},
-		{
-		    text: "To"
+		    text: "Span"
 		},
 		{
 		    text: "Salary Grade"
@@ -35,7 +33,7 @@
             text: "Monthly Salary"
         },
         {
-		    text: "Appointment Status"
+		    text: "Appointment"
 		},
 		{
 		    text: "Government Service"
