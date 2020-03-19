@@ -41,6 +41,16 @@
 				<v-tabs-items v-model="tab">
 					<v-tab-item>
 						<generic-profile></generic-profile>
+						<generic-subtitle>Benefits</generic-subtitle>
+						<generic-benefit-form></generic-benefit-form>
+						<generic-subtitle>Contact</generic-subtitle>
+						<generic-contact-form></generic-contact-form>
+					</v-tab-item>
+					<v-tab-item>
+						<generic-subtitle>Permanent Address</generic-subtitle>
+						<generic-address-form></generic-address-form>
+						<generic-subtitle>Residential Address</generic-subtitle>
+						<generic-address-form></generic-address-form>
 					</v-tab-item>
 				</v-tabs-items>
 			</v-col>
@@ -53,8 +63,16 @@
     import GenericImageInput from "../../components/generic/PhotoInput";
     import GenericProfile from "../../components/form/Profile";
     import GenericUpButton from "../../components/generic/UpButton";
+    import GenericBenefitForm from "../../components/form/Benefit";
+    import GenericSubtitle from "../../components/generic/Subtitle";
+    import GenericContactForm from "../../components/form/Contact";
+    import GenericAddressForm from "../../components/form/Address";
     export default {
-        components: {GenericUpButton, GenericProfile, GenericImageInput, GenericBackButton},
+        components: {
+            GenericAddressForm,
+            GenericContactForm,
+            GenericSubtitle,
+            GenericBenefitForm, GenericUpButton, GenericProfile, GenericImageInput, GenericBackButton},
 
 		data() {
             return {
