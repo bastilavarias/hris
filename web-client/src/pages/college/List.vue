@@ -72,7 +72,7 @@
     ];
     const searchOptions = [
         "all",
-        "ID",
+        "custom ID",
         "name"
     ];
 
@@ -132,7 +132,7 @@
             search() {
                 this.isLoading = true;
                 if (this.searchOption === "all") return this.$store.dispatch(getAllColleges);
-                if (this.searchValue.trim() && ["ID", "name"].includes(this.searchOption)) {
+                if (this.searchValue.trim() && ["custom ID", "name"].includes(this.searchOption)) {
                     const searchConfig = {
                         option: this.searchOption,
                         value: this.searchValue

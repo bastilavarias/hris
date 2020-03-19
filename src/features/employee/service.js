@@ -46,7 +46,19 @@ const employeeService = {
         return {
             employeeNumber: `${universityCode}-${currentYear}-${lastPart}`
         };
-    }
+    },
+
+    getAll: async () => {
+        return await employeeModel.getAll();
+    },
+
+    search: async (option, value) => {
+        const options = {
+            "employee number": "employee_number",
+            "last name": "last_name"
+        };
+        return await employeeModel.search(options[option], value.trim().toLowerCase());
+    },
 };
 
 module.exports = employeeService;

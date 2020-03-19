@@ -1,11 +1,6 @@
 <template>
 	<div>
-		<v-row align="center" dense class="mb-5">
-			<v-btn icon class="mr-1">
-				<v-icon>mdi-chevron-left</v-icon>
-			</v-btn>
-			<span class="font-weight-bold" style="font-size: 1.5rem;">Employee Form</span>
-		</v-row>
+		<generic-back-button class-name="mb-5" title="Employee Form"></generic-back-button>
 		<v-tabs v-model="tab">
 			<v-tab>Profile</v-tab>
 			<v-tab>Work</v-tab>
@@ -77,6 +72,7 @@
     import GenericDesignationSelection from "../../components/selection/Designation";
     import GenericFormProfile from "../../components/form/Profile";
     import customUtilities from "../../services/customUtilities";
+    import GenericBackButton from "../../components/generic/BackButton";
 
     const defaultForm = {
         employeeNumber: "",
@@ -102,6 +98,7 @@
 
     export default {
         components: {
+            GenericBackButton,
             GenericFormProfile,
             GenericDesignationSelection,
             GenericDepartmentSelection,
@@ -122,7 +119,7 @@
 
         computed: {
             isFormValid() {
-                return this.form.departmentId && this.form.designationId && this.form.profile.lastName && this.form.profile.middleName && this.form.profile.firstName && this.form.profile.birthDate && this.form.profile.birthPlace && this.form.profile.sex && this.form.profile.civilStatus && this.form.profile.citizenship.length > 0;
+                return this.form.departmentId && this.form.designationId && this.form.profile.lastName && this.form.profile.firstName && this.form.profile.birthDate && this.form.profile.birthPlace && this.form.profile.sex && this.form.profile.civilStatus && this.form.profile.citizenship.length > 0;
 
             },
 

@@ -12,6 +12,10 @@ export default {
 
         hasError(error) {
             return !!error;
+        },
+
+        getTextFirstLetter(text) {
+            return text ? text[0] : "";
         }
     }
 };
