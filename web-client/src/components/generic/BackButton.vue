@@ -4,6 +4,10 @@
 			<v-icon>mdi-chevron-left</v-icon>
 		</v-btn>
 		<span class="font-weight-bold" style="font-size: 1.5rem;">{{title}}</span>
+		<div class="flex-grow-1"></div>
+		<div>
+			<slot name="right"></slot>
+		</div>
 	</v-row>
 </template>
 

@@ -1,78 +1,74 @@
 <template>
 	<div>
-		<generic-back-button class-name="mb-5" title="Employee Form"></generic-back-button>
-		<v-tabs v-model="tab">
+		<generic-back-button class-name="mb-5" title="Employee Form">
+			<template v-slot:right>
+				<v-btn icon @click="create" :disabled="!isFormValid" :loading="isLoading">
+					<v-icon>mdi-content-save</v-icon>
+				</v-btn>
+			</template>
+		</generic-back-button>
+		<v-tabs v-model="tab" class="mb-5">
 			<v-tab>Profile</v-tab>
-			<v-tab>Work</v-tab>
+			<v-tab>Work Information</v-tab>
 		</v-tabs>
 		<v-tabs-items v-model="tab">
 			<v-tab-item>
-				<v-card-text>
-					<generic-form-profile :first-name.sync="form.profile.firstName"
-										  :middle-name.sync="form.profile.middleName"
-										  :last-name.sync="form.profile.lastName" :photo.sync="form.profile.photo"
-										  :extension.sync="form.profile.extension"
-										  :birth-date.sync="form.profile.birthDate"
-										  :birth-place.sync="form.profile.birthPlace"
-										  :sex.sync="form.profile.sex" :civil-status.sync="form.profile.civilStatus"
-										  :citizenship.sync="form.profile.citizenship"
-										  :blood-type.sync="form.profile.bloodType"
-										  :height.sync="form.profile.height" :weight.sync="form.profile.weight"
-					></generic-form-profile>
-				</v-card-text>
+				<generic-form-profile-with-image-input :first-name.sync="form.profile.firstName"
+													   :middle-name.sync="form.profile.middleName"
+													   :last-name.sync="form.profile.lastName"
+													   :photo.sync="form.profile.photo"
+													   :extension.sync="form.profile.extension"
+													   :birth-date.sync="form.profile.birthDate"
+													   :birth-place.sync="form.profile.birthPlace"
+													   :sex.sync="form.profile.sex"
+													   :civil-status.sync="form.profile.civilStatus"
+													   :citizenship.sync="form.profile.citizenship"
+													   :blood-type.sync="form.profile.bloodType"
+													   :height.sync="form.profile.height"
+													   :weight.sync="form.profile.weight"
+				></generic-form-profile-with-image-input>
 			</v-tab-item>
 			<v-tab-item>
-				<v-card-text>
-					<v-row dense>
-						<v-col cols="12">
-							<v-text-field placeholder="XX-XXXX-XXXX" label="Employee Number" outlined
-										  v-model="form.employeeNumber"
-										  :error="hasError(error.employeeNumber)" :error-messages="error.employeeNumber"
-										  append-outer-icon="mdi-refresh" @click:append-outer="generateEmployeeNumber"
-							></v-text-field>
-						</v-col>
-						<v-col cols="12" md="8">
-							<generic-department-selection :department-id.sync="form.departmentId" label="Department"
-														  outlined></generic-department-selection>
-						</v-col>
-						<v-col cols="12" md="4">
-							<generic-designation-selection :designation-id.sync="form.designationId" label="Designation"
-														   outlined></generic-designation-selection>
-						</v-col>
-						<v-col cols="12">
-							<v-radio-group label="Work Status" row v-model="form.isFullTime">
-								<v-radio label="Full Time" :value="true"></v-radio>
-								<v-radio label="Part Time" :value="false"></v-radio>
-							</v-radio-group>
-						</v-col>
-					</v-row>
-				</v-card-text>
+				<v-row dense>
+					<v-col cols="12">
+						<v-text-field placeholder="XX-XXXX-XXXX" label="Employee Number" outlined
+									  v-model="form.employeeNumber"
+									  :error="hasError(error.employeeNumber)" :error-messages="error.employeeNumber"
+									  append-outer-icon="mdi-refresh" @click:append-outer="generateEmployeeNumber"
+						></v-text-field>
+					</v-col>
+					<v-col cols="12" md="8">
+						<generic-department-selection :department-id.sync="form.departmentId" label="Department"
+													  outlined></generic-department-selection>
+					</v-col>
+					<v-col cols="12" md="4">
+						<generic-designation-selection :designation-id.sync="form.designationId" label="Designation"
+													   outlined></generic-designation-selection>
+					</v-col>
+					<v-col cols="12">
+						<v-radio-group label="Work Status" row v-model="form.isFullTime">
+							<v-radio label="Full Time" :value="true"></v-radio>
+							<v-radio label="Part Time" :value="false"></v-radio>
+						</v-radio-group>
+					</v-col>
+				</v-row>
 			</v-tab-item>
 		</v-tabs-items>
-		<generic-form-action-button :operation="operation" :create="create" :update="update"
-									:disabled="!isFormValid"
-									:is-loading="isLoading"></generic-form-action-button>
+		<generic-up-button></generic-up-button>
 	</div>
 </template>
 
 <script>
-    import {
-        createEmployee,
-        generateEmployeeNumber,
-        getSingleEmployee,
-        setEmployeeError,
-        setEmployees,
-        updateEmployee
-    } from "../../store/types/employee";
+    import {createEmployee, generateEmployeeNumber, setEmployeeError, setEmployees} from "../../store/types/employee";
     import {setActionName} from "../../store/types/action";
-    import GenericFormActionButton from "../../components/generic/FormActionButton";
     import {getAllDesignations} from "../../store/types/designation";
     import {getAllDepartments} from "../../store/types/department";
     import GenericDepartmentSelection from "../../components/selection/Department";
     import GenericDesignationSelection from "../../components/selection/Designation";
-    import GenericFormProfile from "../../components/form/Profile";
     import customUtilities from "../../services/customUtilities";
     import GenericBackButton from "../../components/generic/BackButton";
+    import GenericFormProfileWithImageInput from "../../components/form/ProfileWithImageInput";
+    import GenericUpButton from "../../components/generic/UpButton";
 
     const defaultForm = {
         employeeNumber: "",
@@ -98,11 +94,11 @@
 
     export default {
         components: {
+            GenericUpButton,
+            GenericFormProfileWithImageInput,
             GenericBackButton,
-            GenericFormProfile,
             GenericDesignationSelection,
-            GenericDepartmentSelection,
-            GenericFormActionButton
+            GenericDepartmentSelection
         },
 
         data() {
@@ -150,19 +146,6 @@
                     this.clearForm();
                     return;
                 }
-
-                if (name === `${updateEmployee}-errors`) {
-                    this.$store.commit(setActionName, "");
-                    this.isLoading = false;
-                    return;
-                }
-
-                if (name === updateEmployee) {
-                    this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setEmployeeError, []);
-                    this.$store.commit(setActionName, "");
-                    this.$router.push({name: "employee-management"});
-                }
             },
 
             "$store.state.employee.current"(employee) {
@@ -201,15 +184,6 @@
                 this.isLoading = true;
             },
 
-            update() {
-                const employeeId = this.$route.params.employeeId;
-                this.$store.dispatch(updateEmployee, {
-                    employeeId,
-                    details: this.form
-                });
-                this.isLoading = true;
-            },
-
             generateEmployeeNumber() {
                 this.form.employeeNumber = this.generatedEmployeeNumber;
             }
@@ -219,18 +193,11 @@
             this.$store.dispatch(getAllDepartments);
             this.$store.dispatch(getAllDesignations);
             this.$store.dispatch(generateEmployeeNumber);
-            const operation = this.$route.params.operation;
-            if (operation === "update") {
-                const employeeId = this.$route.params.employeeId;
-                this.operation = operation;
-                this.$store.dispatch(getSingleEmployee, employeeId);
-                this.isLoading = true;
-            }
         },
 
         destroyed() {
             this.$store.commit(setEmployees, []);
-            this.$store.commit(setEmployeeError, []);
+            this.$store.commit(setEmployeeError, {});
             this.$store.commit(setActionName, "");
         }
     };

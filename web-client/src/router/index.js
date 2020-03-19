@@ -239,6 +239,11 @@ const routes = [
                         path: "create",
                         name: "employee-create-form",
                         component: () => import("../pages/employee/CreateForm")
+                    },
+                    {
+                        path: "update/:employeeId",
+                        name: "employee-update-form",
+                        component: () => import("../pages/employee/UpdateForm")
                     }
                 ]
             }

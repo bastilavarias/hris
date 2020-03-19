@@ -181,7 +181,7 @@ const hrActions = [
             {
                 name: "Employee Management",
                 icon: "account",
-                route: {name: "employee-management"},
+                route: {name: "employee-list"},
                 subActions: []
             },
             {

@@ -26,27 +26,22 @@
 			<template v-slot:item.designation="{item}">
 				<span class="text-capitalize">{{item.designation ? item.designation.name : "N/A"}}</span>
 			</template>
+			<template v-slot:item.status="{item}">
+				<v-chip small :color="item.isDeleted ? 'error' : 'success'">{{item.isDeleted ? "Disabled" : "Active"}}</v-chip>
+			</template>
 			<template v-slot:item.actions="{item}">
-				<v-btn icon @click="update(item)">
-					<v-icon>mdi-pencil</v-icon>
-				</v-btn>
-				<v-btn icon @click="selectItem(item)">
-					<v-icon>mdi-trash-can</v-icon>
+				<v-btn icon :to="{name: 'employee-update-form', params: {employeeId: item.id}}">
+					<v-icon>mdi-eye</v-icon>
 				</v-btn>
 			</template>
 		</v-data-table>
-		<generic-confirm-dialog :is-show.sync="isConfirmDialogShow"
-								message="Are you sure you want to delete this employee?"
-								color="secondary"
-								:is-loading="isLoading"
-								:action="deleteItem"></generic-confirm-dialog>
 	</v-card>
 </template>
 
 <script>
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../components/generic/TooltipButton";
-    import {deleteEmployee, getAllEmployees, searchEmployees, setEmployeeError, setEmployees} from "../../store/types/employee";
+    import {getAllEmployees, searchEmployees, setEmployeeError, setEmployees} from "../../store/types/employee";
     import {setActionName} from "../../store/types/action";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
     import customUtilities from "../../services/customUtilities";
@@ -70,8 +65,12 @@
             value: "designation"
         },
         {
+            text: "Status",
+			value: "status"
+        },
+        {
             text: "Actions",
-            value: "actions", align: "right"
+            value: "actions"
         }
     ];
     const searchOptions = [
@@ -90,20 +89,14 @@
                 isLoading: false,
                 searchOption: "all",
                 searchValue: "",
-                isConfirmDialogShow: false,
-                selectedItem: {}
             };
         },
 
-		mixins: [customUtilities],
+        mixins: [customUtilities],
 
         computed: {
             employees() {
                 return this.$store.state.employee.list;
-            },
-
-            errors() {
-                return this.$store.state.employee.errors;
             }
         },
 
@@ -112,20 +105,6 @@
                 if (name === getAllEmployees || searchEmployees) {
                     this.isLoading = false;
                     this.$store.commit(setActionName, "");
-                }
-
-                if (name === `${deleteEmployee}-errors`) {
-                    this.isLoading = false;
-                    this.isConfirmDialogShow = false;
-                    this.$store.commit(setActionName, "");
-                }
-
-                if (name === deleteEmployee) {
-                    this.isLoading = false;
-                    this.isConfirmDialogShow = false;
-                    this.$store.commit(setActionName, "");
-                    this.$store.commit(setEmployeeError, {});
-                    this.search();
                 }
             },
 
@@ -149,32 +128,9 @@
                 return this.$store.commit(setEmployees, []);
             },
 
-            update({id}) {
-                this.$router.push(
-                    {
-                        name: "employee-management-form",
-                        params: {
-                            operation: "update",
-                            employeeId: id
-                        }
-                    }
-                );
-            },
-
-            selectItem(item) {
-                this.selectedItem = item;
-                this.isConfirmDialogShow = true;
-            },
-
-            deleteItem() {
-                const {id} = this.selectedItem;
-                this.isLoading = true;
-                this.$store.dispatch(deleteEmployee, id);
-            },
-
             destroyed() {
                 this.$store.commit(setEmployees, []);
-                this.$store.commit(setEmployeeError, []);
+                this.$store.commit(setEmployeeError, {});
                 this.$store.commit(setActionName, "");
             }
         },

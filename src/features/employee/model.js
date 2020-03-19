@@ -26,7 +26,8 @@ module.exports = {
                               (select json_object('id', p.id, 'firstName', p.first_name, 'middleName', p.middle_name,
                                                   'lastName', p.last_name, 'extension', p.extension)
                                from profile p
-                               where p.id = mainEmployee.profile_id)     as profile
+                               where p.id = mainEmployee.profile_id)     as profile,
+                                mainEmployee.is_deleted as isDeleted
                        from employee mainEmployee
                        where is_deleted = ?;`;
         const params = [false];
@@ -47,7 +48,8 @@ module.exports = {
                               (select json_object('id', p.id, 'firstName', p.first_name, 'middleName', p.middle_name,
                                                   'lastName', p.last_name, 'extension', p.extension)
                                from profile p
-                               where p.id = mainEmployee.profile_id)     as profile
+                               where p.id = mainEmployee.profile_id)     as profile,
+                                mainEmployee.is_deleted as isActivisDeletede
                        from employee mainEmployee join profile mainProfile on mainEmployee.profile_id = mainProfile.id where ${targetTable}.${option} like '%${value}%' and mainEmployee.is_deleted = ?;`;
         const params = [false];
         const results = await db.executeQuery(query, params);
