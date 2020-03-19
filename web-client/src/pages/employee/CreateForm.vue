@@ -7,17 +7,34 @@
 			<span class="font-weight-bold" style="font-size: 1.5rem;">Employee Form</span>
 		</v-row>
 		<v-tabs v-model="tab">
-			<v-tab>Work Information</v-tab>
 			<v-tab>Profile</v-tab>
+			<v-tab>Work</v-tab>
 		</v-tabs>
 		<v-tabs-items v-model="tab">
 			<v-tab-item>
 				<v-card-text>
+					<generic-form-profile :first-name.sync="form.profile.firstName"
+										  :middle-name.sync="form.profile.middleName"
+										  :last-name.sync="form.profile.lastName" :photo.sync="form.profile.photo"
+										  :extension.sync="form.profile.extension"
+										  :birth-date.sync="form.profile.birthDate"
+										  :birth-place.sync="form.profile.birthPlace"
+										  :sex.sync="form.profile.sex" :civil-status.sync="form.profile.civilStatus"
+										  :citizenship.sync="form.profile.citizenship"
+										  :blood-type.sync="form.profile.bloodType"
+										  :height.sync="form.profile.height" :weight.sync="form.profile.weight"
+					></generic-form-profile>
+				</v-card-text>
+			</v-tab-item>
+			<v-tab-item>
+				<v-card-text>
 					<v-row dense>
 						<v-col cols="12">
-							<v-text-field label="Employee Number" outlined v-model="form.employeeNumber"
-										  :error="hasError(error.employeeNumber)"
-										  :error-messages="error.employeeNumber"></v-text-field>
+							<v-text-field placeholder="XX-XXXX-XXXX" label="Employee Number" outlined
+										  v-model="form.employeeNumber"
+										  :error="hasError(error.employeeNumber)" :error-messages="error.employeeNumber"
+										  append-outer-icon="mdi-refresh" @click:append-outer="generateEmployeeNumber"
+							></v-text-field>
 						</v-col>
 						<v-col cols="12" md="8">
 							<generic-department-selection :department-id.sync="form.departmentId" label="Department"
@@ -36,21 +53,6 @@
 					</v-row>
 				</v-card-text>
 			</v-tab-item>
-			<v-tab-item>
-				<v-card-text>
-					<generic-form-profile :first-name.sync="form.profile.firstName"
-										  :middle-name.sync="form.profile.middleName"
-										  :last-name.sync="form.profile.lastName" :photo.sync="form.profile.photo"
-										  :extension.sync="form.profile.extension"
-										  :birth-date.sync="form.profile.birthDate"
-										  :birth-place.sync="form.profile.birthPlace"
-										  :sex.sync="form.profile.sex" :civil-status.sync="form.profile.civilStatus"
-										  :citizenship.sync="form.profile.citizenship"
-										  :blood-type.sync="form.profile.bloodType"
-										  :height.sync="form.profile.height" :weight.sync="form.profile.weight"
-					></generic-form-profile>
-				</v-card-text>
-			</v-tab-item>
 		</v-tabs-items>
 		<generic-form-action-button :operation="operation" :create="create" :update="update"
 									:disabled="!isFormValid"
@@ -61,6 +63,7 @@
 <script>
     import {
         createEmployee,
+        generateEmployeeNumber,
         getSingleEmployee,
         setEmployeeError,
         setEmployees,
@@ -79,7 +82,7 @@
         employeeNumber: "",
         departmentId: "",
         designationId: "",
-        isFullTime: null,
+        isFullTime: true,
         profile: {
             firstName: "",
             middleName: "",
@@ -119,31 +122,23 @@
 
         computed: {
             isFormValid() {
-                return this.form.employeeNumber &&
-                    this.form.departmentId &&
-                    this.form.designationId &&
-                    this.form.isFullTime !== null &&
-                    this.form.profile.lastName &&
-                    this.form.profile.middleName &&
-                    this.form.profile.firstName &&
-                    this.form.profile.extension &&
-                    this.form.profile.photo &&
-                    this.form.profile.birthDate &&
-                    this.form.profile.birthPlace &&
-                    this.form.profile.sex &&
-                    this.form.profile.civilStatus &&
-                    this.form.profile.citizenship;
+                return this.form.departmentId && this.form.designationId && this.form.profile.lastName && this.form.profile.middleName && this.form.profile.firstName && this.form.profile.birthDate && this.form.profile.birthPlace && this.form.profile.sex && this.form.profile.civilStatus && this.form.profile.citizenship.length > 0;
+
             },
 
             error() {
                 return this.$store.state.employee.error;
+            },
+
+            generatedEmployeeNumber() {
+                return this.$store.state.employee.employeeNumber;
             }
         },
 
         watch: {
             "$store.state.action.name"(name) {
                 if (name === `${createEmployee}-error`) {
-                    this.tab = 0;
+                    this.tab = 1;
                     this.$vuetify.goTo(0);
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
@@ -153,6 +148,7 @@
                 if (name === createEmployee) {
                     this.$store.commit(setEmployeeError, {});
                     this.$store.commit(setActionName, "");
+                    this.$store.dispatch(generateEmployeeNumber);
                     this.isLoading = false;
                     this.clearForm();
                     return;
@@ -187,7 +183,7 @@
                 this.form.employeeNumber = "";
                 this.form.departmentId = null;
                 this.form.designationId = null;
-                this.form.isFullTime = null;
+                this.form.isFullTime = true;
                 this.form.profile.lastName = "";
                 this.form.profile.middleName = "";
                 this.form.profile.firstName = "";
@@ -215,12 +211,17 @@
                     details: this.form
                 });
                 this.isLoading = true;
+            },
+
+            generateEmployeeNumber() {
+                this.form.employeeNumber = this.generatedEmployeeNumber;
             }
         },
 
         created() {
             this.$store.dispatch(getAllDepartments);
             this.$store.dispatch(getAllDesignations);
+            this.$store.dispatch(generateEmployeeNumber);
             const operation = this.$route.params.operation;
             if (operation === "update") {
                 const employeeId = this.$route.params.employeeId;

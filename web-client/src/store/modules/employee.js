@@ -4,11 +4,13 @@ import {setNotificationConfig} from "../types/notification";
 import {
     createEmployee,
     deleteEmployee,
+    generateEmployeeNumber,
     getAllEmployees,
     getSingleEmployee,
     searchEmployees,
     setCurrentEmployee,
     setEmployeeError,
+    setEmployeeNumber,
     setEmployees,
     updateEmployee
 } from "../types/employee";
@@ -17,13 +19,15 @@ export default {
     state: {
         error: {},
         list: [],
-        current: {}
+        current: {},
+        employeeNumber: ""
     },
 
     mutations: {
         [setEmployeeError]: (state, error) => state.error = error,
         [setEmployees]: (state, employees) => state.list = employees,
-        [setCurrentEmployee]: (state, employee) => state.current = employee
+        [setCurrentEmployee]: (state, employee) => state.current = employee,
+        [setEmployeeNumber]: (state, employeeNumber) => state.employeeNumber = employeeNumber
     },
 
     actions: {
@@ -31,6 +35,7 @@ export default {
             try {
                 const employeeForm = new FormData();
                 employeeForm.append("employeeNumber", employeeNumber);
+                employeeForm.append("departmentId", departmentId);
                 employeeForm.append("departmentId", departmentId);
                 employeeForm.append("designationId", designationId);
                 employeeForm.append("isFullTime", isFullTime);
@@ -120,6 +125,19 @@ export default {
                 commit(setActionName, deleteEmployee);
                 throw new Error(`[RWV] ApiService ${error}`);
             }
+        },
+
+        [generateEmployeeNumber]: async ({commit}) => {
+            try {
+                const result = await employeeService.generateEmployeeNumber();
+                const employeeNumber = result.data.employeeNumber;
+                commit(setActionName, generateEmployeeNumber);
+                commit(setEmployeeNumber, employeeNumber);
+            } catch (errors) {
+                commit(setActionName, generateEmployeeNumber);
+                throw new Error(`[RWV] ApiService ${error}`);
+            }
         }
+
     }
 };

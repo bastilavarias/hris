@@ -1,8 +1,9 @@
 const employeeModel = require("./model");
 const profileModel = require("../profile/model");
 const helper = require("../../helper");
+const customUtilities = require("../../customUtilities");
 
-module.exports = {
+const employeeService = {
     create: async ({employeeNumber, departmentId, designationId, isFullTime, profile}) => {
         let error = {};
         let message = "";
@@ -31,5 +32,21 @@ module.exports = {
             error,
             message
         };
+    },
+
+    generateEmployeeNumber: async () => {
+        const universityCode = 38;
+        const currentYear = customUtilities.getCurrentYear();
+        const employeeTableCount = parseInt(await helper.countTableRows("employee"));
+        let lastPart = "";
+        if (employeeTableCount >= 0 && employeeTableCount <= 9) lastPart = `000${employeeTableCount}`;
+        if (employeeTableCount >= 10 && employeeTableCount <= 99) lastPart = `00${employeeTableCount}`;
+        if (employeeTableCount >= 100 && employeeTableCount <= 999) lastPart = `0${employeeTableCount}`;
+        if (employeeTableCount >= 1000) lastPart = `${employeeTableCount}`;
+        return {
+            employeeNumber: `${universityCode}-${currentYear}-${lastPart}`
+        };
     }
 };
+
+module.exports = employeeService;

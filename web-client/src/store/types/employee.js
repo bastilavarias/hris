@@ -7,3 +7,5 @@ export const getSingleEmployee = "getSingleEmployee";
 export const setCurrentEmployee = "setCurrentEmployee";
 export const updateEmployee = "updateEmployee";
 export const deleteEmployee = "deleteEmployee";
+export const generateEmployeeNumber = "generateEmployeeNumber";
+export const setEmployeeNumber = "setEmployeeNumber";

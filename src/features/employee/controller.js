@@ -14,7 +14,7 @@ module.exports = {
                 middleName: parsedProfile.middleName,
                 lastName: parsedProfile.lastName,
                 extension: parsedProfile.extension,
-                photo: req.file.filename ? req.file.filename : "",
+                photo: req.file ? req.file.filename : "",
                 birthDate: parsedProfile.birthDate,
                 birthPlace: parsedProfile.birthPlace,
                 sex: parsedProfile.sex,
@@ -28,6 +28,16 @@ module.exports = {
 
         try {
             const result = await employeeService.create(employeeData);
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
+    },
+
+    generateEmployeeNumber: async (req, res) => {
+        try {
+            const result = await employeeService.generateEmployeeNumber();
             res.status(200).json(result);
         } catch (errors) {
             console.log(errors);

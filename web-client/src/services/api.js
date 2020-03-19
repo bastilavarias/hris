@@ -79,4 +79,5 @@ export const departmentService = {
 
 export const employeeService = {
     create: details => apiService.post("/employee/create", details),
+    generateEmployeeNumber: () => apiService.get("/employee/generate/employeeNumber")
 };

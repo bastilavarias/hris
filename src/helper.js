@@ -20,5 +20,12 @@ module.exports = {
         } catch (errors) {
             console.log(errors);
         }
+    },
+
+    countTableRows: async (table) => {
+        const query = `select count(id) as count from ${table.toLowerCase()};`;
+        const params = [];
+        const result = await db.executeQuery(query, params);
+        return result[0][0] ? result[0][0].count : "999";
     }
 };
