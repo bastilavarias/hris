@@ -60,10 +60,10 @@
 			</v-list>
 		</v-navigation-drawer>
 		<v-app-bar
-				:elevation="1"
 				app
 				color="white"
 				light
+				elevate-on-scroll
 		>
 			<v-app-bar-nav-icon @click.stop="isDrawerOpen = !isDrawerOpen"></v-app-bar-nav-icon>
 			<v-icon class="mx-4">fab fa-youtube</v-icon>

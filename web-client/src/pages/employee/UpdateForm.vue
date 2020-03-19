@@ -40,17 +40,51 @@
 				</v-tabs>
 				<v-tabs-items v-model="tab">
 					<v-tab-item>
-						<generic-profile></generic-profile>
-						<generic-subtitle>Benefits</generic-subtitle>
-						<generic-benefit-form></generic-benefit-form>
-						<generic-subtitle>Contact</generic-subtitle>
-						<generic-contact-form></generic-contact-form>
+						<v-row dense>
+							<v-col cols="12">
+								<generic-profile></generic-profile>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Benefits</generic-subtitle>
+								<generic-benefit-form></generic-benefit-form>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Contact</generic-subtitle>
+								<generic-contact-form></generic-contact-form>
+							</v-col>
+						</v-row>
 					</v-tab-item>
 					<v-tab-item>
-						<generic-subtitle>Permanent Address</generic-subtitle>
-						<generic-address-form></generic-address-form>
-						<generic-subtitle>Residential Address</generic-subtitle>
-						<generic-address-form></generic-address-form>
+						<v-row dense>
+							<v-col cols="12">
+								<generic-subtitle>Permanent Address</generic-subtitle>
+								<generic-address-form></generic-address-form>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Residential Address</generic-subtitle>
+								<generic-address-form></generic-address-form>
+							</v-col>
+						</v-row>
+					</v-tab-item>
+					<v-tab-item>
+						<v-row dense>
+							<v-col cols="12">
+								<generic-subtitle>Spouse Information</generic-subtitle>
+								<generic-family-form></generic-family-form>
+							</v-col>
+							<v-col cols="12" md="6">
+								<generic-subtitle>Father Information</generic-subtitle>
+								<generic-family-form></generic-family-form>
+							</v-col>
+							<v-col cols="12" md="6">
+								<generic-subtitle>Mother Information</generic-subtitle>
+								<generic-family-form></generic-family-form>
+							</v-col>
+							<v-col cols="12" md="12">
+								<generic-subtitle>Children Information</generic-subtitle>
+								<generic-children-information-table></generic-children-information-table>
+							</v-col>
+						</v-row>
 					</v-tab-item>
 				</v-tabs-items>
 			</v-col>
@@ -67,8 +101,12 @@
     import GenericSubtitle from "../../components/generic/Subtitle";
     import GenericContactForm from "../../components/form/Contact";
     import GenericAddressForm from "../../components/form/Address";
+    import GenericFamilyForm from "../../components/form/Family";
+    import GenericChildrenInformationTable from "../../components/table/ChildrenInformation";
     export default {
         components: {
+            GenericChildrenInformationTable,
+            GenericFamilyForm,
             GenericAddressForm,
             GenericContactForm,
             GenericSubtitle,
