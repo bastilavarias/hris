@@ -7,12 +7,31 @@
 				</v-btn>
 			</template>
 		</generic-back-button>
-		<v-tabs v-model="tab" class="mb-5">
-			<v-tab>Profile</v-tab>
-			<v-tab>Work Information</v-tab>
-		</v-tabs>
-		<v-tabs-items v-model="tab">
-			<v-tab-item>
+		<generic-subtitle>Work Information</generic-subtitle>
+		<v-row dense>
+			<v-col cols="12">
+				<v-text-field placeholder="XX-XXXX-XXXX" label="Employee Number" outlined
+							  v-model="form.employeeNumber"
+							  :error="hasError(error.employeeNumber)" :error-messages="error.employeeNumber"
+							  append-outer-icon="mdi-refresh" @click:append-outer="generateEmployeeNumber"
+				></v-text-field>
+			</v-col>
+			<v-col cols="12" md="8">
+				<generic-department-selection :department-id.sync="form.departmentId" label="Department"
+											  outlined></generic-department-selection>
+			</v-col>
+			<v-col cols="12" md="4">
+				<generic-designation-selection :designation-id.sync="form.designationId" label="Designation"
+											   outlined></generic-designation-selection>
+			</v-col>
+			<v-col cols="12">
+				<v-radio-group label="Work Status" row v-model="form.isFullTime">
+					<v-radio label="Full Time" :value="true"></v-radio>
+					<v-radio label="Part Time" :value="false"></v-radio>
+				</v-radio-group>
+			</v-col>
+			<v-col cols="12">
+				<generic-subtitle>Profile</generic-subtitle>
 				<generic-form-profile-with-image-input :first-name.sync="form.profile.firstName"
 													   :middle-name.sync="form.profile.middleName"
 													   :last-name.sync="form.profile.lastName"
@@ -27,33 +46,8 @@
 													   :height.sync="form.profile.height"
 													   :weight.sync="form.profile.weight"
 				></generic-form-profile-with-image-input>
-			</v-tab-item>
-			<v-tab-item>
-				<v-row dense>
-					<v-col cols="12">
-						<v-text-field placeholder="XX-XXXX-XXXX" label="Employee Number" outlined
-									  v-model="form.employeeNumber"
-									  :error="hasError(error.employeeNumber)" :error-messages="error.employeeNumber"
-									  append-outer-icon="mdi-refresh" @click:append-outer="generateEmployeeNumber"
-						></v-text-field>
-					</v-col>
-					<v-col cols="12" md="8">
-						<generic-department-selection :department-id.sync="form.departmentId" label="Department"
-													  outlined></generic-department-selection>
-					</v-col>
-					<v-col cols="12" md="4">
-						<generic-designation-selection :designation-id.sync="form.designationId" label="Designation"
-													   outlined></generic-designation-selection>
-					</v-col>
-					<v-col cols="12">
-						<v-radio-group label="Work Status" row v-model="form.isFullTime">
-							<v-radio label="Full Time" :value="true"></v-radio>
-							<v-radio label="Part Time" :value="false"></v-radio>
-						</v-radio-group>
-					</v-col>
-				</v-row>
-			</v-tab-item>
-		</v-tabs-items>
+			</v-col>
+		</v-row>
 		<generic-up-button></generic-up-button>
 	</div>
 </template>
@@ -69,6 +63,7 @@
     import GenericBackButton from "../../components/generic/BackButton";
     import GenericFormProfileWithImageInput from "../../components/form/ProfileWithImageInput";
     import GenericUpButton from "../../components/generic/UpButton";
+    import GenericSubtitle from "../../components/generic/Subtitle";
 
     const defaultForm = {
         employeeNumber: "",
@@ -94,6 +89,7 @@
 
     export default {
         components: {
+            GenericSubtitle,
             GenericUpButton,
             GenericFormProfileWithImageInput,
             GenericBackButton,
@@ -131,7 +127,6 @@
         watch: {
             "$store.state.action.name"(name) {
                 if (name === `${createEmployee}-error`) {
-                    this.tab = 1;
                     this.$vuetify.goTo(0);
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;

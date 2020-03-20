@@ -1,7 +1,7 @@
 <template>
 	<v-row dense>
 		<v-col cols="12">
-			<v-text-field label="Fist NAme" outlined></v-text-field>
+			<v-text-field label="Fist Name" outlined></v-text-field>
 		</v-col>
 		<v-col cols="12">
 			<v-text-field label="Middle Name" outlined></v-text-field>

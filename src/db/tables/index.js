@@ -9,6 +9,21 @@ const profile = require("./modules/profile");
 const department = require("./modules/department");
 const employee = require("./modules/employee");
 const citizenship = require("./modules/citizenship");
+const benefit = require("./modules/benefit");
+const contact = require("./modules/contact");
+const address = require("./modules/address");
+const family = require("./modules/family/family");
+const child = require("./modules/family/child");
+const education = require("./modules/experience/education");
+const civilService = require("./modules/experience/civilService");
+const workExperience = require("./modules/experience/workExperience");
+const voluntaryWorkExperience = require("./modules/experience/voluntaryWorkExperience");
+const learningDevelopment = require("./modules/experience/learningDevelopment");
+const hobby = require("./modules/hobby");
+const recognition = require("./modules/recognition");
+const organization = require("./modules/organization");
+const governmentId = require("./modules/governmentId");
+const reference = require("./modules/reference");
 
 module.exports = async () => {
     let message = "";
@@ -20,9 +35,24 @@ module.exports = async () => {
         await db.executeQuery(course);
         await db.executeQuery(department);
         await db.executeQuery(designation);
+        await db.executeQuery(benefit);
+        await db.executeQuery(contact);
+        await db.executeQuery(address);
+        await db.executeQuery(family);
+        await db.executeQuery(child);
+        await db.executeQuery(governmentId);
         await db.executeQuery(profile);
         await db.executeQuery(employee);
         await db.executeQuery(citizenship);
+        await db.executeQuery(education);
+        await db.executeQuery(civilService);
+        await db.executeQuery(workExperience);
+        await db.executeQuery(voluntaryWorkExperience);
+        await db.executeQuery(learningDevelopment);
+        await db.executeQuery(hobby);
+        await db.executeQuery(recognition);
+        await db.executeQuery(organization);
+        await db.executeQuery(reference);
         message ="Database tables created.";
     } catch (errors) {
         console.log(errors);

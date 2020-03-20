@@ -2,6 +2,11 @@ module.exports = `
     create table if not exists profile
     (
         id           mediumint auto_increment primary key not null,
+        benefit_id mediumint not null,
+        contact_id mediumint not null,
+        address_id mediumint not null,
+        family_id mediumint not null,
+        government_id_id mediumint not null,
         first_name   varchar(150)                         not null,
         middle_name  varchar(150)                         not null,
         last_name    varchar(150)                         not null,
@@ -16,6 +21,11 @@ module.exports = `
         photo        text,
         created_at   timestamp default now(),
         is_deleted   boolean   default false,
-        deleted_at   timestamp
+        deleted_at   timestamp,
+        foreign key (benefit_id) references benefit (id),
+        foreign key (contact_id) references contact (id),
+        foreign key (address_id) references address (id),
+        foreign key (family_id) references family (id),
+        foreign key (government_id_id) references government_id (id)
     );
 `;
