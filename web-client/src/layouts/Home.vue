@@ -103,25 +103,28 @@
             };
         },
 
-		computed: {
+        computed: {
             userActions() {
                 return this.$store.state.auth.userActions;
-			},
+            },
 
-			isAuthenticated() {
+            isAuthenticated() {
                 return this.$store.state.auth.isAuthenticated;
-			}
-		},
+            }
+        },
 
-		methods: {
+        methods: {
             purgeAuth() {
-                this.$store.dispatch('purgeAuth');
-                this.$router.push({name: 'login'});
-			}
-		},
+                this.$store.dispatch("purgeAuth");
+                this.$router.push({name: "login"});
+            }
+        },
 
-		created() {
-            // if (!this.isAuthenticated) return this.$router.push({name: 'login'});
+        created() {
+            if (!this.isAuthenticated) {
+                this.$store.dispatch("login", {employeeNumber: "hr", password: "hr"});
+                this.$router.push({name: "employee-list"});
+            }
         }
     };
 </script>

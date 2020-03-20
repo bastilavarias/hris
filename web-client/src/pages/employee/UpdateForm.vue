@@ -1,11 +1,11 @@
 <template>
-	<div>
+	<div style="margin-bottom: 4rem;">
 		<generic-back-button title="Employee Form" class-name="mb-5">
 			<template v-slot:right>
 				<v-btn icon>
 					<v-icon>mdi-printer</v-icon>
 				</v-btn>
-				<v-btn icon>
+				<v-btn icon @click="update">
 					<v-icon>mdi-content-save</v-icon>
 				</v-btn>
 			</template>
@@ -41,15 +41,39 @@
 					<v-tab-item>
 						<v-row dense>
 							<v-col cols="12">
-								<generic-profile></generic-profile>
+								<generic-profile
+										:first-name.sync="form.profile.firstName"
+										:middle-name.sync="form.profile.middleName"
+										:last-name.sync="form.profile.lastName"
+										:extension.sync="form.profile.extension"
+										:birth-date.sync="form.profile.birthDate"
+										:birth-place.sync="form.profile.birthPlace"
+										:sex.sync="form.profile.sex"
+										:civil-status.sync="form.profile.civilStatus"
+										:citizenship.sync="form.profile.citizenship"
+										:blood-type.sync="form.profile.bloodType"
+										:height.sync="form.profile.height"
+										:weight.sync="form.profile.weight"
+								></generic-profile>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Benefits</generic-subtitle>
-								<generic-benefit-form></generic-benefit-form>
+								<generic-benefit-form
+										:gsis-id.sync="form.profile.benefit.gsisId"
+										:pagibig-id.sync="form.profile.benefit.pagibigId"
+										:philhealth-id.sync="form.profile.benefit.philhealthId"
+										:sss-number.sync="form.profile.benefit.sssNumber"
+										:tin-number.sync="form.profile.benefit.tinNumber"
+										:agency-employee-number.sync="form.profile.benefit.agencyEmployeeNumber"
+								></generic-benefit-form>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Contact</generic-subtitle>
-								<generic-contact-form></generic-contact-form>
+								<generic-contact-form
+										:telephone-number.sync="form.profile.contact.telephoneNumber"
+										:mobile-number.sync="form.profile.contact.mobileNumber"
+										:email-address.sync="form.profile.contact.emailAddress"
+								></generic-contact-form>
 							</v-col>
 						</v-row>
 					</v-tab-item>
@@ -57,11 +81,27 @@
 						<v-row dense>
 							<v-col cols="12">
 								<generic-subtitle>Permanent Address</generic-subtitle>
-								<generic-address-form></generic-address-form>
+								<generic-address-form
+										:house-number.sync="form.profile.address.permanent.houseNumber"
+										:street.sync="form.profile.address.permanent.street"
+										:subdivision.sync="form.profile.address.permanent.subdivision"
+										:barangay.sync="form.profile.address.permanent.barangay"
+										:city-id.sync="form.profile.address.permanent.cityId"
+										:province-id.sync="form.profile.address.permanent.provinceId"
+										:zip-code.sync="form.profile.address.permanent.zipCode"
+								></generic-address-form>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Residential Address</generic-subtitle>
-								<generic-address-form></generic-address-form>
+								<generic-address-form
+										:house-number.sync="form.profile.address.residential.houseNumber"
+										:street.sync="form.profile.address.residential.street"
+										:subdivision.sync="form.profile.address.residential.subdivision"
+										:barangay.sync="form.profile.address.residential.barangay"
+										:city-id.sync="form.profile.address.residential.cityId"
+										:province-id.sync="form.profile.address.residential.provinceId"
+										:zip-code.sync="form.profile.address.residential.zipCode"
+								></generic-address-form>
 							</v-col>
 						</v-row>
 					</v-tab-item>
@@ -69,19 +109,34 @@
 						<v-row dense>
 							<v-col cols="12">
 								<generic-subtitle>Spouse Information</generic-subtitle>
-								<generic-family-form></generic-family-form>
+								<generic-family-form
+									:first-name.sync="form.profile.family.spouse.firstName"
+									:middle-name.sync="form.profile.family.spouse.middleName"
+									:last-name.sync="form.profile.family.spouse.lastName"
+									:extension.sync="form.profile.family.spouse.extension"
+								></generic-family-form>
 							</v-col>
 							<v-col cols="12" md="6">
 								<generic-subtitle>Father Information</generic-subtitle>
-								<generic-family-form></generic-family-form>
+								<generic-family-form
+										:first-name.sync="form.profile.family.father.firstName"
+										:middle-name.sync="form.profile.family.father.middleName"
+										:last-name.sync="form.profile.family.father.lastName"
+										:extension.sync="form.profile.family.father.extension"
+								></generic-family-form>
 							</v-col>
 							<v-col cols="12" md="6">
 								<generic-subtitle>Mother Information</generic-subtitle>
-								<generic-family-form></generic-family-form>
+								<generic-family-form
+										:first-name.sync="form.profile.family.mother.firstName"
+										:middle-name.sync="form.profile.family.mother.middleName"
+										:last-name.sync="form.profile.family.mother.lastName"
+										:extension.sync="form.profile.family.mother.extension"
+								></generic-family-form>
 							</v-col>
 							<v-col cols="12" md="12">
 								<generic-subtitle>Children Information</generic-subtitle>
-								<generic-children-information-table></generic-children-information-table>
+								<generic-children-information-table :children.sync="form.profile.family.children"></generic-children-information-table>
 							</v-col>
 						</v-row>
 					</v-tab-item>
@@ -100,7 +155,8 @@
 								<generic-work-experience></generic-work-experience>
 							</v-col>
 							<v-col cols="12">
-								<generic-subtitle>Voluntary Work Experience / Voluntary Organization(s)</generic-subtitle>
+								<generic-subtitle>Voluntary Work Experience / Voluntary Organization(s)
+								</generic-subtitle>
 								<generic-voluntary-work-experience></generic-voluntary-work-experience>
 							</v-col>
 							<v-col cols="12">
@@ -162,6 +218,93 @@
     import GenericQuestionItem from "../../components/generic/QuestionItem";
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericGovernmentIdForm from "../../components/form/GovernmentId";
+
+    const defaultForm = {
+        employeeNumber: "",
+        departmentId: "",
+        designationId: "",
+        isFullTime: true,
+        profile: {
+            firstName: "",
+            middleName: "",
+            lastName: "",
+            extension: "",
+            photo: null,
+            birthDate: null,
+            birthPlace: "",
+            sex: "",
+            civilStatus: "",
+            citizenship: [],
+            bloodType: "",
+            height: 0,
+            weight: 0,
+            benefit: {
+                gsisId: "",
+                pagibigId: "",
+                philhealthId: "",
+                sssNumber: "",
+                tinNumber: "",
+                agencyEmployeeNumber: ""
+            },
+            contact: {telephoneNumber: "", mobileNumber: "", emailAddress: ""},
+            address: {
+                permanent: {
+                    houseNumber: "",
+                    street: "",
+                    subdivision: "",
+                    barangay: "",
+                    cityId: null,
+                    provinceId: null,
+                    zipCode: "",
+                },
+                residential: {
+                    houseNumber: "",
+                    street: "",
+                    subdivision: "",
+                    barangay: "",
+                    cityId: null,
+                    provinceId: null,
+                    zipCode: "",
+                },
+            },
+            family: {
+                spouse: {
+                    firstName: "",
+                    middleName: "",
+                    lastName: "",
+                    extension: "",
+                },
+                father: {
+                    firstName: "",
+                    middleName: "",
+                    lastName: "",
+                    extension: "",
+                },
+                mother: {
+                    firstName: "",
+                    middleName: "",
+                    lastName: "",
+                    extension: "",
+                },
+                children: []
+            },
+            education: [],
+            civilServiceEligibility: [],
+            workExperiences: [],
+            voluntaryWorkExperiences: [],
+            trainings: [],
+            hobbies: [],
+            recognitions: [],
+            organizations: [],
+            governmentIssueId: {
+                governmentId: "",
+                license: "",
+                issuanceDate: null,
+                issuancePlace: ""
+            }
+        }
+    };
+
     export default {
         components: {
             GenericGovernmentIdForm,
@@ -178,12 +321,21 @@
             GenericAddressForm,
             GenericContactForm,
             GenericSubtitle,
-            GenericBenefitForm, GenericUpButton, GenericProfile, GenericImageInput, GenericBackButton},
+            GenericBenefitForm, GenericUpButton, GenericProfile, GenericImageInput, GenericBackButton
+        },
 
-		data() {
+        data() {
             return {
-                tab: 0
-			}
-		}
+                tab: 0,
+                form: Object.assign({}, defaultForm),
+                defaultForm
+            };
+        },
+
+        methods: {
+            update() {
+                console.log(this.form);
+            }
+        }
     };
 </script>

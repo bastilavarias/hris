@@ -1,5 +1,10 @@
 const employeeModel = require("./model");
 const profileModel = require("../profile/model");
+const benefitModel = require("../benefit/model");
+const contactModel = require("../contact/model");
+const addressModel = require("../address/model");
+const familyModel = require("../family/model");
+const governmentIdModel = require("../governmentId/model");
 const helper = require("../../helper");
 const customUtilities = require("../../customUtilities");
 
@@ -16,16 +21,20 @@ const employeeService = {
                 error
             };
         }
-        const createdProfileID = await profileModel.create(profile);
-        if (profile.citizenship.length > 0) {
-            profile.citizenship.map(async name => await profileModel.addCitizenship(createdProfileID, name));
-        }
+        // const createdBenefitId = await benefitModel.create(profile.benefit);
+        // const createdContactId = await contactModel.create(profile.contact);
+        // const createdAddressId = await addressModel.create(profile.address);
+        // const createdFamilyId = await familyModel.create(profile.family);
+        // if (profile.family.children.length > 0) profile.family.children.map(async child => familyModel.addChild(createdFamilyId, child));
+        // const createdGovermentIdId = await governmentIdModel.create(profile.governmentId);
+        const createdProfileId = await profileModel.create(profile);
+        if (profile.citizenship.length > 0) profile.citizenship.map(async name => await profileModel.addCitizenship(createdProfileId, name));
         await employeeModel.create({
             employeeNumber,
             departmentId,
             designationId,
             isFullTime,
-            profileId: createdProfileID
+            profileId: createdProfileId
         });
         message = "New employee is created.";
         return {

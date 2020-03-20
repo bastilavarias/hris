@@ -1,8 +1,9 @@
 <template>
-	<v-autocomplete :items="cities" item-value="id" item-text="name" :label="label" :outlined="outlined" v-model="cityLocal" autocomplete="none">
+	<v-autocomplete :items="provinces" item-value="id" item-text="name" :label="label" :outlined="outlined"
+					v-model="provinceLocal" autocomplete="none">
 		<template v-slot:item="{item}">
 			<v-list-item-content>
-				<v-list-item-subtitle class="text-uppercase">{{item.province}}</v-list-item-subtitle>
+				<v-list-item-subtitle class="text-uppercase">{{item.region}}</v-list-item-subtitle>
 				<v-list-item-title class="text-capitalize">{{item.name}}</v-list-item-title>
 			</v-list-item-content>
 		</template>
@@ -13,10 +14,10 @@
 </template>
 
 <script>
-	import philCities from "philippines/cities";
+    import philCities from "philippines/provinces";
 
     export default {
-        name: "generic-city-selection",
+        name: "generic-province-selection",
 
         props: {
             label: {
@@ -24,7 +25,7 @@
                 required: false
             },
 
-            city: {
+            province: {
                 type: null,
                 required: true
             },
@@ -37,24 +38,24 @@
 
         data() {
             return {
-                cityLocal: null,
-				cities: []
+                provinceLocal: null,
+                provinces: []
             };
         },
 
         watch: {
-            city(val) {
-                this.cityLocal = val;
+            province(val) {
+                this.$emit("update:province", val);
             },
 
-            cityLocal(val) {
-                this.$emit("update:city", val);
+            provinceLocal(val) {
+                this.$emit("update:province", val);
             }
         },
 
         created() {
-            this.cityLocal = this.city;
-            this.cities = philCities;
+            this.provinceLocal = this.province;
+            this.provinces = philCities;
         }
     };
 </script>

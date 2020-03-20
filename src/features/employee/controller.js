@@ -29,9 +29,9 @@ module.exports = {
         try {
             const result = await employeeService.create(employeeData);
             res.status(200).json(result);
-        } catch (errors) {
-            console.log(errors);
-            res.status(400).json(errors);
+        } catch (error) {
+            console.log(error);
+            res.status(400).json({error: {all: error}});
         }
     },
 
