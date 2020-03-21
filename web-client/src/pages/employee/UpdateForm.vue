@@ -15,17 +15,27 @@
 				<v-row dense>
 					<v-col cols="12">
 						<div class="text-center">
-							<generic-image-input :photo="null"></generic-image-input>
+							<generic-image-input :photo.sync="form.profile.photo"
+												 :preview.sync="form.profile.photoPreview"></generic-image-input>
 						</div>
 					</v-col>
 					<v-col cols="12">
-						<v-text-field label="Employee Number" outlined readonly></v-text-field>
+						<v-text-field label="Employee Number" outlined readonly
+									  v-model="form.employeeNumber"></v-text-field>
 					</v-col>
 					<v-col cols="12">
-						<v-text-field label="Department" outlined></v-text-field>
+						<generic-department-selection label="Department" outlined
+													  :department-id.sync="form.departmentId"></generic-department-selection>
 					</v-col>
 					<v-col cols="12">
-						<v-text-field label="Designation" outlined></v-text-field>
+						<generic-designation-selection label="Designation" outlined
+													   :designation-id.sync="form.designationId"></generic-designation-selection>
+					</v-col>
+					<v-col cols="12">
+						<v-radio-group label="Work Status" v-model="form.isFullTime">
+							<v-radio label="Full Time" :value="true"></v-radio>
+							<v-radio label="Part Time" :value="false"></v-radio>
+						</v-radio-group>
 					</v-col>
 				</v-row>
 			</v-col>
@@ -86,8 +96,8 @@
 										:street.sync="form.profile.address.permanent.street"
 										:subdivision.sync="form.profile.address.permanent.subdivision"
 										:barangay.sync="form.profile.address.permanent.barangay"
-										:city-id.sync="form.profile.address.permanent.cityId"
-										:province-id.sync="form.profile.address.permanent.provinceId"
+										:city.sync="form.profile.address.permanent.city"
+										:province.sync="form.profile.address.permanent.province"
 										:zip-code.sync="form.profile.address.permanent.zipCode"
 								></generic-address-form>
 							</v-col>
@@ -98,8 +108,8 @@
 										:street.sync="form.profile.address.residential.street"
 										:subdivision.sync="form.profile.address.residential.subdivision"
 										:barangay.sync="form.profile.address.residential.barangay"
-										:city-id.sync="form.profile.address.residential.cityId"
-										:province-id.sync="form.profile.address.residential.provinceId"
+										:city.sync="form.profile.address.residential.city"
+										:province.sync="form.profile.address.residential.province"
 										:zip-code.sync="form.profile.address.residential.zipCode"
 								></generic-address-form>
 							</v-col>
@@ -173,13 +183,16 @@
 					<v-tab-item>
 						<v-row dense>
 							<v-col cols="12" md="4">
-								<generic-list-input :list.sync="form.profile.hobbies"  label="Hobbies"></generic-list-input>
+								<generic-list-input :list.sync="form.profile.hobbies"
+													label="Hobbies"></generic-list-input>
 							</v-col>
 							<v-col cols="12" md="4">
-								<generic-list-input :list.sync="form.profile.recognitions" label="Recognitions"></generic-list-input>
+								<generic-list-input :list.sync="form.profile.recognitions"
+													label="Recognitions"></generic-list-input>
 							</v-col>
 							<v-col cols="12" md="4">
-								<generic-list-input :list.sync="form.profile.organizations" label="Organizations"></generic-list-input>
+								<generic-list-input :list.sync="form.profile.organizations"
+													label="Organizations"></generic-list-input>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Related Questions</generic-subtitle>
@@ -189,11 +202,17 @@
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>References</generic-subtitle>
-								<generic-reference-table></generic-reference-table>
+								<generic-reference-table
+										:references.sync="form.profile.references"></generic-reference-table>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Government Issued ID</generic-subtitle>
-								<generic-government-id-form></generic-government-id-form>
+								<generic-government-id-form
+										:government-id.sync="form.profile.governmentIssueId.governmentId"
+										:license-number.sync="form.profile.governmentIssueId.licenseNumber"
+										:issuance-date.sync="form.profile.governmentIssueId.issuanceDate"
+										:issuance-place.sync="form.profile.governmentIssueId.issuancePlace"
+								></generic-government-id-form>
 							</v-col>
 						</v-row>
 					</v-tab-item>
@@ -223,6 +242,12 @@
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericGovernmentIdForm from "../../components/form/GovernmentId";
     import GenericTrainingTable from "../../components/table/Training";
+    import {getSingleEmployee} from "../../store/types/employee";
+    import GenericDepartmentSelection from "../../components/selection/Department";
+    import GenericDesignationSelection from "../../components/selection/Designation";
+    import {getAllDepartments} from "../../store/types/department";
+    import {getAllDesignations} from "../../store/types/designation";
+    import {setActionName} from "../../store/types/action";
 
     const defaultForm = {
         employeeNumber: "",
@@ -235,6 +260,7 @@
             lastName: "",
             extension: "",
             photo: null,
+            photoPreview: "",
             birthDate: null,
             birthPlace: "",
             sex: "",
@@ -258,8 +284,8 @@
                     street: "",
                     subdivision: "",
                     barangay: "",
-                    cityId: null,
-                    provinceId: null,
+                    city: "",
+                    province: "",
                     zipCode: "",
                 },
                 residential: {
@@ -267,8 +293,8 @@
                     street: "",
                     subdivision: "",
                     barangay: "",
-                    cityId: null,
-                    provinceId: null,
+                    city: "",
+                    province: "",
                     zipCode: "",
                 },
             },
@@ -301,9 +327,10 @@
             hobbies: [],
             recognitions: [],
             organizations: [],
+            references: [],
             governmentIssueId: {
                 governmentId: "",
-                license: "",
+                licenseNumber: "",
                 issuanceDate: null,
                 issuancePlace: ""
             }
@@ -312,6 +339,8 @@
 
     export default {
         components: {
+            GenericDesignationSelection,
+            GenericDepartmentSelection,
             GenericTrainingTable,
             GenericGovernmentIdForm,
             GenericReferenceTable,
@@ -333,14 +362,96 @@
             return {
                 tab: 0,
                 form: Object.assign({}, defaultForm),
-                defaultForm
+                defaultForm,
+                photoName: ""
             };
+        },
+
+        watch: {
+            "$store.state.employee.current"(employee) {
+                if (Object.keys(employee).length <= 0) return this.$router.push({name: "employee-management"});
+                const {employeeNumber, isFullTime, department, designation, profile} = employee;
+                const {firstName, middleName, lastName, extension, birthDate, birthPlace, sex, civilStatus, citizenship, bloodType, height, weight, photo, benefit, contact, address, family} = profile;
+                const {gsisId, pagibigId, sssNumber, tinNumber, philhealthId, agencyEmployeeNumber} = benefit;
+                const {telephoneNumber, mobileNumber, emailAddress} = contact;
+                const {permanent, residential} = address;
+                const {spouse, father, mother} = family;
+
+                this.form.employeeNumber = employeeNumber;
+                this.form.departmentId = department.id;
+                this.form.designationId = designation.id;
+                this.form.isFullTime = !!isFullTime;
+
+                this.form.profile.firstName = firstName;
+                this.form.profile.middleName = middleName;
+                this.form.profile.lastName = lastName;
+                this.form.profile.extension = extension;
+                this.form.profile.birthDate = birthDate;
+                this.form.profile.birthPlace = birthPlace;
+                this.form.profile.sex = sex;
+                this.form.profile.civilStatus = civilStatus;
+                this.form.profile.citizenship = citizenship;
+                this.form.profile.bloodType = bloodType;
+                this.form.profile.height = height;
+                this.form.profile.weight = weight;
+                this.form.profile.photoPreview = photo;
+
+                this.form.profile.benefit.gsisId = gsisId;
+                this.form.profile.benefit.pagibigId = pagibigId;
+                this.form.profile.benefit.sssNumber = sssNumber;
+                this.form.profile.benefit.tinNumber = tinNumber;
+                this.form.profile.benefit.philhealthId = philhealthId;
+                this.form.profile.benefit.agencyEmployeeNumber = agencyEmployeeNumber;
+
+                this.form.profile.contact.telephoneNumber = telephoneNumber;
+                this.form.profile.contact.mobileNumber = mobileNumber;
+                this.form.profile.contact.emailAddress = emailAddress;
+
+                this.form.profile.address.permanent.city = permanent.city;
+                this.form.profile.address.permanent.province = permanent.province;
+                this.form.profile.address.permanent.houseNumber = permanent.houseNumber;
+                this.form.profile.address.permanent.street = permanent.street;
+                this.form.profile.address.permanent.zipCode = permanent.zipCode;
+                this.form.profile.address.permanent.barangay = permanent.barangay;
+                this.form.profile.address.permanent.subdivision = permanent.subdivision;
+                this.form.profile.address.residential.houseNumber = residential.houseNumber;
+                this.form.profile.address.residential.street = residential.street;
+                this.form.profile.address.residential.zipCode = residential.zipCode;
+                this.form.profile.address.residential.barangay = residential.barangay;
+                this.form.profile.address.residential.province = residential.province;
+                this.form.profile.address.residential.city = residential.city;
+                this.form.profile.address.residential.subdivision = residential.subdivision;
+
+                this.form.profile.family.spouse.lastName = spouse.lastName;
+                this.form.profile.family.spouse.middleName = spouse.middleName;
+                this.form.profile.family.spouse.firstName = spouse.firstName;
+                this.form.profile.family.spouse.extension = spouse.extension;
+                this.form.profile.family.father.lastName = father.lastName;
+                this.form.profile.family.father.middleName = father.middleName;
+                this.form.profile.family.father.firstName = father.firstName;
+                this.form.profile.family.father.extension = father.extension;
+                this.form.profile.family.mother.lastName = mother.lastName;
+                this.form.profile.family.mother.middleName = mother.middleName;
+                this.form.profile.family.mother.firstName = mother.firstName;
+                this.form.profile.family.mother.extension = mother.extension;
+            }
         },
 
         methods: {
             update() {
                 console.log(this.form);
             }
+        },
+
+        created() {
+            const employeeId = this.$route.params.employeeId;
+            this.$store.dispatch(getSingleEmployee, employeeId);
+            this.$store.dispatch(getAllDepartments);
+            this.$store.dispatch(getAllDesignations);
+        },
+
+        destroyed() {
+            this.$store.commit(setActionName, "");
         }
     };
 </script>

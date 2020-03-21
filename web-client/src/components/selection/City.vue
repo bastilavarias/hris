@@ -37,7 +37,7 @@
 
         data() {
             return {
-                cityLocal: null,
+                cityLocal: "",
 				cities: []
             };
         },

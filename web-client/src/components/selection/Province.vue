@@ -38,7 +38,7 @@
 
         data() {
             return {
-                provinceLocal: null,
+                provinceLocal: "",
                 provinces: []
             };
         },

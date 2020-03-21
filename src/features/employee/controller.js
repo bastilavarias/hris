@@ -22,7 +22,63 @@ module.exports = {
                 citizenship: parsedProfile.citizenship,
                 bloodType: parsedProfile.bloodType,
                 height: parsedProfile.height,
-                weight: parsedProfile.weight
+                weight: parsedProfile.weight,
+                benefit: {
+                    gsisId: "",
+                    pagibigId: "",
+                    philhealthId: "",
+                    sssNumber: "",
+                    tinNumber: "",
+                    agencyEmployeeNumber: ""
+                },
+                contact: {telephoneNumber: "", mobileNumber: "", emailAddress: ""},
+                address: {
+                    permanent: {
+                        houseNumber: "",
+                        street: "",
+                        subdivision: "",
+                        barangay: "",
+                        cityId: null,
+                        provinceId: null,
+                        zipCode: "",
+                    },
+                    residential: {
+                        houseNumber: "",
+                        street: "",
+                        subdivision: "",
+                        barangay: "",
+                        cityId: null,
+                        provinceId: null,
+                        zipCode: "",
+                    },
+                },
+                family: {
+                    spouse: {
+                        firstName: "",
+                        middleName: "",
+                        lastName: "",
+                        extension: "",
+                    },
+                    father: {
+                        firstName: "",
+                        middleName: "",
+                        lastName: "",
+                        extension: "",
+                    },
+                    mother: {
+                        firstName: "",
+                        middleName: "",
+                        lastName: "",
+                        extension: "",
+                    },
+                    children: []
+                },
+                governmentIssueId: {
+                    governmentId: "",
+                    licenseNumber: "",
+                    issuanceDate: null,
+                    issuancePlace: ""
+                }
             }
         };
 
@@ -60,6 +116,17 @@ module.exports = {
         const searchValue = req.params.searchValue;
         try {
             const result = await employeeService.search(searchOption, searchValue);
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
+    },
+
+    getSingle: async (req, res) => {
+        const employeeId = req.params.employeeId ? parseInt(req.params.employeeId) : null;
+        try {
+            const result = await employeeService.getSingle(employeeId);
             res.status(200).json(result);
         } catch (errors) {
             console.log(errors);

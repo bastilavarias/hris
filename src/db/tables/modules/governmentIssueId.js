@@ -1,5 +1,5 @@
 module.exports = `
-    create table if not exists government_id
+    create table if not exists government_issue_id
     (
         id         mediumint auto_increment primary key not null,
         government_id varchar(50),

@@ -2,7 +2,7 @@ const db = require("../../db");
 
 module.exports = {
     create: async ({governmentId, licenseNumber, issuanceDate, issuancePlace}) => {
-        const query = `insert into government_id (government_id, licence_number, issuance_date, issuance_place)
+        const query = `insert into government_issue_id (government_id, licence_number, issuance_date, issuance_place)
                        values (?, ?, ?, ?);`;
         const params = [
             governmentId,

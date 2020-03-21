@@ -1,12 +1,17 @@
 const db = require("../../db");
 
 module.exports = {
-    create: async (profile) => {
-        const query = `insert into profile (first_name,
+    create: async ({benefitId, contactId, addressId, familyId, governmentIdId}, profile) => {
+        const query = `insert into profile (benefit_id, contact_id, address_id, family_id, government_id_id, first_name,
                                             middle_name, last_name, extension, birth_date, birth_place, sex,
                                             civil_status, blood_type, height, weight, photo)
-                       values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+                       values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
         const params = [
+            benefitId,
+            contactId,
+            addressId,
+            familyId,
+            governmentIdId,
             profile.firstName,
             profile.middleName,
             profile.lastName,

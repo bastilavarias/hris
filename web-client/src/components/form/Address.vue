@@ -13,10 +13,10 @@
 			<v-text-field label="Barangay" outlined v-model="barangayLocal"></v-text-field>
 		</v-col>
 		<v-col cols="12" md="6">
-			<generic-city-selection :city.sync="cityIdLocal" label="City/Municipality" outlined></generic-city-selection>
+			<generic-city-selection :city.sync="cityLocal" label="City/Municipality" outlined></generic-city-selection>
 		</v-col>
 		<v-col cols="12" md="6">
-			<generic-province-selection outlined label="Province" :province.sync="provinceIdLocal"></generic-province-selection>
+			<generic-province-selection outlined label="Province" :province.sync="provinceLocal"></generic-province-selection>
 		</v-col>
 		<v-col cols="12" md="12">
 			<v-text-field label="Zip Code" outlined v-model="zipCodeLocal"></v-text-field>
@@ -49,10 +49,12 @@
                 type: String,
                 required: true
             },
-            cityId: {
+            city: {
+                type: String,
                 required: true
             },
-            provinceId: {
+            province: {
+                type: String,
                 required: true
             },
             zipCode: {
@@ -67,8 +69,8 @@
                 streetLocal: "",
                 subdivisionLocal: "",
                 barangayLocal: "",
-                cityIdLocal: null,
-                provinceIdLocal: null,
+                cityLocal: "",
+                provinceLocal: null,
                 zipCodeLocal: ""
             };
         },
@@ -98,17 +100,17 @@
             barangayLocal(val) {
                 this.$emit("update:barangay", val);
             },
-            cityId(val) {
-                this.$emit("update:cityId", val);
+            city(val) {
+                this.$emit("update:city", val);
             },
-            cityIdLocal(val) {
-                this.$emit("update:cityId", val);
+            cityLocal(val) {
+                this.$emit("update:city", val);
             },
-            provinceId(val) {
-                this.$emit("update:provinceId", val);
+            province(val) {
+                this.$emit("update:province", val);
             },
-            provinceIdLocal(val) {
-                this.$emit("update:provinceId", val);
+            provinceLocal(val) {
+                this.$emit("update:province", val);
             },
             zipCode(val) {
                 this.$emit("update:zipCode", val);
@@ -123,8 +125,8 @@
             this.streetLocal = this.street;
             this.subdivisionLocal = this.subdivision;
             this.barangayLocal = this.barangay;
-            this.cityIdLocal = this.cityId;
-            this.provinceIdLocal = this.provinceId;
+            this.cityLocal = this.city;
+            this.provinceLocal = this.province;
             this.zipCodeLocal = this.zipCode;
         }
     };

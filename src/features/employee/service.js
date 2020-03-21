@@ -21,13 +21,18 @@ const employeeService = {
                 error
             };
         }
-        // const createdBenefitId = await benefitModel.create(profile.benefit);
-        // const createdContactId = await contactModel.create(profile.contact);
-        // const createdAddressId = await addressModel.create(profile.address);
-        // const createdFamilyId = await familyModel.create(profile.family);
-        // if (profile.family.children.length > 0) profile.family.children.map(async child => familyModel.addChild(createdFamilyId, child));
-        // const createdGovermentIdId = await governmentIdModel.create(profile.governmentId);
-        const createdProfileId = await profileModel.create(profile);
+        const createdBenefitId = await benefitModel.create(profile.benefit);
+        const createdContactId = await contactModel.create(profile.contact);
+        const createdAddressId = await addressModel.create(profile.address);
+        const createdFamilyId = await familyModel.create(profile.family);
+        const createdGovermentIdId = await governmentIdModel.create(profile.governmentIssueId);
+        const createdProfileId = await profileModel.create({
+            benefitId: createdBenefitId,
+            contactId: createdContactId,
+            addressId: createdAddressId,
+            familyId: createdFamilyId,
+            governmentIdId: createdGovermentIdId
+        }, profile);
         if (profile.citizenship.length > 0) profile.citizenship.map(async name => await profileModel.addCitizenship(createdProfileId, name));
         await employeeModel.create({
             employeeNumber,
@@ -68,6 +73,8 @@ const employeeService = {
         };
         return await employeeModel.search(options[option], value.trim().toLowerCase());
     },
+
+    getSingle: async (employeeId) => await employeeModel.getSingle(employeeId)
 };
 
 module.exports = employeeService;

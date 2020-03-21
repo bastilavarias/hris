@@ -71,15 +71,16 @@ export const designationService = {
 export const departmentService = {
     create: details => apiService.post("/department/create", details),
     getAll: () => apiService.get("/department/getAll"),
-    getSingle: designationId => apiService.get(`/department/getSingle/${designationId}`),
+    getSingle: departmentId => apiService.get(`/department/getSingle/${departmentId}`),
     search: ({option, value}) => apiService.get(`/department/search/${option}/${value}`),
-    update: (designationId, details) => apiService.put(`/department/update/${designationId}`, details),
-    delete: designationId => apiService.delete(`/department/delete/${designationId}`)
+    update: (departmentId, details) => apiService.put(`/department/update/${departmentId}`, details),
+    delete: departmentId => apiService.delete(`/department/delete/${departmentId}`)
 };
 
 export const employeeService = {
     create: details => apiService.post("/employee/create", details),
     generateEmployeeNumber: () => apiService.get("/employee/generate/employeeNumber"),
     getAll: () => apiService.get("/employee/getAll"),
-    search: ({option, value}) => apiService.get(`/employee/search/${option}/${value}`)
+    search: ({option, value}) => apiService.get(`/employee/search/${option}/${value}`),
+    getSingle: employeeId => apiService.get(`/employee/getSingle/${employeeId}`)
 };

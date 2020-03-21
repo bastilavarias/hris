@@ -6,7 +6,7 @@ module.exports = `
         contact_id       mediumint,
         address_id       mediumint,
         family_id        mediumint,
-        government_id_id mediumint,
+        government_issue_id_id mediumint,
         first_name       varchar(150)                         not null,
         middle_name      varchar(150)                         not null,
         last_name        varchar(150)                         not null,
@@ -26,6 +26,6 @@ module.exports = `
         foreign key (contact_id) references contact (id),
         foreign key (address_id) references address (id),
         foreign key (family_id) references family (id),
-        foreign key (government_id_id) references government_id (id)
+        foreign key (government_issue_id_id) references government_issue_id (id)
     );
 `;
