@@ -110,10 +110,10 @@
 							<v-col cols="12">
 								<generic-subtitle>Spouse Information</generic-subtitle>
 								<generic-family-form
-									:first-name.sync="form.profile.family.spouse.firstName"
-									:middle-name.sync="form.profile.family.spouse.middleName"
-									:last-name.sync="form.profile.family.spouse.lastName"
-									:extension.sync="form.profile.family.spouse.extension"
+										:first-name.sync="form.profile.family.spouse.firstName"
+										:middle-name.sync="form.profile.family.spouse.middleName"
+										:last-name.sync="form.profile.family.spouse.lastName"
+										:extension.sync="form.profile.family.spouse.extension"
 								></generic-family-form>
 							</v-col>
 							<v-col cols="12" md="6">
@@ -136,7 +136,8 @@
 							</v-col>
 							<v-col cols="12" md="12">
 								<generic-subtitle>Children Information</generic-subtitle>
-								<generic-children-information-table :children.sync="form.profile.family.children"></generic-children-information-table>
+								<generic-children-information-table
+										:children.sync="form.profile.family.children"></generic-children-information-table>
 							</v-col>
 						</v-row>
 					</v-tab-item>
@@ -144,11 +145,13 @@
 						<v-row dense>
 							<v-col cols="12">
 								<generic-subtitle>Educational Background</generic-subtitle>
-								<generic-educational-background-table></generic-educational-background-table>
+								<generic-educational-background-table
+										:education.sync="form.profile.education"></generic-educational-background-table>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Civil Service Eligibility</generic-subtitle>
-								<generic-civil-service-eligibility></generic-civil-service-eligibility>
+								<generic-civil-service-eligibility
+										:civil-service-eligibility.sync="form.profile.civilServiceEligibility"></generic-civil-service-eligibility>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Work Experience</generic-subtitle>

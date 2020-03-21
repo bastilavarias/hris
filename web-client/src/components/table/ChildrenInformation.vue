@@ -27,7 +27,7 @@
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn text @click="dialog = false">Cancel</v-btn>
-							<v-btn color="primary" :disabled="!isFormValid" @click="addNewChild">Save</v-btn>
+							<v-btn color="primary" :disabled="!isFormValid" @click="add">Save</v-btn>
 						</v-card-actions>
 					</v-card>
 				</v-dialog>
@@ -40,7 +40,7 @@
 			<div class="text-capitalize">{{formatDate(item.birthDate)}}</div>
 		</template>
 		<template v-slot:item.action="{item}">
-			<v-btn icon @click="deleteChild(item)">
+			<v-btn icon @click="remove(item)">
 				<v-icon>mdi-trash-can</v-icon>
 			</v-btn>
 		</template>
@@ -107,7 +107,7 @@
         },
 
         methods: {
-            addNewChild() {
+            add() {
                 if (this.form.name && this.form.birthDate) {
                     this.childrenLocal = [...this.childrenLocal, {
                         name: this.form.name,
@@ -118,7 +118,7 @@
                 }
             },
 
-			deleteChild(row) {
+			remove(row) {
                 const position = this.childrenLocal.indexOf(row);
                 this.childrenLocal = this.childrenLocal.filter((_, index) => position !== index);
                 this.$emit("update:children", this.childrenLocal);

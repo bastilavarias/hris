@@ -1,5 +1,5 @@
 <template>
-	<v-data-table hide-default-footer :headers="tableHeaders">
+	<v-data-table hide-default-footer :headers="tableHeaders" :items="civilServiceEligibilityLocal">
 		<template v-slot:top>
 			<v-row no-gutters>
 				<div class="flex-grow-1"></div>
@@ -16,72 +16,149 @@
 						<v-card-text>
 							<v-row dense>
 								<v-col cols="12" md="10">
-									<v-text-field label="License Title" outlined></v-text-field>
+									<v-text-field label="Title" outlined v-model="form.title"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="2">
-									<v-text-field label="Rating" outlined></v-text-field>
+									<v-text-field label="Rating" outlined v-model="form.rating"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="4">
-									<generic-date-input label="Examination Date" outlined></generic-date-input>
+									<generic-date-input label="Examination Date" outlined
+														:date.sync="form.examinationDate"></generic-date-input>
 								</v-col>
 								<v-col cols="12" md="8">
-									<v-text-field label="Examination Place" outlined></v-text-field>
+									<v-text-field label="Examination Place" outlined
+												  v-model="form.examinationPlace"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="8">
-									<v-text-field label="License Number" outlined></v-text-field>
+									<v-text-field label="License Number" outlined
+												  v-model="form.licenseNumber"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="4">
-									<generic-date-input label="Validity Date" outlined></generic-date-input>
+									<generic-date-input label="Validity Date" outlined
+														:date.sync="form.validityDate"></generic-date-input>
 								</v-col>
 							</v-row>
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn text @click="dialog = false">Cancel</v-btn>
-							<v-btn color="primary">Save</v-btn>
+							<v-btn color="primary" :disabled="!isFormValid" @click="add">Save</v-btn>
 						</v-card-actions>
 					</v-card>
 				</v-dialog>
 			</v-row>
+		</template>
+		<template v-slot:item.title="{item}">
+			<div class="text-capitalize">{{item.title ? item.title : "N/A"}}</div>
+		</template>
+		<template v-slot:item.examinationDate="{item}">
+			<div class="text-capitalize">{{item.examinationDate ? formatDate(item.examinationDate) : "N/A"}}</div>
+		</template>
+		<template v-slot:item.examinationPlace="{item}">
+			<div class="text-capitalize">{{item.examinationPlace ? item.examinationPlace : "N/A"}}</div>
+		</template>
+		<template v-slot:item.licenseNumber="{item}">
+			<div class="text-uppercase font-weight-bold">{{item.licenseNumber ? item.licenseNumber : "N/A"}}</div>
+			</template>
+		<template v-slot:item.validityDate="{item}">
+			<div class="text-capitalize">{{item.validityDate ? formatDate(item.validityDate) : "N/A"}}</div>
 		</template>
 	</v-data-table>
 </template>
 
 <script>
     import GenericDateInput from "../generic/DateInput";
+    import customUtilities from "../../services/customUtilities";
+
     const tableHeaders = [
         {
-            text: "License Title"
+            text: "License Title",
+			value: "title",
+			align: "left"
         },
         {
-            text: "Rating"
+            text: "Examination Date",
+            value: "examinationDate"
         },
         {
-            text: "Examination Date"
+            text: "License Number",
+            value: "licenseNumber"
         },
         {
-            text: "Examination Place"
+            text: "Validity Date",
+            value: "validityDate"
         },
         {
-            text: "License Number"
-        },
-        {
-            text: "Validity Date"
-        },
-        {
-            text: "Actions",
-            align: "right"
+            text: "Action",
+            value: "action"
         }
     ];
+
+    const defaultForm = {
+        title: "",
+        rating: "",
+        examinationDate: "",
+        examinationPlace: "",
+        licenseNumber: "",
+        validityDate: null
+    };
 
     export default {
         name: "generic-civil-service-eligibility",
         components: {GenericDateInput},
+
+        props: {
+            civilServiceEligibility: {
+                type: Array,
+                required: true
+            }
+        },
+
         data() {
             return {
                 dialog: false,
-                tableHeaders
+                tableHeaders,
+                civilServiceEligibilityLocal: [],
+                form: Object.assign({}, defaultForm),
+                defaultForm
             };
+        },
+
+		mixins: [customUtilities],
+
+		computed: {
+            isFormValid() {
+                return this.form.title && this.form.licenseNumber
+			}
+		},
+
+		watch: {
+            civilServiceEligibility(val) {
+                this.$emit("update:civilServiceEligibility", val);
+			},
+            civilServiceEligibilityLocal(val) {
+                this.$emit("update:civilServiceEligibility", val);
+            }
+		},
+
+        methods: {
+            add() {
+                if (this.form.title && this.form.licenseNumber) {
+                    this.civilServiceEligibilityLocal = [
+						...this.civilServiceEligibilityLocal,
+						this.form
+					];
+                    this.clearForm();
+                }
+            },
+
+			clearForm() {
+                this.form = Object.assign({}, this.defaultForm);
+			}
+        },
+
+        created() {
+            this.civilServiceEligibilityLocal = this.civilServiceEligibility;
         }
     };
 </script>
