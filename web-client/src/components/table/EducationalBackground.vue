@@ -26,24 +26,24 @@
 									</v-select>
 								</v-col>
 								<v-col cols="12" md="8">
+									<v-text-field label="Degree" outlined v-model="form.degree"></v-text-field>
+								</v-col>
+								<v-col cols="12" md="12">
 									<v-text-field label="School Name" outlined v-model="form.schoolName"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="6">
-									<v-text-field label="Degree" outlined v-model="form.degree"></v-text-field>
-								</v-col>
-								<v-col cols="12" md="2">
 									<generic-year-selection outlined label="From" :year.sync="form.yearFrom"></generic-year-selection>
 								</v-col>
-								<v-col cols="12" md="2">
+								<v-col cols="12" md="6">
 									<generic-year-selection outlined label="To" :year.sync="form.yearTo"></generic-year-selection>
 								</v-col>
-								<v-col cols="12" md="2">
+								<v-col cols="12" md="12">
 									<generic-year-selection outlined label="Year Graduated" :year.sync="form.yearGraduated"></generic-year-selection>
 								</v-col>
-								<v-col cols="12" md="6">
+								<v-col cols="12" md="12">
 									<v-text-field label="Recognition" outlined v-model="form.recognition"></v-text-field>
 								</v-col>
-								<v-col cols="12" md="6">
+								<v-col cols="12" md="12">
 									<v-text-field label="Scholarship" outlined v-model="form.scholarship"></v-text-field>
 								</v-col>
 							</v-row>

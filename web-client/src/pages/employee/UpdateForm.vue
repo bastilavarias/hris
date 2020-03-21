@@ -155,12 +155,14 @@
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Work Experience</generic-subtitle>
-								<generic-work-experience></generic-work-experience>
+								<generic-work-experience
+										:work-experiences.sync="form.profile.workExperiences"></generic-work-experience>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Voluntary Work Experience / Voluntary Organization(s)
 								</generic-subtitle>
-								<generic-voluntary-work-experience></generic-voluntary-work-experience>
+								<generic-voluntary-work-experience
+										:voluntary-work-experiences.sync="form.profile.voluntaryWorkExperiences"></generic-voluntary-work-experience>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>L & D Interventions / Training Programs Attended</generic-subtitle>

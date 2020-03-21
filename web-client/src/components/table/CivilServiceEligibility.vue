@@ -63,6 +63,11 @@
 		<template v-slot:item.validityDate="{item}">
 			<div class="text-capitalize">{{item.validityDate ? formatDate(item.validityDate) : "N/A"}}</div>
 		</template>
+		<template v-slot:item.action="{item}">
+			<v-btn icon @click="remove(item)">
+				<v-icon>mdi-trash-can</v-icon>
+			</v-btn>
+		</template>
 	</v-data-table>
 </template>
 
@@ -152,7 +157,12 @@
                 }
             },
 
-			clearForm() {
+            remove(row) {
+                const position = this.civilServiceEligibilityLocal.indexOf(row);
+                this.civilServiceEligibilityLocal = this.civilServiceEligibilityLocal.filter((_, index) => position !== index);
+            },
+
+            clearForm() {
                 this.form = Object.assign({}, this.defaultForm);
 			}
         },

@@ -1,5 +1,5 @@
 <template>
-	<v-data-table hide-default-footer :headers="tableHeaders">
+	<v-data-table hide-default-footer :headers="tableHeaders" :items="voluntaryWorkExperiencesLocal">
 		<template v-slot:top>
 			<v-row no-gutters>
 				<div class="flex-grow-1"></div>
@@ -16,68 +16,183 @@
 						<v-card-text>
 							<v-row dense>
 								<v-col cols="12" md="8">
-									<v-text-field label="Company" outlined></v-text-field>
+									<v-text-field label="Company" outlined v-model="form.company"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="4">
-									<v-text-field label="Position" outlined></v-text-field>
+									<v-text-field label="Position" outlined v-model="form.position"></v-text-field>
 								</v-col>
-								<v-col cols="12" md="12">
-									<v-text-field label="Address" outlined></v-text-field>
+								<v-col cols="12" md="6">
+									<v-select label="Salary Grade" outlined v-model="form.salaryGrade"></v-select>
 								</v-col>
-								<v-col cols="12" md="4">
-									<generic-date-input label="From" outlined></generic-date-input>
+								<v-col cols="12" md="3">
+									<v-select label="Step Increment" outlined v-model="form.stepIncement"></v-select>
 								</v-col>
-								<v-col cols="12" md="4">
-									<generic-date-input label="To" outlined></generic-date-input>
+								<v-col cols="12" md="3">
+									<v-text-field label="Monthly Salary" outlined v-model="form.salary"></v-text-field>
 								</v-col>
-								<v-col cols="12" md="4">
-									<v-text-field type="number" label="Number Of Hours" hint="Estimate" outlined></v-text-field>
+								<v-col cols="12" md="6">
+									<generic-year-selection outlined label="From"
+															:year.sync="form.yearFrom"></generic-year-selection>
+								</v-col>
+								<v-col cols="12" md="6">
+									<generic-year-selection outlined label="To"
+															:year.sync="form.yearTo"></generic-year-selection>
+								</v-col>
+								<v-col cols="12" md="6">
+									<v-radio-group row label="Full time" v-model="form.isFullTime">
+										<v-radio label="Yes" :value="true"></v-radio>
+										<v-radio label="No" :value="false"></v-radio>
+									</v-radio-group>
+								</v-col>
+								<v-col cols="12" md="6">
+									<v-radio-group row label="Government Service" v-model="form.isGovernmentService">
+										<v-radio label="Yes" :value="true"></v-radio>
+										<v-radio label="No" :value="false"></v-radio>
+									</v-radio-group>
 								</v-col>
 							</v-row>
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn text @click="dialog = false">Cancel</v-btn>
-							<v-btn color="primary">Save</v-btn>
+							<v-btn color="primary" :disabled="!isFormValid" @click="add">Save</v-btn>
 						</v-card-actions>
 					</v-card>
 				</v-dialog>
 			</v-row>
+		</template>
+		<template v-slot:item.company="{item}">
+			<span class="text-capitalize">{{item.company ? item.company : "N/A"}}</span>
+		</template>
+		<template v-slot:item.position="{item}">
+			<span class="text-capitalize">{{item.position ? item.position : "N/A"}}</span>
+		</template>
+		<template v-slot:item.date="{item}">
+			{{item.yearFrom ? item.yearFrom : "N/A"}} - {{item.yearTo ? item.yearTo :
+			"N/A"}}
+		</template>
+		<template v-slot:item.isFullTime="{item}">
+			{{item.isFullTime ? "Yes" : "No"}}
+		</template>
+		<template v-slot:item.isGovernmentService="{item}">
+			{{item.isGovernmentService ? "Yes" : "No"}}
+		</template>
+		<template v-slot:item.action="{item}">
+			<v-btn icon @click="remove(item)">
+				<v-icon>mdi-trash-can</v-icon>
+			</v-btn>
 		</template>
 	</v-data-table>
 </template>
 
 <script>
     import GenericDateInput from "../generic/DateInput";
+    import customUtilities from "../../services/customUtilities";
+    import GenericYearSelection from "../selection/Year";
+
     const tableHeaders = [
         {
-            text: "Organization",
-			align: "left"
+            text: "Company",
+            value: "company",
+            align: "left"
         },
         {
-            text: "Address"
-        },
-        {
-            text: "Span"
-        },
-        {
-            text: "Number Of Hours"
-        },
-        {
-            text: "Position"
-        },
-        {text: "Actions", align: "right"}
-    ];
+            text: "Position",
+            value: "position"
 
+        },
+        {
+            text: "Date",
+            value: "date"
+
+        },
+        {
+            text: "Monthly Salary",
+            value: "salary"
+        },
+        {
+            text: "Appointment Status",
+            value: "isFullTime"
+        },
+        {
+            text: "Government Service",
+            value: "isGovernmentService"
+        },
+        {text: "Action", value: "action", align: "right"}
+    ];
+    const defaultForm = {
+        company: "",
+        position: "",
+        yearFrom: null,
+        yearTo: null,
+        salaryGrade: null,
+        stepIncement: null,
+        salary: "",
+        isFullTime: null,
+        isGovernmentService: null
+    };
 
     export default {
-        name: "generic-voluntary-work-experience",
-        components: {GenericDateInput},
+        name: "generic--voluntary-work-experience",
+        components: {GenericYearSelection, GenericDateInput},
+
+        props: {
+            voluntaryWorkExperiences: {
+                type: Array,
+                required: true
+            }
+        },
+
         data() {
             return {
                 dialog: false,
-                tableHeaders
+                tableHeaders,
+                voluntaryWorkExperiencesLocal: [],
+                form: Object.assign({}, defaultForm),
+                defaultForm
             };
+        },
+
+        mixins: [customUtilities],
+
+        computed: {
+            isFormValid() {
+                return this.form.company && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.salary;
+            }
+        },
+
+        watch: {
+            voluntaryWorkExperiences(val) {
+                this.$emit("update:voluntaryWorkExperiences", val);
+            },
+            voluntaryWorkExperiencesLocal(val) {
+                this.$emit("update:voluntaryWorkExperiences", val);
+            }
+        },
+
+        methods: {
+            add() {
+                if (this.form.company && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.salary) {
+                    this.voluntaryWorkExperiencesLocal = [
+                        ...this.voluntaryWorkExperiencesLocal,
+                        this.form
+                    ];
+                    this.clearForm();
+                }
+            },
+
+            remove(row) {
+                const position = this.voluntaryWorkExperiencesLocal.indexOf(row);
+                this.voluntaryWorkExperiencesLocal = this.voluntaryWorkExperiencesLocal.filter((_, index) => position !== index);
+            },
+
+            clearForm() {
+                this.form = Object.assign({}, this.defaultForm);
+            }
+        },
+
+        created() {
+            this.voluntaryWorkExperiencesLocal = this.voluntaryWorkExperiences;
         }
     };
 </script>
