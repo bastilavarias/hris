@@ -6,7 +6,7 @@ module.exports = `
         company_name varchar(150),
         position     varchar(50),
         address      varchar(100),
-        date_from    date,
+        date_from    date,  
         date_to      date,
         hours_number int,
         created_at   timestamp default now(),

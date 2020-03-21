@@ -21,34 +21,17 @@
 								<v-col cols="12" md="4">
 									<v-text-field label="Position" outlined v-model="form.position"></v-text-field>
 								</v-col>
-								<v-col cols="12" md="6">
-									<v-select label="Salary Grade" outlined v-model="form.salaryGrade"></v-select>
-								</v-col>
-								<v-col cols="12" md="3">
-									<v-select label="Step Increment" outlined v-model="form.stepIncement"></v-select>
-								</v-col>
-								<v-col cols="12" md="3">
-									<v-text-field label="Monthly Salary" outlined v-model="form.salary"></v-text-field>
+								<v-col cols="12" md="12">
+									<v-text-field label="Address" outlined v-model="form.address"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="6">
-									<generic-year-selection outlined label="From"
-															:year.sync="form.yearFrom"></generic-year-selection>
+									<generic-year-selection label="From" outlined :year.sync="form.yearFrom"></generic-year-selection>
 								</v-col>
 								<v-col cols="12" md="6">
-									<generic-year-selection outlined label="To"
-															:year.sync="form.yearTo"></generic-year-selection>
+									<generic-year-selection label="To" outlined :year.sync="form.yearTo"></generic-year-selection>
 								</v-col>
-								<v-col cols="12" md="6">
-									<v-radio-group row label="Full time" v-model="form.isFullTime">
-										<v-radio label="Yes" :value="true"></v-radio>
-										<v-radio label="No" :value="false"></v-radio>
-									</v-radio-group>
-								</v-col>
-								<v-col cols="12" md="6">
-									<v-radio-group row label="Government Service" v-model="form.isGovernmentService">
-										<v-radio label="Yes" :value="true"></v-radio>
-										<v-radio label="No" :value="false"></v-radio>
-									</v-radio-group>
+								<v-col cols="12" md="12">
+									<v-text-field type="number" label="Total Number Of Hours" outlined v-model="form.hoursNumber"></v-text-field>
 								</v-col>
 							</v-row>
 						</v-card-text>
@@ -66,6 +49,9 @@
 		</template>
 		<template v-slot:item.position="{item}">
 			<span class="text-capitalize">{{item.position ? item.position : "N/A"}}</span>
+		</template>
+		<template v-slot:item.address="{item}">
+			<span class="text-capitalize">{{item.address ? item.address : "N/A"}}</span>
 		</template>
 		<template v-slot:item.date="{item}">
 			{{item.yearFrom ? item.yearFrom : "N/A"}} - {{item.yearTo ? item.yearTo :
@@ -102,38 +88,29 @@
 
         },
         {
+            text: "Address",
+            value: "address"
+
+        },
+        {
             text: "Date",
             value: "date"
 
         },
-        {
-            text: "Monthly Salary",
-            value: "salary"
-        },
-        {
-            text: "Appointment Status",
-            value: "isFullTime"
-        },
-        {
-            text: "Government Service",
-            value: "isGovernmentService"
-        },
         {text: "Action", value: "action", align: "right"}
     ];
+
     const defaultForm = {
         company: "",
         position: "",
+        address: "",
         yearFrom: null,
         yearTo: null,
-        salaryGrade: null,
-        stepIncement: null,
-        salary: "",
-        isFullTime: null,
-        isGovernmentService: null
+        hoursNumber: 0
     };
 
     export default {
-        name: "generic--voluntary-work-experience",
+        name: "generic-voluntary-work-experience",
         components: {GenericYearSelection, GenericDateInput},
 
         props: {
@@ -157,7 +134,7 @@
 
         computed: {
             isFormValid() {
-                return this.form.company && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.salary;
+                return this.form.company && this.form.address && this.form.position && this.form.yearFrom && this.form.yearTo;
             }
         },
 
@@ -172,7 +149,7 @@
 
         methods: {
             add() {
-                if (this.form.company && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.salary) {
+                if (this.form.company && this.form.address && this.form.position && this.form.yearFrom && this.form.yearTo) {
                     this.voluntaryWorkExperiencesLocal = [
                         ...this.voluntaryWorkExperiencesLocal,
                         this.form

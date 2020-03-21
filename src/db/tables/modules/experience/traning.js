@@ -1,5 +1,5 @@
 module.exports = `
-    create table if not exists learning_development
+    create table if not exists training
     (
         id            mediumint auto_increment primary key not null,
         profile_id    mediumint                            not null,

@@ -166,20 +166,20 @@
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>L & D Interventions / Training Programs Attended</generic-subtitle>
-								<generic-learning-development-intervention></generic-learning-development-intervention>
+								<generic-training-table :trainings="form.profile.trainings"></generic-training-table>
 							</v-col>
 						</v-row>
 					</v-tab-item>
 					<v-tab-item>
 						<v-row dense>
 							<v-col cols="12" md="4">
-								<generic-list-input label="Hobbies"></generic-list-input>
+								<generic-list-input :list.sync="form.profile.hobbies"  label="Hobbies"></generic-list-input>
 							</v-col>
 							<v-col cols="12" md="4">
-								<generic-list-input label="Recognitions"></generic-list-input>
+								<generic-list-input :list.sync="form.profile.recognitions" label="Recognitions"></generic-list-input>
 							</v-col>
 							<v-col cols="12" md="4">
-								<generic-list-input label="Organizations"></generic-list-input>
+								<generic-list-input :list.sync="form.profile.organizations" label="Organizations"></generic-list-input>
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Related Questions</generic-subtitle>
@@ -218,11 +218,11 @@
     import GenericCivilServiceEligibility from "../../components/table/CivilServiceEligibility";
     import GenericWorkExperience from "../../components/table/WorkExperience";
     import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
-    import GenericLearningDevelopmentIntervention from "../../components/table/LearningDevelopmentIntervention";
     import GenericListInput from "../../components/generic/ListInput";
     import GenericQuestionItem from "../../components/generic/QuestionItem";
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericGovernmentIdForm from "../../components/form/GovernmentId";
+    import GenericTrainingTable from "../../components/table/Training";
 
     const defaultForm = {
         employeeNumber: "",
@@ -312,11 +312,11 @@
 
     export default {
         components: {
+            GenericTrainingTable,
             GenericGovernmentIdForm,
             GenericReferenceTable,
             GenericQuestionItem,
             GenericListInput,
-            GenericLearningDevelopmentIntervention,
             GenericVoluntaryWorkExperience,
             GenericWorkExperience,
             GenericCivilServiceEligibility,
