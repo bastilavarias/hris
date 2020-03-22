@@ -82,5 +82,6 @@ export const employeeService = {
     generateEmployeeNumber: () => apiService.get("/employee/generate/employeeNumber"),
     getAll: () => apiService.get("/employee/getAll"),
     search: ({option, value}) => apiService.get(`/employee/search/${option}/${value}`),
-    getSingle: employeeId => apiService.get(`/employee/getSingle/${employeeId}`)
+    getSingle: employeeId => apiService.get(`/employee/getSingle/${employeeId}`),
+    update: (employeeId, details) => apiService.put(`/employee/update/${employeeId}`, details)
 };

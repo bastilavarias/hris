@@ -5,9 +5,6 @@
 				<v-btn icon>
 					<v-icon>mdi-printer</v-icon>
 				</v-btn>
-				<v-btn icon @click="update">
-					<v-icon>mdi-content-save</v-icon>
-				</v-btn>
 			</template>
 		</generic-back-button>
 		<v-row>
@@ -219,14 +216,59 @@
 				</v-tabs-items>
 			</v-col>
 		</v-row>
-		<generic-up-button></generic-up-button>
+		<v-speed-dial
+				v-model="fab"
+				bottom
+				right
+				fixed
+				direction="left"
+				:open-on-hover="hover"
+				:transition="transition"
+		>
+			<template v-slot:activator>
+				<v-btn
+						v-model="fab"
+						color="primary"
+						dark
+						fab
+				>
+					<v-icon v-if="fab">mdi-close</v-icon>
+					<v-icon v-else>mdi-account-circle</v-icon>
+				</v-btn>
+			</template>
+			<v-btn
+					fab
+					dark
+					small
+					color="blue darken-2"
+					@click="$vuetify.goTo(0)"
+			>
+				<v-icon>mdi-chevron-up</v-icon>
+			</v-btn>
+			<v-btn
+					fab
+					dark
+					small
+					color="secondary"
+					@click="update"
+			>
+				<v-icon>mdi-pencil</v-icon>
+			</v-btn>
+			<v-btn
+					fab
+					dark
+					small
+					color="red"
+			>
+				<v-icon>mdi-delete</v-icon>
+			</v-btn>
+		</v-speed-dial>
 	</div>
 </template>
 <script>
     import GenericBackButton from "../../components/generic/BackButton";
     import GenericImageInput from "../../components/generic/PhotoInput";
     import GenericProfile from "../../components/form/Profile";
-    import GenericUpButton from "../../components/generic/UpButton";
     import GenericBenefitForm from "../../components/form/Benefit";
     import GenericSubtitle from "../../components/generic/Subtitle";
     import GenericContactForm from "../../components/form/Contact";
@@ -241,7 +283,7 @@
     import GenericQuestionItem from "../../components/generic/QuestionItem";
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericTrainingTable from "../../components/table/Training";
-    import {getSingleEmployee} from "../../store/types/employee";
+    import {getSingleEmployee, updateEmployee} from "../../store/types/employee";
     import GenericDepartmentSelection from "../../components/selection/Department";
     import GenericDesignationSelection from "../../components/selection/Designation";
     import {getAllDepartments} from "../../store/types/department";
@@ -355,7 +397,7 @@
             GenericAddressForm,
             GenericContactForm,
             GenericSubtitle,
-            GenericBenefitForm, GenericUpButton, GenericProfile, GenericImageInput, GenericBackButton
+            GenericBenefitForm, GenericProfile, GenericImageInput, GenericBackButton
         },
 
         data() {
@@ -363,7 +405,17 @@
                 tab: 0,
                 form: Object.assign({}, defaultForm),
                 defaultForm,
-                photoName: ""
+                photoName: "",
+                direction: "top",
+                fab: false,
+                fling: false,
+                hover: false,
+                tabs: null,
+                top: false,
+                right: true,
+                bottom: true,
+                left: false,
+                transition: "slide-y-reverse-transition",
             };
         },
 
@@ -468,7 +520,8 @@
 
         methods: {
             update() {
-                console.log(this.form);
+                const employeeId = this.$route.params.employeeId;
+                this.$store.dispatch(updateEmployee, {employeeId, ...this.form});
             }
         },
 

@@ -18,7 +18,7 @@ module.exports = `
         blood_type       varchar(50),
         height           float,
         weight           float,
-        photo            text,
+        photo            varchar(2083),
         created_at       timestamp default now(),
         is_deleted       boolean   default false,
         deleted_at       timestamp,

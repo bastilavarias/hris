@@ -7,6 +7,7 @@ const familyModel = require("../family/model");
 const governmentIdModel = require("../governmentId/model");
 const helper = require("../../helper");
 const customUtilities = require("../../customUtilities");
+const cloudinaryService = require("../cloudinary/service");
 
 const employeeService = {
     create: async ({employeeNumber, departmentId, designationId, isFullTime, profile}) => {
@@ -15,7 +16,6 @@ const employeeService = {
         const isEmployeeExists = await helper.checkIfExists("employee", "employee_number", employeeNumber.toLowerCase());
         if (isEmployeeExists) {
             error.employeeNumber = "Employee number was already used.";
-            helper.removeFile(profile.photo, "photos");
             return {
                 message,
                 error
@@ -26,6 +26,12 @@ const employeeService = {
         const createdAddressId = await addressModel.create(profile.address);
         const createdFamilyId = await familyModel.create(profile.family);
         const createdGovermentIdId = await governmentIdModel.create(profile.governmentIssueId);
+
+        if (profile.photo) {
+            const photoCDN = await cloudinaryService.upload(profile.photo);
+            profile.photo = photoCDN;
+        }
+
         const createdProfileId = await profileModel.create({
             benefitId: createdBenefitId,
             contactId: createdContactId,

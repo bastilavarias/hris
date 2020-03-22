@@ -23,7 +23,7 @@ module.exports = {
             profile.bloodType,
             profile.height,
             profile.weight,
-            profile.photo,
+            profile.photo
         ];
         const result = await db.executeQuery(query, params);
         return result[0].insertId;

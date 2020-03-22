@@ -93,16 +93,30 @@ export default {
             }
         },
 
-        [updateEmployee]: async ({commit}, {employeeId, details}) => {
+        [updateEmployee]: async ({commit}, {employeeId, employeeNumber, departmentId, designationId, isFullTime, profile}) => {
             try {
-                const result = await employeeService.update(employeeId, details);
-                const {message, error} = result.data;
-                if (error.length > 0) {
-                    commit(setActionName, `${updateEmployee}-error`);
-                    commit(setEmployeeError, error);
-                    return;
-                }
-                commit(setNotificationConfig, {message, type: "success"});
+                const employeeForm = new FormData();
+                employeeForm.append("employeeNumber", employeeNumber);
+                employeeForm.append("departmentId", departmentId);
+                employeeForm.append("departmentId", departmentId);
+                employeeForm.append("designationId", designationId);
+                employeeForm.append("isFullTime", isFullTime);
+                employeeForm.append("profile", JSON.stringify(profile));
+                const result = await employeeService.update(employeeId, {
+                    employeeNumber,
+                    departmentId,
+                    designationId,
+                    isFullTime,
+                    profile
+                });
+                console.log(result.data);
+                // const {message, error} = result.data;
+                // if (error.length > 0) {
+                //     commit(setActionName, `${updateEmployee}-error`);
+                //     commit(setEmployeeError, error);
+                //     return;
+                // }
+                // commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateEmployee);
             } catch (errors) {
                 commit(setActionName, updateEmployee);

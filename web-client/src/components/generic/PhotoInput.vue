@@ -1,23 +1,19 @@
 <template>
 	<div>
-		<v-avatar :size="150" class="mb-5">
-			<v-img :src="displayPhoto"></v-img>
-		</v-avatar>
-		<v-file-input
-				:rules="imageSelectorValidation"
-				accept="image/png, image/jpeg, image/bmp"
-				placeholder="Change the photo"
-				prepend-icon="mdi-image"
-				label="Photo"
-				outlined
-				v-model="photoLocal"
-		></v-file-input>
+		<label for="file-input" v-model="photoLocal">
+			<v-avatar :size="150" class="mb-5" @mouseover="isHover = true" @mouseleave="isHover = false">
+				<div class="blue" v-if="isHover"></div>
+				<v-img :src="displayPhoto" v-else></v-img>
+			</v-avatar>
+		</label>
+		<input type="file" id="file-input" accept="image/png, image/jpeg, image/bmp" style="display: none;"
+			   @change="processFile($event)"/>
 	</div>
 </template>
 
 <script>
     const imageSelectorValidation = [
-        value => !value || value.size < 3000000 || "Image size should be less than 5 MB!"
+        value => !value || value.size < 5000000 || "Image size should be less than 5 MB!"
     ];
 
     export default {
@@ -39,6 +35,7 @@
                 imageSelectorValidation,
                 photoLocal: null,
                 previewLocal: "",
+                isHover: false
             };
         },
 
@@ -49,8 +46,9 @@
                     return URL.createObjectURL(this.photoLocal);
                 }
                 if (this.previewLocal) {
-                    return require(`../../../../src/file/photos/${this.previewLocal}`);
+                    return this.previewLocal;
                 }
+
                 return defaultPhoto;
             }
         },
@@ -73,9 +71,15 @@
             }
         },
 
+        methods: {
+            processFile(event) {
+                this.photoLocal = event.target.files[0];
+            }
+        },
+
         created() {
-            this.photoLocal = this.photo;
             this.previewLocal = this.preview;
+            this.photoLocal = this.photo;
         }
     };
 </script>

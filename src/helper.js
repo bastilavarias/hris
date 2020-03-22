@@ -13,14 +13,6 @@ module.exports = {
         return result[0][0].isExists ? result[0][0].isExists : false;
     },
 
-    removeFile: (fileName, folder) => {
-        try {
-            const fileToDelete = path.join(__dirname, `/file/${folder}/${fileName}`);
-            fs.unlinkSync(fileToDelete);
-        } catch (errors) {
-            console.log(errors);
-        }
-    },
 
     countTableRows: async (table) => {
         const query = `select count(id) as count from ${table.toLowerCase()};`;
@@ -28,4 +20,5 @@ module.exports = {
         const result = await db.executeQuery(query, params);
         return result[0][0] ? result[0][0].count : "999";
     }
+
 };
