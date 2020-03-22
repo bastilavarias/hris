@@ -76,7 +76,7 @@
             lastName: "",
             extension: "",
             photo: null,
-            birthDate: null,
+            birthDate: "",
             birthPlace: "",
             sex: "",
             civilStatus: "",

@@ -1,5 +1,6 @@
 <template>
-	<v-autocomplete :items="cities" item-value="id" item-text="name" :label="label" :outlined="outlined" v-model="cityLocal" autocomplete="none">
+	<v-autocomplete :items="cities" item-value="name" item-text="name" :label="label" :outlined="outlined"
+					v-model="cityLocal" autocomplete="none">
 		<template v-slot:item="{item}">
 			<v-list-item-content>
 				<v-list-item-subtitle class="text-uppercase">{{item.province}}</v-list-item-subtitle>
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-	import philCities from "philippines/cities";
+    import philCities from "philippines/cities";
 
     export default {
         name: "generic-city-selection",
@@ -25,7 +26,7 @@
             },
 
             city: {
-                type: null,
+                type: String,
                 required: true
             },
 
@@ -38,13 +39,13 @@
         data() {
             return {
                 cityLocal: "",
-				cities: []
+                cities: []
             };
         },
 
         watch: {
             city(val) {
-                this.cityLocal = val;
+                this.$emit("update:city", val);
             },
 
             cityLocal(val) {

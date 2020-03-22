@@ -1,5 +1,5 @@
 <template>
-	<v-autocomplete :items="provinces" item-value="id" item-text="name" :label="label" :outlined="outlined"
+	<v-autocomplete :items="provinces" item-value="name" item-text="name" :label="label" :outlined="outlined"
 					v-model="provinceLocal" autocomplete="none">
 		<template v-slot:item="{item}">
 			<v-list-item-content>
@@ -26,7 +26,7 @@
             },
 
             province: {
-                type: null,
+                type: String,
                 required: true
             },
 

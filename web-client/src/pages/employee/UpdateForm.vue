@@ -418,8 +418,8 @@
                 this.form.profile.address.residential.street = residential.street;
                 this.form.profile.address.residential.zipCode = residential.zipCode;
                 this.form.profile.address.residential.barangay = residential.barangay;
-                this.form.profile.address.residential.province = residential.province;
                 this.form.profile.address.residential.city = residential.city;
+                this.form.profile.address.residential.province = residential.province;
                 this.form.profile.address.residential.subdivision = residential.subdivision;
 
                 this.form.profile.family.spouse.lastName = spouse.lastName;

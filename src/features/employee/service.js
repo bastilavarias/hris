@@ -75,6 +75,7 @@ const employeeService = {
     },
 
     getSingle: async (employeeId) => await employeeModel.getSingle(employeeId)
+
 };
 
 module.exports = employeeService;
