@@ -10,5 +10,6 @@ router.get("/getSingle/:employeeId", employeeController.getSingle);
 router.get("/get/employeeNumber", employeeController.generateEmployeeNumber);
 router.get("/getAll", employeeController.getAll);
 router.get("/search/:searchOption/:searchValue", employeeController.search);
+router.put("/update/:employeeId", employeeController.update);
 
 module.exports = router;

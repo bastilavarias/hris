@@ -15,11 +15,19 @@
 						</v-card-title>
 						<v-card-text>
 							<v-row dense>
-								<v-col cols="12" md="10">
-									<v-text-field label="Title" outlined v-model="form.title"></v-text-field>
+								<v-col cols="12" md="8">
+									<v-text-field label="License Title" outlined v-model="form.licenseTitle"></v-text-field>
 								</v-col>
-								<v-col cols="12" md="2">
+								<v-col cols="12" md="4">
+									<v-text-field label="License Number" outlined
+												  v-model="form.licenseNumber"></v-text-field>
+								</v-col>
+								<v-col cols="12" md="6">
 									<v-text-field label="Rating" outlined v-model="form.rating"></v-text-field>
+								</v-col>
+								<v-col cols="12" md="6">
+									<generic-date-input label="Validity Date" outlined
+														:date.sync="form.validityDate"></generic-date-input>
 								</v-col>
 								<v-col cols="12" md="4">
 									<generic-date-input label="Examination Date" outlined
@@ -28,14 +36,6 @@
 								<v-col cols="12" md="8">
 									<v-text-field label="Examination Place" outlined
 												  v-model="form.examinationPlace"></v-text-field>
-								</v-col>
-								<v-col cols="12" md="8">
-									<v-text-field label="License Number" outlined
-												  v-model="form.licenseNumber"></v-text-field>
-								</v-col>
-								<v-col cols="12" md="4">
-									<generic-date-input label="Validity Date" outlined
-														:date.sync="form.validityDate"></generic-date-input>
 								</v-col>
 							</v-row>
 						</v-card-text>
@@ -49,7 +49,7 @@
 			</v-row>
 		</template>
 		<template v-slot:item.title="{item}">
-			<div class="text-capitalize">{{item.title ? item.title : "N/A"}}</div>
+			<div class="text-capitalize">{{item.licenseTitle ? item.licenseTitle : "N/A"}}</div>
 		</template>
 		<template v-slot:item.examinationDate="{item}">
 			<div class="text-capitalize">{{item.examinationDate ? formatDate(item.examinationDate) : "N/A"}}</div>
@@ -59,7 +59,7 @@
 		</template>
 		<template v-slot:item.licenseNumber="{item}">
 			<div class="text-uppercase font-weight-bold">{{item.licenseNumber ? item.licenseNumber : "N/A"}}</div>
-			</template>
+		</template>
 		<template v-slot:item.validityDate="{item}">
 			<div class="text-capitalize">{{item.validityDate ? formatDate(item.validityDate) : "N/A"}}</div>
 		</template>
@@ -78,12 +78,8 @@
     const tableHeaders = [
         {
             text: "License Title",
-			value: "title",
-			align: "left"
-        },
-        {
-            text: "Examination Date",
-            value: "examinationDate"
+            value: "licenseTitle",
+            align: "left"
         },
         {
             text: "License Number",
@@ -100,12 +96,12 @@
     ];
 
     const defaultForm = {
-        title: "",
+        licenseTitle: "",
         rating: "",
+        licenseNumber: "",
+        validityDate: null,
         examinationDate: "",
         examinationPlace: "",
-        licenseNumber: "",
-        validityDate: null
     };
 
     export default {
@@ -129,30 +125,30 @@
             };
         },
 
-		mixins: [customUtilities],
+        mixins: [customUtilities],
 
-		computed: {
+        computed: {
             isFormValid() {
-                return this.form.title && this.form.licenseNumber
-			}
-		},
+                return this.form.licenseTitle && this.form.licenseNumber;
+            }
+        },
 
-		watch: {
+        watch: {
             civilServiceEligibility(val) {
                 this.$emit("update:civilServiceEligibility", val);
-			},
+            },
             civilServiceEligibilityLocal(val) {
                 this.$emit("update:civilServiceEligibility", val);
             }
-		},
+        },
 
         methods: {
             add() {
-                if (this.form.title && this.form.licenseNumber) {
+                if (this.form.licenseTitle && this.form.licenseNumber) {
                     this.civilServiceEligibilityLocal = [
-						...this.civilServiceEligibilityLocal,
-						this.form
-					];
+                        ...this.civilServiceEligibilityLocal,
+                        this.form
+                    ];
                     this.clearForm();
                 }
             },
@@ -164,7 +160,7 @@
 
             clearForm() {
                 this.form = Object.assign({}, this.defaultForm);
-			}
+            }
         },
 
         created() {

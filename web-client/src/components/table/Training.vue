@@ -16,7 +16,7 @@
 						<v-card-text>
 							<v-row dense>
 								<v-col cols="12">
-									<v-text-field label="Title" outlined v-model="form.title"></v-text-field>
+									<v-text-field label="Title" outlined v-model="form.programTitle"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="6">
 									<generic-date-input label="From" outlined
@@ -49,8 +49,8 @@
 				</v-dialog>
 			</v-row>
 		</template>
-		<template v-slot:item.title="{item}">
-			<span class="text-capitalize">{{item.title ? item.title : "N/A"}}</span>
+		<template v-slot:item.programTitle="{item}">
+			<span class="text-capitalize">{{item.programTitle ? item.programTitle : "N/A"}}</span>
 		</template>
 		<template v-slot:item.date="{item}">
 			{{item.dateFrom ? formatDate(item.dateFrom) : "N/A"}} - {{item.dateTo ? formatDate(item.dateTo) :
@@ -78,7 +78,7 @@
     const tableHeaders = [
         {
             text: "Title",
-            value: "title",
+            value: "programTitle",
             align: "left"
         },
         {
@@ -100,7 +100,7 @@
     ];
 
     const defaultForm = {
-        title: "",
+        programTitle: "",
         dateFrom: null,
         dateTo: null,
         hoursNumber: 0,
@@ -133,7 +133,7 @@
 
         computed: {
             isFormValid() {
-                return this.form.title;
+                return this.form.programTitle;
             }
         },
 
@@ -148,7 +148,7 @@
 
         methods: {
             add() {
-                if (this.form.title) {
+                if (this.form.programTitle) {
                     this.trainingsLocal = [
                         ...this.trainingsLocal,
                         this.form

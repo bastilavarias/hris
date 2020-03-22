@@ -57,7 +57,7 @@ module.exports = {
 
     getSingle: async (employeeId) => {
         const query = `select e.id,
-                              e.employee_number as employeeNumber,
+                              e.employee_number             as employeeNumber,
                               e.is_full_time                as isFullTime,
                               (select json_object('id', id, 'name', name)
                                from department
@@ -165,10 +165,92 @@ module.exports = {
                                                                                                       mother_last_name,
                                                                                                       'extension',
                                                                                                       mother_extension
-                                                                                                  ))
+                                                                                                  )),
+                                                                            'children',
+                                                                            (select json_arrayagg(json_object('name', name, 'birthDate', birthDate))
+                                                                             from child
+                                                                             where family_id = p.family_id)
                                                                     )
                                                          from family
-                                                         where id = p.family_id)
+                                                         where id = p.family_id),
+                                              'education', (select json_arrayagg(json_object(
+                                              'level', level,
+                                              'degree', degree,
+                                              'schoolName', school_name,
+                                              'yearFrom', year_form,
+                                              'yearTo', year_to,
+                                              'yearGraduated', year_graduated,
+                                              'recognition', recognition,
+                                              'scholarship', scholarship
+                                          ))
+                                                            from education
+                                                            where profile_id = e.profile_id),
+                                              'civilServiceEligibility', (select json_arrayagg(json_object(
+                                              'licenseTitle', license_title,
+                                              'licenseNumber', license_number,
+                                              'rating', rating,
+                                              'validityDate', validity_date,
+                                              'examinationDate', examination_date,
+                                              'examinationPlace', examination_place
+                                          ))
+                                                                          from civil_service_eligibility
+                                                                          where profile_id = e.profile_id),
+                                              'workExperiences', (select json_arrayagg(json_object(
+                                              'companyName', company_name,
+                                              'position', position,
+                                              'yearFrom', year_from,
+                                              'yearTo', year_to,
+                                              'monthlySalary', monthly_salary,
+                                              'isFullTime', is_full_time,
+                                              'isGovernmentService', is_government_service
+                                          ))
+                                                                  from work_experience
+                                                                  where profile_id = e.profile_id),
+                                              'voluntaryWorkExperiences',
+                                              (select json_arrayagg(json_object(
+                                                      'companyName', company_name,
+                                                      'position', position,
+                                                      'address', address,
+                                                      'yearFrom', year_from,
+                                                      'yearTo', year_to,
+                                                      'hoursNumber', hours_number
+                                                  ))
+                                               from voluntary_work_experience
+                                               where profile_id = e.profile_id),
+                                              'trainings', (select json_arrayagg(json_object(
+                                              'programTitle', program_title,
+                                              'dateFrom', date_from,
+                                              'dateTo', date_to,
+                                              'hoursNumber', hours_number,
+                                              'type', type,
+                                              'sponsor', sponsor
+                                          ))
+                                                            from training
+                                                            where profile_id = e.profile_id),
+                                              'hobbies',
+                                              (select json_arrayagg(name) from hobby where profile_id = e.profile_id),
+                                              'recognitions',
+                                              (select json_arrayagg(name)
+                                               from recognition
+                                               where profile_id = e.profile_id),
+                                              'organizations',
+                                              (select json_arrayagg(name)
+                                               from organization
+                                               where profile_id = e.profile_id),
+                                              'references',
+                                              (select json_arrayagg(json_object('name', name, 'address', address,
+                                                                                'contactNumber', contact_number))
+                                               from reference
+                                               where profile_id = e.profile_id),
+                                              'govermentIssueId',
+                                              (select json_object(
+                                                              'governmentId', government_id,
+                                                              'licenseNumber', licence_number,
+                                                              'issuanceDate', issuance_date,
+                                                              'issuancePlace', issuance_place
+                                                          )
+                                               from government_issue_id
+                                               where id = p.government_id_id)
                                           )
                                from profile
                                where id = p.id)             as profile

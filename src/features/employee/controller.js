@@ -20,9 +20,9 @@ module.exports = {
                 sex: parsedProfile.sex,
                 civilStatus: parsedProfile.civilStatus,
                 citizenship: parsedProfile.citizenship,
-                bloodType: parsedProfile.bloodType,
-                height: parsedProfile.height,
-                weight: parsedProfile.weight,
+                bloodType: parsedProfile.bloodType ? parsedProfile.bloodType : "",
+                height: parsedProfile.height ? parsedProfile.height : "",
+                weight: parsedProfile.weight ? parsedProfile.weight : "",
                 benefit: {
                     gsisId: "",
                     pagibigId: "",
@@ -70,8 +70,7 @@ module.exports = {
                         middleName: "",
                         lastName: "",
                         extension: "",
-                    },
-                    children: []
+                    }
                 },
                 governmentIssueId: {
                     governmentId: "",
@@ -131,6 +130,94 @@ module.exports = {
         } catch (errors) {
             console.log(errors);
             res.status(400).json(errors);
+        }
+    },
+
+    update: async (req, res) => {
+        const employeeId = req.params.employeeId ? parseInt(req.params.employeeId) : null;
+        const parsedProfile = JSON.parse(req.body.profile);
+        const employeeData = {
+            departmentId: customUtilities.toNumber(req.body.departmentId),
+            designationId: customUtilities.toNumber(req.body.designationId),
+            isFullTime: !!req.body.isFullTime,
+            profile: {
+                firstName: parsedProfile.firstName ? parsedProfile.firstName : "",
+                middleName: parsedProfile.middleName,
+                lastName: parsedProfile.lastName,
+                extension: parsedProfile.extension,
+                photo: req.file ? req.file.filename : "",
+                birthDate: parsedProfile.birthDate,
+                birthPlace: parsedProfile.birthPlace,
+                sex: parsedProfile.sex,
+                civilStatus: parsedProfile.civilStatus,
+                citizenship: parsedProfile.citizenship,
+                bloodType: parsedProfile.bloodType ? parsedProfile.bloodType : "",
+                height: parsedProfile.height ? parsedProfile.height : "",
+                weight: parsedProfile.weight ? parsedProfile.weight : "",
+                benefit: {
+                    gsisId: "",
+                    pagibigId: "",
+                    philhealthId: "",
+                    sssNumber: "",
+                    tinNumber: "",
+                    agencyEmployeeNumber: ""
+                },
+                contact: {telephoneNumber: "", mobileNumber: "", emailAddress: ""},
+                address: {
+                    permanent: {
+                        houseNumber: "",
+                        street: "",
+                        subdivision: "",
+                        barangay: "",
+                        city: "",
+                        province: "",
+                        zipCode: "",
+                    },
+                    residential: {
+                        houseNumber: "",
+                        street: "",
+                        subdivision: "",
+                        barangay: "",
+                        city: "",
+                        province: "",
+                        zipCode: "",
+                    },
+                },
+                family: {
+                    spouse: {
+                        firstName: "",
+                        middleName: "",
+                        lastName: "",
+                        extension: "",
+                    },
+                    father: {
+                        firstName: "",
+                        middleName: "",
+                        lastName: "",
+                        extension: "",
+                    },
+                    mother: {
+                        firstName: "",
+                        middleName: "",
+                        lastName: "",
+                        extension: "",
+                    }
+                },
+                governmentIssueId: {
+                    governmentId: "",
+                    licenseNumber: "",
+                    issuanceDate: null,
+                    issuancePlace: ""
+                }
+            }
+        };
+        try {
+            const result = await employeeService.getSingle(employeeId);
+            res.status(200).json(result);
+        } catch (errors) {
+            res.status(400).json({
+                errors
+            });
         }
     }
 };

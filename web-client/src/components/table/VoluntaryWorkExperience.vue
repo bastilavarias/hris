@@ -16,7 +16,7 @@
 						<v-card-text>
 							<v-row dense>
 								<v-col cols="12" md="8">
-									<v-text-field label="Company" outlined v-model="form.company"></v-text-field>
+									<v-text-field label="Company" outlined v-model="form.companyName"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="4">
 									<v-text-field label="Position" outlined v-model="form.position"></v-text-field>
@@ -44,8 +44,8 @@
 				</v-dialog>
 			</v-row>
 		</template>
-		<template v-slot:item.company="{item}">
-			<span class="text-capitalize">{{item.company ? item.company : "N/A"}}</span>
+		<template v-slot:item.companyName="{item}">
+			<span class="text-capitalize">{{item.companyName ? item.companyName : "N/A"}}</span>
 		</template>
 		<template v-slot:item.position="{item}">
 			<span class="text-capitalize">{{item.position ? item.position : "N/A"}}</span>
@@ -79,7 +79,7 @@
     const tableHeaders = [
         {
             text: "Company",
-            value: "company",
+            value: "companyName",
             align: "left"
         },
         {
@@ -101,7 +101,7 @@
     ];
 
     const defaultForm = {
-        company: "",
+        companyName: "",
         position: "",
         address: "",
         yearFrom: null,
@@ -134,7 +134,7 @@
 
         computed: {
             isFormValid() {
-                return this.form.company && this.form.address && this.form.position && this.form.yearFrom && this.form.yearTo;
+                return this.form.companyName && this.form.address && this.form.position && this.form.yearFrom && this.form.yearTo;
             }
         },
 
@@ -149,7 +149,7 @@
 
         methods: {
             add() {
-                if (this.form.company && this.form.address && this.form.position && this.form.yearFrom && this.form.yearTo) {
+                if (this.form.companyName && this.form.address && this.form.position && this.form.yearFrom && this.form.yearTo) {
                     this.voluntaryWorkExperiencesLocal = [
                         ...this.voluntaryWorkExperiencesLocal,
                         this.form

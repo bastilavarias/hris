@@ -16,19 +16,19 @@
 						<v-card-text>
 							<v-row dense>
 								<v-col cols="12" md="8">
-									<v-text-field label="Company" outlined v-model="form.company"></v-text-field>
+									<v-text-field label="Company" outlined v-model="form.companyName"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="4">
 									<v-text-field label="Position" outlined v-model="form.position"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="6">
-									<v-select label="Salary Grade" outlined v-model="form.salaryGrade"></v-select>
+									<v-select label="Salary Grade" outlined v-model="form.monthlySalaryGrade"></v-select>
 								</v-col>
 								<v-col cols="12" md="3">
 									<v-select label="Step Increment" outlined v-model="form.stepIncement"></v-select>
 								</v-col>
 								<v-col cols="12" md="3">
-									<v-text-field label="Monthly Salary" outlined v-model="form.salary"></v-text-field>
+									<v-text-field label="Monthly Salary" outlined v-model="form.monthlySalary"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="6">
 									<generic-year-selection outlined label="From"
@@ -61,21 +61,14 @@
 				</v-dialog>
 			</v-row>
 		</template>
-		<template v-slot:item.company="{item}">
-			<span class="text-capitalize">{{item.company ? item.company : "N/A"}}</span>
-		</template>
-		<template v-slot:item.position="{item}">
-			<span class="text-capitalize">{{item.position ? item.position : "N/A"}}</span>
-		</template>
-		<template v-slot:item.date="{item}">
-			{{item.yearFrom ? item.yearFrom : "N/A"}} - {{item.yearTo ? item.yearTo :
-			"N/A"}}
+		<template v-slot:item.companyName="{item}">
+			<span class="text-capitalize">{{item.companyName ? item.companyName : "N/A"}}</span>
 		</template>
 		<template v-slot:item.isFullTime="{item}">
-			{{item.isFullTime ? "Yes" : "No"}}
+			{{item.isFullTime ? "Full Time" : "Part Time"}}
 		</template>
 		<template v-slot:item.isGovernmentService="{item}">
-			{{item.isGovernmentService ? "Yes" : "No"}}
+			{{item.isGovernmentService ? "Government Service" : "Non - Government Service"}}
 		</template>
 		<template v-slot:item.action="{item}">
 			<v-btn icon @click="remove(item)">
@@ -93,22 +86,12 @@
     const tableHeaders = [
         {
             text: "Company",
-            value: "company",
+            value: "companyName",
             align: "left"
         },
         {
-            text: "Position",
-            value: "position"
-
-        },
-        {
-            text: "Date",
-            value: "date"
-
-        },
-        {
             text: "Monthly Salary",
-            value: "salary"
+            value: "monthlySalary"
         },
         {
             text: "Appointment Status",
@@ -121,13 +104,13 @@
         {text: "Action", value: "action", align: "right"}
     ];
     const defaultForm = {
-        company: "",
+        companyName: "",
         position: "",
         yearFrom: null,
         yearTo: null,
         salaryGrade: null,
         stepIncement: null,
-        salary: "",
+        monthlySalary: "",
         isFullTime: null,
         isGovernmentService: null
     };
@@ -157,7 +140,7 @@
 
         computed: {
             isFormValid() {
-                return this.form.company && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.salary;
+                return this.form.companyName && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.monthlySalary;
             }
         },
 
@@ -172,7 +155,7 @@
 
         methods: {
             add() {
-                if (this.form.company && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.salary) {
+                if (this.form.companyName && this.form.position && this.form.yearFrom && this.form.yearTo && this.form.monthlySalary) {
                     this.workExperiencesLocal = [
                         ...this.workExperiencesLocal,
                         this.form

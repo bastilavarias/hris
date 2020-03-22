@@ -207,12 +207,12 @@
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>Government Issued ID</generic-subtitle>
-								<generic-government-id-form
+								<generic-government-issue-id-form
 										:government-id.sync="form.profile.governmentIssueId.governmentId"
 										:license-number.sync="form.profile.governmentIssueId.licenseNumber"
-										:issuance-date.sync="form.profile.governmentIssueId.issuanceDate"
 										:issuance-place.sync="form.profile.governmentIssueId.issuancePlace"
-								></generic-government-id-form>
+										:issuance-date.sync="form.profile.governmentIssueId.issuanceDate"
+								></generic-government-issue-id-form>
 							</v-col>
 						</v-row>
 					</v-tab-item>
@@ -240,7 +240,6 @@
     import GenericListInput from "../../components/generic/ListInput";
     import GenericQuestionItem from "../../components/generic/QuestionItem";
     import GenericReferenceTable from "../../components/table/Reference";
-    import GenericGovernmentIdForm from "../../components/form/GovernmentId";
     import GenericTrainingTable from "../../components/table/Training";
     import {getSingleEmployee} from "../../store/types/employee";
     import GenericDepartmentSelection from "../../components/selection/Department";
@@ -248,6 +247,7 @@
     import {getAllDepartments} from "../../store/types/department";
     import {getAllDesignations} from "../../store/types/designation";
     import {setActionName} from "../../store/types/action";
+    import GenericGovernmentIssueIdForm from "../../components/form/GovernmentIssueId";
 
     const defaultForm = {
         employeeNumber: "",
@@ -339,10 +339,10 @@
 
     export default {
         components: {
+            GenericGovernmentIssueIdForm,
             GenericDesignationSelection,
             GenericDepartmentSelection,
             GenericTrainingTable,
-            GenericGovernmentIdForm,
             GenericReferenceTable,
             GenericQuestionItem,
             GenericListInput,
@@ -371,11 +371,18 @@
             "$store.state.employee.current"(employee) {
                 if (Object.keys(employee).length <= 0) return this.$router.push({name: "employee-management"});
                 const {employeeNumber, isFullTime, department, designation, profile} = employee;
-                const {firstName, middleName, lastName, extension, birthDate, birthPlace, sex, civilStatus, citizenship, bloodType, height, weight, photo, benefit, contact, address, family} = profile;
+
+                const {firstName, middleName, lastName, extension, birthDate, birthPlace, sex, civilStatus, citizenship, bloodType, height, weight, photo, benefit, contact, address, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references, govermentIssueId} = profile;
+
                 const {gsisId, pagibigId, sssNumber, tinNumber, philhealthId, agencyEmployeeNumber} = benefit;
+
                 const {telephoneNumber, mobileNumber, emailAddress} = contact;
+
                 const {permanent, residential} = address;
-                const {spouse, father, mother} = family;
+
+                const {spouse, father, mother, children} = family;
+
+                const {governmentId, issuanceDate, issuancePlace, licenseNumber} = govermentIssueId;
 
                 this.form.employeeNumber = employeeNumber;
                 this.form.departmentId = department.id;
@@ -434,6 +441,28 @@
                 this.form.profile.family.mother.middleName = mother.middleName;
                 this.form.profile.family.mother.firstName = mother.firstName;
                 this.form.profile.family.mother.extension = mother.extension;
+                this.form.profile.family.children = children ? children : [];
+
+                this.form.profile.education = education ? education : [];
+
+                this.form.profile.civilServiceEligibility = civilServiceEligibility ? civilServiceEligibility : [];
+
+                this.form.profile.workExperiences = workExperiences ? workExperiences : [];
+
+                this.form.profile.voluntaryWorkExperiences = voluntaryWorkExperiences ? voluntaryWorkExperiences : [];
+
+                this.form.profile.trainings = trainings ? trainings : [];
+
+                this.form.profile.hobbies = hobbies ? hobbies : [];
+                this.form.profile.recognitions = recognitions ? recognitions : [];
+                this.form.profile.organizations = organizations ? organizations : [];
+
+                this.form.profile.references = references ? references : [];
+
+                this.form.profile.governmentIssueId.governmentId = governmentId ? governmentId : "";
+                this.form.profile.governmentIssueId.licenseNumber = licenseNumber ? licenseNumber : "";
+                this.form.profile.governmentIssueId.issuanceDate = issuanceDate ? issuanceDate : "";
+                this.form.profile.governmentIssueId.issuancePlace = issuancePlace ? issuancePlace : "";
             }
         },
 

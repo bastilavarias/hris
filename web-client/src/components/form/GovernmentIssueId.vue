@@ -18,18 +18,17 @@
 <script>
 
     import GenericDateInput from "../generic/DateInput";
-    const defaultForm = {
 
-    };
+    const defaultForm = {};
 
     export default {
-        name: "generic-government-id-form",
+        name: "generic-government-issue-id-form",
         components: {GenericDateInput},
         props: {
             governmentId: {
                 type: String,
-				required: true
-			},
+                required: true
+            },
             licenseNumber: {
                 type: String,
                 required: true
@@ -41,7 +40,7 @@
                 type: String,
                 required: true
             }
-		},
+        },
 
         data() {
             return {
@@ -52,13 +51,13 @@
             };
         },
 
-		watch: {
+        watch: {
             governmentId(val) {
                 this.$emit("update:governmentId", val);
-			},
+            },
             governmentIdLocal(val) {
                 this.$emit("update:governmentId", val);
-			},
+            },
             licenseNumber(val) {
                 this.$emit("update:licenseNumber", val);
             },
@@ -77,6 +76,13 @@
             issuancePlaceLocal(val) {
                 this.$emit("update:issuancePlace", val);
             },
-		}
+        },
+
+        created() {
+            this.governmentIdLocal = this.governmentId;
+            this.licenseNumberLocal = this.licenseNumber;
+            this.issuancePlaceLocal = this.issuancePlace;
+            this.issuanceDateLocal = this.issuanceDate;
+        }
     };
 </script>

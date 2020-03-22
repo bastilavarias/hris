@@ -122,10 +122,10 @@
         level: "",
 		schoolName: "",
 		degree: "",
-		yearFrom: null,
-		yearTo: null,
+		yearFrom: 0,
+		yearTo: 0,
+        yearGraduated: 0,
         recognition: "",
-        yearGraduated: null,
 		scholarship: ""
     };
 
