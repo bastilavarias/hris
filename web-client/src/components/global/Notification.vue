@@ -6,7 +6,7 @@
 			:color="type"
 			:timeout="3000"
 	>
-		<span class="body-2">{{message}}</span>
+		<span class="body-2 text-capitalize">{{message}}</span>
 		<v-btn text small @click="close">close</v-btn>
 	</v-snackbar>
 </template>
@@ -34,15 +34,15 @@
         watch: {
             message(message) {
                 this.isShowLocal = message.length > 0;
-                setTimeout(() => this.close(), 3000)
+                setTimeout(() => this.close(), 3000);
             }
         },
 
-		methods: {
+        methods: {
             close() {
                 this.isShowLocal = false;
-                this.$store.commit(setNotificationConfig, {message: "", type: ""})
-			}
-		}
+                this.$store.commit(setNotificationConfig, {message: "", type: ""});
+            }
+        }
     };
 </script>

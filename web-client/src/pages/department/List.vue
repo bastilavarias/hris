@@ -53,7 +53,7 @@
         deleteDepartment,
         getAllDepartments,
         searchDepartments,
-        setDepartmentErrors,
+        setDepartmentError,
         setDepartments
     } from "../../store/types/department";
     import {setActionName} from "../../store/types/action";
@@ -125,7 +125,7 @@
                     this.isLoading = false;
                     this.isConfirmDialogShow = false;
                     this.$store.commit(setActionName, "");
-                    this.$store.commit(setDepartmentErrors, []);
+                    this.$store.commit(setDepartmentError, []);
                     this.search();
                 }
             },
@@ -175,7 +175,7 @@
 
             destroyed() {
                 this.$store.commit(setDepartments, []);
-                this.$store.commit(setDepartmentErrors, []);
+                this.$store.commit(setDepartmentError, []);
                 this.$store.commit(setActionName, "");
             }
         },

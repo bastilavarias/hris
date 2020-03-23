@@ -1,5 +1,5 @@
 export const createDepartment = "createDepartment";
-export const setDepartmentErrors = "setDepartmentErrors";
+export const setDepartmentError = "setDepartmentErrors";
 export const getAllDepartments = "getAllDepartments";
 export const setDepartments = "setDepartments";
 export const searchDepartments = "searchDepartments";

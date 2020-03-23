@@ -104,14 +104,13 @@ export default {
                 employeeForm.append("profile", JSON.stringify(profile));
                 employeeForm.append("profilePhoto", profile.photo);
                 const result = await employeeService.update(employeeId, employeeForm);
-                // console.log(result.data);
-                // const {message, error} = result.data;
-                // if (error.length > 0) {
-                //     commit(setActionName, `${updateEmployee}-error`);
-                //     commit(setEmployeeError, error);
-                //     return;
-                // }
-                // commit(setNotificationConfig, {message, type: "success"});
+                const {message, error} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${updateEmployee}-error`);
+                    commit(setEmployeeError, error);
+                    return;
+                }
+                commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateEmployee);
             } catch (errors) {
                 commit(setActionName, updateEmployee);

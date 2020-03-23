@@ -3,48 +3,48 @@ const helper = require("../../helper");
 
 module.exports = {
     create: async ({name, description, employeeId}) => {
-        let errors = [];
+        let error = {};
         let message = "";
         const isDepartmentExists = await helper.checkIfExists("department", "name", name.toLowerCase());
         if (isDepartmentExists) {
-            errors.push("Department name was already used.");
+            error.name = "Department name was already used.";
             return {
                 message,
-                errors
+                error
             };
         }
         await departmentModel.create({name, description, employeeId});
         message = "New department is created.";
         return {
-            errors,
+            error,
             message
         };
     },
 
     update: async (departmentId, {name, description, employeeId}) => {
         let message = "";
-        let errors = [];
+        let error = {};
         const foundDepartment = await departmentModel.getSingleByName(name.toLowerCase());
         if (Object.keys(foundDepartment).length > 0 && departmentId !== parseInt(foundDepartment.id)) {
-            errors.push("Department name was already used.");
+            error.name = "Department name was already used.";
             return {
                 message,
-                errors
+                error
             };
         }
         const isDepartmentExists = await helper.checkIfExists("department", "id", departmentId);
         if (!isDepartmentExists) {
-            errors.push("Department is not exists.");
+            error.name = "Department is not exists.";
             return {
                 message,
-                errors
+                error
             };
         }
         await departmentModel.update(departmentId, {name, description, employeeId});
         message = "Department is updated.";
         return {
             message,
-            errors
+            error
         };
     },
 

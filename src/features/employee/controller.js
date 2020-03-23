@@ -211,7 +211,7 @@ module.exports = {
                 governmentIssueId: {
                     governmentId: parsedProfile.governmentIssueId.governmentId,
                     licenseNumber: parsedProfile.governmentIssueId.licenseNumber,
-                    issuanceDate: parsedProfile.governmentIssueId.issuanceDate,
+                    issuanceDate: parsedProfile.governmentIssueId.issuanceDate ? parsedProfile.governmentIssueId.issuanceDate : null,
                     issuancePlace: parsedProfile.governmentIssueId.issuancePlace,
                 },
                 education: parsedProfile.education,

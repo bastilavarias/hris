@@ -8,20 +8,20 @@ import {
     getSingleDepartment,
     searchDepartments,
     setCurrentDepartment,
-    setDepartmentErrors,
+    setDepartmentError,
     setDepartments,
     updateDepartment
 } from "../types/department";
 
 export default {
     state: {
-        errors: [],
+        error: [],
         list: [],
         current: {}
     },
 
     mutations: {
-        [setDepartmentErrors]: (state, errors) => state.errors = errors,
+        [setDepartmentError]: (state, errors) => state.error = errors,
         [setDepartments]: (state, departments) => state.list = departments,
         [setCurrentDepartment]: (state, department) => state.current = department
     },
@@ -30,10 +30,10 @@ export default {
         [createDepartment]: async ({commit}, {name, description, employeeId}) => {
             try {
                 const result = await departmentService.create({name, description, employeeId});
-                const {errors, message} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${createDepartment}-errors`);
-                    commit(setDepartmentErrors, errors);
+                const {error, message} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${createDepartment}-error`);
+                    commit(setDepartmentError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
@@ -83,10 +83,10 @@ export default {
         [updateDepartment]: async ({commit}, {departmentId, details}) => {
             try {
                 const result = await departmentService.update(departmentId, details);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${updateDepartment}-errors`);
-                    commit(setDepartmentErrors, errors);
+                const {message, error} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${updateDepartment}-error`);
+                    commit(setDepartmentError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
@@ -102,7 +102,7 @@ export default {
                 const result = await departmentService.delete(departmentId);
                 const {message, errors} = result.data;
                 if (errors.length > 0) {
-                    commit(setDepartmentErrors, errors);
+                    commit(setDepartmentError, errors);
                     commit(setActionName, `${deleteDepartment}-errors`);
                     return;
                 }

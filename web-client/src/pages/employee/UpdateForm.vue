@@ -218,7 +218,6 @@
 				fixed
 				direction="left"
 				:open-on-hover="hover"
-				:transition="transition"
 		>
 			<template v-slot:activator>
 				<v-btn
@@ -226,20 +225,12 @@
 						color="primary"
 						dark
 						fab
+						:loading="isLoading"
 				>
 					<v-icon v-if="fab">mdi-close</v-icon>
 					<v-icon v-else>mdi-account-circle</v-icon>
 				</v-btn>
 			</template>
-			<v-btn
-					fab
-					dark
-					small
-					color="blue darken-2"
-					@click="$vuetify.goTo(0)"
-			>
-				<v-icon>mdi-chevron-up</v-icon>
-			</v-btn>
 			<v-btn
 					fab
 					dark
@@ -278,7 +269,7 @@
     import GenericQuestionItem from "../../components/generic/QuestionItem";
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericTrainingTable from "../../components/table/Training";
-    import {getSingleEmployee, updateEmployee} from "../../store/types/employee";
+    import {getSingleEmployee, setEmployees, updateEmployee} from "../../store/types/employee";
     import GenericDepartmentSelection from "../../components/selection/Department";
     import GenericDesignationSelection from "../../components/selection/Designation";
     import {getAllDepartments} from "../../store/types/department";
@@ -400,17 +391,9 @@
                 tab: 0,
                 form: Object.assign({}, defaultForm),
                 defaultForm,
-                photoName: "",
-                direction: "top",
+                isLoading: false,
                 fab: false,
-                fling: false,
-                hover: false,
-                tabs: null,
-                top: false,
-                right: true,
-                bottom: true,
-                left: false,
-                transition: "slide-y-reverse-transition",
+                hover: false
             };
         },
 
@@ -441,7 +424,7 @@
                 this.form.profile.lastName = lastName;
                 this.form.profile.extension = extension;
                 this.form.profile.birthDate = birthDate;
-                this.form.profile.birthPlace = birthPlace;
+                this.form.profile.birthPlace = birthPlace ? birthPlace : "";
                 this.form.profile.sex = sex;
                 this.form.profile.civilStatus = civilStatus;
                 this.form.profile.citizenship = citizenship ? citizenship : [];
@@ -461,8 +444,8 @@
                 this.form.profile.contact.mobileNumber = mobileNumber;
                 this.form.profile.contact.emailAddress = emailAddress;
 
-                this.form.profile.address.permanent.city = permanent.city;
-                this.form.profile.address.permanent.province = permanent.province;
+                this.form.profile.address.permanent.city = permanent.city ? permanent.city : "";
+                this.form.profile.address.permanent.province = permanent.province ? permanent.province : "";
                 this.form.profile.address.permanent.houseNumber = permanent.houseNumber;
                 this.form.profile.address.permanent.street = permanent.street;
                 this.form.profile.address.permanent.zipCode = permanent.zipCode;
@@ -472,8 +455,8 @@
                 this.form.profile.address.residential.street = residential.street;
                 this.form.profile.address.residential.zipCode = residential.zipCode;
                 this.form.profile.address.residential.barangay = residential.barangay;
-                this.form.profile.address.residential.city = residential.city;
-                this.form.profile.address.residential.province = residential.province;
+                this.form.profile.address.residential.city = residential.city ? residential.city : "";
+                this.form.profile.address.residential.province = residential.province ? residential.province : "";
                 this.form.profile.address.residential.subdivision = residential.subdivision;
 
                 this.form.profile.family.spouse.lastName = spouse.lastName;
@@ -510,11 +493,18 @@
                 this.form.profile.governmentIssueId.licenseNumber = licenseNumber ? licenseNumber : "";
                 this.form.profile.governmentIssueId.issuanceDate = issuanceDate ? issuanceDate : "";
                 this.form.profile.governmentIssueId.issuancePlace = issuancePlace ? issuancePlace : "";
+            },
+
+            "$store.state.action.name"(name) {
+                if (name === updateEmployee) {
+                    this.isLoading = false;
+                }
             }
         },
 
         methods: {
             update() {
+                this.isLoading = true;
                 const employeeId = this.$route.params.employeeId;
                 this.$store.dispatch(updateEmployee, {employeeId, ...this.form});
             }
@@ -529,6 +519,7 @@
 
         destroyed() {
             this.$store.commit(setActionName, "");
+            this.$store.commit(setEmployees, []);
         }
     };
 </script>

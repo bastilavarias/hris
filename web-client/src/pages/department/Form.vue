@@ -1,25 +1,22 @@
 <template>
-	<v-card>
-		<generic-card-back-button title="Department Information"></generic-card-back-button>
-		<v-card-text>
-			<generic-form-error-list :errors="errors"></generic-form-error-list>
-			<v-row>
-				<v-col cols="12">
-					<v-text-field label="Name" v-model="form.name"></v-text-field>
-				</v-col>
-				<v-col cols="12">
-					<v-text-field label="Description" v-model="form.description"></v-text-field>
-				</v-col>
-				<v-col cols="12">
-					<v-autocomplete label="Head" v-model="form.employeeId"></v-autocomplete>
-				</v-col>
-			</v-row>
-		</v-card-text>
-		<generic-form-action-button :operation="operation" :create="create" :update="update"
+	<div>
+		<generic-back-button title="Department Details" class-name="mb-5"></generic-back-button>
+		<v-row>
+			<v-col cols="12">
+				<v-text-field label="Name" v-model="form.name" outlined :error="hasError(error.name)"
+							  :error-messages="error.name"></v-text-field>
+			</v-col>
+			<v-col cols="12">
+				<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
+			</v-col>
+			<v-col cols="12">
+				<v-autocomplete label="Head" v-model="form.employeeId" outlined></v-autocomplete>
+			</v-col>
+		</v-row>
 		<generic-form-action-button :operation="operation" :create="create" :update="update"
 									:disabled="!isFormValid"
 									:is-loading="isLoading"></generic-form-action-button>
-	</v-card>
+	</div>
 </template>
 
 <script>
@@ -27,7 +24,7 @@
     import {
         createDepartment,
         getSingleDepartment,
-        setDepartmentErrors,
+        setDepartmentError,
         setDepartments,
         updateDepartment
     } from "../../store/types/department";
@@ -35,15 +32,20 @@
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericCollegeSelection from "../../components/selection/College";
+    import GenericBackButton from "../../components/generic/BackButton";
+    import customUtilities from "../../services/customUtilities";
 
     const defaultForm = {
         name: "",
         description: "",
-		employeeId: null
+        employeeId: null
     };
 
     export default {
-        components: {GenericCollegeSelection, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton},
+        components: {
+            GenericBackButton,
+            GenericCollegeSelection, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton
+        },
 
         data() {
             return {
@@ -54,13 +56,15 @@
             };
         },
 
+        mixins: [customUtilities],
+
         computed: {
             isFormValid() {
                 return this.form.name;
             },
 
-            errors() {
-                return this.$store.state.department.errors;
+            error() {
+                return this.$store.state.department.error;
             },
 
             colleges() {
@@ -70,7 +74,7 @@
 
         watch: {
             "$store.state.action.name"(name) {
-                if (name === `${createDepartment}-errors`) {
+                if (name === `${createDepartment}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -78,13 +82,13 @@
 
                 if (name === createDepartment) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setDepartmentErrors, []);
+                    this.$store.commit(setDepartmentError, []);
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
                 }
 
-                if (name === `${updateDepartment}-errors`) {
+                if (name === `${updateDepartment}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -92,7 +96,7 @@
 
                 if (name === updateDepartment) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setDepartmentErrors, []);
+                    this.$store.commit(setDepartmentError, []);
                     this.$store.commit(setActionName, "");
                     this.$router.push({name: "department-management"});
                 }
@@ -134,7 +138,7 @@
 
         destroyed() {
             this.$store.commit(setDepartments, []);
-            this.$store.commit(setDepartmentErrors, []);
+            this.$store.commit(setDepartmentError, []);
             this.$store.commit(setActionName, "");
         }
     };

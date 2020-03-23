@@ -92,6 +92,8 @@ const employeeService = {
     getSingle: async (employeeId) => await employeeModel.getSingle(employeeId),
 
     update: async (employeeId, {departmentId, designationId, isFullTime, profile}) => {
+        let error = {};
+        let message;
         const gotRawEmployee = await employeeModel.getRaw(employeeId);
         const gotRawProfile = await profileModel.getRaw(gotRawEmployee.profileId);
         const gotRawPhoto = await photoModel.getRaw(gotRawProfile.photoId);
@@ -152,6 +154,12 @@ const employeeService = {
         if (profile.references.length > 0) {
             profile.references.map(details => referenceModel.create(gotRawProfile.id, details));
         }
+
+        message = `${profile.lastName} information was edited.`;
+        return {
+            error,
+            message
+        };
     }
 
 };
