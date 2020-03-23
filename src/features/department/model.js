@@ -11,17 +11,15 @@ module.exports = {
         await db.executeQuery(query, params);
     },
 
-    update: async (departmentId, {name, description, employeeId}) => {
+    update: async (departmentId, {name, description}) => {
 
         const query = `update department
                        set name        = ?,
-                           description = ?,
-                           employee_id = ?
+                           description = ?
                        where id = ?;`;
         const params = [
             name.toLowerCase(),
             description.toLowerCase(),
-            employeeId,
             departmentId
         ];
         await db.executeQuery(query, params);

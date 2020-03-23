@@ -8,20 +8,20 @@ import {
     getSingleDesignation,
     searchDesignations,
     setCurrentDesignation,
-    setDesignationErrors,
+    setDesignationError,
     setDesignations,
     updateDesignation
 } from "../types/designation";
 
 export default {
     state: {
-        errors: [],
+        error: [],
         list: [],
         current: {}
     },
 
     mutations: {
-        [setDesignationErrors]: (state, errors) => state.errors = errors,
+        [setDesignationError]: (state, error) => state.error = error,
         [setDesignations]: (state, designations) => state.list = designations,
         [setCurrentDesignation]: (state, designation) => state.current = designation
     },
@@ -30,17 +30,18 @@ export default {
         [createDesignation]: async ({commit}, {code, name, description, collegeId}) => {
             try {
                 const result = await designationService.create({code, name, description, collegeId});
-                const {errors, message} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${createDesignation}-errors`);
-                    commit(setDesignationErrors, errors);
+                const {error, message} = result.data;
+                console.log(error);
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${createDesignation}-error`);
+                    commit(setDesignationError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, createDesignation);
-            } catch (errors) {
+            } catch (error) {
                 commit(setActionName, createDesignation);
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
@@ -50,9 +51,9 @@ export default {
                 const designations = result.data;
                 commit(setDesignations, designations);
                 commit(setActionName, getAllDesignations);
-            } catch (errors) {
+            } catch (error) {
                 commit(setActionName, "");
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
@@ -62,9 +63,9 @@ export default {
                 const designation = result.data;
                 commit(setCurrentDesignation, designation);
                 commit(setActionName, getSingleDesignation);
-            } catch (errors) {
+            } catch (error) {
                 commit(setActionName, "");
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
@@ -74,43 +75,43 @@ export default {
                 const designations = result.data;
                 commit(setDesignations, designations);
                 commit(setActionName, searchDesignations);
-            } catch (errors) {
+            } catch (error) {
                 commit(setActionName, "");
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
         [updateDesignation]: async ({commit}, {designationId, details}) => {
             try {
                 const result = await designationService.update(designationId, details);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${updateDesignation}-errors`);
-                    commit(setDesignationErrors, errors);
+                const {message, error} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${updateDesignation}-error`);
+                    commit(setDesignationError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateDesignation);
-            } catch (errors) {
+            } catch (error) {
                 commit(setActionName, updateDesignation);
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         },
 
         [deleteDesignation]: async ({commit}, designationId) => {
             try {
                 const result = await designationService.delete(designationId);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setDesignationErrors, errors);
-                    commit(setActionName, `${deleteDesignation}-errors`);
+                const {message, error} = result.data;
+                if (error.length > 0) {
+                    commit(setDesignationError, error);
+                    commit(setActionName, `${deleteDesignation}-error`);
                     return;
                 }
                 commit(setActionName, deleteDesignation);
                 commit(setNotificationConfig, {message, type: "error"});
-            } catch (errors) {
+            } catch (error) {
                 commit(setActionName, deleteDesignation);
-                throw new Error(`[RWV] ApiService ${errors}`);
+                throw new Error(`[RWV] ApiService ${error}`);
             }
         }
     }

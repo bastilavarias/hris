@@ -30,9 +30,13 @@
 					</v-col>
 					<v-col cols="12">
 						<generic-subtitle>Actions</generic-subtitle>
-						<v-btn text color="black" class="mb-5" block>
+						<v-btn color="black" class="mb-2 white--text" block>
 							<v-icon class="mr-1">mdi-printer</v-icon>
 							<span>Print PDS</span>
+						</v-btn>
+						<v-btn color="black" class="mb-2 white--text" block>
+							<v-icon class="mr-1">mdi-calendar</v-icon>
+							<span>Print Schedule</span>
 						</v-btn>
 						<v-btn color="error" class="white--text" block>
 							<v-icon class="mr-1">mdi-cancel</v-icon>
@@ -178,6 +182,36 @@
 								<generic-subtitle>L & D Interventions / Training Programs Attended</generic-subtitle>
 								<generic-training-table
 										:trainings.sync="form.profile.trainings"></generic-training-table>
+							</v-col>
+						</v-row>
+					</v-tab-item>
+					<v-tab-item>
+						<v-row dense>
+							<v-col cols="12" md="4">
+								<generic-list-input :list.sync="form.profile.hobbies"
+													label="Hobbies"></generic-list-input>
+							</v-col>
+							<v-col cols="12" md="4">
+								<generic-list-input :list.sync="form.profile.recognitions"
+													label="Recognitions"></generic-list-input>
+							</v-col>
+							<v-col cols="12" md="4">
+								<generic-list-input :list.sync="form.profile.organizations"
+													label="Organizations"></generic-list-input>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>References</generic-subtitle>
+								<generic-reference-table
+										:references.sync="form.profile.references"></generic-reference-table>
+							</v-col>
+							<v-col cols="12">
+								<generic-subtitle>Government Issued ID</generic-subtitle>
+								<generic-government-issue-id-form
+										:government-id.sync="form.profile.governmentIssueId.governmentId"
+										:license-number.sync="form.profile.governmentIssueId.licenseNumber"
+										:issuance-place.sync="form.profile.governmentIssueId.issuancePlace"
+										:issuance-date.sync="form.profile.governmentIssueId.issuanceDate"
+								></generic-government-issue-id-form>
 							</v-col>
 						</v-row>
 					</v-tab-item>

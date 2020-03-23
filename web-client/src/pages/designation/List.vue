@@ -50,7 +50,7 @@
         deleteDesignation,
         getAllDesignations,
         searchDesignations,
-        setDesignationErrors,
+        setDesignationError,
         setDesignations
     } from "../../store/types/designation";
     import {setActionName} from "../../store/types/action";
@@ -118,7 +118,7 @@
                     this.isLoading = false;
                     this.isConfirmDialogShow = false;
                     this.$store.commit(setActionName, "");
-                    this.$store.commit(setDesignationErrors, []);
+                    this.$store.commit(setDesignationError, []);
                     this.search();
                 }
             },
@@ -168,7 +168,7 @@
 
             destroyed() {
                 this.$store.commit(setDesignations, []);
-                this.$store.commit(setDesignationErrors, []);
+                this.$store.commit(setDesignationError, []);
                 this.$store.commit(setActionName, "");
             }
         },

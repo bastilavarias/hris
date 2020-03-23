@@ -1,5 +1,5 @@
 export const createDesignation = "createDesignation";
-export const setDesignationErrors = "setDesignationErrors";
+export const setDesignationError = "setDesignationErrors";
 export const getAllDesignations = "getAllDesignations";
 export const setDesignations = "setDesignations";
 export const searchDesignations = "searchDesignations";

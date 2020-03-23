@@ -3,48 +3,48 @@ const helper = require("../../helper");
 
 module.exports = {
     create: async ({name, description}) => {
-        let errors = [];
+        let error = {};
         let message = "";
         const isDesignationExists = await helper.checkIfExists("designation", "name", name.toLowerCase());
         if (isDesignationExists) {
-            errors.push("Designation name was already used.");
+            error.name = "Designation name was already used.";
             return {
                 message,
-                errors
+                error
             };
         }
         await designationModel.create({name, description});
         message = "New designation is created.";
         return {
-            errors,
+            error,
             message
         };
     },
 
     update: async (designationId, {name, description}) => {
         let message = "";
-        let errors = [];
+        let error = {};
         const foundDesignation = await designationModel.getSingleByName(name.toLowerCase());
         if (Object.keys(foundDesignation).length > 0 && designationId !== parseInt(foundDesignation.id)) {
-            errors.push("Designation name was already used.");
+            error.name = "Designation name was already used.";
             return {
                 message,
-                errors
+                error
             };
         }
         const isDesignationExists = await helper.checkIfExists("designation", "id", designationId);
         if (!isDesignationExists) {
-            errors.push("Designation is not exists.");
+            error.push("Designation is not exists.");
             return {
                 message,
-                errors
+                error
             };
         }
         await designationModel.update(designationId, {name, description});
         message = "Designation is updated.";
         return {
             message,
-            errors
+            error
         };
     },
 
@@ -65,20 +65,20 @@ module.exports = {
 
     delete: async (designationId) => {
         let message = "";
-        let errors = [];
+        let error = {};
         const isDesignationExists = await helper.checkIfExists("designation", "id", designationId);
         if (!isDesignationExists) {
-            errors.push("Designation is not exists.");
+            error.push("Designation is not exists.");
             return {
                 message,
-                errors
+                error
             };
         }
         await designationModel.delete(designationId);
         message = "Designation is deleted.";
         return {
             message,
-            errors
+            error
         };
     }
 };

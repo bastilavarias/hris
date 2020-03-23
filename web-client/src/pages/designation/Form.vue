@@ -1,30 +1,29 @@
 <template>
-	<v-card>
-		<generic-card-back-button title="Designation Information"></generic-card-back-button>
-		<v-card-text>
-			<generic-form-error-list :errors="errors"></generic-form-error-list>
-			<v-row>
-				<v-col cols="12">
-					<v-text-field label="Name" v-model="form.name"></v-text-field>
-				</v-col>
-				<v-col cols="12">
-					<v-text-field label="Description" v-model="form.description"></v-text-field>
-				</v-col>
-			</v-row>
-		</v-card-text>
+	<div>
+		<generic-back-button title="Designation Details" class-name="mb-5"></generic-back-button>
+		<v-row>
+			<v-col cols="12">
+				<v-text-field label="Name" v-model="form.name" :error="hasError(error.name)"
+							  :error-messages="error.name" outlined></v-text-field>
+			</v-col>
+			<v-col cols="12">
+				<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
+			</v-col>
+		</v-row>
 		<generic-form-action-button :operation="operation" :create="create" :update="update"
 		<generic-form-action-button :operation="operation" :create="create" :update="update"
 									:disabled="!isFormValid"
 									:is-loading="isLoading"></generic-form-action-button>
-	</v-card>
+	</div>
 </template>
+
 
 <script>
     import GenericCardBackButton from "../../components/generic/CardBackButton";
     import {
         createDesignation,
         getSingleDesignation,
-        setDesignationErrors,
+        setDesignationError,
         setDesignations,
         updateDesignation
     } from "../../store/types/designation";
@@ -32,6 +31,8 @@
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericCollegeSelection from "../../components/selection/College";
+    import customUtilities from "../../services/customUtilities";
+    import GenericBackButton from "../../components/generic/BackButton";
 
     const defaultForm = {
         name: "",
@@ -39,7 +40,9 @@
     };
 
     export default {
-        components: {GenericCollegeSelection, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton},
+        components: {
+            GenericBackButton,
+            GenericCollegeSelection, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton},
 
         data() {
             return {
@@ -50,13 +53,15 @@
             };
         },
 
+        mixins: [customUtilities],
+
         computed: {
             isFormValid() {
                 return this.form.name;
             },
 
-            errors() {
-                return this.$store.state.designation.errors;
+            error() {
+                return this.$store.state.designation.error;
             },
 
             colleges() {
@@ -66,7 +71,7 @@
 
         watch: {
             "$store.state.action.name"(name) {
-                if (name === `${createDesignation}-errors`) {
+                if (name === `${createDesignation}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -74,13 +79,13 @@
 
                 if (name === createDesignation) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setDesignationErrors, []);
+                    this.$store.commit(setDesignationError, []);
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
                 }
 
-                if (name === `${updateDesignation}-errors`) {
+                if (name === `${updateDesignation}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -88,7 +93,7 @@
 
                 if (name === updateDesignation) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setDesignationErrors, []);
+                    this.$store.commit(setDesignationError, {});
                     this.$store.commit(setActionName, "");
                     this.$router.push({name: "designation-management"});
                 }
@@ -130,7 +135,7 @@
 
         destroyed() {
             this.$store.commit(setDesignations, []);
-            this.$store.commit(setDesignationErrors, []);
+            this.$store.commit(setDesignationError, []);
             this.$store.commit(setActionName, "");
         }
     };
