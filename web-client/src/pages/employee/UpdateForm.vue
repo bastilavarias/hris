@@ -1,12 +1,6 @@
 <template>
-	<div style="margin-bottom: 4rem;">
-		<generic-back-button title="Employee Form" class-name="mb-5">
-			<template v-slot:right>
-				<v-btn icon>
-					<v-icon>mdi-printer</v-icon>
-				</v-btn>
-			</template>
-		</generic-back-button>
+	<div>
+		<generic-back-button title="Employee Form" class-name="mb-5"></generic-back-button>
 		<v-row>
 			<v-col cols="12" md="3">
 				<v-row dense>
@@ -34,15 +28,24 @@
 							<v-radio label="Part Time" :value="false"></v-radio>
 						</v-radio-group>
 					</v-col>
+					<v-col cols="12">
+						<generic-subtitle>Actions</generic-subtitle>
+						<v-btn text color="black" class="mb-5" block>
+							<v-icon class="mr-1">mdi-printer</v-icon>
+							<span>Print PDS</span>
+						</v-btn>
+						<v-btn color="error" class="white--text" block>
+							<v-icon class="mr-1">mdi-cancel</v-icon>
+							<span>Disable</span>
+						</v-btn>
+					</v-col>
 				</v-row>
 			</v-col>
 			<v-col cols="12" md="9">
 				<v-tabs v-model="tab" fixed-tabs show-arrows class="mb-5">
-					<v-tab>Profile</v-tab>
-					<v-tab>Address Details</v-tab>
-					<v-tab>Family Details</v-tab>
-					<v-tab>Experience</v-tab>
-					<v-tab>Other Information</v-tab>
+					<template v-for="(item, index) in tabItems">
+						<v-tab :key="index">{{item}}</v-tab>
+					</template>
 				</v-tabs>
 				<v-tabs-items v-model="tab">
 					<v-tab-item>
@@ -141,7 +144,7 @@
 										:extension.sync="form.profile.family.mother.extension"
 								></generic-family-form>
 							</v-col>
-							<v-col cols="12" md="12">
+							<v-col cols="12" md="12" class="mb-10">
 								<generic-subtitle>Children Information</generic-subtitle>
 								<generic-children-information-table
 										:children.sync="form.profile.family.children"></generic-children-information-table>
@@ -171,84 +174,21 @@
 								<generic-voluntary-work-experience
 										:voluntary-work-experiences.sync="form.profile.voluntaryWorkExperiences"></generic-voluntary-work-experience>
 							</v-col>
-							<v-col cols="12">
+							<v-col cols="12" class="mb-10">
 								<generic-subtitle>L & D Interventions / Training Programs Attended</generic-subtitle>
 								<generic-training-table
 										:trainings.sync="form.profile.trainings"></generic-training-table>
 							</v-col>
 						</v-row>
 					</v-tab-item>
-					<v-tab-item>
-						<v-row dense>
-							<v-col cols="12" md="4">
-								<generic-list-input :list.sync="form.profile.hobbies"
-													label="Hobbies"></generic-list-input>
-							</v-col>
-							<v-col cols="12" md="4">
-								<generic-list-input :list.sync="form.profile.recognitions"
-													label="Recognitions"></generic-list-input>
-							</v-col>
-							<v-col cols="12" md="4">
-								<generic-list-input :list.sync="form.profile.organizations"
-													label="Organizations"></generic-list-input>
-							</v-col>
-							<v-col cols="12">
-								<generic-subtitle>References</generic-subtitle>
-								<generic-reference-table
-										:references.sync="form.profile.references"></generic-reference-table>
-							</v-col>
-							<v-col cols="12">
-								<generic-subtitle>Government Issued ID</generic-subtitle>
-								<generic-government-issue-id-form
-										:government-id.sync="form.profile.governmentIssueId.governmentId"
-										:license-number.sync="form.profile.governmentIssueId.licenseNumber"
-										:issuance-place.sync="form.profile.governmentIssueId.issuancePlace"
-										:issuance-date.sync="form.profile.governmentIssueId.issuanceDate"
-								></generic-government-issue-id-form>
-							</v-col>
-						</v-row>
-					</v-tab-item>
 				</v-tabs-items>
+				<v-row dense>
+					<v-col cols="12">
+						<v-btn block color="primary" @click="update" :loading="isLoading">Save</v-btn>
+					</v-col>
+				</v-row>
 			</v-col>
 		</v-row>
-		<v-speed-dial
-				v-model="fab"
-				bottom
-				right
-				fixed
-				direction="left"
-				:open-on-hover="hover"
-		>
-			<template v-slot:activator>
-				<v-btn
-						v-model="fab"
-						color="primary"
-						dark
-						fab
-						:loading="isLoading"
-				>
-					<v-icon v-if="fab">mdi-close</v-icon>
-					<v-icon v-else>mdi-account-circle</v-icon>
-				</v-btn>
-			</template>
-			<v-btn
-					fab
-					dark
-					small
-					color="secondary"
-					@click="update"
-			>
-				<v-icon>mdi-pencil</v-icon>
-			</v-btn>
-			<v-btn
-					fab
-					dark
-					small
-					color="red"
-			>
-				<v-icon>mdi-delete</v-icon>
-			</v-btn>
-		</v-speed-dial>
 	</div>
 </template>
 <script>
@@ -365,6 +305,14 @@
         }
     };
 
+    const tabItems = [
+        "Profile",
+        "Address Details",
+        "Family Details",
+        "Experience",
+        "Other Information"
+    ];
+
     export default {
         components: {
             GenericGovernmentIssueIdForm,
@@ -392,8 +340,7 @@
                 form: Object.assign({}, defaultForm),
                 defaultForm,
                 isLoading: false,
-                fab: false,
-                hover: false
+                tabItems
             };
         },
 

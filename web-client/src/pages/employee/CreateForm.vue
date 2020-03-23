@@ -1,12 +1,6 @@
 <template>
 	<div>
-		<generic-back-button class-name="mb-5" title="Employee Form">
-			<template v-slot:right>
-				<v-btn icon @click="create" :disabled="!isFormValid" :loading="isLoading">
-					<v-icon>mdi-content-save</v-icon>
-				</v-btn>
-			</template>
-		</generic-back-button>
+		<generic-back-button class-name="mb-5" title="Employee Form"></generic-back-button>
 		<generic-subtitle>Work Information</generic-subtitle>
 		<v-row dense>
 			<v-col cols="12">
@@ -47,8 +41,10 @@
 													   :weight.sync="form.profile.weight"
 				></generic-form-profile-with-image-input>
 			</v-col>
+			<v-col cols="12">
+				<v-btn :loading="isLoading" color="primary" @click="create" block :disabled="!isFormValid">Save</v-btn>
+			</v-col>
 		</v-row>
-		<generic-up-button></generic-up-button>
 	</div>
 </template>
 
