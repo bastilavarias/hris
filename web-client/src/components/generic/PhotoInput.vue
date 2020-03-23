@@ -1,18 +1,22 @@
 <template>
 	<div>
-		<label for="file-input" v-model="photoLocal">
-			<v-avatar :size="150" class="mb-5" @mouseover="isHover = true" @mouseleave="isHover = false">
-				<div class="blue" v-if="isHover"></div>
-				<v-img :src="displayPhoto" v-else></v-img>
-			</v-avatar>
-		</label>
-		<input type="file" id="file-input" accept="image/png, image/jpeg, image/bmp" style="display: none;"
-			   @change="processFile($event)"/>
+		<v-avatar :size="150" class="mb-5">
+			<v-img :src="displayPhoto"></v-img>
+		</v-avatar>
+		<v-file-input
+				:rules="rules"
+				accept="image/png, image/jpeg"
+				:placeholder="`${previewLocal ? 'Change the photo' : 'Pick a photo'}`"
+				prepend-icon="mdi-camera"
+				label="Photo"
+				outlined
+				v-model="photoLocal"
+		></v-file-input>
 	</div>
 </template>
 
 <script>
-    const imageSelectorValidation = [
+    const rules = [
         value => !value || value.size < 5000000 || "Image size should be less than 5 MB!"
     ];
 
@@ -32,7 +36,7 @@
 
         data() {
             return {
-                imageSelectorValidation,
+                rules,
                 photoLocal: null,
                 previewLocal: "",
                 isHover: false
@@ -42,11 +46,13 @@
         computed: {
             displayPhoto() {
                 const defaultPhoto = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png";
-                if (this.photoLocal) {
-                    return URL.createObjectURL(this.photoLocal);
-                }
+
                 if (this.previewLocal) {
                     return this.previewLocal;
+                }
+
+                if (this.photoLocal) {
+                    return URL.createObjectURL(this.photoLocal);
                 }
 
                 return defaultPhoto;
@@ -59,7 +65,7 @@
             },
 
             photo(val) {
-                this.$emit("update:photo", val);
+                this.photoLocal = val;
             },
 
             previewLocal(val) {
@@ -67,19 +73,20 @@
             },
 
             preview(val) {
-                this.$emit("update:preview", val);
-            }
-        },
-
-        methods: {
-            processFile(event) {
-                this.photoLocal = event.target.files[0];
+                this.previewLocal = val;
             }
         },
 
         created() {
             this.previewLocal = this.preview;
             this.photoLocal = this.photo;
+        },
+
+		destroyed() {
+            this.$emit("update:photo", null);
+            this.$emit("update:preview", "");
+            this.previewLocal = "";
+            this.photoLocal = null;
         }
     };
 </script>

@@ -139,7 +139,6 @@
                     this.$store.dispatch(generateEmployeeNumber);
                     this.isLoading = false;
                     this.clearForm();
-                    return;
                 }
             },
 
