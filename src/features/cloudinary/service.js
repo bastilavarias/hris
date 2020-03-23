@@ -5,15 +5,23 @@ cloudinary.config(cloudinaryCredentials);
 
 module.exports = {
     upload: async (file) => {
-        let cdn;
+        let meta;
         try {
-            const result = await cloudinary.uploader.upload(file.tempFilePath);
-            cdn = result.url;
+            meta = await cloudinary.uploader.upload(file.tempFilePath);
         } catch (errors) {
             console.log(errors);
-            cdn = "";
+            meta = {};
         }
 
-        return cdn;
-    }
+        return meta;
+    },
+
+    delete: async (url) => {
+        try {
+            await cloudinary.uploader.destroy(url);
+        } catch (errors) {
+            console.log(errors);
+        }
+    },
+
 };

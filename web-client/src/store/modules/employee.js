@@ -102,14 +102,9 @@ export default {
                 employeeForm.append("designationId", designationId);
                 employeeForm.append("isFullTime", isFullTime);
                 employeeForm.append("profile", JSON.stringify(profile));
-                const result = await employeeService.update(employeeId, {
-                    employeeNumber,
-                    departmentId,
-                    designationId,
-                    isFullTime,
-                    profile
-                });
-                console.log(result.data);
+                employeeForm.append("profilePhoto", profile.photo);
+                const result = await employeeService.update(employeeId, employeeForm);
+                // console.log(result.data);
                 // const {message, error} = result.data;
                 // if (error.length > 0) {
                 //     commit(setActionName, `${updateEmployee}-error`);

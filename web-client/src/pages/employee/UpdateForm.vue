@@ -173,7 +173,8 @@
 							</v-col>
 							<v-col cols="12">
 								<generic-subtitle>L & D Interventions / Training Programs Attended</generic-subtitle>
-								<generic-training-table :trainings="form.profile.trainings"></generic-training-table>
+								<generic-training-table
+										:trainings.sync="form.profile.trainings"></generic-training-table>
 							</v-col>
 						</v-row>
 					</v-tab-item>
@@ -424,7 +425,7 @@
                 if (Object.keys(employee).length <= 0) return this.$router.push({name: "employee-management"});
                 const {employeeNumber, isFullTime, department, designation, profile} = employee;
 
-                const {firstName, middleName, lastName, extension, birthDate, birthPlace, sex, civilStatus, citizenship, bloodType, height, weight, photo, benefit, contact, address, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references, govermentIssueId} = profile;
+                const {firstName, middleName, lastName, extension, birthDate, birthPlace, sex, civilStatus, citizenship, bloodType, height, weight, photo, benefit, contact, address, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references, governmentIssueId} = profile;
 
                 const {gsisId, pagibigId, sssNumber, tinNumber, philhealthId, agencyEmployeeNumber} = benefit;
 
@@ -434,7 +435,7 @@
 
                 const {spouse, father, mother, children} = family;
 
-                const {governmentId, issuanceDate, issuancePlace, licenseNumber} = govermentIssueId;
+                const {governmentId, issuanceDate, issuancePlace, licenseNumber} = governmentIssueId;
 
                 this.form.employeeNumber = employeeNumber;
                 this.form.departmentId = department.id;
@@ -449,11 +450,11 @@
                 this.form.profile.birthPlace = birthPlace;
                 this.form.profile.sex = sex;
                 this.form.profile.civilStatus = civilStatus;
-                this.form.profile.citizenship = citizenship;
+                this.form.profile.citizenship = citizenship ? citizenship : [];
                 this.form.profile.bloodType = bloodType;
                 this.form.profile.height = height;
                 this.form.profile.weight = weight;
-                this.form.profile.photoPreview = photo;
+                this.form.profile.photoPreview = photo.url;
 
                 this.form.profile.benefit.gsisId = gsisId;
                 this.form.profile.benefit.pagibigId = pagibigId;

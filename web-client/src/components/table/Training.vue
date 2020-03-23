@@ -139,7 +139,7 @@
 
         watch: {
             trainings(val) {
-                this.$emit("update:trainings", val);
+                this.trainingsLocal = val;
             },
             trainingsLocal(val) {
                 this.$emit("update:trainings", val);

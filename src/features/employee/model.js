@@ -80,7 +80,11 @@ module.exports = {
                                               'bloodType', blood_type,
                                               'height', height,
                                               'weight', weight,
-                                              'photo', photo,
+                                              'photo', (select json_object(
+                                                                       'url', url
+                                                                   )
+                                                        from photo
+                                                        where id = p.photo_id),
                                               'benefit',
                                               (select json_object(
                                                               'id', id,
@@ -242,7 +246,7 @@ module.exports = {
                                                                                 'contactNumber', contact_number))
                                                from reference
                                                where profile_id = e.profile_id),
-                                              'govermentIssueId',
+                                              'governmentIssueId',
                                               (select json_object(
                                                               'governmentId', government_id,
                                                               'licenseNumber', licence_number,
@@ -250,13 +254,40 @@ module.exports = {
                                                               'issuancePlace', issuance_place
                                                           )
                                                from government_issue_id
-                                               where id = p.government_id_id)
+                                               where id = p.government_issue_id_id)
                                           )
                                from profile
                                where id = p.id)             as profile
                        from employee e
                                 join profile p on e.profile_id = p.id
                        where e.id = ?;`;
+        const params = [employeeId];
+        const results = await db.executeQuery(query, params);
+        return results[0][0] ? results[0][0] : {};
+    },
+
+    update: async (employeeId, {departmentId, designationId, isFullTime}) => {
+        const query = `update employee
+                       set department_id  = ?,
+                           designation_id = ?,
+                           is_full_time   = ?
+                       where id = ?;`;
+        const params = [departmentId, designationId, isFullTime, employeeId];
+        await db.executeQuery(query, params);
+    },
+
+    getRaw: async (employeeId) => {
+        const query = `select id,
+                              department_id,
+                              designation_id,
+                              profile_id as profileId,
+                              employee_number,
+                              is_full_time,
+                              created_at,
+                              is_deleted,
+                              deleted_at
+                       from employee
+                       where id = ?;`;
         const params = [employeeId];
         const results = await db.executeQuery(query, params);
         return results[0][0] ? results[0][0] : {};

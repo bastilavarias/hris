@@ -24,6 +24,7 @@ const recognition = require("./modules/recognition");
 const organization = require("./modules/organization");
 const reference = require("./modules/reference");
 const governmentIssueId = require("./modules/governmentIssueId");
+const photo = require("./modules/photo");
 
 module.exports = async () => {
     let message = "";
@@ -40,6 +41,8 @@ module.exports = async () => {
         await db.executeQuery(address);
         await db.executeQuery(family);
         await db.executeQuery(child);
+        await db.executeQuery(photo);
+        await db.executeQuery(governmentIssueId);
         await db.executeQuery(profile);
         await db.executeQuery(employee);
         await db.executeQuery(citizenship);
@@ -52,7 +55,6 @@ module.exports = async () => {
         await db.executeQuery(recognition);
         await db.executeQuery(organization);
         await db.executeQuery(reference);
-        await db.executeQuery(governmentIssueId);
         message ="Database tables created.";
     } catch (errors) {
         console.log(errors);

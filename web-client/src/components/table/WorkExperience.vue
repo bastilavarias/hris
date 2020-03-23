@@ -111,8 +111,8 @@
         salaryGrade: null,
         stepIncement: null,
         monthlySalary: "",
-        isFullTime: null,
-        isGovernmentService: null
+        isFullTime: true,
+        isGovernmentService: true
     };
 
     export default {
