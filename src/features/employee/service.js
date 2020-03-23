@@ -14,6 +14,7 @@ const trainingModel = require("../profile/training/model");
 const hobbyModel = require("../profile/hobby/model");
 const recognitionModel = require("../profile/recognition/model");
 const organizationModel = require("../profile/organization/model");
+const referenceModel = require("../profile/reference/model");
 const helper = require("../../helper");
 const customUtilities = require("../../customUtilities");
 const cloudinaryService = require("../cloudinary/service");
@@ -105,7 +106,7 @@ const employeeService = {
         await contactModel.update(gotRawProfile.contactId, profile.contact);
         await addressModel.update(gotRawProfile.addressId, profile.address);
         await familyModel.update(gotRawProfile.familyId, profile.family);
-        await familyModel.deleteChildren(gotRawProfile.familyId);
+        await governmentIssueIdModel.update(gotRawProfile.governmentIssueIdId, profile.governmentIssueId);
 
         await profileModel.deleteCitizenship(gotRawProfile.id);
         if (profile.citizenship.length > 0) {
@@ -146,6 +147,10 @@ const employeeService = {
         await organizationModel.delete(gotRawProfile.id);
         if (profile.organizations.length > 0) {
             profile.organizations.map(name => organizationModel.create(gotRawProfile.id, name));
+        }
+        await referenceModel.delete(gotRawProfile.id);
+        if (profile.references.length > 0) {
+            profile.references.map(details => referenceModel.create(gotRawProfile.id, details));
         }
     }
 

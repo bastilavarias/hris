@@ -193,12 +193,6 @@
 													label="Organizations"></generic-list-input>
 							</v-col>
 							<v-col cols="12">
-								<generic-subtitle>Related Questions</generic-subtitle>
-								<template v-for="n in 5">
-									<generic-question-item :key="n"></generic-question-item>
-								</template>
-							</v-col>
-							<v-col cols="12">
 								<generic-subtitle>References</generic-subtitle>
 								<generic-reference-table
 										:references.sync="form.profile.references"></generic-reference-table>
