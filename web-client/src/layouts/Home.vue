@@ -12,16 +12,19 @@
 						<v-img :src="require('../assets/udmLogo.png')"></v-img>
 					</v-list-item-avatar>
 					<v-list-item-content>
-						<v-list-item-title class="font-weight-bold">John D. Doe</v-list-item-title>
-						<v-list-item-subtitle class="font-weight-bold">19-19-101</v-list-item-subtitle>
-						<v-list-item-subtitle>Faculty</v-list-item-subtitle>
+						<v-list-item-title class="font-weight-bold text-capitalize">{{user.profile.firstName}}
+																	{{user.profile.middleName ? `${getTextFirstLetter(user.profile.middleName)}.` : ''}}
+																	{{user.profile.lastName}}
+						</v-list-item-title>
+						<v-list-item-subtitle class="font-weight-bold text-uppercase">{{user.employeeNumber}}</v-list-item-subtitle>
+						<v-list-item-subtitle class="text-capitalize">{{user.designation}}</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>
 			<v-divider></v-divider>
 			<v-subheader>Available Actions</v-subheader>
 			<v-list dense rounded>
-				<template v-for="(action, index) in userActions">
+				<template v-for="(action, index) in user.actions">
 					<v-list-item
 							:key="index"
 							:to="action.route"
@@ -73,7 +76,7 @@
 				<template v-slot:activator="{ on }">
 					<v-btn color="transparent" dark depressed exact v-on="on">
 						<v-avatar :size="30">
-							<v-img src="https://firebasestorage.googleapis.com/v0/b/portfolio-77930.appspot.com/o/resource%2FmyPicture.jpeg?alt=media&token=6b7c665c-60a0-4c59-a3b6-3bdc72c68fbe"></v-img>
+							<v-img :src="user.profile.photo"></v-img>
 						</v-avatar>
 					</v-btn>
 				</template>
@@ -93,6 +96,8 @@
 <script>
     import GenericNotification from "../components/generic/Notification";
     import GlobalNotification from "../components/global/Notification";
+    import customUtilities from "../services/customUtilities";
+    import {purgeAccountToken} from "../store/types/account";
 
     export default {
         name: "home-layout",
@@ -103,28 +108,35 @@
             };
         },
 
+        mixins: [customUtilities],
+
         computed: {
-            userActions() {
-                return this.$store.state.auth.userActions;
+            user() {
+                return this.$store.state.account.user;
             },
 
             isAuthenticated() {
-                return this.$store.state.auth.isAuthenticated;
+                return this.$store.state.account.isAuthenticated;
             }
         },
 
+		watch: {
+            isAuthenticated(isAuthenticated) {
+                if (!isAuthenticated) return this.$router.push({name: "login"});
+			}
+		},
+
         methods: {
             purgeAuth() {
-                this.$store.dispatch("purgeAuth");
-                this.$router.push({name: "login"});
+                this.$store.commit(purgeAccountToken);
             }
         },
 
         created() {
-            if (!this.isAuthenticated) {
-                this.$store.dispatch("login", {employeeNumber: "hr", password: "hr"});
-                this.$router.push({name: "employee-list"});
-            }
+            // if (!this.isAuthenticated) {
+            //     this.$store.dispatch("login", {employeeNumber: "hr", password: "hr"});
+            //     this.$router.push({name: "employee-list"});
+            // }
         }
     };
 </script>

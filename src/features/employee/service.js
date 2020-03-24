@@ -1,7 +1,7 @@
 const employeeModel = require("./model");
 const profileModel = require("../profile/model");
 const benefitModel = require("../profile/benefit/model");
-const contactModel = require("../contact/model");
+const contactModel = require("../profile/contact/model");
 const addressModel = require("../profile/address/model");
 const familyModel = require("../profile/family/model");
 const governmentIssueIdModel = require("../profile/governmentIssueId/model");
@@ -18,6 +18,8 @@ const referenceModel = require("../profile/reference/model");
 const helper = require("../../helper");
 const customUtilities = require("../../customUtilities");
 const cloudinaryService = require("../cloudinary/service");
+const accountService = require("../account/service");
+const accountModel = require("../account/model");
 
 const employeeService = {
     create: async ({employeeNumber, departmentId, designationId, isFullTime, profile}) => {
@@ -51,12 +53,16 @@ const employeeService = {
             photoId: createPhotoId
         }, profile);
         if (profile.citizenship.length > 0) profile.citizenship.map(async name => await profileModel.addCitizenship(createdProfileId, name));
+        const accountDefaultPassword = accountService.generateDefaultPassword(employeeNumber, profile.lastName);
+        const createdAccountId = await accountModel.create(employeeNumber, accountService.encryptPassword(accountDefaultPassword));
         await employeeModel.create({
             employeeNumber,
             departmentId,
             designationId,
             isFullTime,
-            profileId: createdProfileId
+            profileId: createdProfileId,
+            accountId: createdAccountId
+
         });
         message = "New employee is created.";
         return {
@@ -109,6 +115,7 @@ const employeeService = {
         await addressModel.update(gotRawProfile.addressId, profile.address);
         await familyModel.update(gotRawProfile.familyId, profile.family);
         await governmentIssueIdModel.update(gotRawProfile.governmentIssueIdId, profile.governmentIssueId);
+        await employeeModel.update(employeeId, {departmentId, designationId, isFullTime});
 
         await profileModel.deleteCitizenship(gotRawProfile.id);
         if (profile.citizenship.length > 0) {
@@ -161,7 +168,6 @@ const employeeService = {
             message
         };
     }
-
 };
 
 module.exports = employeeService;

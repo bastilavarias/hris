@@ -1,13 +1,15 @@
 const db = require("../../db");
 
 module.exports = {
-    create: async ({employeeNumber, departmentId, designationId, isFullTime, profileId}) => {
-        const query = `insert into employee (department_id, designation_id, profile_id, employee_number, is_full_time)
-                       values (?, ?, ?, ?, ?);`;
+    create: async ({employeeNumber, departmentId, designationId, isFullTime, profileId, accountId}) => {
+        const query = `insert into employee (department_id, designation_id, profile_id, account_id, employee_number,
+                                             is_full_time)
+                       values (?, ?, ?, ?, ?, ?);`;
         const params = [
             departmentId,
             designationId,
             profileId,
+            accountId,
             employeeNumber,
             isFullTime
         ];
@@ -289,6 +291,32 @@ module.exports = {
                        from employee
                        where id = ?;`;
         const params = [employeeId];
+        const results = await db.executeQuery(query, params);
+        return results[0][0] ? results[0][0] : {};
+    },
+
+    getSingleByAccountId: async (accountId) => {
+        const query = `select e.id,
+                              e.employee_number                                                               as employeeNumber,
+                              (select json_object(
+                                              'firstName', first_name,
+                                              'middleName', middle_name,
+                                              'lastName', last_name,
+                                              'extension', extension,
+                                              'photo', (select url from photo where id = p.photo_id)
+                                          )
+                               from profile
+                               where id = e.profile_id)                                                       as profile,
+                              (select json_object('username', username)
+                               from account
+                               where id = e.account_id)                                                       as account,
+                              d.name                                                                          as designation
+                       from employee e
+                                join profile p on e.profile_id = p.id
+                                join designation d on e.designation_id = d.id
+                       where e.account_id = ?
+                         AND e.is_deleted = ?;`;
+        const params = [accountId, false];
         const results = await db.executeQuery(query, params);
         return results[0][0] ? results[0][0] : {};
     }

@@ -1,6 +1,4 @@
 const db = require("./db");
-const fs = require("fs");
-const path = require("path");
 
 module.exports = {
     checkIfExists: async (tableName, option, value) => {

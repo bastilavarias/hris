@@ -1,5 +1,5 @@
 <template>
-	<v-card>
+	<div>
 		<v-card-title>
 			<span class="font-weight-bold">Employee Management</span>
 			<div class="flex-grow-1"></div>
@@ -27,7 +27,8 @@
 				<span class="text-capitalize">{{item.designation ? item.designation.name : "N/A"}}</span>
 			</template>
 			<template v-slot:item.status="{item}">
-				<v-chip small :color="item.isDeleted ? 'error' : 'success'">{{item.isDeleted ? "Disabled" : "Active"}}</v-chip>
+				<v-chip small :color="item.isDeleted ? 'error' : 'success'">{{item.isDeleted ? "Disabled" : "Active"}}
+				</v-chip>
 			</template>
 			<template v-slot:item.actions="{item}">
 				<v-btn icon :to="{name: 'employee-update-form', params: {employeeId: item.id}}">
@@ -35,7 +36,7 @@
 				</v-btn>
 			</template>
 		</v-data-table>
-	</v-card>
+	</div>
 </template>
 
 <script>
@@ -66,7 +67,7 @@
         },
         {
             text: "Status",
-			value: "status"
+            value: "status"
         },
         {
             text: "Actions",

@@ -11,5 +11,7 @@ module.exports = {
         cloud_name: "devteamcloud",
         api_key: "937942941268822",
         api_secret: "uYafbzNdCKAUg_wKmcRBSvtuR3s"
-    }
+    },
+
+    secretOrKey: "secret"
 };

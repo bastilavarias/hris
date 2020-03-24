@@ -13,6 +13,9 @@ const routes = [
     {
         path: "/home",
         component: () => import("../layouts/Home"),
+        meta: {
+            requiresAuth: true
+        },
         children: [
             {
                 path: "personal-schedule",
@@ -226,5 +229,30 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 });
+
+import store from "../store";
+import {checkAccountToken} from "../store/types/account";
+
+router.beforeEach(async (to, from, next) => {
+    await store.dispatch(checkAccountToken);
+    const isAuthenticated = store.state.account.isAuthenticated;
+    if (isAuthenticated && to.name === "login") {
+        next({
+            name: "employee-list"
+        });
+    }
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!isAuthenticated) {
+            next({
+                name: "login"
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
+
 
 export default router;

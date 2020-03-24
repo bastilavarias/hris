@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import auth from "./modules/auth";
+import account from "./modules/account";
 import subject from "./modules/subject";
 import college from "./modules/college";
 import course from "./modules/course";
@@ -14,7 +14,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
-        auth,
+        account,
         subject,
         college,
         course,

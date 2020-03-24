@@ -1,6 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import vueAxios from "vue-axios";
+import tokenService from "./token";
 
 const apiService = {
     init: () => {
@@ -9,7 +10,7 @@ const apiService = {
     },
 
     setHeader() {
-        // Vue.axios.defaults.headers.common["Authorization"] = tokenService.get();
+        Vue.axios.defaults.headers.common["Authorization"] = tokenService.get();
     },
 
     get: (route, body) => {
@@ -84,4 +85,8 @@ export const employeeService = {
     search: ({option, value}) => apiService.get(`/employee/search/${option}/${value}`),
     getSingle: employeeId => apiService.get(`/employee/getSingle/${employeeId}`),
     update: (employeeId, details) => apiService.put(`/employee/update/${employeeId}`, details)
+};
+
+export const accountService = {
+    login: details => apiService.post("/account/login", details)
 };

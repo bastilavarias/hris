@@ -25,6 +25,7 @@ const organization = require("./modules/organization");
 const reference = require("./modules/reference");
 const governmentIssueId = require("./modules/governmentIssueId");
 const photo = require("./modules/photo");
+const account = require("./modules/account");
 
 module.exports = async () => {
     let message = "";
@@ -43,9 +44,11 @@ module.exports = async () => {
         await db.executeQuery(child);
         await db.executeQuery(photo);
         await db.executeQuery(governmentIssueId);
+        await db.executeQuery(account);
         await db.executeQuery(profile);
         await db.executeQuery(employee);
         await db.executeQuery(citizenship);
+        await db.executeQuery(education);
         await db.executeQuery(education);
         await db.executeQuery(civilServiceEligibility);
         await db.executeQuery(workExperience);
