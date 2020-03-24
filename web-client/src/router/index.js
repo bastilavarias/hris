@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
+import {checkAccountToken} from "../store/types/account";
 
 Vue.use(VueRouter);
 
@@ -21,6 +23,12 @@ const routes = [
                 path: "personal-schedule",
                 name: "personal-schedule",
                 component: () => import("../pages/schedule/Personal"),
+            },
+
+            {
+                path: "personal-data-sheet",
+                name: "personal-data-sheet",
+                component: () => import("../pages/personal-data-sheet/Form"),
             },
 
             {
@@ -221,7 +229,7 @@ const routes = [
                 ]
             }
         ]
-    },
+    }
 ];
 
 const router = new VueRouter({
@@ -230,15 +238,12 @@ const router = new VueRouter({
     routes
 });
 
-import store from "../store";
-import {checkAccountToken} from "../store/types/account";
-
 router.beforeEach(async (to, from, next) => {
     await store.dispatch(checkAccountToken);
     const isAuthenticated = store.state.account.isAuthenticated;
     if (isAuthenticated && to.name === "login") {
         next({
-            name: "employee-list"
+            name: "personal-data-sheet"
         });
     }
     if (to.matched.some(record => record.meta.requiresAuth)) {

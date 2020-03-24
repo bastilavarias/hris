@@ -1,5 +1,6 @@
 <template>
-	<v-autocomplete :items="departments" item-value="id" item-text="name" :label="label" :outlined="outlined" v-model="departmentIdLocal" >
+	<v-autocomplete :items="departments" item-value="id" item-text="name" :label="label" :outlined="outlined"
+					v-model="departmentIdLocal" :readonly="readonly">
 		<template v-slot:item="{item}">
 			<span class="black--text text-capitalize">{{item.name}}</span>
 		</template>
@@ -18,16 +19,21 @@
                 type: String,
                 required: false
             },
-			
+
             departmentId: {
                 type: null,
                 required: true
             },
 
-			outlined: {
+            outlined: {
                 type: Boolean,
-				required: false
-			}
+                required: false
+            },
+
+            readonly: {
+                type: Boolean,
+                required: false
+            }
         },
 
         data() {
@@ -36,11 +42,11 @@
             };
         },
 
-		computed: {
+        computed: {
             departments() {
                 return this.$store.state.department.list;
-			}
-		},
+            }
+        },
 
         watch: {
             departmentId(val) {

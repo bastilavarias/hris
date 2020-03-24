@@ -12,6 +12,12 @@ import apiService from "../../services/api";
 
 const hrActions = [
     {
+        name: "Personal Data Sheet",
+        icon: "file-account",
+        route: {name: "personal-data-sheet"},
+        subActions: []
+    },
+    {
         name: "Schedule",
         icon: "calendar-month",
         route: {name: "personal-schedule"},

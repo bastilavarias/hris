@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<generic-back-button title="Employee Form" class-name="mb-5"></generic-back-button>
+		<span class="font-weight-bold" style="font-size: 1.5rem;">Personal Data Sheet</span>
 		<v-row>
 			<v-col cols="12" md="3">
 				<v-row dense>
@@ -16,31 +16,20 @@
 					</v-col>
 					<v-col cols="12">
 						<generic-department-selection label="Department" outlined
-													  :department-id.sync="form.departmentId"></generic-department-selection>
+													  :department-id.sync="form.departmentId" readonly></generic-department-selection>
 					</v-col>
 					<v-col cols="12">
 						<generic-designation-selection label="Designation" outlined
 													   :designation-id.sync="form.designationId"></generic-designation-selection>
 					</v-col>
 					<v-col cols="12">
-						<v-radio-group label="Work Status" v-model="form.isFullTime">
-							<v-radio label="Full Time" :value="true"></v-radio>
-							<v-radio label="Part Time" :value="false"></v-radio>
-						</v-radio-group>
+						<v-text-field label="Appointment Status" outlined readonly :value="form.isFullTime ? 'Full Time' : 'Part Time'"></v-text-field>
 					</v-col>
 					<v-col cols="12">
 						<generic-subtitle>Actions</generic-subtitle>
-						<v-btn  class="mb-2" block>
+						<v-btn class="mb-2" block>
 							<v-icon class="mr-1">mdi-printer</v-icon>
 							<span>Print PDS</span>
-						</v-btn>
-						<v-btn  class="mb-2" block>
-							<v-icon class="mr-1">mdi-calendar</v-icon>
-							<span>Print Schedule</span>
-						</v-btn>
-						<v-btn color="error" class="white--text" block>
-							<v-icon class="mr-1">mdi-cancel</v-icon>
-							<span>Disable</span>
 						</v-btn>
 					</v-col>
 				</v-row>
@@ -218,19 +207,22 @@
 				</v-tabs-items>
 				<v-row dense>
 					<v-col cols="12">
-						<v-btn block color="primary" @click="update" :loading="isLoading">Save</v-btn>
+						<v-btn block color="primary" :loading="isLoading">Save</v-btn>
 					</v-col>
 				</v-row>
 			</v-col>
 		</v-row>
+
 	</div>
 </template>
+
 <script>
-    import GenericBackButton from "../../components/generic/BackButton";
     import GenericImageInput from "../../components/generic/PhotoInput";
+    import GenericDepartmentSelection from "../../components/selection/Department";
+    import GenericDesignationSelection from "../../components/selection/Designation";
+    import GenericSubtitle from "../../components/generic/Subtitle";
     import GenericProfile from "../../components/form/Profile";
     import GenericBenefitForm from "../../components/form/Benefit";
-    import GenericSubtitle from "../../components/generic/Subtitle";
     import GenericContactForm from "../../components/form/Contact";
     import GenericAddressForm from "../../components/form/Address";
     import GenericFamilyForm from "../../components/form/Family";
@@ -238,18 +230,11 @@
     import GenericEducationalBackgroundTable from "../../components/table/EducationalBackground";
     import GenericCivilServiceEligibility from "../../components/table/CivilServiceEligibility";
     import GenericWorkExperience from "../../components/table/WorkExperience";
-    import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
-    import GenericListInput from "../../components/generic/ListInput";
-    import GenericQuestionItem from "../../components/generic/QuestionItem";
-    import GenericReferenceTable from "../../components/table/Reference";
     import GenericTrainingTable from "../../components/table/Training";
-    import {getSingleEmployee, setEmployees, updateEmployee} from "../../store/types/employee";
-    import GenericDepartmentSelection from "../../components/selection/Department";
-    import GenericDesignationSelection from "../../components/selection/Designation";
-    import {getAllDepartments} from "../../store/types/department";
-    import {getAllDesignations} from "../../store/types/designation";
-    import {setActionName} from "../../store/types/action";
+    import GenericListInput from "../../components/generic/ListInput";
     import GenericGovernmentIssueIdForm from "../../components/form/GovernmentIssueId";
+    import GenericReferenceTable from "../../components/table/Reference";
+    import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
 
     const defaultForm = {
         employeeNumber: "",
@@ -338,7 +323,6 @@
             }
         }
     };
-
     const tabItems = [
         "Profile",
         "Address Details",
@@ -349,14 +333,11 @@
 
     export default {
         components: {
-            GenericGovernmentIssueIdForm,
-            GenericDesignationSelection,
-            GenericDepartmentSelection,
-            GenericTrainingTable,
-            GenericReferenceTable,
-            GenericQuestionItem,
-            GenericListInput,
             GenericVoluntaryWorkExperience,
+            GenericReferenceTable,
+            GenericGovernmentIssueIdForm,
+            GenericListInput,
+            GenericTrainingTable,
             GenericWorkExperience,
             GenericCivilServiceEligibility,
             GenericEducationalBackgroundTable,
@@ -364,10 +345,10 @@
             GenericFamilyForm,
             GenericAddressForm,
             GenericContactForm,
-            GenericSubtitle,
-            GenericBenefitForm, GenericProfile, GenericImageInput, GenericBackButton
+            GenericBenefitForm,
+            GenericProfile,
+            GenericSubtitle, GenericDesignationSelection, GenericDepartmentSelection, GenericImageInput
         },
-
         data() {
             return {
                 tab: 0,
@@ -376,131 +357,7 @@
                 isLoading: false,
                 tabItems
             };
-        },
-
-        watch: {
-            "$store.state.employee.current"(employee) {
-                if (Object.keys(employee).length <= 0) return this.$router.push({name: "employee-management"});
-                const {employeeNumber, isFullTime, department, designation, profile} = employee;
-
-                const {firstName, middleName, lastName, extension, birthDate, birthPlace, sex, civilStatus, citizenship, bloodType, height, weight, photo, benefit, contact, address, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references, governmentIssueId} = profile;
-
-                const {gsisId, pagibigId, sssNumber, tinNumber, philhealthId, agencyEmployeeNumber} = benefit;
-
-                const {telephoneNumber, mobileNumber, emailAddress} = contact;
-
-                const {permanent, residential} = address;
-
-                const {spouse, father, mother, children} = family;
-
-                const {governmentId, issuanceDate, issuancePlace, licenseNumber} = governmentIssueId;
-
-                this.form.employeeNumber = employeeNumber;
-                this.form.departmentId = department.id;
-                this.form.designationId = designation.id;
-                this.form.isFullTime = !!isFullTime;
-
-                this.form.profile.firstName = firstName;
-                this.form.profile.middleName = middleName;
-                this.form.profile.lastName = lastName;
-                this.form.profile.extension = extension;
-                this.form.profile.birthDate = birthDate;
-                this.form.profile.birthPlace = birthPlace ? birthPlace : "";
-                this.form.profile.sex = sex;
-                this.form.profile.civilStatus = civilStatus;
-                this.form.profile.citizenship = citizenship ? citizenship : [];
-                this.form.profile.bloodType = bloodType;
-                this.form.profile.height = height;
-                this.form.profile.weight = weight;
-                this.form.profile.photoPreview = photo.url;
-
-                this.form.profile.benefit.gsisId = gsisId;
-                this.form.profile.benefit.pagibigId = pagibigId;
-                this.form.profile.benefit.sssNumber = sssNumber;
-                this.form.profile.benefit.tinNumber = tinNumber;
-                this.form.profile.benefit.philhealthId = philhealthId;
-                this.form.profile.benefit.agencyEmployeeNumber = agencyEmployeeNumber;
-
-                this.form.profile.contact.telephoneNumber = telephoneNumber;
-                this.form.profile.contact.mobileNumber = mobileNumber;
-                this.form.profile.contact.emailAddress = emailAddress;
-
-                this.form.profile.address.permanent.city = permanent.city ? permanent.city : "";
-                this.form.profile.address.permanent.province = permanent.province ? permanent.province : "";
-                this.form.profile.address.permanent.houseNumber = permanent.houseNumber;
-                this.form.profile.address.permanent.street = permanent.street;
-                this.form.profile.address.permanent.zipCode = permanent.zipCode;
-                this.form.profile.address.permanent.barangay = permanent.barangay;
-                this.form.profile.address.permanent.subdivision = permanent.subdivision;
-                this.form.profile.address.residential.houseNumber = residential.houseNumber;
-                this.form.profile.address.residential.street = residential.street;
-                this.form.profile.address.residential.zipCode = residential.zipCode;
-                this.form.profile.address.residential.barangay = residential.barangay;
-                this.form.profile.address.residential.city = residential.city ? residential.city : "";
-                this.form.profile.address.residential.province = residential.province ? residential.province : "";
-                this.form.profile.address.residential.subdivision = residential.subdivision;
-
-                this.form.profile.family.spouse.lastName = spouse.lastName;
-                this.form.profile.family.spouse.middleName = spouse.middleName;
-                this.form.profile.family.spouse.firstName = spouse.firstName;
-                this.form.profile.family.spouse.extension = spouse.extension;
-                this.form.profile.family.father.lastName = father.lastName;
-                this.form.profile.family.father.middleName = father.middleName;
-                this.form.profile.family.father.firstName = father.firstName;
-                this.form.profile.family.father.extension = father.extension;
-                this.form.profile.family.mother.lastName = mother.lastName;
-                this.form.profile.family.mother.middleName = mother.middleName;
-                this.form.profile.family.mother.firstName = mother.firstName;
-                this.form.profile.family.mother.extension = mother.extension;
-                this.form.profile.family.children = children ? children : [];
-
-                this.form.profile.education = education ? education : [];
-
-                this.form.profile.civilServiceEligibility = civilServiceEligibility ? civilServiceEligibility : [];
-
-                this.form.profile.workExperiences = workExperiences ? workExperiences : [];
-
-                this.form.profile.voluntaryWorkExperiences = voluntaryWorkExperiences ? voluntaryWorkExperiences : [];
-
-                this.form.profile.trainings = trainings ? trainings : [];
-
-                this.form.profile.hobbies = hobbies ? hobbies : [];
-                this.form.profile.recognitions = recognitions ? recognitions : [];
-                this.form.profile.organizations = organizations ? organizations : [];
-
-                this.form.profile.references = references ? references : [];
-
-                this.form.profile.governmentIssueId.governmentId = governmentId ? governmentId : "";
-                this.form.profile.governmentIssueId.licenseNumber = licenseNumber ? licenseNumber : "";
-                this.form.profile.governmentIssueId.issuanceDate = issuanceDate ? issuanceDate : "";
-                this.form.profile.governmentIssueId.issuancePlace = issuancePlace ? issuancePlace : "";
-            },
-
-            "$store.state.action.name"(name) {
-                if (name === updateEmployee) {
-                    this.isLoading = false;
-                }
-            }
-        },
-
-        methods: {
-            update() {
-                this.isLoading = true;
-                const employeeId = this.$route.params.employeeId;
-                this.$store.dispatch(updateEmployee, {employeeId, ...this.form});
-            }
-        },
-
-        created() {
-            const employeeId = this.$route.params.employeeId;
-            this.$store.dispatch(getSingleEmployee, employeeId);
-            this.$store.dispatch(getAllDepartments);
-            this.$store.dispatch(getAllDesignations);
-        },
-
-        destroyed() {
-            this.$store.commit(setActionName, "");
-            this.$store.commit(setEmployees, []);
         }
     };
 </script>
+

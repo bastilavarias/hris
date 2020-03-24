@@ -1,5 +1,6 @@
 <template>
-	<v-autocomplete :items="designations" item-value="id" item-text="name" :label="label" :outlined="outlined" v-model="designationIdLocal" >
+	<v-autocomplete :items="designations" item-value="id" item-text="name" :label="label" :outlined="outlined"
+					v-model="designationIdLocal" :readonly="readonly">
 		<template v-slot:item="{item}">
 			<span class="black--text text-capitalize">{{item.name}}</span>
 		</template>
@@ -25,6 +26,11 @@
             },
 
             outlined: {
+                type: Boolean,
+                required: false
+            },
+
+            readonly: {
                 type: Boolean,
                 required: false
             }

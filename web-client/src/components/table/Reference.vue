@@ -83,7 +83,7 @@
     };
 
     export default {
-        name: "generic-voluntary-work-experience",
+        name: "generic-reference-table",
         components: {GenericYearSelection, GenericDateInput},
 
         props: {
