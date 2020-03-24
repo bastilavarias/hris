@@ -15,15 +15,17 @@
 									  v-model="form.employeeNumber"></v-text-field>
 					</v-col>
 					<v-col cols="12">
-						<generic-department-selection label="Department" outlined
-													  :department-id.sync="form.departmentId" readonly></generic-department-selection>
+						<v-text-field label="Department" outlined readonly class="text-capitalize"
+									  :value="form.departmentName" style="text-transform: capitalize;">
+						</v-text-field>
 					</v-col>
 					<v-col cols="12">
-						<generic-designation-selection label="Designation" outlined
-													   :designation-id.sync="form.designationId"></generic-designation-selection>
+						<v-text-field label="Designation" outlined readonly
+									  :value="form.designationName" style="text-transform: capitalize;"></v-text-field>
 					</v-col>
 					<v-col cols="12">
-						<v-text-field label="Appointment Status" outlined readonly :value="form.isFullTime ? 'Full Time' : 'Part Time'"></v-text-field>
+						<v-text-field label="Appointment Status" outlined readonly
+									  :value="form.isFullTime ? 'Full Time' : 'Part Time'"></v-text-field>
 					</v-col>
 					<v-col cols="12">
 						<generic-subtitle>Actions</generic-subtitle>
@@ -235,11 +237,12 @@
     import GenericGovernmentIssueIdForm from "../../components/form/GovernmentIssueId";
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
+    import {getPersonalDataSheet} from "../../store/types/personalDataSheet";
 
     const defaultForm = {
         employeeNumber: "",
-        departmentId: "",
-        designationId: "",
+        departmentName: "",
+        designationName: "",
         isFullTime: true,
         profile: {
             firstName: "",
@@ -357,6 +360,114 @@
                 isLoading: false,
                 tabItems
             };
+        },
+
+        watch: {
+            "$store.state.personalDataSheet.current"(employee) {
+                const {employeeNumber, isFullTime, department, designation, profile} = employee;
+
+                const {firstName, middleName, lastName, extension, birthDate, birthPlace, sex, civilStatus, citizenship, bloodType, height, weight, photo, benefit, contact, address, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references, governmentIssueId} = profile;
+
+                const {gsisId, pagibigId, sssNumber, tinNumber, philhealthId, agencyEmployeeNumber} = benefit;
+
+                const {telephoneNumber, mobileNumber, emailAddress} = contact;
+
+                const {permanent, residential} = address;
+
+                const {spouse, father, mother, children} = family;
+
+                const {governmentId, issuanceDate, issuancePlace, licenseNumber} = governmentIssueId;
+
+                this.form.employeeNumber = employeeNumber;
+                this.form.departmentName = department.name;
+                this.form.designationName = designation.name;
+                this.form.isFullTime = !!isFullTime;
+
+                this.form.profile.firstName = firstName;
+                this.form.profile.middleName = middleName;
+                this.form.profile.lastName = lastName;
+                this.form.profile.extension = extension;
+                this.form.profile.birthDate = birthDate;
+                this.form.profile.birthPlace = birthPlace ? birthPlace : "";
+                this.form.profile.sex = sex;
+                this.form.profile.civilStatus = civilStatus;
+                this.form.profile.citizenship = citizenship ? citizenship : [];
+                this.form.profile.bloodType = bloodType;
+                this.form.profile.height = height;
+                this.form.profile.weight = weight;
+                this.form.profile.photoPreview = photo.url;
+
+                this.form.profile.benefit.gsisId = gsisId;
+                this.form.profile.benefit.pagibigId = pagibigId;
+                this.form.profile.benefit.sssNumber = sssNumber;
+                this.form.profile.benefit.tinNumber = tinNumber;
+                this.form.profile.benefit.philhealthId = philhealthId;
+                this.form.profile.benefit.agencyEmployeeNumber = agencyEmployeeNumber;
+
+                this.form.profile.contact.telephoneNumber = telephoneNumber;
+                this.form.profile.contact.mobileNumber = mobileNumber;
+                this.form.profile.contact.emailAddress = emailAddress;
+
+                this.form.profile.address.permanent.city = permanent.city ? permanent.city : "";
+                this.form.profile.address.permanent.province = permanent.province ? permanent.province : "";
+                this.form.profile.address.permanent.houseNumber = permanent.houseNumber;
+                this.form.profile.address.permanent.street = permanent.street;
+                this.form.profile.address.permanent.zipCode = permanent.zipCode;
+                this.form.profile.address.permanent.barangay = permanent.barangay;
+                this.form.profile.address.permanent.subdivision = permanent.subdivision;
+                this.form.profile.address.residential.houseNumber = residential.houseNumber;
+                this.form.profile.address.residential.street = residential.street;
+                this.form.profile.address.residential.zipCode = residential.zipCode;
+                this.form.profile.address.residential.barangay = residential.barangay;
+                this.form.profile.address.residential.city = residential.city ? residential.city : "";
+                this.form.profile.address.residential.province = residential.province ? residential.province : "";
+                this.form.profile.address.residential.subdivision = residential.subdivision;
+
+                this.form.profile.family.spouse.lastName = spouse.lastName;
+                this.form.profile.family.spouse.middleName = spouse.middleName;
+                this.form.profile.family.spouse.firstName = spouse.firstName;
+                this.form.profile.family.spouse.extension = spouse.extension;
+                this.form.profile.family.father.lastName = father.lastName;
+                this.form.profile.family.father.middleName = father.middleName;
+                this.form.profile.family.father.firstName = father.firstName;
+                this.form.profile.family.father.extension = father.extension;
+                this.form.profile.family.mother.lastName = mother.lastName;
+                this.form.profile.family.mother.middleName = mother.middleName;
+                this.form.profile.family.mother.firstName = mother.firstName;
+                this.form.profile.family.mother.extension = mother.extension;
+                this.form.profile.family.children = children ? children : [];
+
+                this.form.profile.education = education ? education : [];
+
+                this.form.profile.civilServiceEligibility = civilServiceEligibility ? civilServiceEligibility : [];
+
+                this.form.profile.workExperiences = workExperiences ? workExperiences : [];
+
+                this.form.profile.voluntaryWorkExperiences = voluntaryWorkExperiences ? voluntaryWorkExperiences : [];
+
+                this.form.profile.trainings = trainings ? trainings : [];
+
+                this.form.profile.hobbies = hobbies ? hobbies : [];
+                this.form.profile.recognitions = recognitions ? recognitions : [];
+                this.form.profile.organizations = organizations ? organizations : [];
+
+                this.form.profile.references = references ? references : [];
+
+                this.form.profile.governmentIssueId.governmentId = governmentId ? governmentId : "";
+                this.form.profile.governmentIssueId.licenseNumber = licenseNumber ? licenseNumber : "";
+                this.form.profile.governmentIssueId.issuanceDate = issuanceDate ? issuanceDate : "";
+                this.form.profile.governmentIssueId.issuancePlace = issuancePlace ? issuancePlace : "";
+            },
+
+            // "$store.state.action.name"(name) {
+            //     if (name === updateEmployee) {
+            //         this.isLoading = false;
+            //     }
+            // }
+        },
+
+        created() {
+            this.$store.dispatch(getPersonalDataSheet);
         }
     };
 </script>

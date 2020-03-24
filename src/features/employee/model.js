@@ -19,6 +19,8 @@ module.exports = {
     getAll: async () => {
         const query = `select mainEmployee.id,
                               mainEmployee.employee_number               as employeeNumber,
+                              mainEmployee.is_deleted                    as isDeleted,
+                              mainEmployee.created_at                    as createdAt,
                               (select json_object('id', d.id, 'name', d.name)
                                from department d
                                where d.id = mainEmployee.department_id)  as department,
@@ -28,8 +30,7 @@ module.exports = {
                               (select json_object('id', p.id, 'firstName', p.first_name, 'middleName', p.middle_name,
                                                   'lastName', p.last_name, 'extension', p.extension)
                                from profile p
-                               where p.id = mainEmployee.profile_id)     as profile,
-                              mainEmployee.is_deleted                    as isDeleted
+                               where p.id = mainEmployee.profile_id)     as profile
                        from employee mainEmployee;`;
         const params = [];
         const results = await db.executeQuery(query, params);
@@ -40,6 +41,8 @@ module.exports = {
         const targetTable = option === "employee_number" ? `mainEmployee` : `mainProfile`;
         const query = `select mainEmployee.id,
                               mainEmployee.employee_number               as employeeNumber,
+                              mainEmployee.is_deleted                    as isDeleted,
+                              mainEmployee.created_at                    as createdAt,
                               (select json_object('id', d.id, 'name', d.name)
                                from department d
                                where d.id = mainEmployee.department_id)  as department,
@@ -49,8 +52,7 @@ module.exports = {
                               (select json_object('id', p.id, 'firstName', p.first_name, 'middleName', p.middle_name,
                                                   'lastName', p.last_name, 'extension', p.extension)
                                from profile p
-                               where p.id = mainEmployee.profile_id)     as profile,
-                                mainEmployee.is_deleted as isActivisDeletede
+                               where p.id = mainEmployee.profile_id)     as profile
                        from employee mainEmployee join profile mainProfile on mainEmployee.profile_id = mainProfile.id where ${targetTable}.${option} like '%${value}%';`;
         const params = [];
         const results = await db.executeQuery(query, params);
@@ -297,7 +299,8 @@ module.exports = {
 
     getSingleByAccountId: async (accountId) => {
         const query = `select e.id,
-                              e.employee_number                                                               as employeeNumber,
+                              e.employee_number         as employeeNumber,
+                              e.created_at              as createdAt,
                               (select json_object(
                                               'firstName', first_name,
                                               'middleName', middle_name,
@@ -306,11 +309,11 @@ module.exports = {
                                               'photo', (select url from photo where id = p.photo_id)
                                           )
                                from profile
-                               where id = e.profile_id)                                                       as profile,
+                               where id = e.profile_id) as profile,
                               (select json_object('username', username)
                                from account
-                               where id = e.account_id)                                                       as account,
-                              d.name                                                                          as designation
+                               where id = e.account_id) as account,
+                              d.name                    as designation
                        from employee e
                                 join profile p on e.profile_id = p.id
                                 join designation d on e.designation_id = d.id

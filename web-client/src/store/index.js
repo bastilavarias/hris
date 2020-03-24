@@ -9,6 +9,7 @@ import employee from "./modules/employee";
 import notification from "./modules/notification";
 import action from "./modules/action";
 import department from "./modules/department";
+import personalDataSheet from "./modules/personalDataSheet";
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         employee,
         notification,
         action,
-        department
+        department,
+        personalDataSheet
     }
 });

@@ -45,7 +45,7 @@
 
         watch: {
             city(val) {
-                this.$emit("update:city", val);
+                this.cityLocal = val;
             },
 
             cityLocal(val) {

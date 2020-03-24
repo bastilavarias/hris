@@ -18,7 +18,9 @@
 				<span class="font-weight-bold text-uppercase">{{item.employeeNumber}}</span>
 			</template>
 			<template v-slot:item.name="{item}">
-				<span class="text-capitalize">{{item.profile.firstName}} {{getTextFirstLetter(item.profile.middleName)}}. {{item.profile.lastName}}</span>
+				<span class="text-capitalize">
+					{{currentUser.id === item.id ? "You" : `${item.profile.firstName} ${item.profile.middleName ? getTextFirstLetter(item.profile.middleName) : ""}. ${item.profile.lastName}`}}
+				</span>
 			</template>
 			<template v-slot:item.department="{item}">
 				<span class="text-capitalize">{{item.department ? item.department.name : "N/A"}}</span>
@@ -31,7 +33,7 @@
 				</v-chip>
 			</template>
 			<template v-slot:item.actions="{item}">
-				<v-btn icon :to="{name: 'employee-update-form', params: {employeeId: item.id}}">
+				<v-btn icon @click="view(item)">
 					<v-icon>mdi-eye</v-icon>
 				</v-btn>
 			</template>
@@ -98,6 +100,10 @@
         computed: {
             employees() {
                 return this.$store.state.employee.list;
+            },
+
+            currentUser() {
+                return this.$store.state.account.user;
             }
         },
 
@@ -129,11 +135,27 @@
                 return this.$store.commit(setEmployees, []);
             },
 
-            destroyed() {
-                this.$store.commit(setEmployees, []);
-                this.$store.commit(setEmployeeError, {});
-                this.$store.commit(setActionName, "");
+            view({id}) {
+                const isSameUser = id === this.currentUser.id;
+                if (isSameUser) {
+                    this.$router.push({name: "personal-data-sheet"});
+                    return;
+                }
+                this.$router.push(
+                    {
+                        name: "employee-update-form",
+                        params: {
+                            employeeId: id
+                        }
+                    }
+                );
             }
         },
+
+        destroyed() {
+            this.$store.commit(setEmployees, []);
+            this.$store.commit(setEmployeeError, {});
+            this.$store.commit(setActionName, "");
+        }
     };
 </script>

@@ -23,7 +23,7 @@
 													   :designation-id.sync="form.designationId"></generic-designation-selection>
 					</v-col>
 					<v-col cols="12">
-						<v-radio-group label="Work Status" v-model="form.isFullTime">
+						<v-radio-group label="Appointment Status" v-model="form.isFullTime">
 							<v-radio label="Full Time" :value="true"></v-radio>
 							<v-radio label="Part Time" :value="false"></v-radio>
 						</v-radio-group>
