@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-card>
 		<v-card-title>
 			<span class="font-weight-bold">Employee Management</span>
 			<div class="flex-grow-1"></div>
@@ -36,7 +36,7 @@
 				</v-btn>
 			</template>
 		</v-data-table>
-	</div>
+	</v-card>
 </template>
 
 <script>

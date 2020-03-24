@@ -1,20 +1,24 @@
 <template>
-	<div>
-		<generic-back-button title="Designation Details" class-name="mb-5"></generic-back-button>
-		<v-row>
-			<v-col cols="12">
-				<v-text-field label="Name" v-model="form.name" :error="hasError(error.name)"
-							  :error-messages="error.name" outlined></v-text-field>
-			</v-col>
-			<v-col cols="12">
-				<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
-			</v-col>
-		</v-row>
-		<generic-form-action-button :operation="operation" :create="create" :update="update"
-		<generic-form-action-button :operation="operation" :create="create" :update="update"
-									:disabled="!isFormValid"
-									:is-loading="isLoading"></generic-form-action-button>
-	</div>
+	<v-card>
+		<v-card-title>
+			<generic-back-button title="Designation Details" class-name="mb-5"></generic-back-button>
+		</v-card-title>
+			<v-card-text>
+				<v-row>
+					<v-col cols="12">
+						<v-text-field label="Name" v-model="form.name" :error="hasError(error.name)"
+									  :error-messages="error.name" outlined></v-text-field>
+					</v-col>
+					<v-col cols="12">
+						<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
+					</v-col>
+				</v-row>
+				<generic-form-action-button :operation="operation" :create="create" :update="update"
+				<generic-form-action-button :operation="operation" :create="create" :update="update"
+											:disabled="!isFormValid"
+											:is-loading="isLoading"></generic-form-action-button>
+			</v-card-text>
+	</v-card>
 </template>
 
 

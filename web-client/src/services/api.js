@@ -90,3 +90,8 @@ export const employeeService = {
 export const accountService = {
     login: details => apiService.post("/account/login", details)
 };
+
+export const personalDataSheetService = {
+    getSingle: employeeId => apiService.get(`/employee/getSingle/${employeeId}`),
+
+};

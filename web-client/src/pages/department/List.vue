@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<v-card>
 		<v-card-title>
 			<span class="font-weight-bold">Department Management</span>
 			<div class="flex-grow-1"></div>
@@ -43,7 +43,7 @@
 								color="secondary"
 								:is-loading="isLoading"
 								:action="deleteItem"></generic-confirm-dialog>
-	</div>
+	</v-card>
 </template>
 
 <script>
