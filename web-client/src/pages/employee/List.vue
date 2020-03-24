@@ -19,7 +19,9 @@
 			</template>
 			<template v-slot:item.name="{item}">
 				<span class="text-capitalize">
-					{{currentUser.id === item.id ? "You" : `${item.profile.firstName} ${item.profile.middleName ? getTextFirstLetter(item.profile.middleName) : ""}. ${item.profile.lastName}`}}
+					{{currentUser.id === item.id ? "You" : `${item.profile.firstName} ${item.profile.middleName ? `${
+    getTextFirstLetter(item.profile.middleName)
+					}.` : ""} ${item.profile.lastName}`}}
 				</span>
 			</template>
 			<template v-slot:item.department="{item}">

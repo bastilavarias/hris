@@ -9,7 +9,7 @@ module.exports = `
         government_issue_id_id mediumint                            not null,
         photo_id               mediumint                            not null,
         first_name             varchar(150)                         not null,
-        middle_name            varchar(150)                         not null,
+        middle_name            varchar(150),
         last_name              varchar(150)                         not null,
         extension              varchar(50)                          not null,
         birth_date             date                                 not null,

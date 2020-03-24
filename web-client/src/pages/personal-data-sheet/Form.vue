@@ -209,7 +209,7 @@
 				</v-tabs-items>
 				<v-row dense>
 					<v-col cols="12">
-						<v-btn block color="primary" :loading="isLoading">Save</v-btn>
+						<v-btn block color="secondary" :loading="isLoading">Update</v-btn>
 					</v-col>
 				</v-row>
 			</v-col>
