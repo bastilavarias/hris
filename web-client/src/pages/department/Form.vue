@@ -12,9 +12,6 @@
 				<v-col cols="12">
 					<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
 				</v-col>
-				<v-col cols="12">
-					<v-autocomplete label="Head" v-model="form.employeeId" outlined></v-autocomplete>
-				</v-col>
 			</v-row>
 			<generic-form-action-button :operation="operation" :create="create" :update="update"
 										:disabled="!isFormValid"

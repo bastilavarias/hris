@@ -4,7 +4,7 @@
 			<span class="font-weight-bold">Designation Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Designation"
-									:to="{name: 'designation-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
+									:to="{name: 'designation-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table :headers="tableHeaders" :items="designations" :loading="isLoading">
 			<template v-slot:top>

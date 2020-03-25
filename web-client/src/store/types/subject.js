@@ -1,7 +1,7 @@
 export const getSubjectCategories = "getSubjectCategories";
 export const setSubjectCategories = "setSubjectCategories";
 export const createSubject = "createSubject";
-export const setSubjectErrors = "setSubjectErrors";
+export const setSubjectError = "setSubjectError";
 export const getAllSubjects = "getAllSubjects";
 export const setSubjects = "setSubjects";
 export const searchSubjects = "searchSubjects";

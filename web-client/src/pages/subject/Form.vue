@@ -1,36 +1,37 @@
 <template>
-	<v-card :loading="isLoading">
-		<generic-card-back-button title="Subject Information"></generic-card-back-button>
+	<v-card>
+		<v-card-title>
+			<generic-back-button title="Subject Details" class-name="mb-5"></generic-back-button>
+		</v-card-title>
 		<v-card-text>
-			<generic-form-error-list :errors="errors"></generic-form-error-list>
 			<v-row>
-				<v-col cols="12" md="6">
+				<v-col cols="12">
 					<v-text-field label="Code" v-model="form.code" autofocus
-								  :readonly="operation === 'update'"></v-text-field>
+								  :readonly="operation === 'update'" outlined :error="hasError(error.code)" :error-messages="error.code"></v-text-field>
 				</v-col>
-				<v-col cols="12" md="6">
-					<v-text-field label="Title" v-model="form.title"></v-text-field>
+				<v-col cols="12">
+					<v-text-field label="Title" v-model="form.title" outlined></v-text-field>
 				</v-col>
 				<v-col cols="12" md="8">
-					<v-text-field label="Description" v-model="form.description"></v-text-field>
+					<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
 				</v-col>
 				<v-col cols="12" md="4">
 					<v-select type="number" label="Units" :items="subjectUnitsOptions"
-							  v-model="form.units"></v-select>
+							  v-model="form.units" outlined></v-select>
 				</v-col>
 				<v-col cols="12">
 					<v-select label="Category" :items="subjectCategories" item-text="name" item-value="id"
-							  v-model="form.categoryId"></v-select>
+							  v-model="form.categoryId" outlined></v-select>
 				</v-col>
 				<v-col cols="12">
 					<generic-subject-selection label="Prerequisite" :subjects="subjects"
-											   :subject-id.sync="form.prerequisiteSubjectId"></generic-subject-selection>
+											   :subject-id.sync="form.prerequisiteSubjectId" outlined></generic-subject-selection>
 				</v-col>
 			</v-row>
+			<generic-form-action-button :operation="operation" :create="create" :update="update"
+										:disabled="!isFormValid"
+										:is-loading="isLoading"></generic-form-action-button>
 		</v-card-text>
-		<generic-form-action-button :operation="operation" :create="create" :update="update"
-									:disabled="!isFormValid"
-									:is-loading="isLoading"></generic-form-action-button>
 	</v-card>
 </template>
 
@@ -41,7 +42,7 @@
         getAllSubjects,
         getSingleSubject,
         getSubjectCategories,
-        setSubjectErrors,
+        setSubjectError,
         setSubjects,
         updateSubject
     } from "../../store/types/subject";
@@ -50,6 +51,8 @@
     import GenericSubjectSelection from "../../components/selection/Subject";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
+    import customUtilities from "../../services/customUtilities";
+    import GenericBackButton from "../../components/generic/BackButton";
 
     const defaultForm = {
         code: "",
@@ -68,6 +71,7 @@
 
     export default {
         components: {
+            GenericBackButton,
             GenericConfirmDialog,
             GenericFormActionButton, GenericSubjectSelection, GenericFormErrorList, GenericCardBackButton
         },
@@ -82,6 +86,8 @@
             };
         },
 
+        mixins: [customUtilities],
+
         computed: {
             subjectCategories() {
                 return this.$store.state.subject.categories;
@@ -91,8 +97,8 @@
                 return this.form.code && this.form.title && this.form.units && this.form.categoryId;
             },
 
-            errors() {
-                return this.$store.state.subject.errors;
+            error() {
+                return this.$store.state.subject.error;
             },
 
             subjects() {
@@ -102,7 +108,7 @@
 
         watch: {
             "$store.state.action.name"(name) {
-                if (name === `${createSubject}-errors`) {
+                if (name === `${createSubject}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -110,13 +116,13 @@
 
                 if (name === createSubject) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setSubjectErrors, []);
+                    this.$store.commit(setSubjectError, {});
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
                 }
 
-                if (name === `${updateSubject}-errors`) {
+                if (name === `${updateSubject}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -124,9 +130,9 @@
 
                 if (name === updateSubject) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setSubjectErrors, []);
+                    this.$store.commit(setSubjectError, {});
                     this.$store.commit(setActionName, "");
-                    this.$router.push({name: "subject-management"});
+                    this.$router.push({name: "subject-list"});
                 }
             },
 
@@ -173,7 +179,7 @@
 
         destroyed() {
             this.$store.commit(setSubjects, []);
-            this.$store.commit(setSubjectErrors, []);
+            this.$store.commit(setSubjectError, {});
             this.$store.commit(setActionName, "");
         }
     };

@@ -10,7 +10,7 @@ import {
 import tokenService from "../../services/token";
 import apiService from "../../services/api";
 
-const hrActions = [
+const actions = [
     {
         name: "Personal Data Sheet",
         icon: "file-account",
@@ -29,24 +29,6 @@ const hrActions = [
         route: {},
         subActions: [
             {
-                name: "Schedule Management",
-                icon: "clock",
-                route: {name: "personnel-schedule-management"},
-                subActions: []
-            },
-            {
-                name: "Leave Management",
-                icon: "message-arrow-right",
-                route: {name: "department-level-leave-management"},
-                subActions: []
-            },
-            {
-                name: "Time Card Management",
-                icon: "calendar-clock",
-                route: {name: "time-card-management"},
-                subActions: []
-            },
-            {
                 name: "Employee Management",
                 icon: "account",
                 route: {name: "employee-list"},
@@ -63,9 +45,58 @@ const hrActions = [
                 icon: "account-box",
                 route: {name: "designation-management"},
                 subActions: []
-            }
+            },
+            // {
+            //     name: "Schedule Management",
+            //     icon: "clock",
+            //     route: {name: "faculty-schedule-list"},
+            //     subActions: []
+            // },
+            // {
+            //     name: "Employee Tagging",
+            //     icon: "tag",
+            //     route: {name: "personnel-schedule-list"},
+            //     subActions: []
+            // },
+            // {
+            //     name: "Leave Management",
+            //     icon: "message-arrow-right",
+            //     route: {name: "department-level-leave-management"},
+            //     subActions: []
+            // },
+            // {
+            //     name: "Time Card Management",
+            //     icon: "calendar-clock",
+            //     route: {name: "time-card-management"},
+            //     subActions: []
+            // }
         ]
-    }
+    },
+    {
+        name: "Academic Maintenance",
+        icon: "file-settings",
+        route: {},
+        subActions: [
+            {
+                name: "Subject Management",
+                icon: "text-subject",
+                route: {name: "subject-list"},
+                subActions: []
+            },
+            {
+                name: "College Management",
+                icon: "teach",
+                route: {name: "college-list"},
+                subActions: []
+            },
+            {
+                name: "Course Management",
+                icon: "book",
+                route: {name: "course-list"},
+                subActions: []
+            },
+        ]
+    },
 ];
 
 const {accountService} = require("../../services/api");
@@ -84,7 +115,7 @@ export default {
             state.isAuthenticated = true;
             tokenService.insert(token);
             state.user = tokenService.getDecodedToken();
-            state.user.actions = hrActions;
+            state.user.actions = actions;
         },
         [purgeAccountToken]: (state) => {
             state.isAuthenticated = false;

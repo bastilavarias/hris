@@ -6,7 +6,7 @@
 				<span class="font-weight-bold">Subject Management</span>
 				<div class="flex-grow-1"></div>
 				<generic-tooltip-button icon="plus" color="primary" title="Create New Subject"
-										:to="{name: 'subject-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
+										:to="{name: 'subject-form', params: {operation: 'create'}}"></generic-tooltip-button>
 			</v-card-title>
 			<v-data-table :headers="tableHeaders" :items="subjects" :loading="isLoading">
 				<template v-slot:top>
@@ -20,7 +20,7 @@
 					<span class="font-weight-bold text-uppercase">{{item.code}}</span>
 				</template>
 				<template v-slot:item.title="{item}">
-					<span class="text-capitalize">{{item.licenseTitle}}</span>
+					<span class="text-capitalize">{{item.title}}</span>
 				</template>
 				<template v-slot:item.description="{item}">
 					<span class="text-capitalize">{{item.description ? item.description : "N/A"}}</span>
@@ -29,7 +29,7 @@
 					<span class="text-capitalize">{{item.category.name}}</span>
 				</template>
 				<template v-slot:item.prerequisite="{item}">
-					<span class="text-capitalize">{{item.prerequisite ? item.prerequisite.licenseTitle : "N/A" }}</span>
+					<span class="text-capitalize">{{item.prerequisite ? item.prerequisite.title : "N/A" }}</span>
 				</template>
 				<template v-slot:item.actions="{item}">
 					<v-btn icon @click="update(item)">
@@ -56,7 +56,7 @@
         deleteSubject,
         getAllSubjects,
         searchSubjects,
-        setSubjectErrors,
+        setSubjectError,
         setSubjects
     } from "../../store/types/subject";
     import {setActionName} from "../../store/types/action";
@@ -141,7 +141,7 @@
                     this.isLoading = false;
                     this.isConfirmDialogShow = false;
                     this.$store.commit(setActionName, "");
-                    this.$store.commit(setSubjectErrors, []);
+                    this.$store.commit(setSubjectError, []);
                     this.search();
                 }
             },
@@ -169,7 +169,7 @@
             update({id}) {
                 this.$router.push(
                     {
-                        name: "subject-management-form",
+                        name: "subject-form",
                         params: {
                             operation: "update",
                             subjectId: id
@@ -192,7 +192,7 @@
 
         destroyed() {
             this.$store.commit(setSubjects, []);
-            this.$store.commit(setSubjectErrors, []);
+            this.$store.commit(setSubjectError, []);
             this.$store.commit(setActionName, "");
         }
     };

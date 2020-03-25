@@ -3,14 +3,14 @@ const helper = require("../../helper");
 
 module.exports = {
     create: async ({code, title, description, units, categoryId, prerequisiteSubjectId}) => {
-        let errors = [];
+        let error = {};
         let message = "";
         const isSubjectExists = await helper.checkIfExists("subject", "code", code.toLowerCase());
         if (isSubjectExists) {
-            errors.push("Subject code was already used.");
+            error.code = "Subject code was already used.";
             return {
                 message,
-                errors
+                error
             };
         }
         const createdSubjectId = await subjectModel.create({code, title, description, units, categoryId});
@@ -19,22 +19,14 @@ module.exports = {
         }
         message = "New subject is created.";
         return {
-            errors,
+            error,
             message
         };
     },
 
-    update: async (subjectId, {title, code, description, units, categoryId, prerequisiteSubjectId}) => {
-        let message = "";
-        let errors = [];
-        const isSubjectExists = await helper.checkIfExists("subject", "code", code);
-        if (!isSubjectExists) {
-            errors.push(`Subject with code of ${code} is not existing in database.`);
-            return {
-                errors,
-                message
-            };
-        }
+    update: async (subjectId, {title, description, units, categoryId, prerequisiteSubjectId}) => {
+        let message;
+        let error = {};
         await subjectModel.update(subjectId, {title, description, units, categoryId});
         await subjectModel.deleteAllPrerqeuisites(subjectId);
         if (prerequisiteSubjectId) {
@@ -43,7 +35,7 @@ module.exports = {
         message = "Subject is updated.";
         return {
             message,
-            errors
+            error
         };
     },
 
@@ -64,21 +56,11 @@ module.exports = {
     },
 
     delete: async (subjectId) => {
-        let message = "";
-        let errors = [];
-        const isSubjectExists = await helper.checkIfExists("subject", "id", subjectId);
-        if (!isSubjectExists) {
-            errors.push("Subject is not exists.");
-            return {
-                message,
-                errors
-            };
-        }
+        let message;
         await subjectModel.delete(subjectId);
         message = "Subject is deleted.";
         return {
-            message,
-            errors
+            message
         };
     },
 

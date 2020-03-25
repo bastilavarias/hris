@@ -1,12 +1,13 @@
 import {
-    createSubject, deleteSubject,
+    createSubject,
+    deleteSubject,
     getAllSubjects,
     getSingleSubject,
     getSubjectCategories,
     searchSubjects,
     setCurrentSubject,
     setSubjectCategories,
-    setSubjectErrors,
+    setSubjectError,
     setSubjects,
     updateSubject
 } from "../types/subject";
@@ -17,14 +18,14 @@ import {setActionName} from "../types/action";
 export default {
     state: {
         categories: [],
-        errors: [],
+        error: {},
         list: [],
         current: {}
     },
 
     mutations: {
         [setSubjectCategories]: (state, categories) => state.categories = categories,
-        [setSubjectErrors]: (state, errors) => state.errors = errors,
+        [setSubjectError]: (state, error) => state.error = error,
         [setSubjects]: (state, subjects) => state.list = subjects,
         [setCurrentSubject]: (state, subject) => state.current = subject
     },
@@ -50,10 +51,10 @@ export default {
                     categoryId,
                     prerequisiteSubjectId
                 });
-                const {errors, message} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${createSubject}-errors`);
-                    commit(setSubjectErrors, errors);
+                const {error, message} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${createSubject}-error`);
+                    commit(setSubjectError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
@@ -106,7 +107,7 @@ export default {
                 const {message, errors} = result.data;
                 if (errors.length > 0) {
                     commit(setActionName, `${updateSubject}-errors`);
-                    commit(setSubjectErrors, errors);
+                    commit(setSubjectError, errors);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
@@ -122,7 +123,7 @@ export default {
                 const result = await subjectService.delete(subjectId);
                 const {message, errors} = result.data;
                 if (errors.length > 0) {
-                    commit(setSubjectErrors, errors);
+                    commit(setSubjectError, errors);
                     commit(setActionName, `${deleteSubject}-errors`);
                     return;
                 }

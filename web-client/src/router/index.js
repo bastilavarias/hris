@@ -2,6 +2,9 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "../store";
 import {checkAccountToken} from "../store/types/account";
+import personalMaintenance from "./modules/personalMaintenance";
+import employeeMaintenance from "./modules/employeeMaintenance";
+import academicMaintenance from "./modules/academicMaintenance";
 
 Vue.use(VueRouter);
 
@@ -20,24 +23,12 @@ const routes = [
         },
         children: [
             {
-                path: "personal-schedule",
-                name: "personal-schedule",
-                component: () => import("../pages/schedule/Personal"),
-            },
-
-            {
-                path: "personal-data-sheet",
-                name: "personal-data-sheet",
-                component: () => import("../pages/personal-data-sheet/Form"),
-            },
-
-            {
                 path: "personnel-schedule-management",
                 component: () => import("../layouts/Sub"),
                 children: [
                     {
                         path: "",
-                        name: "personnel-schedule-management",
+                        name: "personnel-schedule-list",
                         component: () => import("../pages/schedule/personnel/List")
                     },
                     {
@@ -47,14 +38,13 @@ const routes = [
                     }
                 ]
             },
-
             {
                 path: "faculty-schedule-management",
                 component: () => import("../layouts/Sub"),
                 children: [
                     {
                         path: "",
-                        name: "faculty-schedule-management",
+                        name: "faculty-schedule-list",
                         component: () => import("../pages/schedule/faculty/List")
                     },
                     {
@@ -64,7 +54,6 @@ const routes = [
                     }
                 ]
             },
-
             {
                 path: "department-level-leave-management",
                 component: () => import("../layouts/Sub"),
@@ -76,75 +65,6 @@ const routes = [
                     }
                 ]
             },
-
-            {
-                path: "subject-management",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "subject-management",
-                        component: () => import("../pages/subject/List")
-                    },
-                    {
-                        path: ":operation/:subjectId?",
-                        name: "subject-management-form",
-                        component: () => import("../pages/subject/Form")
-                    }
-                ]
-            },
-
-            {
-                path: "college-management",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "college-management",
-                        component: () => import("../pages/college/List")
-                    },
-                    {
-                        path: ":operation/:collegeId?",
-                        name: "college-management-form",
-                        component: () => import("../pages/college/Form")
-                    }
-                ]
-            },
-
-            {
-                path: "course-management",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "course-management",
-                        component: () => import("../pages/course/List")
-                    },
-                    {
-                        path: ":operation/:courseId?",
-                        name: "course-management-form",
-                        component: () => import("../pages/course/Form")
-                    }
-                ]
-            },
-
-            {
-                path: "department-management",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "department-management",
-                        component: () => import("../pages/department/List")
-                    },
-                    {
-                        path: ":operation",
-                        name: "department-management-form",
-                        component: () => import("../pages/department/Form")
-                    }
-                ]
-            },
-
             {
                 path: "time-card-management",
                 component: () => import("../layouts/Sub"),
@@ -172,62 +92,9 @@ const routes = [
                     }
                 ]
             },
-
-            {
-                path: "designation-management",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "designation-management",
-                        component: () => import("../pages/designation/List")
-                    },
-                    {
-                        path: ":operation/:designationId?",
-                        name: "designation-management-form",
-                        component: () => import("../pages/designation/Form")
-                    }
-                ]
-            },
-
-            {
-                path: "department-management",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "department-list",
-                        component: () => import("../pages/department/List")
-                    },
-                    {
-                        path: ":operation/:departmentId?",
-                        name: "department-form",
-                        component: () => import("../pages/department/Form")
-                    }
-                ]
-            },
-
-            {
-                path: "employee-management",
-                component: () => import("../layouts/Sub"),
-                children: [
-                    {
-                        path: "",
-                        name: "employee-list",
-                        component: () => import("../pages/employee/List")
-                    },
-                    {
-                        path: "create",
-                        name: "employee-create-form",
-                        component: () => import("../pages/employee/CreateForm")
-                    },
-                    {
-                        path: "update/:employeeId",
-                        name: "employee-update-form",
-                        component: () => import("../pages/employee/UpdateForm")
-                    }
-                ]
-            }
+            ...personalMaintenance,
+            ...employeeMaintenance,
+            ...academicMaintenance
         ]
     }
 ];

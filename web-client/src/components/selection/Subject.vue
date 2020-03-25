@@ -1,5 +1,5 @@
 <template>
-	<v-autocomplete :items="subjects" item-value="id" item-text="title" :label="label" v-model="subjectIdLocal" >
+	<v-autocomplete :items="subjects" item-value="id" item-text="title" :label="label" :outlined="outlined" v-model="subjectIdLocal">
 		<template v-slot:item="{item}">
 			<span class="black--text text-capitalize">{{item.licenseTitle}}</span>
 		</template>
@@ -27,7 +27,12 @@
             subjectId: {
                 type: null,
                 required: true
-            }
+            },
+
+			outlined: {
+                type: Boolean,
+				required: false
+			}
         },
 
         data() {
