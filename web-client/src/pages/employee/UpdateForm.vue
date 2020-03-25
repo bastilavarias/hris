@@ -218,7 +218,7 @@
 				</v-tabs-items>
 				<v-row dense>
 					<v-col cols="12">
-						<v-btn block color="primary" @click="update" :loading="isLoading">Save</v-btn>
+						<v-btn block color="primary" :disabled="!isFormValid" @click="update" :loading="isLoading">Save</v-btn>
 					</v-col>
 				</v-row>
 			</v-col>
@@ -377,6 +377,12 @@
                 tabItems
             };
         },
+
+		computed: {
+            isFormValid() {
+                return this.form.profile.lastName && this.form.profile.firstName && this.form.profile.birthDate && this.form.profile.birthPlace && this.form.profile.sex && this.form.profile.civilStatus && this.form.profile.citizenship.length > 0;
+            }
+		},
 
         watch: {
             "$store.state.employee.current"(employee) {

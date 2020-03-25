@@ -1,6 +1,13 @@
 import {personalDataSheetService} from "../../services/api";
 import {setActionName} from "../types/action";
-import {getPersonalDataSheet, setCurrentPersonalDataSheet} from "../types/personalDataSheet";
+import {
+    getPersonalDataSheet,
+    setCurrentPersonalDataSheet,
+    setPersonalDataSheetError,
+    updatePersonalDataSheet
+} from "../types/personalDataSheet";
+import {updateEmployee} from "../types/employee";
+import {setNotificationConfig} from "../types/notification";
 
 export default {
     state: {
@@ -14,10 +21,9 @@ export default {
 
     actions: {
 
-        [getPersonalDataSheet]: async ({commit, rootState}) => {
+        [getPersonalDataSheet]: async ({commit}) => {
             try {
-                const employeeId = rootState.account.user.id;
-                const result = await personalDataSheetService.getSingle(employeeId);
+                const result = await personalDataSheetService.getSingle();
                 const pds = result.data;
                 commit(setCurrentPersonalDataSheet, pds);
                 commit(setActionName, getPersonalDataSheet);
@@ -27,22 +33,25 @@ export default {
             }
         },
 
-        // [updatePersonalDataSheet]: async ({commit}, {courseId, details}) => {
-        //     try {
-        //         const result = await courseService.update(courseId, details);
-        //         const {message, errors} = result.data;
-        //         if (errors.length > 0) {
-        //             commit(setActionName, `${updateCourse}-errors`);
-        //             commit(setCourseErrors, errors);
-        //             return;
-        //         }
-        //         commit(setNotificationConfig, {message, type: "success"});
-        //         commit(setActionName, updateCourse);
-        //     } catch (errors) {
-        //         commit(setActionName, updateCourse);
-        //         throw new Error(`[RWV] ApiService ${errors}`);
-        //     }
-        // },
+        [updatePersonalDataSheet]: async ({commit}, profile) => {
+            try {
+                const pdsForm = new FormData();
+                pdsForm.append("profile", JSON.stringify(profile));
+                pdsForm.append("profilePhoto", profile.photo);
+                const result = await personalDataSheetService.update(pdsForm);
+                const {message, error} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${setPersonalDataSheetError}-error`);
+                    commit(setPersonalDataSheetError, error);
+                    return;
+                }
+                commit(setNotificationConfig, {message, type: "success"});
+                commit(setActionName, updatePersonalDataSheet);
+            } catch (errors) {
+                commit(setActionName, updateEmployee);
+                throw new Error(`[RWV] ApiService ${error}`);
+            }
+        }
 
     }
 };

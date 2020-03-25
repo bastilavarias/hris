@@ -299,8 +299,9 @@ module.exports = {
 
     getSingleByAccountId: async (accountId) => {
         const query = `select e.id,
-                              e.employee_number         as employeeNumber,
-                              e.created_at              as createdAt,
+                              e.employee_number             as employeeNumber,
+                              e.created_at                  as createdAt,
+                              e.is_full_time                  as isFullTime,
                               (select json_object(
                                               'firstName', first_name,
                                               'middleName', middle_name,
@@ -309,14 +310,18 @@ module.exports = {
                                               'photo', (select url from photo where id = p.photo_id)
                                           )
                                from profile
-                               where id = e.profile_id) as profile,
+                               where id = e.profile_id)     as profile,
                               (select json_object('username', username)
                                from account
-                               where id = e.account_id) as account,
-                              d.name                    as designation
+                               where id = e.account_id)     as account,
+                              (select json_object('id', id, 'name', name)
+                               from designation
+                               where id = e.designation_id) as designation,
+                              (select json_object('id', id, 'name', name)
+                               from department
+                               where id = e.department_id) as department
                        from employee e
                                 join profile p on e.profile_id = p.id
-                                join designation d on e.designation_id = d.id
                        where e.account_id = ?
                          AND e.is_deleted = ?;`;
         const params = [accountId, false];

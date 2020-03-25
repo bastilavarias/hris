@@ -16,11 +16,11 @@
     export default {
         name: "generic-contact-form",
 
-		props: {
+        props: {
             telephoneNumber: {
                 type: String,
-				required: true
-			},
+                required: true
+            },
             mobileNumber: {
                 type: String,
                 required: true
@@ -29,38 +29,38 @@
                 type: String,
                 required: true
             }
-		},
+        },
 
-		data() {
+        data() {
             return {
                 telephoneNumberLocal: "",
                 mobileNumberLocal: "",
                 emailAddressLocal: ""
-			}
-		},
+            };
+        },
 
-		watch: {
-            telephoneNumber(val)  {
+        watch: {
+            telephoneNumber(val) {
+                this.telephoneNumberLocal = val;
+            },
+            telephoneNumberLocal(val) {
                 this.$emit("update:telephoneNumber", val);
-			},
-            telephoneNumberLocal(val)  {
-                this.$emit("update:telephoneNumber", val);
-			},
-            mobileNumber(val)  {
+            },
+            mobileNumber(val) {
+                this.mobileNumberLocal = val;
+            },
+            mobileNumberLocal(val) {
                 this.$emit("update:mobileNumber", val);
             },
-            mobileNumberLocal(val)  {
-                this.$emit("update:mobileNumber", val);
+            emailAddress(val) {
+                this.emailAddressLocal = val;
             },
-            emailAddress(val)  {
+            emailAddressLocal(val) {
                 this.$emit("update:emailAddress", val);
             },
-            emailAddressLocal(val)  {
-                this.$emit("update:emailAddress", val);
-            },
-		},
+        },
 
-		created() {
+        created() {
             this.telephoneNumberLocal = this.telephoneNumber;
             this.mobileNumberLocal = this.mobileNumber;
             this.emailAddressLocal = this.emailAddress;

@@ -209,7 +209,7 @@
 				</v-tabs-items>
 				<v-row dense>
 					<v-col cols="12">
-						<v-btn block color="secondary" :loading="isLoading">Update</v-btn>
+						<v-btn block color="secondary" :disabled="!isFormValid" :loading="isLoading" @click="update">Update</v-btn>
 					</v-col>
 				</v-row>
 			</v-col>
@@ -237,7 +237,7 @@
     import GenericGovernmentIssueIdForm from "../../components/form/GovernmentIssueId";
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
-    import {getPersonalDataSheet} from "../../store/types/personalDataSheet";
+    import {getPersonalDataSheet, updatePersonalDataSheet} from "../../store/types/personalDataSheet";
 
     const defaultForm = {
         employeeNumber: "",
@@ -352,6 +352,7 @@
             GenericProfile,
             GenericSubtitle, GenericDesignationSelection, GenericDepartmentSelection, GenericImageInput
         },
+
         data() {
             return {
                 tab: 0,
@@ -360,6 +361,12 @@
                 isLoading: false,
                 tabItems
             };
+        },
+
+        computed: {
+            isFormValid() {
+                return this.form.profile.lastName && this.form.profile.firstName && this.form.profile.birthDate && this.form.profile.birthPlace && this.form.profile.sex && this.form.profile.civilStatus && this.form.profile.citizenship.length > 0;
+            }
         },
 
         watch: {
@@ -459,11 +466,18 @@
                 this.form.profile.governmentIssueId.issuancePlace = issuancePlace ? issuancePlace : "";
             },
 
-            // "$store.state.action.name"(name) {
-            //     if (name === updateEmployee) {
-            //         this.isLoading = false;
-            //     }
-            // }
+            "$store.state.action.name"(name) {
+                if (name === updatePersonalDataSheet) {
+                    this.isLoading = false;
+                }
+            }
+        },
+
+		methods: {
+            update() {
+                this.isLoading = true;
+                this.$store.dispatch(updatePersonalDataSheet, this.form.profile);
+            }
         },
 
         created() {

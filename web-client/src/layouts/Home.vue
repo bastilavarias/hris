@@ -17,7 +17,7 @@
 																	{{user.profile.lastName}}
 						</v-list-item-title>
 						<v-list-item-subtitle class="font-weight-bold text-uppercase">{{user.employeeNumber}}</v-list-item-subtitle>
-						<v-list-item-subtitle class="text-capitalize">{{user.designation}}</v-list-item-subtitle>
+						<v-list-item-subtitle class="text-capitalize">{{user.designation.name}}</v-list-item-subtitle>
 					</v-list-item-content>
 				</v-list-item>
 			</v-list>

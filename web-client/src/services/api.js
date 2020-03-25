@@ -92,6 +92,6 @@ export const accountService = {
 };
 
 export const personalDataSheetService = {
-    getSingle: employeeId => apiService.get(`/employee/getSingle/${employeeId}`),
-
+    getSingle: () => apiService.get(`/personal-data-sheet/getSingle`),
+    update: details => apiService.put(`/personal-data-sheet/update`, details)
 };

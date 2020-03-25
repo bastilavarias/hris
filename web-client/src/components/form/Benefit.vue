@@ -65,42 +65,42 @@
 
         watch: {
             gsisId(val) {
-                this.$emit("update:gsisId", val);
-			},
+                this.gsisIdLocal = val;
+            },
             gsisIdLocal(val) {
                 this.$emit("update:gsisId", val);
-			},
-			pagibigId(val) {
-                this.$emit("update:pagibigId", val);
-			},
+            },
+            pagibigId(val) {
+                this.pagibigIdLocal = val;
+            },
             pagibigIdLocal(val) {
                 this.$emit("update:pagibigId", val);
-			},
+            },
             philhealthId(val) {
-                this.$emit("update:philhealthId", val);
+                this.philhealthIdLocal = val;
             },
             philhealthIdLocal(val) {
                 this.$emit("update:philhealthId", val);
             },
             sssNumber(val) {
-                this.$emit("update:sssNumber", val);
+                this.sssNumberLocal = val;
             },
             sssNumberLocal(val) {
                 this.$emit("update:sssNumber", val);
             },
             tinNumber(val) {
-                this.$emit("update:tinNumber", val);
+                this.tinNumberLocal = val;
             },
             tinNumberLocal(val) {
                 this.$emit("update:tinNumber", val);
             },
-			agencyEmployeeNumber(val) {
-                this.$emit("update:agencyEmployeeNumber", val);
+            agencyEmployeeNumber(val) {
+                this.agencyEmployeeNumberLocal = val;
             },
             agencyEmployeeNumberLocal(val) {
                 this.$emit("update:agencyEmployeeNumber", val);
             },
-		},
+        },
 
         created() {
             this.gsisIdLocal = this.gsisId;
