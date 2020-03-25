@@ -484,6 +484,7 @@
 
             "$store.state.action.name"(name) {
                 if (name === updateEmployee) {
+                    this.$store.commit(setActionName, "");
                     this.isLoading = false;
                 }
             }
@@ -506,7 +507,6 @@
 
         destroyed() {
             this.$store.commit(setActionName, "");
-            this.$store.commit(setEmployees, []);
         }
     };
 </script>

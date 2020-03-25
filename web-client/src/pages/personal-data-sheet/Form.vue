@@ -238,6 +238,7 @@
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
     import {getPersonalDataSheet, updatePersonalDataSheet} from "../../store/types/personalDataSheet";
+    import {setActionName} from "../../store/types/action";
 
     const defaultForm = {
         employeeNumber: "",
@@ -468,6 +469,7 @@
 
             "$store.state.action.name"(name) {
                 if (name === updatePersonalDataSheet) {
+                    this.$store.commit(setActionName, "");
                     this.isLoading = false;
                 }
             }
@@ -482,6 +484,10 @@
 
         created() {
             this.$store.dispatch(getPersonalDataSheet);
+        },
+
+		destroyed() {
+            this.$store.commit(setActionName, "");
         }
     };
 </script>
