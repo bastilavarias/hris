@@ -1,52 +1,49 @@
 <template>
-	<div>
-		<generic-form-error-list :errors="errors"></generic-form-error-list>
-		<v-card>
-			<v-card-title>
-				<span class="font-weight-bold">Subject Management</span>
-				<div class="flex-grow-1"></div>
-				<generic-tooltip-button icon="plus" color="primary" title="Create New Subject"
-										:to="{name: 'subject-form', params: {operation: 'create'}}"></generic-tooltip-button>
-			</v-card-title>
-			<v-data-table :headers="tableHeaders" :items="subjects" :loading="isLoading">
-				<template v-slot:top>
-					<v-card-text>
-						<generic-search-toolbar :search-options="searchOptions" :search-option.sync="searchOption"
-												:search-value.sync="searchValue"
-												:action="search"></generic-search-toolbar>
-					</v-card-text>
-				</template>
-				<template v-slot:item.code="{item}">
-					<span class="font-weight-bold text-uppercase">{{item.code}}</span>
-				</template>
-				<template v-slot:item.title="{item}">
-					<span class="text-capitalize">{{item.title}}</span>
-				</template>
-				<template v-slot:item.description="{item}">
-					<span class="text-capitalize">{{item.description ? item.description : "N/A"}}</span>
-				</template>
-				<template v-slot:item.category="{item}">
-					<span class="text-capitalize">{{item.category.name}}</span>
-				</template>
-				<template v-slot:item.prerequisite="{item}">
-					<span class="text-capitalize">{{item.prerequisite ? item.prerequisite.title : "N/A" }}</span>
-				</template>
-				<template v-slot:item.actions="{item}">
-					<v-btn icon @click="update(item)">
-						<v-icon>mdi-pencil</v-icon>
-					</v-btn>
-					<v-btn icon @click="selectItem(item)">
-						<v-icon>mdi-trash-can</v-icon>
-					</v-btn>
-				</template>
-			</v-data-table>
-			<generic-confirm-dialog :is-show.sync="isConfirmDialogShow"
-									message="Are you sure you want to delete this subject?"
-									color="secondary"
-									:is-loading="isLoading"
-									:action="deleteItem"></generic-confirm-dialog>
-		</v-card>
-	</div>
+	<v-card>
+		<v-card-title>
+			<span class="font-weight-bold">Subject Management</span>
+			<div class="flex-grow-1"></div>
+			<generic-tooltip-button icon="plus" color="primary" title="Create New Subject"
+									:to="{name: 'subject-form', params: {operation: 'create'}}"></generic-tooltip-button>
+		</v-card-title>
+		<v-data-table :headers="tableHeaders" :items="subjects" :loading="isLoading">
+			<template v-slot:top>
+				<v-card-text>
+					<generic-search-toolbar :search-options="searchOptions" :search-option.sync="searchOption"
+											:search-value.sync="searchValue"
+											:action="search"></generic-search-toolbar>
+				</v-card-text>
+			</template>
+			<template v-slot:item.code="{item}">
+				<span class="font-weight-bold text-uppercase">{{item.code}}</span>
+			</template>
+			<template v-slot:item.title="{item}">
+				<span class="text-capitalize">{{item.title}}</span>
+			</template>
+			<template v-slot:item.description="{item}">
+				<span class="text-capitalize">{{item.description ? item.description : "N/A"}}</span>
+			</template>
+			<template v-slot:item.category="{item}">
+				<span class="text-capitalize">{{item.category.name}}</span>
+			</template>
+			<template v-slot:item.prerequisite="{item}">
+				<span class="text-capitalize">{{item.prerequisite ? item.prerequisite.title : "N/A" }}</span>
+			</template>
+			<template v-slot:item.actions="{item}">
+				<v-btn icon @click="update(item)">
+					<v-icon>mdi-pencil</v-icon>
+				</v-btn>
+				<v-btn icon @click="selectItem(item)">
+					<v-icon>mdi-trash-can</v-icon>
+				</v-btn>
+			</template>
+		</v-data-table>
+		<generic-confirm-dialog :is-show.sync="isConfirmDialogShow"
+								message="Are you sure you want to delete this subject?"
+								color="secondary"
+								:is-loading="isLoading"
+								:action="deleteItem"></generic-confirm-dialog>
+	</v-card>
 </template>
 
 <script>
@@ -61,7 +58,6 @@
     } from "../../store/types/subject";
     import {setActionName} from "../../store/types/action";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
-    import GenericFormErrorList from "../../components/generic/FormErrorList";
 
     const tableHeaders = [
         {
@@ -100,7 +96,7 @@
     ];
 
     export default {
-        components: {GenericFormErrorList, GenericConfirmDialog, GenericTooltipButton, GenericSearchToolbar},
+        components: {GenericConfirmDialog, GenericTooltipButton, GenericSearchToolbar},
 
         data() {
             return {

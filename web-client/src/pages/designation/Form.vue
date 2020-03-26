@@ -32,7 +32,6 @@
         updateDesignation
     } from "../../store/types/designation";
     import {setActionName} from "../../store/types/action";
-    import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericCollegeSelection from "../../components/selection/College";
     import customUtilities from "../../services/customUtilities";
@@ -46,7 +45,7 @@
     export default {
         components: {
             GenericBackButton,
-            GenericCollegeSelection, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton},
+            GenericCollegeSelection, GenericFormActionButton, GenericCardBackButton},
 
         data() {
             return {
@@ -99,12 +98,12 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setDesignationError, {});
                     this.$store.commit(setActionName, "");
-                    this.$router.push({name: "designation-management"});
+                    this.$router.push({name: "designation-list"});
                 }
             },
 
             "$store.state.designation.current"(designation) {
-                if (Object.keys(designation).length <= 0) return this.$router.push({name: "designation-management"});
+                if (Object.keys(designation).length <= 0) return this.$router.push({name: "designation-list"});
                 this.form.name = designation.name;
                 this.form.description = designation.description;
                 this.isLoading = false;

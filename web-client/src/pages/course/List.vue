@@ -23,6 +23,9 @@
 			<template v-slot:item.description="{item}">
 				<span class="text-capitalize">{{item.description ? item.description : "N/A"}}</span>
 			</template>
+			<template v-slot:item.college="{item}">
+				<span class="text-uppercase font-weight-bold">{{item.college ? item.college.name : "N/A"}}</span>
+			</template>
 			<template v-slot:item.actions="{item}">
 				<v-btn icon @click="update(item)">
 					<v-icon>mdi-pencil</v-icon>
@@ -59,6 +62,10 @@
         {
             text: "Description",
             value: "description"
+        },
+        {
+            text: "College",
+            value: "college"
         },
         {
             text: "Actions",

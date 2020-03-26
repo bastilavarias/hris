@@ -32,7 +32,6 @@
     import GenericCardBackButton from "../../components/generic/CardBackButton";
     import {createCourse, getSingleCourse, setCourseError, setCourses, updateCourse} from "../../store/types/course";
     import {setActionName} from "../../store/types/action";
-    import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericBackButton from "../../components/generic/BackButton";
     import customUtilities from "../../services/customUtilities";
@@ -49,7 +48,7 @@
     export default {
         components: {
             GenericCollegeSelection,
-            GenericBackButton, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton
+            GenericBackButton, GenericFormActionButton, GenericCardBackButton
         },
 
         data() {
@@ -93,15 +92,16 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setCourseError, []);
                     this.$store.commit(setActionName, "");
-                    this.$router.push({name: "course-management"});
+                    this.$router.push({name: "course-list"});
                 }
             },
 
             "$store.state.course.current"(course) {
-                if (Object.keys(course).length <= 0) return this.$router.push({name: "course-management"});
+                if (Object.keys(course).length <= 0) return this.$router.push({name: "course-list"});
                 this.form.code = course.code;
                 this.form.name = course.name;
                 this.form.description = course.description;
+                this.form.collegeId = course.college.id;
                 this.isLoading = false;
             }
         },

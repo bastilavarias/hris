@@ -84,7 +84,7 @@
 				</v-list>
 			</v-menu>
 		</v-app-bar>
-		<v-content>
+		<v-content style="background-color: whitesmoke;">
 			<v-container>
 				<router-view></router-view>
 			</v-container>

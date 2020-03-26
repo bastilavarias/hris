@@ -31,7 +31,6 @@ export default {
             try {
                 const result = await designationService.create({code, name, description, collegeId});
                 const {error, message} = result.data;
-                console.log(error);
                 if (Object.keys(error).length > 0) {
                     commit(setActionName, `${createDesignation}-error`);
                     commit(setDesignationError, error);

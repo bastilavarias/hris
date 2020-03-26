@@ -30,7 +30,6 @@
         updateDepartment
     } from "../../store/types/department";
     import {setActionName} from "../../store/types/action";
-    import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericCollegeSelection from "../../components/selection/College";
     import GenericBackButton from "../../components/generic/BackButton";
@@ -45,7 +44,7 @@
     export default {
         components: {
             GenericBackButton,
-            GenericCollegeSelection, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton
+            GenericCollegeSelection, GenericFormActionButton, GenericCardBackButton
         },
 
         data() {

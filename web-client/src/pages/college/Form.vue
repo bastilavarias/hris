@@ -34,7 +34,6 @@
         updateCollege
     } from "../../store/types/college";
     import {setActionName} from "../../store/types/action";
-    import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
     import GenericBackButton from "../../components/generic/BackButton";
     import customUtilities from "../../services/customUtilities";
@@ -46,7 +45,7 @@
     };
 
     export default {
-        components: {GenericBackButton, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton},
+        components: {GenericBackButton, GenericFormActionButton, GenericCardBackButton},
 
         data() {
             return {
@@ -89,12 +88,12 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setCollegeError, []);
                     this.$store.commit(setActionName, "");
-                    this.$router.push({name: "college-management"});
+                    this.$router.push({name: "college-list"});
                 }
             },
 
             "$store.state.college.current"(college) {
-                if (Object.keys(college).length <= 0) return this.$router.push({name: "college-management"});
+                if (Object.keys(college).length <= 0) return this.$router.push({name: "college-list"});
                 this.form.customId = college.customId;
                 this.form.name = college.name;
                 this.form.description = college.description;

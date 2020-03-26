@@ -46,7 +46,6 @@
         setSubjects,
         updateSubject
     } from "../../store/types/subject";
-    import GenericFormErrorList from "../../components/generic/FormErrorList";
     import {setActionName} from "../../store/types/action";
     import GenericSubjectSelection from "../../components/selection/Subject";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
@@ -73,7 +72,7 @@
         components: {
             GenericBackButton,
             GenericConfirmDialog,
-            GenericFormActionButton, GenericSubjectSelection, GenericFormErrorList, GenericCardBackButton
+            GenericFormActionButton, GenericSubjectSelection, GenericCardBackButton
         },
 
         data() {
