@@ -10,5 +10,11 @@
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="kJYGxpG8my@remotemysql.com" uuid="9265dd60-0d1b-46a7-84dc-a322270b46f3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://remotemysql.com:3306/kJYGxpG8my</jdbc-url>
+    </data-source>
   </component>
 </project>
