@@ -3,6 +3,7 @@ const helper = require("../../helper");
 
 module.exports = {
     create: async ({code, name, description, yearLevel, collegeId, courseId}) => {
+        console.log({code, name, description, yearLevel, collegeId, courseId});
         let error = {};
         let message = "";
         const isSectionExists = await helper.checkIfExists("section", "code", code.toLowerCase());

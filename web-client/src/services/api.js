@@ -60,6 +60,15 @@ export const courseService = {
     delete: courseId => apiService.delete(`/course/delete/${courseId}`)
 };
 
+export const sectionService = {
+    create: details => apiService.post("/section/create", details),
+    getAll: () => apiService.get("/section/getAll"),
+    getSingle: sectionId => apiService.get(`/section/getSingle/${sectionId}`),
+    search: ({option, value}) => apiService.get(`/section/search/${option}/${value}`),
+    update: (sectionId, details) => apiService.put(`/section/update/${sectionId}`, details),
+    delete: sectionId => apiService.delete(`/section/delete/${sectionId}`)
+};
+
 export const designationService = {
     create: details => apiService.post("/designation/create", details),
     getAll: () => apiService.get("/designation/getAll"),

@@ -4,6 +4,7 @@ import account from "./modules/account";
 import subject from "./modules/subject";
 import college from "./modules/college";
 import course from "./modules/course";
+import section from "./modules/section";
 import designation from "./modules/designation";
 import employee from "./modules/employee";
 import notification from "./modules/notification";
@@ -19,6 +20,7 @@ export default new Vuex.Store({
         subject,
         college,
         course,
+        section,
         designation,
         employee,
         notification,

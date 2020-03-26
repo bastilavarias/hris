@@ -48,5 +48,22 @@ export default [
                 component: () => import("../../pages/course/Form")
             }
         ]
+    },
+
+    {
+        path: "section-management",
+        component: () => import("../../layouts/Sub"),
+        children: [
+            {
+                path: "",
+                name: "section-list",
+                component: () => import("../../pages/section/List")
+            },
+            {
+                path: ":operation/:sectionId?",
+                name: "section-form",
+                component: () => import("../../pages/section/Form")
+            }
+        ]
     }
 ];

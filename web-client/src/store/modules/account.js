@@ -2,7 +2,8 @@ import {setActionName} from "../types/action";
 import {createCourse} from "../types/course";
 import {
     checkAccountToken,
-    loginAccount, purgeAccountToken,
+    loginAccount,
+    purgeAccountToken,
     setAccountAuthenticated,
     setAccountError,
     setAccountToken
@@ -93,6 +94,12 @@ const actions = [
                 name: "Course Management",
                 icon: "book",
                 route: {name: "course-list"},
+                subActions: []
+            },
+            {
+                name: "Section Management",
+                icon: "google-classroom",
+                route: {name: "section-list"},
                 subActions: []
             },
         ]

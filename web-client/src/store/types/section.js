@@ -1,0 +1,9 @@
+export const createSection = "createSection";
+export const setSectionError = "setSectionError";
+export const getAllSections = "getAllSections";
+export const setSections = "setSections";
+export const searchSections = "searchSections";
+export const getSingleSection = "getSingleSection";
+export const setCurrentSection = "setCurrentSection";
+export const updateSection = "updateSection";
+export const deleteSection = "deleteSection";
