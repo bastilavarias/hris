@@ -22,4 +22,15 @@ jwtPassport(passport);
 databaseTables().then(m => console.log(m));
 databaseDefaultData().then(m => console.log(m));
 
+const cors = require("cors");
+const api = require("./api");
+
+application.use(cors());
+application.use("/api/development", api);
+
+if (process.env.NODE_ENV === "production") {
+    application.use(express.static(__dirname + "/public/"));
+    application.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
+}
+
 module.exports = application;
