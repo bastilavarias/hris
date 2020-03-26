@@ -1,23 +1,26 @@
 <template>
 	<v-card>
-		<generic-card-back-button title="College Information"></generic-card-back-button>
+		<v-card-title>
+			<generic-back-button class-name="mb-5" title="College Details"></generic-back-button>
+		</v-card-title>
 		<v-card-text>
-			<generic-form-error-list :errors="errors"></generic-form-error-list>
-			<v-row>
+			<v-row dense>
 				<v-col cols="12">
-					<v-text-field label="Custom ID" v-model="form.customId" :readonly="operation === 'update'"></v-text-field>
+					<v-text-field label="Custom ID" v-model="form.customId" :readonly="operation === 'update'"
+								  outlined :error="hasError(error.customId)" :error-messages="error.customId"></v-text-field>
 				</v-col>
 				<v-col cols="12">
-					<v-text-field label="Name" v-model="form.name"></v-text-field>
+					<v-text-field label="Name" v-model="form.name" outlined></v-text-field>
 				</v-col>
 				<v-col cols="12">
-					<v-text-field label="Description" v-model="form.description"></v-text-field>
+					<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
 				</v-col>
 			</v-row>
+			<generic-form-action-button :operation="operation" :create="create" :update="update"
+										:disabled="!isFormValid"
+										:is-loading="isLoading"></generic-form-action-button>
 		</v-card-text>
-		<generic-form-action-button :operation="operation" :create="create" :update="update"
-									:disabled="!isFormValid"
-									:is-loading="isLoading"></generic-form-action-button>
+
 	</v-card>
 </template>
 
@@ -26,45 +29,49 @@
     import {
         createCollege,
         getSingleCollege,
-        setCollegeErrors,
+        setCollegeError,
         setColleges,
         updateCollege
     } from "../../store/types/college";
     import {setActionName} from "../../store/types/action";
     import GenericFormErrorList from "../../components/generic/FormErrorList";
     import GenericFormActionButton from "../../components/generic/FormActionButton";
+    import GenericBackButton from "../../components/generic/BackButton";
+    import customUtilities from "../../services/customUtilities";
 
     const defaultForm = {
         customId: "",
-		name: "",
-		description: ""
+        name: "",
+        description: ""
     };
 
     export default {
-        components: {GenericFormActionButton, GenericFormErrorList, GenericCardBackButton},
+        components: {GenericBackButton, GenericFormActionButton, GenericFormErrorList, GenericCardBackButton},
 
-		data() {
+        data() {
             return {
                 form: Object.assign({}, defaultForm),
                 defaultForm,
                 operation: "create",
                 isLoading: false
-			}
-		},
+            };
+        },
 
-		computed: {
+		mixins: [customUtilities],
+
+        computed: {
             isFormValid() {
                 return this.form.customId && this.form.name;
             },
 
-            errors() {
-                return this.$store.state.college.errors;
+            error() {
+                return this.$store.state.college.error;
             },
         },
 
-		watch: {
+        watch: {
             "$store.state.action.name"(name) {
-                if (name === `${createCollege}-errors`) {
+                if (name === `${createCollege}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -72,13 +79,13 @@
 
                 if (name === createCollege) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setCollegeErrors, []);
+                    this.$store.commit(setCollegeError, []);
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
                 }
 
-                if (name === `${updateCollege}-errors`) {
+                if (name === `${updateCollege}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -86,7 +93,7 @@
 
                 if (name === updateCollege) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setCollegeErrors, []);
+                    this.$store.commit(setCollegeError, []);
                     this.$store.commit(setActionName, "");
                     this.$router.push({name: "college-management"});
                 }
@@ -129,8 +136,8 @@
 
         destroyed() {
             this.$store.commit(setColleges, []);
-            this.$store.commit(setCollegeErrors, []);
+            this.$store.commit(setCollegeError, []);
             this.$store.commit(setActionName, "");
         }
-    }
+    };
 </script>

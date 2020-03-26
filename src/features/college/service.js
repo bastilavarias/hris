@@ -3,40 +3,30 @@ const helper = require("../../helper");
 
 module.exports = {
     create: async ({customId, name, description}) => {
-        let errors = [];
+        let error = {};
         let message = "";
         const isCollegeIsExists = await helper.checkIfExists("college", "custom_id", customId.toLowerCase());
         if (isCollegeIsExists) {
-            errors.push("College id was already used.");
+            error.customId = "College ID was already used.";
             return {
                 message,
-                errors
+                error
             };
         }
         await collegeModel.create({customId, name, description});
         message = "New college is created.";
         return {
-            errors,
+            error,
             message
         };
     },
 
     update: async (collegeId, {customId, name, description}) => {
-        let message = "";
-        let errors = [];
-        const isCollegeIsExists = await helper.checkIfExists("college", "custom_id", customId.toLowerCase());
-        if (!isCollegeIsExists) {
-            errors.push(`College with id of ${customId} is not existing in database.`);
-            return {
-                errors,
-                message
-            };
-        }
+        let message;
         await collegeModel.update(collegeId, {name, description});
         message = "College is updated.";
         return {
-            message,
-            errors
+            message
         };
     },
 
@@ -57,21 +47,11 @@ module.exports = {
     },
 
     delete: async (collegeId) => {
-        let message = "";
-        let errors = [];
-        const isCollegeIsExists = await helper.checkIfExists("college", "id", collegeId);
-        if (!isCollegeIsExists) {
-            errors.push("College is not exists.");
-            return {
-                message,
-                errors
-            };
-        }
+        let message;
         await collegeModel.delete(collegeId);
         message = "College is deleted.";
         return {
-            message,
-            errors
+            message
         };
     }
 };

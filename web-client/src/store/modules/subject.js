@@ -104,12 +104,7 @@ export default {
         [updateSubject]: async ({commit}, {subjectId, details}) => {
             try {
                 const result = await subjectService.update(subjectId, details);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${updateSubject}-errors`);
-                    commit(setSubjectError, errors);
-                    return;
-                }
+                const {message} = result.data;
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateSubject);
             } catch (errors) {
@@ -121,12 +116,7 @@ export default {
         [deleteSubject]: async ({commit}, subjectId) => {
             try {
                 const result = await subjectService.delete(subjectId);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setSubjectError, errors);
-                    commit(setActionName, `${deleteSubject}-errors`);
-                    return;
-                }
+                const {message} = result.data;
                 commit(setActionName, deleteSubject);
                 commit(setNotificationConfig, {message, type: "error"});
             } catch (errors) {

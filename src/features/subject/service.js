@@ -26,7 +26,6 @@ module.exports = {
 
     update: async (subjectId, {title, description, units, categoryId, prerequisiteSubjectId}) => {
         let message;
-        let error = {};
         await subjectModel.update(subjectId, {title, description, units, categoryId});
         await subjectModel.deleteAllPrerqeuisites(subjectId);
         if (prerequisiteSubjectId) {
@@ -34,8 +33,7 @@ module.exports = {
         }
         message = "Subject is updated.";
         return {
-            message,
-            error
+            message
         };
     },
 

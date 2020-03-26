@@ -1,5 +1,5 @@
 <template>
-	<v-autocomplete :items="colleges" item-value="id" item-text="name" :label="label" v-model="collegeIdLocal" >
+	<v-autocomplete :items="colleges" item-value="id" item-text="name" :label="label" v-model="collegeIdLocal" :outlined="outlined">
 		<template v-slot:item="{item}">
 			<span class="black--text text-uppercase">{{item.name}}</span>
 		</template>
@@ -19,13 +19,13 @@
                 required: false
             },
 
-            colleges: {
-                type: Array,
+            collegeId: {
+                type: null,
                 required: true
             },
 
-            collegeId: {
-                type: null,
+            outlined: {
+                type: Boolean,
                 required: true
             }
         },
@@ -35,6 +35,12 @@
                 collegeIdLocal: null
             };
         },
+
+		computed: {
+            colleges() {
+                return this.$store.state.college.list;
+			}
+		},
 
         watch: {
             collegeId(val) {

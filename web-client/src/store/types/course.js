@@ -1,5 +1,5 @@
 export const createCourse = "createCourse";
-export const setCourseErrors = "setCourseErrors";
+export const setCourseError = "setCourseError";
 export const getAllCourses = "getAllCourses";
 export const setCourses = "setCourses";
 export const searchCourses = "searchCourses";

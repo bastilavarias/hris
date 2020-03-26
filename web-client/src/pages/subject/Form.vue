@@ -4,7 +4,7 @@
 			<generic-back-button title="Subject Details" class-name="mb-5"></generic-back-button>
 		</v-card-title>
 		<v-card-text>
-			<v-row>
+			<v-row dense>
 				<v-col cols="12">
 					<v-text-field label="Code" v-model="form.code" autofocus
 								  :readonly="operation === 'update'" outlined :error="hasError(error.code)" :error-messages="error.code"></v-text-field>
@@ -117,12 +117,6 @@
                 if (name === createSubject) {
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setSubjectError, {});
-                    this.$store.commit(setActionName, "");
-                    this.isLoading = false;
-                    return;
-                }
-
-                if (name === `${updateSubject}-error`) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;

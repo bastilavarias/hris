@@ -4,7 +4,7 @@
 			<span class="font-weight-bold">Course Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New Course"
-									:to="{name: 'course-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
+									:to="{name: 'course-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table :headers="tableHeaders" :items="courses" :loading="isLoading">
 			<template v-slot:top>
@@ -14,17 +14,14 @@
 											:action="search"></generic-search-toolbar>
 				</v-card-text>
 			</template>
-			<template v-slot:item.code="{item}">
-				<span class="font-weight-bold text-uppercase">{{item.code}}</span>
+			<template v-slot:item.customId="{item}">
+				<span class="font-weight-bold text-uppercase">{{item.customId}}</span>
 			</template>
 			<template v-slot:item.name="{item}">
 				<span class="text-capitalize">{{item.name}}</span>
 			</template>
 			<template v-slot:item.description="{item}">
 				<span class="text-capitalize">{{item.description ? item.description : "N/A"}}</span>
-			</template>
-			<template v-slot:item.college="{item}">
-				<span class="text-uppercase">{{item.college ? item.college.name : "N/A"}}</span>
 			</template>
 			<template v-slot:item.actions="{item}">
 				<v-btn icon @click="update(item)">
@@ -46,15 +43,19 @@
 <script>
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../components/generic/TooltipButton";
-    import {deleteCourse, getAllCourses, searchCourses, setCourseErrors, setCourses} from "../../store/types/course";
+    import {
+        deleteCourse,
+        getAllCourses,
+        searchCourses,
+        setCourseError,
+        setCourses
+    } from "../../store/types/course";
     import {setActionName} from "../../store/types/action";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
-
     const tableHeaders = [
         {
             text: "Code",
-            value: "code",
-			align: "left"
+            value: "code"
         },
         {
             text: "Name",
@@ -63,10 +64,6 @@
         {
             text: "Description",
             value: "description"
-        },
-        {
-            text: "College",
-            value: "college"
         },
         {
             text: "Actions",
@@ -97,10 +94,6 @@
         computed: {
             courses() {
                 return this.$store.state.course.list;
-            },
-
-            errors() {
-                return this.$store.state.course.errors;
             }
         },
 
@@ -111,7 +104,7 @@
                     this.$store.commit(setActionName, "");
                 }
 
-                if (name === `${deleteCourse}-errors`) {
+                if (name === `${deleteCourse}-error`) {
                     this.isLoading = false;
                     this.isConfirmDialogShow = false;
                     this.$store.commit(setActionName, "");
@@ -121,7 +114,7 @@
                     this.isLoading = false;
                     this.isConfirmDialogShow = false;
                     this.$store.commit(setActionName, "");
-                    this.$store.commit(setCourseErrors, []);
+                    this.$store.commit(setCourseError, []);
                     this.search();
                 }
             },
@@ -149,7 +142,7 @@
             update({id}) {
                 this.$router.push(
                     {
-                        name: "course-management-form",
+                        name: "course-form",
                         params: {
                             operation: "update",
                             courseId: id
@@ -171,9 +164,9 @@
 
             destroyed() {
                 this.$store.commit(setCourses, []);
-                this.$store.commit(setCourseErrors, []);
+                this.$store.commit(setCourseError, []);
                 this.$store.commit(setActionName, "");
             }
         },
-    };
+    }
 </script>

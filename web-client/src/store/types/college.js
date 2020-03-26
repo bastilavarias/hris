@@ -1,5 +1,5 @@
 export const createCollege = "createCollege";
-export const setCollegeErrors = "setCollegeErrors";
+export const setCollegeError = "setCollegeError";
 export const getAllColleges = "getAllColleges";
 export const setColleges = "setColleges";
 export const searchColleges = "searchColleges";

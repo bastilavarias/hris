@@ -1,10 +1,10 @@
 <template>
 	<v-autocomplete :items="subjects" item-value="id" item-text="title" :label="label" :outlined="outlined" v-model="subjectIdLocal">
 		<template v-slot:item="{item}">
-			<span class="black--text text-capitalize">{{item.licenseTitle}}</span>
+			<span class="black--text text-capitalize">{{item.title}}</span>
 		</template>
 		<template v-slot:selection="{item}">
-			<span class="black--text text-capitalize">{{item.licenseTitle}}</span>
+			<span class="black--text text-capitalize">{{item.title}}</span>
 		</template>
 	</v-autocomplete>
 </template>

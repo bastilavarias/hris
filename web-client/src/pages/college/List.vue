@@ -4,7 +4,7 @@
 			<span class="font-weight-bold">College Management</span>
 			<div class="flex-grow-1"></div>
 			<generic-tooltip-button icon="plus" color="primary" title="Create New College"
-									:to="{name: 'college-management-form', params: {operation: 'create'}}"></generic-tooltip-button>
+									:to="{name: 'college-form', params: {operation: 'create'}}"></generic-tooltip-button>
 		</v-card-title>
 		<v-data-table :headers="tableHeaders" :items="colleges" :loading="isLoading">
 			<template v-slot:top>
@@ -47,7 +47,7 @@
         deleteCollege,
         getAllColleges,
         searchColleges,
-        setCollegeErrors,
+        setCollegeError,
         setColleges
     } from "../../store/types/college";
     import {setActionName} from "../../store/types/action";
@@ -94,10 +94,6 @@
         computed: {
             colleges() {
                 return this.$store.state.college.list;
-            },
-
-            errors() {
-                return this.$store.state.college.errors;
             }
         },
 
@@ -108,7 +104,7 @@
                     this.$store.commit(setActionName, "");
                 }
 
-                if (name === `${deleteCollege}-errors`) {
+                if (name === `${deleteCollege}-error`) {
                     this.isLoading = false;
                     this.isConfirmDialogShow = false;
                     this.$store.commit(setActionName, "");
@@ -118,7 +114,7 @@
                     this.isLoading = false;
                     this.isConfirmDialogShow = false;
                     this.$store.commit(setActionName, "");
-                    this.$store.commit(setCollegeErrors, []);
+                    this.$store.commit(setCollegeError, []);
                     this.search();
                 }
             },
@@ -146,7 +142,7 @@
             update({id}) {
                 this.$router.push(
                     {
-                        name: "college-management-form",
+                        name: "college-form",
                         params: {
                             operation: "update",
                             collegeId: id
@@ -168,7 +164,7 @@
 
             destroyed() {
                 this.$store.commit(setColleges, []);
-                this.$store.commit(setCollegeErrors, []);
+                this.$store.commit(setCollegeError, []);
                 this.$store.commit(setActionName, "");
             }
         },

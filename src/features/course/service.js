@@ -3,40 +3,30 @@ const helper = require("../../helper");
 
 module.exports = {
     create: async ({code, name, description, collegeId}) => {
-        let errors = [];
+        let error = {};
         let message = "";
         const isCourseExists = await helper.checkIfExists("course", "code", code.toLowerCase());
         if (isCourseExists) {
-            errors.push("Course code was already used.");
+            error.code = "Course code was already used.";
             return {
                 message,
-                errors
+                error
             };
         }
         await courseModel.create({code, name, description, collegeId});
         message = "New course is created.";
         return {
-            errors,
+            error,
             message
         };
     },
 
     update: async (courseId, {code, name, description, collegeId}) => {
-        let message = "";
-        let errors = [];
-        const isCourseExists = await helper.checkIfExists("course", "code", code);
-        if (!isCourseExists) {
-            errors.push(`Course with code of ${code} is not existing in database.`);
-            return {
-                errors,
-                message
-            };
-        }
+        let message;
         await courseModel.update(courseId, {code, name, description, collegeId});
         message = "Course is updated.";
         return {
-            message,
-            errors
+            message
         };
     },
 
@@ -57,21 +47,11 @@ module.exports = {
     },
 
     delete: async (courseId) => {
-        let message = "";
-        let errors = [];
-        const isCourseExists = await helper.checkIfExists("course", "id", courseId);
-        if (!isCourseExists) {
-            errors.push("Course is not exists.");
-            return {
-                message,
-                errors
-            };
-        }
+        let message;
         await courseModel.delete(courseId);
         message = "Course is deleted.";
         return {
-            message,
-            errors
+            message
         };
     }
 };

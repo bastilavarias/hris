@@ -7,7 +7,7 @@ import {
     getAllColleges,
     getSingleCollege,
     searchColleges,
-    setCollegeErrors,
+    setCollegeError,
     setColleges,
     setCurrentCollege,
     updateCollege
@@ -15,13 +15,13 @@ import {
 
 export default {
     state: {
-        errors: [],
+        error: {},
         list: [],
         current: {}
     },
 
     mutations: {
-        [setCollegeErrors]: (state, errors) => state.errors = errors,
+        [setCollegeError]: (state, error) => state.error = error,
         [setColleges]: (state, colleges) => state.list = colleges,
         [setCurrentCollege]: (state, college) => state.current = college
     },
@@ -30,10 +30,10 @@ export default {
         [createCollege]: async ({commit}, {customId, name, description}) => {
             try {
                 const result = await collegeService.create({customId, name, description});
-                const {errors, message} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${createCollege}-errors`);
-                    commit(setCollegeErrors, errors);
+                const {error, message} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${createCollege}-error`);
+                    commit(setCollegeError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
@@ -83,12 +83,7 @@ export default {
         [updateCollege]: async ({commit}, {collegeId, details}) => {
             try {
                 const result = await collegeService.update(collegeId, details);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${updateCollege}-errors`);
-                    commit(setCollegeErrors, errors);
-                    return;
-                }
+                const {message} = result.data;
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateCollege);
             } catch (errors) {
@@ -100,12 +95,7 @@ export default {
         [deleteCollege]: async ({commit}, collegeId) => {
             try {
                 const result = await collegeService.delete(collegeId);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setCollegeErrors, errors);
-                    commit(setActionName, `${deleteCollege}-errors`);
-                    return;
-                }
+                const {message} = result.data;
                 commit(setActionName, deleteCollege);
                 commit(setNotificationConfig, {message, type: "error"});
             } catch (errors) {

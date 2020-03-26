@@ -7,7 +7,7 @@ import {
     getAllCourses,
     getSingleCourse,
     searchCourses,
-    setCourseErrors,
+    setCourseError,
     setCourses,
     setCurrentCourse,
     updateCourse
@@ -15,13 +15,13 @@ import {
 
 export default {
     state: {
-        errors: [],
+        error: {},
         list: [],
         current: {}
     },
 
     mutations: {
-        [setCourseErrors]: (state, errors) => state.errors = errors,
+        [setCourseError]: (state, error) => state.error = error,
         [setCourses]: (state, courses) => state.list = courses,
         [setCurrentCourse]: (state, course) => state.current = course
     },
@@ -30,10 +30,10 @@ export default {
         [createCourse]: async ({commit}, {code, name, description, collegeId}) => {
             try {
                 const result = await courseService.create({code, name, description, collegeId});
-                const {errors, message} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${createCourse}-errors`);
-                    commit(setCourseErrors, errors);
+                const {error, message} = result.data;
+                if (Object.keys(error).length > 0) {
+                    commit(setActionName, `${createCourse}-error`);
+                    commit(setCourseError, error);
                     return;
                 }
                 commit(setNotificationConfig, {message, type: "success"});
@@ -83,12 +83,7 @@ export default {
         [updateCourse]: async ({commit}, {courseId, details}) => {
             try {
                 const result = await courseService.update(courseId, details);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setActionName, `${updateCourse}-errors`);
-                    commit(setCourseErrors, errors);
-                    return;
-                }
+                const {message} = result.data;
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updateCourse);
             } catch (errors) {
@@ -100,12 +95,7 @@ export default {
         [deleteCourse]: async ({commit}, courseId) => {
             try {
                 const result = await courseService.delete(courseId);
-                const {message, errors} = result.data;
-                if (errors.length > 0) {
-                    commit(setCourseErrors, errors);
-                    commit(setActionName, `${deleteCourse}-errors`);
-                    return;
-                }
+                const {message} = result.data;
                 commit(setActionName, deleteCourse);
                 commit(setNotificationConfig, {message, type: "error"});
             } catch (errors) {
