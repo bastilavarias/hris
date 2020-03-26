@@ -20,7 +20,7 @@
 			</v-col>
 			<v-col cols="12">
 				<v-radio-group label="Work Status" row v-model="form.isFullTime">
-					<v-radio label="Full Time" :value="true"></v-radio>
+					<v-radio labe	l="Full Time" :value="true"></v-radio>
 					<v-radio label="Part Time" :value="false"></v-radio>
 				</v-radio-group>
 			</v-col>

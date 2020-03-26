@@ -42,7 +42,7 @@
 						<v-tab :key="index">{{item}}</v-tab>
 					</template>
 				</v-tabs>
-				<v-tabs-items v-model="tab">
+				<v-tabs-items v-model="tab" style="background-color: whitesmoke !important;">
 					<v-tab-item>
 						<v-row dense>
 							<v-col cols="12">
