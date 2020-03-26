@@ -7,6 +7,11 @@ const expressFileUpload = require("express-fileupload");
 const passport = require("passport");
 const jwtPassport = require("./passport/jwt");
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(__dirname + "/public/"));
+    app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
+}
+
 application.use(bodyParser.urlencoded({
     extended: true
 }));

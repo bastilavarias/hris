@@ -5,7 +5,7 @@ module.exports = {
         "vuetify"
     ],
 
-    outputDir: path.resolve(__dirname, "../public"),
+    outputDir: path.resolve(__dirname, "../src/public"),
 
     devServer: {
         proxy: {
