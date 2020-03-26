@@ -1,4 +1,5 @@
 const designationService = require("./service");
+const customUtilities = require("../../customUtilities");
 
 module.exports = {
     create: async (req, res) => {
@@ -13,7 +14,7 @@ module.exports = {
     },
 
     update: async (req, res) => {
-        const designationId = req.params.designationId;
+        const designationId = customUtilities.toNumber(req.params.designationId);
         const designationData = req.body;
         try {
             const result = await designationService.update(designationId, designationData);
@@ -35,7 +36,7 @@ module.exports = {
     },
 
     getSingle: async (req, res) => {
-        const designationId = req.params.designationId;
+        const designationId = customUtilities.toNumber(req.params.designationId);
         try {
             const result = await designationService.getSingle(designationId);
             res.status(200).json(result);

@@ -146,7 +146,7 @@
             update({id}) {
                 this.$router.push(
                     {
-                        name: "designation-management-form",
+                        name: "designation-form",
                         params: {
                             operation: "update",
                             designationId: id

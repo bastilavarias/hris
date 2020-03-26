@@ -99,7 +99,7 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setDepartmentError, []);
                     this.$store.commit(setActionName, "");
-                    this.$router.push({name: "department-management"});
+                    this.$router.push({name: "department-list"});
                 }
             },
 
