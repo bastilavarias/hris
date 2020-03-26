@@ -52,6 +52,7 @@
     } from "../../store/types/college";
     import {setActionName} from "../../store/types/action";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
+
     const tableHeaders = [
         {
             text: "ID",
@@ -168,5 +169,5 @@
                 this.$store.commit(setActionName, "");
             }
         },
-    }
+    };
 </script>

@@ -85,12 +85,6 @@
                     return;
                 }
 
-                if (name === `${updateCollege}-error`) {
-                    this.$store.commit(setActionName, "");
-                    this.isLoading = false;
-                    return;
-                }
-
                 if (name === updateCollege) {
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setCollegeError, []);

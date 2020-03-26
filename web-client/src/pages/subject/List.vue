@@ -117,10 +117,6 @@
         computed: {
             subjects() {
                 return this.$store.state.subject.list;
-            },
-
-            errors() {
-                return this.$store.state.subject.errors;
             }
         },
 

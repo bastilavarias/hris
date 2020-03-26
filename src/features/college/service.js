@@ -21,7 +21,7 @@ module.exports = {
         };
     },
 
-    update: async (collegeId, {customId, name, description}) => {
+    update: async (collegeId, {name, description}) => {
         let message;
         await collegeModel.update(collegeId, {name, description});
         message = "College is updated.";
