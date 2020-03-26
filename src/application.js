@@ -8,8 +8,8 @@ const passport = require("passport");
 const jwtPassport = require("./passport/jwt");
 
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static(__dirname + "/src/public/"));
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + "/src/public/index.html"));
+    application.use(express.static(__dirname + "/src/public/"));
+    application.get(/.*/, (req, res) => res.sendFile(__dirname + "/src/public/index.html"));
 }
 
 application.use(bodyParser.urlencoded({
