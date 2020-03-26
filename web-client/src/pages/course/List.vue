@@ -14,8 +14,8 @@
 											:action="search"></generic-search-toolbar>
 				</v-card-text>
 			</template>
-			<template v-slot:item.customId="{item}">
-				<span class="font-weight-bold text-uppercase">{{item.customId}}</span>
+			<template v-slot:item.code="{item}">
+				<span class="font-weight-bold text-uppercase">{{item.code}}</span>
 			</template>
 			<template v-slot:item.name="{item}">
 				<span class="text-capitalize">{{item.name}}</span>
@@ -43,15 +43,10 @@
 <script>
     import GenericSearchToolbar from "../../components/generic/SearchToolbar";
     import GenericTooltipButton from "../../components/generic/TooltipButton";
-    import {
-        deleteCourse,
-        getAllCourses,
-        searchCourses,
-        setCourseError,
-        setCourses
-    } from "../../store/types/course";
+    import {deleteCourse, getAllCourses, searchCourses, setCourseError, setCourses} from "../../store/types/course";
     import {setActionName} from "../../store/types/action";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
+
     const tableHeaders = [
         {
             text: "Code",
@@ -168,5 +163,5 @@
                 this.$store.commit(setActionName, "");
             }
         },
-    }
+    };
 </script>

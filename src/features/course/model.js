@@ -14,7 +14,6 @@ module.exports = {
     },
 
     update: async (courseId, {name, description, collegeId}) => {
-
         const query = `update course
                        set college_id  = ?,
                            name        = ?,

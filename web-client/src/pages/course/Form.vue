@@ -89,12 +89,6 @@
                     return;
                 }
 
-                if (name === `${updateCourse}-error`) {
-                    this.$store.commit(setActionName, "");
-                    this.isLoading = false;
-                    return;
-                }
-
                 if (name === updateCourse) {
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setCourseError, []);

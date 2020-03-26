@@ -21,9 +21,9 @@ module.exports = {
         };
     },
 
-    update: async (courseId, {code, name, description, collegeId}) => {
+    update: async (courseId, {name, description, collegeId}) => {
         let message;
-        await courseModel.update(courseId, {code, name, description, collegeId});
+        await courseModel.update(courseId, {name, description, collegeId});
         message = "Course is updated.";
         return {
             message
