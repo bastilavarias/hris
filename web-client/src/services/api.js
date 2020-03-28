@@ -102,5 +102,6 @@ export const accountService = {
 
 export const personalDataSheetService = {
     getSingle: () => apiService.get(`/personal-data-sheet/getSingle`),
-    update: details => apiService.put(`/personal-data-sheet/update`, details)
+    update: details => apiService.put(`/personal-data-sheet/update`, details),
+    generate: () => Vue.axios.get("/personal-data-sheet/generate", {responseType: "arraybuffer"})
 };

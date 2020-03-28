@@ -12,4 +12,8 @@ router.put("/update",
     passport.authenticate("jwt", {session: false}),
     personalDataSheetController.update);
 
+router.get("/generate",
+    passport.authenticate("jwt", {session: false}),
+    personalDataSheetController.generate);
+
 module.exports = router;

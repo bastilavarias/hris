@@ -29,7 +29,7 @@
 					</v-col>
 					<v-col cols="12">
 						<generic-subtitle>Actions</generic-subtitle>
-						<v-btn class="mb-2" block>
+						<v-btn class="mb-2" block @click="generatePersonalDataSheetForm" :loading="isPDSGenerationStart">
 							<v-icon class="mr-1">mdi-printer</v-icon>
 							<span>Print PDS</span>
 						</v-btn>
@@ -209,7 +209,9 @@
 				</v-tabs-items>
 				<v-row dense>
 					<v-col cols="12">
-						<v-btn block color="secondary" :disabled="!isFormValid" :loading="isLoading" @click="update">Update</v-btn>
+						<v-btn block color="secondary" :disabled="!isFormValid" :loading="isLoading" @click="update">
+							Update
+						</v-btn>
 					</v-col>
 				</v-row>
 			</v-col>
@@ -237,7 +239,11 @@
     import GenericGovernmentIssueIdForm from "../../components/form/GovernmentIssueId";
     import GenericReferenceTable from "../../components/table/Reference";
     import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
-    import {getPersonalDataSheet, updatePersonalDataSheet} from "../../store/types/personalDataSheet";
+    import {
+        generatePersonalDataSheet,
+        getPersonalDataSheet,
+        updatePersonalDataSheet
+    } from "../../store/types/personalDataSheet";
     import {setActionName} from "../../store/types/action";
 
     const defaultForm = {
@@ -360,6 +366,7 @@
                 form: Object.assign({}, defaultForm),
                 defaultForm,
                 isLoading: false,
+				isPDSGenerationStart: false,
                 tabItems
             };
         },
@@ -471,14 +478,25 @@
                 if (name === updatePersonalDataSheet) {
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
+                    return;
+                }
+
+                if (name === generatePersonalDataSheet) {
+                    this.$store.commit(setActionName, "");
+                    this.isPDSGenerationStart = false;
                 }
             }
         },
 
-		methods: {
+        methods: {
             update() {
                 this.isLoading = true;
                 this.$store.dispatch(updatePersonalDataSheet, this.form.profile);
+            },
+
+            generatePersonalDataSheetForm() {
+                this.isPDSGenerationStart = true;
+                this.$store.dispatch(generatePersonalDataSheet);
             }
         },
 
@@ -486,7 +504,7 @@
             this.$store.dispatch(getPersonalDataSheet);
         },
 
-		destroyed() {
+        destroyed() {
             this.$store.commit(setActionName, "");
         }
     };

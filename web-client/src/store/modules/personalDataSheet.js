@@ -1,6 +1,7 @@
 import {personalDataSheetService} from "../../services/api";
 import {setActionName} from "../types/action";
 import {
+    generatePersonalDataSheet,
     getPersonalDataSheet,
     setCurrentPersonalDataSheet,
     setPersonalDataSheetError,
@@ -8,6 +9,7 @@ import {
 } from "../types/personalDataSheet";
 import {updateEmployee} from "../types/employee";
 import {setNotificationConfig} from "../types/notification";
+import {saveAs} from "file-saver";
 
 export default {
     state: {
@@ -51,7 +53,18 @@ export default {
                 commit(setActionName, updateEmployee);
                 throw new Error(`[RWV] ApiService ${error}`);
             }
-        }
+        },
+        [generatePersonalDataSheet]: async ({commit}) => {
+            try {
+                const result = await personalDataSheetService.generate();
+                const bufferPDS = result.data;
+                saveAs(new Blob([bufferPDS], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), "test.xlsx");
+                commit(setActionName, generatePersonalDataSheet);
+            } catch (errors) {
+                commit(setActionName, "");
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
 
     }
 };
