@@ -116,9 +116,9 @@ module.exports = {
     },
 
     generate: async (req, res) => {
-        // const employeeId = parseInt(req.user.id);
+        const employeeId = parseInt(req.user.id);
         try {
-            const result = await personalDataSheetService.generate();
+            const result = await personalDataSheetService.generate(employeeId);
             res.writeHead(200, [["Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]]);
             res.end(result);
         } catch (errors) {
