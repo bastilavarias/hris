@@ -1,7 +1,7 @@
 const employeeModel = require("../employee/model");
 const employeeService = require("../employee/service");
-const XLSX = require("xlsx");
 const path = require("path");
+const ExcelJS = require("exceljs");
 
 module.exports = {
     getSingle: async (employeeId) => await employeeModel.getSingle(employeeId),
@@ -18,8 +18,9 @@ module.exports = {
     },
 
     generate: async () => {
-        const defaultPDSPath = path.resolve(__dirname + "/pds.xlsx");
-        const workbook = XLSX.readFile(defaultPDSPath);
-        return XLSX.write(workbook, {type: "buffer", bookType: "xlsx", bookSST: false});
+        const book = new ExcelJS.Workbook();
+        const defaultPDSPath = path.resolve(__dirname + "/defaultPDS.xlsx");
+        const workbook = await book.xlsx.readFile(defaultPDSPath);
+        return workbook.xlsx.writeBuffer();
     }
 };
