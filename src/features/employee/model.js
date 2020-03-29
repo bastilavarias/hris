@@ -301,7 +301,7 @@ module.exports = {
         const query = `select e.id,
                               e.employee_number             as employeeNumber,
                               e.created_at                  as createdAt,
-                              e.is_full_time                  as isFullTime,
+                              e.is_full_time                as isFullTime,
                               (select json_object(
                                               'firstName', first_name,
                                               'middleName', middle_name,
@@ -319,7 +319,7 @@ module.exports = {
                                where id = e.designation_id) as designation,
                               (select json_object('id', id, 'name', name)
                                from department
-                               where id = e.department_id) as department
+                               where id = e.department_id)  as department
                        from employee e
                                 join profile p on e.profile_id = p.id
                        where e.account_id = ?

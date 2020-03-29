@@ -8,7 +8,6 @@ const personalDataSheetService = {
     getSingle: async (employeeId) => await employeeModel.getSingle(employeeId),
 
     update: async (employeeId, {departmentId, designationId, isFullTime, profile}) => {
-        console.log(profile);
         const {error} = await employeeService.update(employeeId, {departmentId, designationId, isFullTime, profile});
         let message = "Your information was edited.";
 
@@ -29,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education} = profile;
 
         const personalInformation = [
             {
@@ -161,11 +160,116 @@ const personalDataSheetService = {
                 value: emptyValue(contact.emailAddress).toUpperCase()
             },
         ];
+        personalInformation.forEach(({cell, value}) => workbook.sheet(0).cell(cell).value(value));
 
-        personalInformation.forEach(({cell, value}) => {
-            workbook.sheet(0).cell(cell).value(value);
+        const familyBackground = [
+            {
+                cell: "D36",
+                value: emptyValue(family.spouse.lastName).toUpperCase()
+            },
+            {
+                cell: "D37",
+                value: emptyValue(family.spouse.firstName).toUpperCase()
+            },
+            {
+                cell: "D38",
+                value: emptyValue(family.spouse.middleName).toUpperCase()
+            },
+            {
+                cell: "G38",
+                value: emptyValue(family.spouse.extension).toUpperCase()
+            },
+            {
+                cell: "D43",
+                value: emptyValue(family.father.lastName).toUpperCase()
+            },
+            {
+                cell: "D44",
+                value: emptyValue(family.father.firstName).toUpperCase()
+            },
+            {
+                cell: "D45",
+                value: emptyValue(family.father.middleName).toUpperCase()
+            },
+            {
+                cell: "G45",
+                value: emptyValue(family.father.extension).toUpperCase()
+            },
+            {
+                cell: "D47",
+                value: emptyValue(family.mother.lastName).toUpperCase()
+            },
+            {
+                cell: "D48",
+                value: emptyValue(family.mother.firstName).toUpperCase()
+            },
+            {
+                cell: "D49",
+                value: emptyValue(family.mother.middleName).toUpperCase()
+            },
+        ];
+        familyBackground.forEach(({cell, value}) => workbook.sheet(0).cell(cell).value(value));
 
+        const familyBackgroundChildren = family.children ? family.children : [];
+        familyBackgroundChildren.forEach(({name, birthDate}, index) => {
+            const defaultRow = 37;
+            workbook.sheet(0).cell(`I${defaultRow + index}`).value(emptyValue(name).toUpperCase());
+            workbook.sheet(0).cell(`M${defaultRow + index}`).value(toPDSDefaultDate(emptyValue(birthDate)).toUpperCase());
         });
+
+        const educationalBackground = education ? education : [];
+        const EBDefaultRow = 54;
+
+        educationalBackground.forEach((education, index) => {
+            workbook.sheet(0).row(EBDefaultRow + index).height(28.5);
+            workbook.sheet(0).range(`A${EBDefaultRow + index}:C${EBDefaultRow + index}`).merged(true).value(education.level.toUpperCase());
+            workbook.sheet(0).range(`D${EBDefaultRow + index}:F${EBDefaultRow + index}`).merged(true).value(education.schoolName.toUpperCase());
+            workbook.sheet(0).range(`G${EBDefaultRow + index}:I${EBDefaultRow + index}`).merged(true).value(education.degree.toUpperCase());
+            workbook.sheet(0).cell(`J${EBDefaultRow + index}`).value(education.yearFrom);
+            workbook.sheet(0).cell(`K${EBDefaultRow + index}`).value(education.yearTo);
+            workbook.sheet(0).cell(`L${EBDefaultRow + index}`).value(education.recognition.toUpperCase());
+            workbook.sheet(0).cell(`M${EBDefaultRow + index}`).value(education.yearGraduated);
+            workbook.sheet(0).cell(`N${EBDefaultRow + index}`).value(education.scholarship.toUpperCase());
+        });
+        const EBLastRow = EBDefaultRow + educationalBackground.length - 1;
+        workbook.sheet(0).range(`A${EBDefaultRow}:A${EBLastRow}`).style({
+            fill: "EAEAEA"
+        });
+        workbook.sheet(0).range(`A${EBDefaultRow}:N${EBLastRow}`).style({
+            fontSize: 8,
+            fontFamily: "Arial Narrow",
+            horizontalAlignment: "center",
+            verticalAlignment: "center",
+            wrapText: true,
+            border: true,
+            borderColor: "000000",
+            borderStyle: "thin"
+        });
+
+        const footerRow = EBLastRow + 1;
+        const signAndDateStyle = {
+            fill: "EAEAEA"
+        };
+        const footerStyle = {
+            fontSize: 11,
+            fontFamily: "Arial Narrow",
+            horizontalAlignment: "center",
+            verticalAlignment: "center",
+            wrapText: true,
+            border: true,
+            borderColor: "000000",
+            borderStyle: "thick",
+            bold: true,
+            italic: true
+        };
+        workbook.sheet(0).row(footerRow).height(27.5);
+        workbook.sheet(0).range(`A${footerRow}:N${footerRow}`).style(footerStyle);
+        workbook.sheet(0).range(`A${footerRow}:C${footerRow}`).merged(true).value("SIGNATURE").style(signAndDateStyle);
+        workbook.sheet(0).range(`D${footerRow}:I${footerRow}`).merged(true);
+        workbook.sheet(0).range(`J${footerRow}:K${footerRow}`).merged(true).value("DATE").style(signAndDateStyle);
+        workbook.sheet(0).range(`L${footerRow}:N${footerRow}`).merged(true);
+
+
         return workbook;
     }
 };

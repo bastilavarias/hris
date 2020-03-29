@@ -32,19 +32,24 @@
 									<v-text-field label="School Name" outlined v-model="form.schoolName"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="6">
-									<generic-year-selection outlined label="From" :year.sync="form.yearFrom"></generic-year-selection>
+									<generic-year-selection outlined label="From"
+															:year.sync="form.yearFrom"></generic-year-selection>
 								</v-col>
 								<v-col cols="12" md="6">
-									<generic-year-selection outlined label="To" :year.sync="form.yearTo"></generic-year-selection>
+									<generic-year-selection outlined label="To"
+															:year.sync="form.yearTo"></generic-year-selection>
 								</v-col>
 								<v-col cols="12" md="12">
-									<generic-year-selection outlined label="Year Graduated" :year.sync="form.yearGraduated"></generic-year-selection>
+									<generic-year-selection outlined label="Year Graduated"
+															:year.sync="form.yearGraduated"></generic-year-selection>
 								</v-col>
 								<v-col cols="12" md="12">
-									<v-text-field label="Recognition" outlined v-model="form.recognition"></v-text-field>
+									<v-text-field label="Recognition" outlined
+												  v-model="form.recognition"></v-text-field>
 								</v-col>
 								<v-col cols="12" md="12">
-									<v-text-field label="Scholarship" outlined v-model="form.scholarship"></v-text-field>
+									<v-text-field label="Scholarship" outlined
+												  v-model="form.scholarship"></v-text-field>
 								</v-col>
 							</v-row>
 						</v-card-text>
@@ -86,10 +91,11 @@
 <script>
     import GenericDateInput from "../generic/DateInput";
     import GenericYearSelection from "../selection/Year";
+
     const tableHeaders = [
         {
             text: "Level",
-			value: "level",
+            value: "level",
             align: "left"
         },
         {
@@ -114,26 +120,29 @@
         },
         {
             text: "Action",
-			value: "action"
+            value: "action"
         }
     ];
 
     const defaultForm = {
         level: "",
-		schoolName: "",
-		degree: "",
-		yearFrom: 0,
-		yearTo: 0,
+        schoolName: "",
+        degree: "",
+        yearFrom: 0,
+        yearTo: 0,
         yearGraduated: 0,
         recognition: "",
-		scholarship: ""
+        scholarship: ""
     };
 
     const educationLevels = [
+        "elementary",
+        "secondary",
+        "vocational / trade course",
         "bachelor degree",
-		"master degree",
-		"doctorate degree"
-	];
+        "master degree",
+        "doctorate degree"
+    ];
 
     export default {
         name: "generic-educational-background-table",
@@ -141,43 +150,41 @@
         props: {
             education: {
                 type: Array,
-				required: true
-			}
-		},
+                required: true
+            }
+        },
 
         data() {
             return {
                 tableHeaders,
                 dialog: false,
-				educationLocal: [],
-				form: Object.assign({}, defaultForm),
-				defaultForm,
-				educationLevels
+                educationLocal: [],
+                form: Object.assign({}, defaultForm),
+                defaultForm,
+                educationLevels
             };
         },
 
-		computed: {
+        computed: {
             isFormValid() {
-                return this.form.level && this.form.schoolName && this.form.degree && this.form.yearFrom && this.form.yearTo;
-			}
-		},
+                return this.form.level && this.form.schoolName && this.form.yearFrom && this.form.yearTo;
+            }
+        },
 
-		watch: {
+        watch: {
             education(val) {
                 this.$emit("update:education", val);
-			},
+            },
 
-			educationLocal(val) {
+            educationLocal(val) {
                 this.$emit("update:education", val);
             }
-		},
+        },
 
         methods: {
             add() {
-                if (this.form.level && this.form.schoolName && this.form.degree && this.form.yearFrom && this.form.yearTo) {
-                    this.educationLocal = [...this.educationLocal, this.form];
-                    this.clearForm();
-                }
+                this.educationLocal = [...this.educationLocal, this.form];
+                this.clearForm();
             },
 
             remove(row) {
