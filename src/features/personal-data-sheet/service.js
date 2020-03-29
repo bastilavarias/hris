@@ -1,7 +1,7 @@
 const employeeModel = require("../employee/model");
 const employeeService = require("../employee/service");
 const path = require("path");
-const ExcelJS = require("exceljs");
+const xlsx = require("xlsx-populate");
 const {emptyValue, toPDSDefaultDate} = require("../../customUtilities");
 
 const personalDataSheetService = {
@@ -21,171 +21,152 @@ const personalDataSheetService = {
     generate: async (employeeId) => {
         const employeeInformation = await employeeModel.getSingle(employeeId);
         const defaultPDSPath = path.resolve(__dirname + "/defaultPDS.xlsx");
-        let book = await new ExcelJS.Workbook().xlsx.readFile(defaultPDSPath);
-        const formattedBook = personalDataSheetService.formatWorkBook(book, employeeInformation);
-        return formattedBook.xlsx.writeBuffer();
+        let workbook = await xlsx.fromFileAsync(defaultPDSPath);
+        workbook = personalDataSheetService.formatWorkBook(workbook, employeeInformation);
+        return await workbook.outputAsync();
+
     },
 
-    formatWorkBook: (book, employeeInformation) => {
+    formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact} = profile;
+
         const personalInformation = [
             {
-                cell: "A10",
-                position: 3,
-                value: lastName
+                cell: "D10",
+                value: emptyValue(lastName).toUpperCase()
             },
             {
-                cell: "A11",
-                position: 3,
-                value: middleName
+                cell: "D11",
+                value: emptyValue(firstName).toUpperCase()
             },
             {
-                cell: "A12",
-                position: 3,
-                value: firstName
+                cell: "D12",
+                value: emptyValue(middleName).toUpperCase()
             },
             {
-                cell: "A12",
-                position: 11,
-                value: extension
+                cell: "L12",
+                value: emptyValue(extension).toUpperCase()
             },
             {
-                cell: "A13",
-                position: 3,
-                value: toPDSDefaultDate(birthDate)
+                cell: "D13",
+                value: toPDSDefaultDate(emptyValue(birthDate)).toUpperCase()
             },
             {
-                cell: "A13",
-                position: 9,
-                value: citizenship[0]
+                cell: "D15",
+                value: emptyValue(birthPlace).toUpperCase()
             },
             {
-                cell: "A15",
-                position: 3,
-                value: birthPlace
+                cell: "I17",
+                value: emptyValue(address.residential.houseNumber).toUpperCase()
             },
             {
-                cell: "A16",
-                position: 3,
-                value: sex
+                cell: "L17",
+                value: emptyValue(address.residential.street).toUpperCase()
             },
             {
-                cell: "A16",
-                position: 9,
-                value: citizenship.length > 1 ? citizenship[1] : ""
+                cell: "I19",
+                value: emptyValue(address.residential.subdivision).toUpperCase()
             },
             {
-                cell: "A17",
-                position: 3,
-                value: civilStatus
+                cell: "L19",
+                value: emptyValue(address.residential.barangay).toUpperCase()
             },
             {
-                cell: "A17",
-                position: 8,
-                value: address.residential.houseNumber
-            },
-            {
-                cell: "A17",
-                position: 12,
-                value: address.residential.street
-            },
-            {
-                cell: "A19",
-                position: 8,
-                value: address.residential.subdivision
-            },
-            {
-                cell: "A19",
-                position: 12,
-                value: address.residential.barangay
-            },
-            {
-                cell: "A22",
-                position: 3,
+                cell: "D22",
                 value: height
             },
             {
-                cell: "A22",
-                position: 8,
-                value: address.residential.city
+                cell: "I22",
+                value: emptyValue(address.residential.city).toUpperCase()
             },
             {
-                cell: "A22",
-                position: 12,
-                value: address.residential.province
+                cell: "L22",
+                value: emptyValue(address.residential.province).toUpperCase()
             },
             {
-                cell: "A24",
-                position: 3,
+                cell: "D24",
                 value: weight
             },
             {
-                cell: "A24",
-                position: 8,
-                value: address.residential.zipCode
-            },
-
-            {
-                cell: "A25",
-                position: 3,
-                value: bloodType
+                cell: "I24",
+                value: emptyValue(address.residential.zipCode).toUpperCase()
             },
             {
-                cell: "A25",
-                position: 8,
-                value: address.permanent.houseNumber
+                cell: "D25",
+                value: emptyValue(bloodType).toUpperCase()
             },
             {
-                cell: "A25",
-                position: 12,
-                value: address.permanent.street
+                cell: "I25",
+                value: emptyValue(address.permanent.houseNumber).toUpperCase()
             },
             {
-                cell: "A27",
-                position: 3,
-                value: benefit.gsisId
+                cell: "L25",
+                value: emptyValue(address.permanent.street).toUpperCase()
             },
             {
-                cell: "A27",
-                position: 8,
-                value: address.permanent.subdivision
+                cell: "D27",
+                value: emptyValue(benefit.gsisId).toUpperCase()
             },
             {
-                cell: "A27",
-                position: 12,
-                value: address.permanent.barangay
+                cell: "I27",
+                value: emptyValue(address.permanent.subdivision).toUpperCase()
             },
             {
-                cell: "A29",
-                position: 3,
-                value: benefit.pagibigId
+                cell: "L27",
+                value: emptyValue(address.permanent.barangay).toUpperCase()
             },
             {
-                cell: "A29",
-                position: 8,
-                value: address.permanent.city
+                cell: "D29",
+                value: emptyValue(benefit.pagibigId).toUpperCase()
             },
             {
-                cell: "A29",
-                position: 12,
-                value: address.permanent.province
+                cell: "I29",
+                value: emptyValue(address.permanent.city).toUpperCase()
             },
             {
-                cell: "A31",
-                position: 3,
-                value: benefit.philhealthId
+                cell: "L29",
+                value: emptyValue(address.permanent.province).toUpperCase()
             },
             {
-                cell: "A31",
-                position: 8,
-                value: address.permanent.zipCode
+                cell: "D31",
+                value: emptyValue(benefit.philhealthId).toUpperCase()
+            },
+            {
+                cell: "I31",
+                value: emptyValue(address.permanent.zipCode).toUpperCase()
+            },
+            {
+                cell: "D32",
+                value: emptyValue(benefit.sssNumber).toUpperCase()
+            },
+            {
+                cell: "I32",
+                value: emptyValue(contact.telephoneNumber).toUpperCase()
+            },
+            {
+                cell: "D33",
+                value: emptyValue(benefit.tinNumber).toUpperCase()
+            },
+            {
+                cell: "I33",
+                value: emptyValue(contact.mobileNumber).toUpperCase()
+            },
+            {
+                cell: "D34",
+                value: emptyValue(benefit.agencyEmployeeNumber).toUpperCase()
+            },
+            {
+                cell: "I34",
+                value: emptyValue(contact.emailAddress).toUpperCase()
             },
         ];
-        personalInformation.forEach(({cell, position, value}) => {
-            book.getWorksheet(1).getCell(cell)._row._cells[position].value = emptyValue(value);
+
+        personalInformation.forEach(({cell, value}) => {
+            workbook.sheet(0).cell(cell).value(value);
+
         });
-        return book;
+        return workbook;
     }
 };
 
