@@ -316,9 +316,10 @@ const personalDataSheetService = {
             workbook.sheet(1).cell(`M${CSEDefaultRow + index}`).value(service.validityDate);
         });
 
-        const CSELastRow = CSEDefaultRow + filledCSEList.length - 1;
-        const workExpStyle = {
+        const CSELastRow = CSEDefaultRow + filledCSEList.length;
+        const workExpHeaderStyle = {
             fontFamily: "Arial Narrow",
+            fontColor: "FFFFFF",
             horizontalAlignment: "left",
             verticalAlignment: "center",
             wrapText: true,
@@ -326,17 +327,36 @@ const personalDataSheetService = {
             italic: true,
             bold: true
         };
-        console.log(CSELastRow);
-        // workbook.sheet(1).row(CSELastRow).height(16.5);
-        // workbook.sheet(1).cell(`A:${CSELastRow}`).style({
-        //     ...workExpStyle,
-        //     fontSize: 11
-        // }).value("V. Work Experience".toUpperCase());
-        // workbook.sheet(1).row(CSELastRow + 1).height(12);
-        // workbook.sheet(1).cell(`A:${CSELastRow + 1}`).style({
-        //     ...workExpStyle,
-        //     fontSize: 8
-        // }).value("(Include private employment. Start from your recent work) Description of duties should be indicated in the attached Work Experience sheet.".toUpperCase());
+
+        workbook.sheet(1).row(CSELastRow).height(16.5);
+        workbook.sheet(1).range(`A${CSELastRow}:M${CSELastRow}`).merged(true).value("V. Work Experience".toUpperCase()).style({
+            ...workExpHeaderStyle,
+            fontSize: 11,
+            topBorder: true,
+            topBorderColor: "000000",
+            topBorderStyle: "thick",
+            leftBorder: true,
+            leftBorderColor: "000000",
+            leftBorderStyle: "thick",
+            rightBorder: true,
+            rightBorderColor: "000000",
+            rightBorderStyle: "thick"
+
+        });
+        workbook.sheet(1).row(CSELastRow + 1).height(12);
+        workbook.sheet(1).range(`A${CSELastRow + 1}:M${CSELastRow + 1}`).merged(true).value("(Include private employment. Start from your recent work) Description of duties should be indicated in the attached Work Experience sheet.").style({
+            ...workExpHeaderStyle,
+            fontSize: 10,
+            bottomBorder: true,
+            bottomBorderColor: "000000",
+            bottomBorderStyle: "thick",
+            leftBorder: true,
+            leftBorderColor: "000000",
+            leftBorderStyle: "thick",
+            rightBorder: true,
+            rightBorderColor: "000000",
+            rightBorderStyle: "thick"
+        });
 
         return workbook;
     }
