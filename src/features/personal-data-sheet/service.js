@@ -28,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility} = profile;
 
         const personalInformation = [
             {
@@ -269,6 +269,74 @@ const personalDataSheetService = {
         workbook.sheet(0).range(`J${footerRow}:K${footerRow}`).merged(true).value("DATE").style(signAndDateStyle);
         workbook.sheet(0).range(`L${footerRow}:N${footerRow}`).merged(true);
 
+
+        const CSEList = civilServiceEligibility ? civilServiceEligibility : [];
+        const CSEDefaultRowsNumber = 7;
+        const CSEDefaultRow = 5;
+        const CSEStyle = {
+            fontSize: 8,
+            fontFamily: "Arial Narrow",
+            horizontalAlignment: "left",
+            verticalAlignment: "center",
+            wrapText: true,
+            border: true,
+            borderColor: "000000",
+            borderStyle: "thin",
+            fill: "FFFFFF"
+        };
+        let filledCSEList = [];
+        if (CSEList.length <= 7) {
+            for (let i = 0; i < CSEDefaultRowsNumber; i++) {
+                const currentCSE = CSEList[i];
+                if (currentCSE) {
+                    filledCSEList.push(currentCSE);
+                } else {
+                    filledCSEList.push({
+                        rating: "",
+                        licenseTitle: "",
+                        validityDate: "",
+                        licenseNumber: "",
+                        examinationDate: "",
+                        examinationPlace: ""
+                    });
+                }
+            }
+        } else {
+            filledCSEList = CSEList;
+        }
+
+        filledCSEList.forEach((service, index) => {
+            workbook.sheet(1).row(CSEDefaultRow + index).height(27.5);
+            workbook.sheet(1).range(`A${CSEDefaultRow + index}:M${CSEDefaultRow + index}`).style(CSEStyle);
+            workbook.sheet(1).range(`A${CSEDefaultRow + index}:E${CSEDefaultRow + index}`).merged(true).value(service.licenseTitle.toUpperCase());
+            workbook.sheet(1).cell(`F${CSEDefaultRow + index}`).value(service.rating.toUpperCase());
+            workbook.sheet(1).range(`G${CSEDefaultRow + index}:H${CSEDefaultRow + index}`).merged(true).value(service.examinationDate);
+            workbook.sheet(1).range(`I${CSEDefaultRow + index}:K${CSEDefaultRow + index}`).merged(true).value(service.examinationPlace.toUpperCase());
+            workbook.sheet(1).cell(`L${CSEDefaultRow + index}`).value(service.licenseNumber.toUpperCase());
+            workbook.sheet(1).cell(`M${CSEDefaultRow + index}`).value(service.validityDate);
+        });
+
+        const CSELastRow = CSEDefaultRow + filledCSEList.length - 1;
+        const workExpStyle = {
+            fontFamily: "Arial Narrow",
+            horizontalAlignment: "left",
+            verticalAlignment: "center",
+            wrapText: true,
+            fill: "969696",
+            italic: true,
+            bold: true
+        };
+        console.log(CSELastRow);
+        // workbook.sheet(1).row(CSELastRow).height(16.5);
+        // workbook.sheet(1).cell(`A:${CSELastRow}`).style({
+        //     ...workExpStyle,
+        //     fontSize: 11
+        // }).value("V. Work Experience".toUpperCase());
+        // workbook.sheet(1).row(CSELastRow + 1).height(12);
+        // workbook.sheet(1).cell(`A:${CSELastRow + 1}`).style({
+        //     ...workExpStyle,
+        //     fontSize: 8
+        // }).value("(Include private employment. Start from your recent work) Description of duties should be indicated in the attached Work Experience sheet.".toUpperCase());
 
         return workbook;
     }

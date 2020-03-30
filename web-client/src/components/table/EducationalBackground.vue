@@ -139,9 +139,8 @@
         "elementary",
         "secondary",
         "vocational / trade course",
-        "bachelor degree",
-        "master degree",
-        "doctorate degree"
+        "college",
+        "graduate studies"
     ];
 
     export default {
