@@ -360,26 +360,26 @@ const personalDataSheetService = {
         });
 
         const workExperienceColumnPosition = workExperienceHeaderPosition + 2;
-        workbook.sheet(1).range(`A${workExperienceColumnPosition}:M${workExperienceColumnPosition + 2}`).style(
-            {
-                fill: "EAEAEA",
-                fontFamily: "Arial Narrow",
-                fontSize: 8,
-                horizontalAlignment: "center",
-                verticalAlignment: "center",
-                wrapText: true
-            }
-        );
-        workbook.sheet(1).row(workExperienceColumnPosition).height(18);
-        workbook.sheet(1).row(workExperienceColumnPosition + 1).height(18);
-        workbook.sheet(1).row(workExperienceColumnPosition + 2).height(18);
-        workbook.sheet(1).range(`A${workExperienceColumnPosition}:M${workExperienceColumnPosition + 2}`).style({
+        const defaultColumnStyle = {
+            fill: "EAEAEA",
+            fontFamily: "Arial Narrow",
+            fontSize: 8,
+            horizontalAlignment: "center",
+            verticalAlignment: "center",
+            wrapText: true,
             border: true,
             borderColor: "000000",
             borderStyle: "thin",
             topBorder: false,
             bottomBorder: false
-        });
+        };
+
+        workbook.sheet(1).range(`A${workExperienceColumnPosition}:M${workExperienceColumnPosition + 2}`).style(
+            defaultColumnStyle
+        );
+        workbook.sheet(1).row(workExperienceColumnPosition).height(18);
+        workbook.sheet(1).row(workExperienceColumnPosition + 1).height(18);
+        workbook.sheet(1).row(workExperienceColumnPosition + 2).height(18);
 
         workbook.sheet(1).cell(`A${workExperienceColumnPosition}`).value("28.").style(
             {
@@ -491,6 +491,76 @@ const personalDataSheetService = {
             workbook.sheet(2).cell(`G${voluntaryWorkExperiencesDefaultRow + index}`).value(`${emptyValue(experience.hoursNumber)}`);
             workbook.sheet(2).range(`H${voluntaryWorkExperiencesDefaultRow + index}:K${voluntaryWorkExperiencesDefaultRow + index}`).merged(true).value(`${emptyValue(experience.position)}`.toUpperCase());
         });
+
+        const trainingsHeaderPosition = voluntaryWorkExperiencesDefaultRow + filledVoluntaryExperiencesList.length;
+
+        workbook.sheet(2).row(trainingsHeaderPosition).height(16.5);
+        workbook.sheet(2).range(`A${trainingsHeaderPosition}:K${trainingsHeaderPosition}`).merged(true).value("VII.  LEARNING AND DEVELOPMENT (L&D) INTERVENTIONS/TRAINING PROGRAMS ATTENDED").style({
+            ...defaultHeaderStyle,
+            fontSize: 11,
+            topBorder: true,
+            topBorderColor: "000000",
+            topBorderStyle: "thick",
+            leftBorder: true,
+            leftBorderColor: "000000",
+            leftBorderStyle: "thick",
+            rightBorder: true,
+            rightBorderColor: "000000",
+            rightBorderStyle: "thick"
+
+        });
+        workbook.sheet(2).row(trainingsHeaderPosition + 1).height(12);
+        workbook.sheet(2).range(`A${trainingsHeaderPosition + 1}:K${trainingsHeaderPosition + 1}`).merged(true).value("(Start from the most recent L&D/training program and include only the relevant L&D/training taken for the last five (5) years for Division Chief/Executive/Managerial positions)").style({
+            ...defaultHeaderStyle,
+            fontSize: 10,
+            bottomBorder: true,
+            bottomBorderColor: "000000",
+            bottomBorderStyle: "thick",
+            leftBorder: true,
+            leftBorderColor: "000000",
+            leftBorderStyle: "thick",
+            rightBorder: true,
+            rightBorderColor: "000000",
+            rightBorderStyle: "thick"
+        });
+
+        const trainingsColumnPosition = trainingsHeaderPosition + 2;
+
+        workbook.sheet(2).range(`A${trainingsColumnPosition}:K${trainingsColumnPosition + 2}`).style(
+            defaultColumnStyle
+        );
+        workbook.sheet(2).row(trainingsColumnPosition).height(18);
+        workbook.sheet(2).row(trainingsColumnPosition + 1).height(25.5);
+        workbook.sheet(2).row(trainingsColumnPosition + 2).height(13.5);
+
+        workbook.sheet(2).range(`A${trainingsColumnPosition}:A${trainingsColumnPosition + 1}`).merged(true).value("30.").style(
+            {
+                horizontalAlignment: "center",
+                verticalAlignment: "center",
+                rightBorder: false
+            }
+        );
+        workbook.sheet(2).range(`A${trainingsColumnPosition + 1}:A${trainingsColumnPosition + 2}`).style(
+            {
+                rightBorder: false,
+                topBorder: false
+            }
+        );
+        workbook.sheet(2).range(`B${trainingsColumnPosition}:D${trainingsColumnPosition + 2}`).merged(true).value("TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS\n(Write in full)").style({
+            leftBorder: false
+        });
+        workbook.sheet(2).range(`E${trainingsColumnPosition}:F${trainingsColumnPosition + 1}`).merged(true).value("INCLUSIVE DATES OF ATTENDANCE\n(mm/dd/yyyy)").style({
+            bottomBorder: true,
+            bottomBorderColor: "000000",
+            bottomBorderStyle: "thin"
+        });
+        workbook.sheet(2).cell(`E${trainingsColumnPosition + 2}`).value("From");
+        workbook.sheet(2).cell(`F${trainingsColumnPosition + 2}`).value("To");
+        workbook.sheet(2).range(`G${trainingsColumnPosition}:G${trainingsColumnPosition + 2}`).merged(true).value("NUMBER OF HOURS").style({fontSize: 6});
+        workbook.sheet(2).range(`H${trainingsColumnPosition}:H${trainingsColumnPosition + 2}`).merged(true).value("Type of LD\n" +
+            "( Managerial/ Supervisory/\n" +
+            "Technical/etc)").style({fontSize: 7});
+        workbook.sheet(2).range(`I${trainingsColumnPosition}:K${trainingsColumnPosition + 2}`).merged(true).value(" CONDUCTED/ SPONSORED BY \n(Write in full)");
 
         return workbook;
     }
