@@ -247,7 +247,7 @@ const personalDataSheetService = {
             fill: "EAEAEA"
         });
 
-        const footerRow = EBLastRow + 1;
+        const worksheet1FooterRowPosition = EBLastRow + 1;
         const signAndDateStyle = {
             fill: "EAEAEA"
         };
@@ -263,12 +263,12 @@ const personalDataSheetService = {
             bold: true,
             italic: true
         };
-        workbook.sheet(0).row(footerRow).height(27.5);
-        workbook.sheet(0).range(`A${footerRow}:N${footerRow}`).style(footerStyle);
-        workbook.sheet(0).range(`A${footerRow}:C${footerRow}`).merged(true).value("SIGNATURE").style(signAndDateStyle);
-        workbook.sheet(0).range(`D${footerRow}:I${footerRow}`).merged(true);
-        workbook.sheet(0).range(`J${footerRow}:K${footerRow}`).merged(true).value("DATE").style(signAndDateStyle);
-        workbook.sheet(0).range(`L${footerRow}:N${footerRow}`).merged(true);
+        workbook.sheet(0).row(worksheet1FooterRowPosition).height(27.5);
+        workbook.sheet(0).range(`A${worksheet1FooterRowPosition}:N${worksheet1FooterRowPosition}`).style(footerStyle);
+        workbook.sheet(0).range(`A${worksheet1FooterRowPosition}:C${worksheet1FooterRowPosition}`).merged(true).value("SIGNATURE").style(signAndDateStyle);
+        workbook.sheet(0).range(`D${worksheet1FooterRowPosition}:I${worksheet1FooterRowPosition}`).merged(true);
+        workbook.sheet(0).range(`J${worksheet1FooterRowPosition}:K${worksheet1FooterRowPosition}`).merged(true).value("DATE").style(signAndDateStyle);
+        workbook.sheet(0).range(`L${worksheet1FooterRowPosition}:N${worksheet1FooterRowPosition}`).merged(true);
 
 
         const CSEList = civilServiceEligibility ? civilServiceEligibility : [];
@@ -450,7 +450,13 @@ const personalDataSheetService = {
 
         });
 
-
+        const worksheet2FooterRowPosition = workExperiencesDefaultRow + filledWorkExperiencesList.length;
+        workbook.sheet(1).row(worksheet2FooterRowPosition).height(27.5);
+        workbook.sheet(1).range(`A${worksheet2FooterRowPosition}:M${worksheet2FooterRowPosition}`).style(footerStyle);
+        workbook.sheet(1).range(`A${worksheet2FooterRowPosition}:C${worksheet2FooterRowPosition}`).merged(true).value("SIGNATURE").style(signAndDateStyle);
+        workbook.sheet(1).range(`D${worksheet2FooterRowPosition}:H${worksheet2FooterRowPosition}`).merged(true);
+        workbook.sheet(1).cell(`I${worksheet2FooterRowPosition}`).value("DATE").style(signAndDateStyle);
+        workbook.sheet(1).range(`J${worksheet2FooterRowPosition}:M${worksheet2FooterRowPosition}`).merged(true);
         return workbook;
     }
 };
