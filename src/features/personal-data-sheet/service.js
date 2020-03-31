@@ -28,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations} = profile;
 
         const personalInformation = [
             {
@@ -563,8 +563,8 @@ const personalDataSheetService = {
         workbook.sheet(2).range(`I${trainingsColumnPosition}:K${trainingsColumnPosition + 2}`).merged(true).value(" CONDUCTED/ SPONSORED BY \n(Write in full)");
 
         const trainingList = trainings ? trainings : [];
-        const trainingsDefaultRowsNumber = trainingsColumnPosition + 3;
-        const trainingsDefaultRow = 21;
+        const trainingsDefaultRowsNumber = 21;
+        const trainingsDefaultRow = trainingsColumnPosition + 3;
         let filledTrainingList = [];
         if (trainingList.length <= trainingsDefaultRowsNumber) {
             for (let i = 0; i < trainingsDefaultRow; i++) {
@@ -587,15 +587,94 @@ const personalDataSheetService = {
         }
 
         filledTrainingList.forEach((details, index) => {
-            workbook.sheet(2).row(trainingsDefaultRowsNumber + index).height(27.5);
-            workbook.sheet(2).range(`A${trainingsDefaultRowsNumber + index}:K${trainingsDefaultRowsNumber + index}`).style(defaultRowItemStyle);
-            workbook.sheet(2).range(`A${trainingsDefaultRowsNumber + index}:D${trainingsDefaultRowsNumber + index}`).merged(true).value(details.programTitle);
-            workbook.sheet(2).cell(`E${trainingsDefaultRowsNumber + index}`).value(details.dateFrom);
-            workbook.sheet(2).cell(`F${trainingsDefaultRowsNumber + index}`).value(details.dateTo);
-            workbook.sheet(2).cell(`G${trainingsDefaultRowsNumber + index}`).value(details.hoursNumber);
-            workbook.sheet(2).cell(`G${trainingsDefaultRowsNumber + index}`).value(details.type);
-            workbook.sheet(2).range(`I${trainingsDefaultRowsNumber + index}:K${trainingsDefaultRowsNumber + index}`).merged(true).value(details.sponsor);
+            workbook.sheet(2).row(trainingsDefaultRow + index).height(27.5);
+            workbook.sheet(2).range(`A${trainingsDefaultRow + index}:K${trainingsDefaultRow + index}`).style(defaultRowItemStyle);
+            workbook.sheet(2).range(`A${trainingsDefaultRow + index}:D${trainingsDefaultRow + index}`).merged(true).value(details.programTitle);
+            workbook.sheet(2).cell(`E${trainingsDefaultRow + index}`).value(details.dateFrom);
+            workbook.sheet(2).cell(`F${trainingsDefaultRow + index}`).value(details.dateTo);
+            workbook.sheet(2).cell(`G${trainingsDefaultRow + index}`).value(details.hoursNumber);
+            workbook.sheet(2).cell(`G${trainingsDefaultRow + index}`).value(details.type);
+            workbook.sheet(2).range(`I${trainingsDefaultRow + index}:K${trainingsDefaultRow + index}`).merged(true).value(details.sponsor);
         });
+
+        const otherInformationHeaderPosition = trainingsDefaultRow + filledTrainingList.length;
+
+        workbook.sheet(2).row(otherInformationHeaderPosition).height(22.5);
+        workbook.sheet(2).range(`A${otherInformationHeaderPosition}:K${otherInformationHeaderPosition}`).merged(true).value("VIII.  OTHER INFORMATION").style({
+            ...defaultHeaderStyle,
+            fontSize: 11,
+            border: true,
+            borderColor: "000000",
+            borderStyle: "thick"
+        });
+
+        const hobbyList = hobbies ? hobbies : [];
+        const recognitionList = recognitions ? recognitions : [];
+        const organizationList = organizations ? organizations : [];
+
+        const hobbyListLength = hobbyList.length;
+        const recognitionListLength = recognitionList.length;
+        const organizationListLength = organizationList.length;
+        let otherInformationDefaultRowsNumber = Math.max(hobbyListLength, recognitionListLength, organizationListLength);
+        otherInformationDefaultRowsNumber = otherInformationDefaultRowsNumber < 7 ? 7 : otherInformationDefaultRowsNumber;
+
+        const otherInformationColumnsPosition = otherInformationHeaderPosition + 1;
+        workbook.sheet(2).row(otherInformationColumnsPosition).height(40);
+        workbook.sheet(2).range(`A${otherInformationColumnsPosition}:K${otherInformationColumnsPosition}`).style(defaultColumnStyle);
+        workbook.sheet(2).cell(`A${otherInformationColumnsPosition}`).value("31.").style({rightBorder: false});
+        workbook.sheet(2).cell(`C${otherInformationColumnsPosition}`).value("32.").style({rightBorder: false});
+        workbook.sheet(2).cell(`I${otherInformationColumnsPosition}`).value("33.").style({rightBorder: false});
+        workbook.sheet(2).cell(`B${otherInformationColumnsPosition}`).value("SPECIAL SKILLS and HOBBIES").style({leftBorder: false});
+        workbook.sheet(2).range(`D${otherInformationColumnsPosition}:H${otherInformationColumnsPosition}`).merged(true)
+            .value("NON-ACADEMIC DISTINCTIONS / RECOGNITION\n(Write in full)").style({leftBorder: false});
+        workbook.sheet(2).range(`J${otherInformationColumnsPosition}:K${otherInformationColumnsPosition}`).merged(true)
+            .value("MEMBERSHIP IN ASSOCIATION/ORGANIZATION\n(Write in full)").style({leftBorder: false});
+
+        const filledHobbyList = [];
+        const filledRecognitionList = [];
+        const filledOrganizationList = [];
+
+        for (let i = 0; i < otherInformationDefaultRowsNumber; i++) {
+            const currentHobby = hobbyList[i];
+            if (currentHobby) {
+                filledHobbyList.push(currentHobby);
+            } else {
+                filledHobbyList.push("");
+            }
+
+            const currentRecognition = recognitionList[i];
+            if (currentRecognition) {
+                filledRecognitionList.push(currentRecognition);
+            } else {
+                filledRecognitionList.push("");
+            }
+
+            const currentOrganization = organizationList[i];
+            if (currentOrganization) {
+                filledOrganizationList.push(currentOrganization);
+            } else {
+                filledOrganizationList.push("");
+            }
+
+        }
+        const otherInformationFirstInsertedRow = otherInformationColumnsPosition + 1;
+
+        for (let index = 0; index < otherInformationDefaultRowsNumber; index++) {
+            workbook.sheet(2).row(otherInformationFirstInsertedRow + index).height(27.5);
+            workbook.sheet(2).range(`A${otherInformationFirstInsertedRow + index}:K${otherInformationFirstInsertedRow + index}`).style(defaultRowItemStyle);
+            workbook.sheet(2).range(`A${otherInformationFirstInsertedRow + index}:B${otherInformationFirstInsertedRow + index}`).merged(true).value(emptyValue(filledHobbyList[index]));
+            workbook.sheet(2).range(`C${otherInformationFirstInsertedRow + index}:H${otherInformationFirstInsertedRow + index}`).merged(true).value(emptyValue(filledRecognitionList[index]));
+            workbook.sheet(2).range(`I${otherInformationFirstInsertedRow + index}:K${otherInformationFirstInsertedRow + index}`).merged(true).value(emptyValue(filledOrganizationList[index]));
+
+        }
+
+        const worksheet3FooterRowPosition = otherInformationFirstInsertedRow + otherInformationDefaultRowsNumber;
+        workbook.sheet(2).row(worksheet3FooterRowPosition).height(27.5);
+        workbook.sheet(2).range(`A${worksheet3FooterRowPosition}:K${worksheet3FooterRowPosition}`).style(footerStyle);
+        workbook.sheet(2).range(`A${worksheet3FooterRowPosition}:B${worksheet3FooterRowPosition}`).merged(true).value("SIGNATURE").style(signAndDateStyle);
+        workbook.sheet(2).range(`C${worksheet3FooterRowPosition}:F${worksheet3FooterRowPosition}`).merged(true);
+        workbook.sheet(2).range(`G${worksheet3FooterRowPosition}:H${worksheet3FooterRowPosition}`).merged(true).value("DATE").style(signAndDateStyle);
+        workbook.sheet(2).range(`I${worksheet3FooterRowPosition}:K${worksheet3FooterRowPosition}`).merged(true);
 
         return workbook;
     }
