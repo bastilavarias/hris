@@ -28,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references, governmentIssueId} = profile;
 
         const personalInformation = [
             {
@@ -681,8 +681,13 @@ const personalDataSheetService = {
         referenceList.map((details, index) => {
             workbook.sheet(3).range(`A${referenceFirstInsertedRow + index}:E${referenceFirstInsertedRow + index}`).value(emptyValue(details.name).toUpperCase());
             workbook.sheet(3).cell(`F${referenceFirstInsertedRow + index}`).value(emptyValue(details.address).toUpperCase());
-            workbook.sheet(3).db(`G${referenceFirstInsertedRow + index}:I${referenceFirstInsertedRow + index}`).value(emptyValue(details.contactNumber).toUpperCase());
+            workbook.sheet(3).range(`G${referenceFirstInsertedRow + index}:I${referenceFirstInsertedRow + index}`).value(emptyValue(details.contactNumber).toUpperCase());
         });
+
+        const {governmentId, issuanceDate, issuancePlace, licenseNumber} = governmentIssueId;
+        workbook.sheet(3).cell("D61").value(emptyValue(governmentId).toUpperCase());
+        workbook.sheet(3).range("D62:D63").value(emptyValue(licenseNumber).toUpperCase());
+        workbook.sheet(3).range("D64:D65").value(emptyValue(`${issuanceDate} / ${issuancePlace}`).toUpperCase());
 
         return workbook;
     }
