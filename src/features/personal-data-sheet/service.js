@@ -28,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings} = profile;
 
         const personalInformation = [
             {
@@ -561,6 +561,41 @@ const personalDataSheetService = {
             "( Managerial/ Supervisory/\n" +
             "Technical/etc)").style({fontSize: 7});
         workbook.sheet(2).range(`I${trainingsColumnPosition}:K${trainingsColumnPosition + 2}`).merged(true).value(" CONDUCTED/ SPONSORED BY \n(Write in full)");
+
+        const trainingList = trainings ? trainings : [];
+        const trainingsDefaultRowsNumber = trainingsColumnPosition + 3;
+        const trainingsDefaultRow = 21;
+        let filledTrainingList = [];
+        if (trainingList.length <= trainingsDefaultRowsNumber) {
+            for (let i = 0; i < trainingsDefaultRow; i++) {
+                const currentTraining = trainingList[i];
+                if (currentTraining) {
+                    filledTrainingList.push(currentTraining);
+                } else {
+                    filledTrainingList.push({
+                        type: "",
+                        dateTo: "",
+                        sponsor: "",
+                        dateFrom: "",
+                        hoursNumber: "",
+                        programTitle: ""
+                    });
+                }
+            }
+        } else {
+            filledTrainingList = trainingList;
+        }
+
+        filledTrainingList.forEach((details, index) => {
+            workbook.sheet(2).row(trainingsDefaultRowsNumber + index).height(27.5);
+            workbook.sheet(2).range(`A${trainingsDefaultRowsNumber + index}:K${trainingsDefaultRowsNumber + index}`).style(defaultRowItemStyle);
+            workbook.sheet(2).range(`A${trainingsDefaultRowsNumber + index}:D${trainingsDefaultRowsNumber + index}`).merged(true).value(details.programTitle);
+            workbook.sheet(2).cell(`E${trainingsDefaultRowsNumber + index}`).value(details.dateFrom);
+            workbook.sheet(2).cell(`F${trainingsDefaultRowsNumber + index}`).value(details.dateTo);
+            workbook.sheet(2).cell(`G${trainingsDefaultRowsNumber + index}`).value(details.hoursNumber);
+            workbook.sheet(2).cell(`G${trainingsDefaultRowsNumber + index}`).value(details.type);
+            workbook.sheet(2).range(`I${trainingsDefaultRowsNumber + index}:K${trainingsDefaultRowsNumber + index}`).merged(true).value(details.sponsor);
+        });
 
         return workbook;
     }
