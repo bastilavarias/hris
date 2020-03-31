@@ -28,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences, trainings, hobbies, recognitions, organizations, references} = profile;
 
         const personalInformation = [
             {
@@ -675,6 +675,14 @@ const personalDataSheetService = {
         workbook.sheet(2).range(`C${worksheet3FooterRowPosition}:F${worksheet3FooterRowPosition}`).merged(true);
         workbook.sheet(2).range(`G${worksheet3FooterRowPosition}:H${worksheet3FooterRowPosition}`).merged(true).value("DATE").style(signAndDateStyle);
         workbook.sheet(2).range(`I${worksheet3FooterRowPosition}:K${worksheet3FooterRowPosition}`).merged(true);
+
+        const referenceList = references ? references : [];
+        const referenceFirstInsertedRow = 52;
+        referenceList.map((details, index) => {
+            workbook.sheet(3).range(`A${referenceFirstInsertedRow + index}:E${referenceFirstInsertedRow + index}`).value(emptyValue(details.name).toUpperCase());
+            workbook.sheet(3).cell(`F${referenceFirstInsertedRow + index}`).value(emptyValue(details.address).toUpperCase());
+            workbook.sheet(3).db(`G${referenceFirstInsertedRow + index}:I${referenceFirstInsertedRow + index}`).value(emptyValue(details.contactNumber).toUpperCase());
+        });
 
         return workbook;
     }
