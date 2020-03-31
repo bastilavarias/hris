@@ -232,10 +232,8 @@ const personalDataSheetService = {
             workbook.sheet(0).cell(`N${EBDefaultRow + index}`).value(education.scholarship.toUpperCase());
         });
         const EBLastRow = EBDefaultRow + educationalBackground.length - 1;
-        workbook.sheet(0).range(`A${EBDefaultRow}:A${EBLastRow}`).style({
-            fill: "EAEAEA"
-        });
         workbook.sheet(0).range(`A${EBDefaultRow}:N${EBLastRow}`).style({
+            fill: "FFFFFF",
             fontSize: 8,
             fontFamily: "Arial Narrow",
             horizontalAlignment: "center",
@@ -244,6 +242,9 @@ const personalDataSheetService = {
             border: true,
             borderColor: "000000",
             borderStyle: "thin"
+        });
+        workbook.sheet(0).range(`A${EBDefaultRow}:A${EBLastRow}`).style({
+            fill: "EAEAEA"
         });
 
         const footerRow = EBLastRow + 1;
@@ -274,6 +275,7 @@ const personalDataSheetService = {
         const CSEDefaultRowsNumber = 7;
         const CSEDefaultRow = 5;
         const CSEStyle = {
+            fill: "FFFFFF",
             fontSize: 8,
             fontFamily: "Arial Narrow",
             horizontalAlignment: "left",
@@ -281,8 +283,7 @@ const personalDataSheetService = {
             wrapText: true,
             border: true,
             borderColor: "000000",
-            borderStyle: "thin",
-            fill: "FFFFFF"
+            borderStyle: "thin"
         };
         let filledCSEList = [];
         if (CSEList.length <= 7) {
@@ -316,7 +317,7 @@ const personalDataSheetService = {
             workbook.sheet(1).cell(`M${CSEDefaultRow + index}`).value(service.validityDate);
         });
 
-        const CSELastRow = CSEDefaultRow + filledCSEList.length;
+        const workExperienceHeaderPosition = CSEDefaultRow + filledCSEList.length;
         const workExpHeaderStyle = {
             fontFamily: "Arial Narrow",
             fontColor: "FFFFFF",
@@ -328,8 +329,8 @@ const personalDataSheetService = {
             bold: true
         };
 
-        workbook.sheet(1).row(CSELastRow).height(16.5);
-        workbook.sheet(1).range(`A${CSELastRow}:M${CSELastRow}`).merged(true).value("V. Work Experience".toUpperCase()).style({
+        workbook.sheet(1).row(workExperienceHeaderPosition).height(16.5);
+        workbook.sheet(1).range(`A${workExperienceHeaderPosition}:M${workExperienceHeaderPosition}`).merged(true).value("V. Work Experience".toUpperCase()).style({
             ...workExpHeaderStyle,
             fontSize: 11,
             topBorder: true,
@@ -343,8 +344,8 @@ const personalDataSheetService = {
             rightBorderStyle: "thick"
 
         });
-        workbook.sheet(1).row(CSELastRow + 1).height(12);
-        workbook.sheet(1).range(`A${CSELastRow + 1}:M${CSELastRow + 1}`).merged(true).value("(Include private employment. Start from your recent work) Description of duties should be indicated in the attached Work Experience sheet.").style({
+        workbook.sheet(1).row(workExperienceHeaderPosition + 1).height(12);
+        workbook.sheet(1).range(`A${workExperienceHeaderPosition + 1}:M${workExperienceHeaderPosition + 1}`).merged(true).value("(Include private employment. Start from your recent work) Description of duties should be indicated in the attached Work Experience sheet.").style({
             ...workExpHeaderStyle,
             fontSize: 10,
             bottomBorder: true,
@@ -357,6 +358,59 @@ const personalDataSheetService = {
             rightBorderColor: "000000",
             rightBorderStyle: "thick"
         });
+
+        const workExperienceColumnPosition = workExperienceHeaderPosition + 2;
+        workbook.sheet(1).range(`A${workExperienceColumnPosition}:M${workExperienceColumnPosition + 2}`).style(
+            {
+                fill: "EAEAEA",
+                fontFamily: "Arial Narrow",
+                fontSize: 8,
+                horizontalAlignment: "center",
+                verticalAlignment: "center",
+                wrapText: true
+            }
+        );
+        workbook.sheet(1).row(workExperienceColumnPosition).height(18);
+        workbook.sheet(1).row(workExperienceColumnPosition + 1).height(18);
+        workbook.sheet(1).row(workExperienceColumnPosition + 2).height(18);
+        workbook.sheet(1).range(`A${workExperienceColumnPosition}:M${workExperienceColumnPosition + 2}`).style({
+            border: true,
+            borderColor: "000000",
+            borderStyle: "thin",
+            topBorder: false,
+            bottomBorder: false
+        });
+
+        workbook.sheet(1).cell(`A${workExperienceColumnPosition}`).value("28.").style(
+            {
+                horizontalAlignment: "left",
+                verticalAlignment: "bottom",
+                rightBorder: false
+            }
+        );
+        workbook.sheet(1).cell(`A${workExperienceColumnPosition + 1}`).style(
+            {
+                rightBorder: false,
+                topBorder: false
+            }
+        );
+        workbook.sheet(1).range(`B${workExperienceColumnPosition}:C${workExperienceColumnPosition + 1}`).merged(true).value("INCLUSIVE DATES\n(mm/dd/yyyy)").style({leftBorder: false});
+        workbook.sheet(1).range(`D${workExperienceColumnPosition}:F${workExperienceColumnPosition + 2}`).merged(true).value("POSITION TITLE\n(Write in full/Do not abbreviate)");
+        workbook.sheet(1).range(`G${workExperienceColumnPosition}:I${workExperienceColumnPosition + 2}`).merged(true).value("DEPARTMENT / AGENCY / OFFICE / COMPANY\n(Write in full/Do not abbreviate)");
+        workbook.sheet(1).range(`J${workExperienceColumnPosition}:J${workExperienceColumnPosition + 2}`).merged(true).value("MONTHLY\nSALARY");
+        workbook.sheet(1).range(`K${workExperienceColumnPosition}:K${workExperienceColumnPosition + 2}`).merged(true).value(`SALARY/ JOB/ PAY GRADE (if applicable)& STEP  (Format \"00-0\")/ INCREMENT`).style({
+            fontSize: 6
+        });
+        workbook.sheet(1).range(`L${workExperienceColumnPosition}:L${workExperienceColumnPosition + 2}`).merged(true).value("STATUS OF\nAPPOINTMENT");
+        workbook.sheet(1).range(`M${workExperienceColumnPosition}:M${workExperienceColumnPosition + 2}`).merged(true).value("GOV'T SERVICE\n(Y/N)");
+        workbook.sheet(1).range(`A${workExperienceColumnPosition + 2}:B${workExperienceColumnPosition + 2}`).merged(true).value("From");
+        workbook.sheet(1).cell(`C${workExperienceColumnPosition + 2}`).value("To");
+        workbook.sheet(1).range(`A${workExperienceColumnPosition + 2}:C${workExperienceColumnPosition + 2}`).style({
+            topBorder: true,
+            topBorderColor: "000000",
+            topBorderStyle: "thin"
+        });
+
 
         return workbook;
     }
