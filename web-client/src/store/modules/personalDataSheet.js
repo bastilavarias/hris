@@ -54,11 +54,12 @@ export default {
                 throw new Error(`[RWV] ApiService ${error}`);
             }
         },
-        [generatePersonalDataSheet]: async ({commit}) => {
+        [generatePersonalDataSheet]: async ({commit}, lastName) => {
             try {
                 const result = await personalDataSheetService.generate();
                 const bufferPDS = result.data;
-                saveAs(new Blob([bufferPDS], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), "test.xlsx");
+                const fileName = `${lastName.toUpperCase()}_PDS.xlsx`;
+                saveAs(new Blob([bufferPDS], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}), fileName);
                 commit(setActionName, generatePersonalDataSheet);
             } catch (errors) {
                 commit(setActionName, "");

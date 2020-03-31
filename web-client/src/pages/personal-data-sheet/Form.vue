@@ -496,7 +496,8 @@
 
             generatePersonalDataSheetForm() {
                 this.isPDSGenerationStart = true;
-                this.$store.dispatch(generatePersonalDataSheet);
+                const lastName = this.form.profile.lastName;
+                this.$store.dispatch(generatePersonalDataSheet, lastName);
             }
         },
 
