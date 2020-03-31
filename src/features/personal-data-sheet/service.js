@@ -28,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences, voluntaryWorkExperiences} = profile;
 
         const personalInformation = [
             {
@@ -318,7 +318,7 @@ const personalDataSheetService = {
         });
 
         const workExperienceHeaderPosition = CSEDefaultRow + filledCSEList.length;
-        const workExpHeaderStyle = {
+        const defaultHeaderStyle = {
             fontFamily: "Arial Narrow",
             fontColor: "FFFFFF",
             horizontalAlignment: "left",
@@ -331,7 +331,7 @@ const personalDataSheetService = {
 
         workbook.sheet(1).row(workExperienceHeaderPosition).height(16.5);
         workbook.sheet(1).range(`A${workExperienceHeaderPosition}:M${workExperienceHeaderPosition}`).merged(true).value("V. Work Experience".toUpperCase()).style({
-            ...workExpHeaderStyle,
+            ...defaultHeaderStyle,
             fontSize: 11,
             topBorder: true,
             topBorderColor: "000000",
@@ -346,7 +346,7 @@ const personalDataSheetService = {
         });
         workbook.sheet(1).row(workExperienceHeaderPosition + 1).height(12);
         workbook.sheet(1).range(`A${workExperienceHeaderPosition + 1}:M${workExperienceHeaderPosition + 1}`).merged(true).value("(Include private employment. Start from your recent work) Description of duties should be indicated in the attached Work Experience sheet.").style({
-            ...workExpHeaderStyle,
+            ...defaultHeaderStyle,
             fontSize: 10,
             bottomBorder: true,
             bottomBorderColor: "000000",
@@ -440,14 +440,13 @@ const personalDataSheetService = {
         filledWorkExperiencesList.forEach((experience, index) => {
             workbook.sheet(1).row(workExperiencesDefaultRow + index).height(27.5);
             workbook.sheet(1).range(`A${workExperiencesDefaultRow + index}:M${workExperiencesDefaultRow + index}`).style(defaultRowItemStyle);
-            workbook.sheet(1).range(`A${workExperiencesDefaultRow + index}:B${workExperiencesDefaultRow + index}`).merged(true).value(experience.yearFrom ? experience.yearFrom : "");
-            workbook.sheet(1).cell(`C${workExperiencesDefaultRow + index}`).value(experience.yearTo ? experience.yearTo : "");
-            workbook.sheet(1).range(`D${workExperiencesDefaultRow + index}:F${workExperiencesDefaultRow + index}`).merged(true).value(experience.position ? experience.position : "");
-            workbook.sheet(1).range(`G${workExperiencesDefaultRow + index}:I${workExperiencesDefaultRow + index}`).merged(true).value(experience.companyName ? experience.companyName : "");
-            workbook.sheet(1).cell(`J${workExperiencesDefaultRow + index}`).value(experience.monthlySalary ? experience.monthlySalary : "");
+            workbook.sheet(1).range(`A${workExperiencesDefaultRow + index}:B${workExperiencesDefaultRow + index}`).merged(true).value(emptyValue(experience.yearFrom));
+            workbook.sheet(1).cell(`C${workExperiencesDefaultRow + index}`).value(emptyValue(experience.yearTo));
+            workbook.sheet(1).range(`D${workExperiencesDefaultRow + index}:F${workExperiencesDefaultRow + index}`).merged(true).value(emptyValue(experience.position));
+            workbook.sheet(1).range(`G${workExperiencesDefaultRow + index}:I${workExperiencesDefaultRow + index}`).merged(true).value(emptyValue(experience.companyName));
+            workbook.sheet(1).cell(`J${workExperiencesDefaultRow + index}`).value(emptyValue(experience.monthlySalary));
             workbook.sheet(1).cell(`L${workExperiencesDefaultRow + index}`).value(experience.companyName ? experience.isFullTime ? "Full Time" : "Part Time" : "");
             workbook.sheet(1).cell(`M${workExperiencesDefaultRow + index}`).value(experience.companyName ? experience.isGovernmentService ? "Yes" : "No" : "");
-
         });
 
         const worksheet2FooterRowPosition = workExperiencesDefaultRow + filledWorkExperiencesList.length;
@@ -457,6 +456,42 @@ const personalDataSheetService = {
         workbook.sheet(1).range(`D${worksheet2FooterRowPosition}:H${worksheet2FooterRowPosition}`).merged(true);
         workbook.sheet(1).cell(`I${worksheet2FooterRowPosition}`).value("DATE").style(signAndDateStyle);
         workbook.sheet(1).range(`J${worksheet2FooterRowPosition}:M${worksheet2FooterRowPosition}`).merged(true);
+
+
+        const voluntaryWorkExperiencesList = voluntaryWorkExperiences ? voluntaryWorkExperiences : [];
+        const voluntaryWorkExperiencesDefaultRowsNumber = 7;
+        const voluntaryWorkExperiencesDefaultRow = 6;
+        let filledVoluntaryExperiencesList = [];
+        if (voluntaryWorkExperiencesList.length <= voluntaryWorkExperiencesDefaultRowsNumber) {
+            for (let i = 0; i < voluntaryWorkExperiencesDefaultRow; i++) {
+                const currentVoluntaryWorkExperience = voluntaryWorkExperiencesList[i];
+                if (currentVoluntaryWorkExperience) {
+                    filledVoluntaryExperiencesList.push(currentVoluntaryWorkExperience);
+                } else {
+                    filledVoluntaryExperiencesList.push({
+                        yearTo: "",
+                        address: "",
+                        position: "",
+                        yearFrom: "",
+                        companyName: "",
+                        hoursNumber: ""
+                    });
+                }
+            }
+        } else {
+            filledVoluntaryExperiencesList = voluntaryWorkExperiencesList;
+        }
+
+        filledVoluntaryExperiencesList.forEach((experience, index) => {
+            workbook.sheet(2).row(voluntaryWorkExperiencesDefaultRow + index).height(27.5);
+            workbook.sheet(2).range(`A${voluntaryWorkExperiencesDefaultRow + index}:K${voluntaryWorkExperiencesDefaultRow + index}`.toUpperCase()).style(defaultRowItemStyle);
+            workbook.sheet(2).range(`A${voluntaryWorkExperiencesDefaultRow + index}:D${voluntaryWorkExperiencesDefaultRow + index}`).merged(true).value(`${experience.companyName}\n${experience.address}`.toUpperCase());
+            workbook.sheet(2).cell(`E${voluntaryWorkExperiencesDefaultRow + index}`).value(`${emptyValue(experience.yearFrom)}`);
+            workbook.sheet(2).cell(`F${voluntaryWorkExperiencesDefaultRow + index}`).value(`${emptyValue(experience.yearTo)}`);
+            workbook.sheet(2).cell(`G${voluntaryWorkExperiencesDefaultRow + index}`).value(`${emptyValue(experience.hoursNumber)}`);
+            workbook.sheet(2).range(`H${voluntaryWorkExperiencesDefaultRow + index}:K${voluntaryWorkExperiencesDefaultRow + index}`).merged(true).value(`${emptyValue(experience.position)}`.toUpperCase());
+        });
+
         return workbook;
     }
 };
