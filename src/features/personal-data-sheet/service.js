@@ -28,7 +28,7 @@ const personalDataSheetService = {
 
     formatWorkBook: (workbook, employeeInformation) => {
         const {profile} = employeeInformation;
-        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility} = profile;
+        const {lastName, middleName, firstName, extension, birthDate, citizenship, birthPlace, sex, civilStatus, height, weight, bloodType, benefit, address, contact, family, education, civilServiceEligibility, workExperiences} = profile;
 
         const personalInformation = [
             {
@@ -274,11 +274,11 @@ const personalDataSheetService = {
         const CSEList = civilServiceEligibility ? civilServiceEligibility : [];
         const CSEDefaultRowsNumber = 7;
         const CSEDefaultRow = 5;
-        const CSEStyle = {
+        const defaultRowItemStyle = {
             fill: "FFFFFF",
             fontSize: 8,
             fontFamily: "Arial Narrow",
-            horizontalAlignment: "left",
+            horizontalAlignment: "center",
             verticalAlignment: "center",
             wrapText: true,
             border: true,
@@ -286,7 +286,7 @@ const personalDataSheetService = {
             borderStyle: "thin"
         };
         let filledCSEList = [];
-        if (CSEList.length <= 7) {
+        if (CSEList.length <= CSEDefaultRowsNumber) {
             for (let i = 0; i < CSEDefaultRowsNumber; i++) {
                 const currentCSE = CSEList[i];
                 if (currentCSE) {
@@ -308,7 +308,7 @@ const personalDataSheetService = {
 
         filledCSEList.forEach((service, index) => {
             workbook.sheet(1).row(CSEDefaultRow + index).height(27.5);
-            workbook.sheet(1).range(`A${CSEDefaultRow + index}:M${CSEDefaultRow + index}`).style(CSEStyle);
+            workbook.sheet(1).range(`A${CSEDefaultRow + index}:M${CSEDefaultRow + index}`).style(defaultRowItemStyle);
             workbook.sheet(1).range(`A${CSEDefaultRow + index}:E${CSEDefaultRow + index}`).merged(true).value(service.licenseTitle.toUpperCase());
             workbook.sheet(1).cell(`F${CSEDefaultRow + index}`).value(service.rating.toUpperCase());
             workbook.sheet(1).range(`G${CSEDefaultRow + index}:H${CSEDefaultRow + index}`).merged(true).value(service.examinationDate);
@@ -409,6 +409,45 @@ const personalDataSheetService = {
             topBorder: true,
             topBorderColor: "000000",
             topBorderStyle: "thin"
+        });
+
+        const workExperiencesList = workExperiences ? workExperiences : [];
+        const workExperiencesDefaultRowsNumber = 24;
+        const workExperiencesDefaultRow = workExperienceColumnPosition + 3;
+        let filledWorkExperiencesList = [];
+        if (workExperiencesList.length <= workExperiencesDefaultRowsNumber) {
+            for (let i = 0; i < workExperiencesDefaultRow; i++) {
+                const currentWorkExperience = workExperiencesList[i];
+                if (currentWorkExperience) {
+                    filledWorkExperiencesList.push(currentWorkExperience);
+                } else {
+                    filledWorkExperiencesList.push({
+                        companyName: "",
+                        position: "",
+                        monthlySalary: "",
+                        yearFrom: "",
+                        yearTo: "",
+                        isFullTime: false,
+                        isGovernmentService: false
+                    });
+                }
+            }
+        } else {
+            filledWorkExperiencesList = workExperiencesList;
+        }
+
+
+        filledWorkExperiencesList.forEach((experience, index) => {
+            workbook.sheet(1).row(workExperiencesDefaultRow + index).height(27.5);
+            workbook.sheet(1).range(`A${workExperiencesDefaultRow + index}:M${workExperiencesDefaultRow + index}`).style(defaultRowItemStyle);
+            workbook.sheet(1).range(`A${workExperiencesDefaultRow + index}:B${workExperiencesDefaultRow + index}`).merged(true).value(experience.yearFrom ? experience.yearFrom : "");
+            workbook.sheet(1).cell(`C${workExperiencesDefaultRow + index}`).value(experience.yearTo ? experience.yearTo : "");
+            workbook.sheet(1).range(`D${workExperiencesDefaultRow + index}:F${workExperiencesDefaultRow + index}`).merged(true).value(experience.position ? experience.position : "");
+            workbook.sheet(1).range(`G${workExperiencesDefaultRow + index}:I${workExperiencesDefaultRow + index}`).merged(true).value(experience.companyName ? experience.companyName : "");
+            workbook.sheet(1).cell(`J${workExperiencesDefaultRow + index}`).value(experience.monthlySalary ? experience.monthlySalary : "");
+            workbook.sheet(1).cell(`L${workExperiencesDefaultRow + index}`).value(experience.companyName ? experience.isFullTime ? "Full Time" : "Part Time" : "");
+            workbook.sheet(1).cell(`M${workExperiencesDefaultRow + index}`).value(experience.companyName ? experience.isGovernmentService ? "Yes" : "No" : "");
+
         });
 
 
