@@ -7,9 +7,11 @@ module.exports = {
         let poolQuery;
         try {
             poolQuery = await pool.query(query, params);
-            pool.end();
         } catch (errors) {
             console.log(errors);
+        }
+        finally {
+            pool.end();
         }
         return poolQuery;
     }

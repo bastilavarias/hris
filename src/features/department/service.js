@@ -13,7 +13,8 @@ module.exports = {
                 error
             };
         }
-        await departmentModel.create({name, description, employeeId});
+        const createdDepartmentId = await departmentModel.create({name, description});
+        await departmentModel.createDepartmentHead(createdDepartmentId, employeeId);
         message = "New department is created.";
         return {
             error,

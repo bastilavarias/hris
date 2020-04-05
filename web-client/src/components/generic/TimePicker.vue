@@ -17,6 +17,7 @@
 					:value="convertMilitaryTime(timeLocal)"
 					:solo="solo"
 					v-on="on"
+					:outlined="outlined"
 			></v-text-field>
 		</template>
 		<v-time-picker
@@ -47,6 +48,11 @@
 			},
 
 			solo: {
+	            type: Boolean,
+				required: false
+			},
+
+			outlined: {
 	            type: Boolean,
 				required: false
 			}

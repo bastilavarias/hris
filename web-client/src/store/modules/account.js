@@ -47,30 +47,12 @@ const actions = [
                 route: {name: "designation-management"},
                 subActions: []
             },
-            // {
-            //     name: "Schedule Management",
-            //     icon: "clock",
-            //     route: {name: "faculty-schedule-list"},
-            //     subActions: []
-            // },
-            // {
-            //     name: "Employee Tagging",
-            //     icon: "tag",
-            //     route: {name: "personnel-schedule-list"},
-            //     subActions: []
-            // },
-            // {
-            //     name: "Leave Management",
-            //     icon: "message-arrow-right",
-            //     route: {name: "department-level-leave-management"},
-            //     subActions: []
-            // },
-            // {
-            //     name: "Time Card Management",
-            //     icon: "calendar-clock",
-            //     route: {name: "time-card-management"},
-            //     subActions: []
-            // }
+            {
+                name: "Schedule Management",
+                icon: "clock",
+                route: {name: "personnel-schedule-list"},
+                subActions: []
+            },
         ]
     },
     {

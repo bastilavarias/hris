@@ -53,5 +53,22 @@ export default [
                 component: () => import("../../pages/employee/UpdateForm")
             }
         ]
+    },
+
+    {
+        path: "personnel-schedule-management",
+        component: () => import("../../layouts/Sub"),
+        children: [
+            {
+                path: "",
+                name: "personnel-schedule-list",
+                component: () => import("../../pages/schedule/personnel/List")
+            },
+            {
+                path: ":operation",
+                name: "personnel-schedule-form",
+                component: () => import("../../pages/schedule/personnel/Form")
+            }
+        ]
     }
 ];

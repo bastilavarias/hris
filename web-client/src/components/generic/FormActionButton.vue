@@ -1,10 +1,12 @@
 <template>
-	<div>
-		<v-btn color="primary" block @click="create" :disabled="disabled" :loading="isLoading"
-			   v-if="operation === 'create'">Submit
-		</v-btn>
-		<v-btn color="secondary" block @click="update" :disabled="disabled" :loading="isLoading" v-else>Update</v-btn>
-	</div>
+	<v-row dense>
+		<v-col cols="12">
+			<v-btn color="primary" block @click="create" :disabled="disabled" :loading="isLoading"
+				   v-if="operation === 'create'">Submit
+			</v-btn>
+			<v-btn color="secondary" block @click="update" :disabled="disabled" :loading="isLoading" v-else>Update</v-btn>
+		</v-col>
+	</v-row>
 </template>
 
 <script>

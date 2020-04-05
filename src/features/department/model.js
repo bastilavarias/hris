@@ -1,7 +1,7 @@
 const db = require("../../db");
 
 module.exports = {
-    create: async ({name, description, employeeId}) => {
+    create: async ({name, description}) => {
         const query = `insert into department (name, description)
                        values (?, ?);`;
         const params = [
@@ -26,9 +26,20 @@ module.exports = {
     },
 
     getAll: async () => {
-        const query = `select id, name, description
-                       from department
-                       where is_deleted = ?;`;
+        const query = `select d.id,
+                              d.name,
+                              d.description,
+                              (select json_object('profile',
+                                                  (select json_object('firstName', first_name, 'middleName',
+                                                                      middle_name, 'lastName', last_name)
+                                                   from profile
+                                                   where id = e.profile_id)
+                                          )
+                               from employee e
+                               where id = dh.employee_id) as head
+                       from department d
+                                join department_head dh on d.id = dh.department_id
+                       where d.is_deleted = ?;`;
         const params = [
             false
         ];
@@ -79,6 +90,13 @@ module.exports = {
             true,
             departmentId
         ];
+        await db.executeQuery(query, params);
+    },
+
+    createDepartmentHead: async (departmentId, employeeId) => {
+        const query = `insert into department_head (employee_id, department_id)
+                       values (?, ?);`;
+        const params = [departmentId, employeeId];
         await db.executeQuery(query, params);
     }
 };

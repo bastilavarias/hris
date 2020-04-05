@@ -12,11 +12,41 @@
 				<v-col cols="12">
 					<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
 				</v-col>
+				<v-col cols="12">
+					<v-autocomplete v-model="form.employeeId" label="Department Head" outlined
+									:search-input.sync="form.employeeLastName" :items="employees"
+									:loading="isEmployeeListSearchStart" item-value="id" item-text="profile.lastName" :filter="() => true" cache-items>
+						<template v-slot:item="{item}">
+							<v-list-item-content>
+								<v-list-item-subtitle class="text-uppercase font-weight-bold">
+									{{item.employeeNumber}}
+								</v-list-item-subtitle>
+								<v-list-item-title class="text-capitalize">
+									{{item.profile.firstName}}
+									{{getTextFirstLetter(item.profile.middleName)}}.
+									{{item.profile.lastName}}
+								</v-list-item-title>
+								<v-list-item-subtitle class="text-capitalize">
+									{{item.department.name}}
+								</v-list-item-subtitle>
+							</v-list-item-content>
+						</template>
+						<template v-slot:selection="{item}">
+							<span class="text-capitalize">
+								{{item.profile.firstName}}
+								{{getTextFirstLetter(item.profile.middleName)}}.
+								{{item.profile.lastName}}
+							</span>
+						</template>
+					</v-autocomplete>
+				</v-col>
 			</v-row>
+		</v-card-text>
+		<v-card-actions>
 			<generic-form-action-button :operation="operation" :create="create" :update="update"
 										:disabled="!isFormValid"
 										:is-loading="isLoading"></generic-form-action-button>
-		</v-card-text>
+		</v-card-actions>
 	</v-card>
 </template>
 
@@ -34,11 +64,13 @@
     import GenericCollegeSelection from "../../components/selection/College";
     import GenericBackButton from "../../components/generic/BackButton";
     import customUtilities from "../../services/customUtilities";
+    import {searchEmployees, setEmployees} from "../../store/types/employee";
 
     const defaultForm = {
         name: "",
         description: "",
-        employeeId: null
+        employeeId: null,
+        employeeLastName: ""
     };
 
     export default {
@@ -52,7 +84,8 @@
                 form: Object.assign({}, defaultForm),
                 defaultForm,
                 operation: "create",
-                isLoading: false
+                isLoading: false,
+                isEmployeeListSearchStart: false
             };
         },
 
@@ -70,6 +103,10 @@
             colleges() {
                 return this.$store.state.college.list;
             },
+
+            employees() {
+                return this.$store.state.employee.list;
+            }
         },
 
         watch: {
@@ -99,6 +136,12 @@
                     this.$store.commit(setDepartmentError, []);
                     this.$store.commit(setActionName, "");
                     this.$router.push({name: "department-list"});
+                    return;
+                }
+
+                if (name === searchEmployees) {
+                    this.isEmployeeListSearchStart = false;
+                    this.$store.commit(setActionName, "");
                 }
             },
 
@@ -107,6 +150,19 @@
                 this.form.name = department.name;
                 this.form.description = department.description;
                 this.isLoading = false;
+            },
+
+            "form.employeeLastName"(lastName) {
+                this.isEmployeeListSearchStart = true;
+                if (lastName) {
+                    const searchConfig = {
+                        option: "last name",
+                        value: lastName
+                    };
+                    return this.$store.dispatch(searchEmployees, searchConfig);
+                }
+                this.isEmployeeListSearchStart = false;
+                this.$store.commit(setEmployees, []);
             }
         },
 
