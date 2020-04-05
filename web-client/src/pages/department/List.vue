@@ -27,7 +27,7 @@
 				<span class="text-uppercase">{{item.college ? item.college.name : "N/A"}}</span>
 			</template>
 			<template v-slot:item.employee="{item}">
-				<span class="text-uppercase">{{item.employee ? item.employee.name : "N/A"}}</span>
+				<span class="text-capitalize">{{item.head ? `${item.head.profile.firstName} ${item.head.profile.middleName ? `${getTextFirstLetter(item.head.profile.middleName)}.` : ""} ${item.head.profile.lastName}` : "N/A"}}</span>
 			</template>
 			<template v-slot:item.actions="{item}">
 				<v-btn icon @click="update(item)">
@@ -58,6 +58,7 @@
     } from "../../store/types/department";
     import {setActionName} from "../../store/types/action";
     import GenericConfirmDialog from "../../components/generic/CustomDialog";
+    import customUtilities from "../../services/customUtilities";
 
     const tableHeaders = [
         {
@@ -97,6 +98,8 @@
                 selectedItem: {}
             };
         },
+
+        mixins: [customUtilities],
 
         computed: {
             departments() {

@@ -13,9 +13,9 @@
 					<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
 				</v-col>
 				<v-col cols="12">
-					<v-autocomplete v-model="form.employeeId" label="Department Head" outlined
-									:search-input.sync="form.employeeLastName" :items="employees"
-									:loading="isEmployeeListSearchStart" item-value="id" item-text="profile.lastName" :filter="() => true" cache-items>
+					<v-autocomplete v-model="form.selectedDepartmentHead" label="Department Head" outlined
+									:search-input.sync="form.employeeLastName" :items="employeesLocal"
+									:loading="isEmployeeListSearchStart" return-object item-text="profile.lastName" :filter="() => true" cache-items>
 						<template v-slot:item="{item}">
 							<v-list-item-content>
 								<v-list-item-subtitle class="text-uppercase font-weight-bold">
@@ -69,7 +69,7 @@
     const defaultForm = {
         name: "",
         description: "",
-        employeeId: null,
+        selectedDepartmentHead: null,
         employeeLastName: ""
     };
 
@@ -85,7 +85,8 @@
                 defaultForm,
                 operation: "create",
                 isLoading: false,
-                isEmployeeListSearchStart: false
+                isEmployeeListSearchStart: false,
+				employeesLocal: []
             };
         },
 
@@ -149,6 +150,8 @@
                 if (Object.keys(department).length <= 0) return this.$router.push({name: "department-list"});
                 this.form.name = department.name;
                 this.form.description = department.description;
+                this.employeesLocal.push(department.head);
+                this.form.selectedDepartmentHead = department.head;
                 this.isLoading = false;
             },
 
@@ -163,20 +166,28 @@
                 }
                 this.isEmployeeListSearchStart = false;
                 this.$store.commit(setEmployees, []);
-            }
+            },
+
+			"$store.state.employee.list"(employees) {
+                this.employeesLocal = employees;
+			}
         },
 
         methods: {
             create() {
+                this.form.employeeId = this.form.selectedDepartmentHead.id;
                 this.$store.dispatch(createDepartment, this.form);
                 this.isLoading = true;
             },
 
             update() {
                 const departmentId = this.$route.params.departmentId;
+                const {name, description, selectedDepartmentHead} = this.form;
                 this.$store.dispatch(updateDepartment, {
                     departmentId,
-                    details: this.form
+                    details: {
+                        name, description, employeeId: selectedDepartmentHead.id
+					}
                 });
                 this.isLoading = true;
             }

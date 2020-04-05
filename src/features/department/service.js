@@ -42,6 +42,7 @@ module.exports = {
             };
         }
         await departmentModel.update(departmentId, {name, description, employeeId});
+        await departmentModel.updateDepartmentHead(departmentId, employeeId);
         message = "Department is updated.";
         return {
             message,

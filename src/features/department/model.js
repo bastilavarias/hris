@@ -8,7 +8,8 @@ module.exports = {
             name.toLowerCase(),
             description.toLowerCase()
         ];
-        await db.executeQuery(query, params);
+        const result = await db.executeQuery(query, params);
+        return result[0].insertId;
     },
 
     update: async (departmentId, {name, description}) => {
@@ -29,7 +30,11 @@ module.exports = {
         const query = `select d.id,
                               d.name,
                               d.description,
-                              (select json_object('profile',
+                              (select json_object('id', e.id,
+                                                  'employeeNumber', e.employee_number,
+                                                  'isDeleted', e.is_deleted,
+                                                  'createdAt', e.created_at,
+                                                  'profile',
                                                   (select json_object('firstName', first_name, 'middleName',
                                                                       middle_name, 'lastName', last_name)
                                                    from profile
@@ -48,10 +53,28 @@ module.exports = {
     },
 
     getSingle: async (departmentId) => {
-        const query = `select id, name, description
-                       from department
-                       where id = ?
-                         and is_deleted = ?;`;
+        const query = `select d.id,
+                              d.name,
+                              d.description,
+                              (select json_object('id', e.id,
+                                                  'profile',
+                                                  (select json_object('firstName', first_name, 'middleName',
+                                                                      middle_name, 'lastName', last_name)
+                                                   from profile
+                                                   where id = e.profile_id),
+                                                  'department', (select json_object('id', d.id, 'name', d.name)
+                                                                 from department d
+                                                                 where d.id = e.department_id),
+                                                  'designation', (select json_object('id', d.id, 'name', d.name)
+                                                                  from designation d
+                                                                  where d.id = e.designation_id)
+                                          )
+                               from employee e
+                               where id = dh.employee_id) as head
+                       from department d
+                                join department_head dh on d.id = dh.department_id
+                       where d.id = ?
+                         AND d.is_deleted = ?;`;
         const params = [
             departmentId,
             false
@@ -96,7 +119,13 @@ module.exports = {
     createDepartmentHead: async (departmentId, employeeId) => {
         const query = `insert into department_head (employee_id, department_id)
                        values (?, ?);`;
-        const params = [departmentId, employeeId];
+        const params = [employeeId, departmentId];
+        await db.executeQuery(query, params);
+    },
+
+    updateDepartmentHead: async (departmentId, employeeId) => {
+        const query = `update department_head set employee_id = ? where department_id = ?;`;
+        const params = [employeeId, departmentId];
         await db.executeQuery(query, params);
     }
 };
