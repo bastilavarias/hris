@@ -327,5 +327,37 @@ module.exports = {
         const params = [accountId, false];
         const results = await db.executeQuery(query, params);
         return results[0][0] ? results[0][0] : {};
+    },
+
+    getBasicInformation: async (employeeId) => {
+        const query = `select e.id,
+                              e.employee_number             as employeeNumber,
+                              e.created_at                  as createdAt,
+                              e.is_full_time                as isFullTime,
+                              (select json_object(
+                                              'firstName', first_name,
+                                              'middleName', middle_name,
+                                              'lastName', last_name,
+                                              'extension', extension,
+                                              'photo', (select url from photo where id = p.photo_id)
+                                          )
+                               from profile
+                               where id = e.profile_id)     as profile,
+                              (select json_object('username', username)
+                               from account
+                               where id = e.account_id)     as account,
+                              (select json_object('id', id, 'name', name)
+                               from designation
+                               where id = e.designation_id) as designation,
+                              (select json_object('id', id, 'name', name)
+                               from department
+                               where id = e.department_id)  as department
+                       from employee e
+                                join profile p on e.profile_id = p.id
+                       where e.id = ?
+                         AND e.is_deleted = ?;`;
+        const params = [employeeId, false];
+        const results = await db.executeQuery(query, params);
+        return results[0][0] ? results[0][0] : {};
     }
 };
