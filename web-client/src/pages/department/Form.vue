@@ -120,7 +120,7 @@
 
                 if (name === createDepartment) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setDepartmentError, []);
+                    this.$store.commit(setDepartmentError, {});
                     this.$store.commit(setActionName, "");
                     this.isLoading = false;
                     return;
@@ -134,7 +134,7 @@
 
                 if (name === updateDepartment) {
                     this.form = Object.assign({}, this.defaultForm);
-                    this.$store.commit(setDepartmentError, []);
+                    this.$store.commit(setDepartmentError, {});
                     this.$store.commit(setActionName, "");
                     this.$router.push({name: "department-list"});
                     return;
@@ -210,7 +210,7 @@
 
         destroyed() {
             this.$store.commit(setDepartments, []);
-            this.$store.commit(setDepartmentError, []);
+            this.$store.commit(setDepartmentError, {});
             this.$store.commit(setActionName, "");
         }
     };

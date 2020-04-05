@@ -15,13 +15,13 @@ import {
 
 export default {
     state: {
-        error: [],
+        error: {},
         list: [],
         current: {}
     },
 
     mutations: {
-        [setDepartmentError]: (state, errors) => state.error = errors,
+        [setDepartmentError]: (state, error) => state.error = error,
         [setDepartments]: (state, departments) => state.list = departments,
         [setCurrentDepartment]: (state, department) => state.current = department
     },
