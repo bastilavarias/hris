@@ -48,9 +48,9 @@ const actions = [
                 subActions: []
             },
             {
-                name: "Schedule Management",
+                name: "Schedule Tagger",
                 icon: "clock",
-                route: {name: "personnel-schedule-list"},
+                route: {name: "personnel-schedule-tagger"},
                 subActions: []
             },
         ]

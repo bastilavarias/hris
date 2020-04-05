@@ -61,13 +61,8 @@ export default [
         children: [
             {
                 path: "",
-                name: "personnel-schedule-list",
-                component: () => import("../../pages/schedule/personnel/List")
-            },
-            {
-                path: ":operation",
-                name: "personnel-schedule-form",
-                component: () => import("../../pages/schedule/personnel/Form")
+                name: "personnel-schedule-tagger",
+                component: () => import("../../pages/schedule/personnel/Tagger")
             }
         ]
     }

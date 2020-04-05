@@ -15,6 +15,19 @@ module.exports = {
             console.log(errors);
             res.status(400).json(errors);
         }
+    },
 
+    searchPersonnelScheduleByDateRanges: async (req, res) => {
+        const employeeId = toNumber(req.params.employeeId);
+        const fromDate = emptyValue(req.body.fromDate);
+        const toDate = emptyValue(req.body.toDate);
+
+        try {
+            const result = await scheduleService.searchPersonnelScheduleByDateRanges({employeeId, fromDate, toDate});
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
     }
 };

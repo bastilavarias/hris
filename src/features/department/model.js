@@ -57,6 +57,7 @@ module.exports = {
                               d.name,
                               d.description,
                               (select json_object('id', e.id,
+                                                  'employeeNumber', e.employee_number,
                                                   'profile',
                                                   (select json_object('firstName', first_name, 'middleName',
                                                                       middle_name, 'lastName', last_name)
@@ -142,7 +143,9 @@ module.exports = {
     },
 
     updateDepartmentHead: async (departmentId, employeeId) => {
-        const query = `update department_head set employee_id = ? where department_id = ?;`;
+        const query = `update department_head
+                       set employee_id = ?
+                       where department_id = ?;`;
         const params = [employeeId, departmentId];
         await db.executeQuery(query, params);
     }

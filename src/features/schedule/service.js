@@ -1,6 +1,6 @@
 const moment = require("moment");
 const scheduleModel = require("./model");
-const employeeModel = require("../employee/model")
+const employeeModel = require("../employee/model");
 
 const accountService = {
     createPersonnelSchedule: async ({employeeId, monthNumber, startTime, endTime}) => {
@@ -23,7 +23,7 @@ const accountService = {
         const daysInMonth = moment(`${currentYear}-${monthNumber + 1}`, "YYYY-MM").daysInMonth();
         for (let index = 1; index <= daysInMonth; index++) {
             const generatedDate = new Date(`${monthNames[monthNumber]} ${index}, ${currentYear}`);
-            await scheduleModel.createPersonnelSchedule({employeeId, currentDate: generatedDate, startTime, endTime})
+            await scheduleModel.createPersonnelSchedule({employeeId, currentDate: generatedDate, startTime, endTime});
         }
         const gotEmployeeBasicInformation = await employeeModel.getBasicInformation(employeeId);
         const {lastName} = gotEmployeeBasicInformation.profile;
@@ -31,8 +31,14 @@ const accountService = {
 
         return {
             message
-        }
-    }
+        };
+    },
+
+    searchPersonnelScheduleByDateRanges: async ({employeeId, fromDate, toDate}) => scheduleModel.searchPersonnelScheduleByDateRanges({
+        employeeId,
+        fromDate,
+        toDate
+    })
 };
 
 module.exports = accountService;

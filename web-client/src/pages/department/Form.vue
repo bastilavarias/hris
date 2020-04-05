@@ -13,32 +13,16 @@
 					<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
 				</v-col>
 				<v-col cols="12">
-					<v-autocomplete v-model="form.selectedDepartmentHead" label="Department Head" outlined
-									:search-input.sync="form.employeeLastName" :items="employeesLocal"
-									:loading="isEmployeeListSearchStart" return-object item-text="profile.lastName" :filter="() => true" cache-items>
-						<template v-slot:item="{item}">
-							<v-list-item-content>
-								<v-list-item-subtitle class="text-uppercase font-weight-bold">
-									{{item.employeeNumber}}
-								</v-list-item-subtitle>
-								<v-list-item-title class="text-capitalize">
-									{{item.profile.firstName}}
-									{{getTextFirstLetter(item.profile.middleName)}}.
-									{{item.profile.lastName}}
-								</v-list-item-title>
-								<v-list-item-subtitle class="text-capitalize">
-									{{item.department.name}}
-								</v-list-item-subtitle>
-							</v-list-item-content>
-						</template>
-						<template v-slot:selection="{item}">
-							<span class="text-capitalize">
-								{{item.profile.firstName}}
-								{{getTextFirstLetter(item.profile.middleName)}}.
-								{{item.profile.lastName}}
-							</span>
-						</template>
-					</v-autocomplete>
+					<generic-employee-autocomplete label="Department Head" outlined
+												   :employee.sync="form.selectedDepartmentHead"
+												   :search-options.sync="searchOptions"
+												   :search-value.sync="searchValue"
+												   :search-option.sync="searchOption"
+												   :is-loading="isEmployeeListSearchStart"
+												   :employees="employeesLocal"
+												   :search-options-column="3"
+												   :search-bar-column="9"
+					></generic-employee-autocomplete>
 				</v-col>
 			</v-row>
 		</v-card-text>
@@ -65,16 +49,17 @@
     import GenericBackButton from "../../components/generic/BackButton";
     import customUtilities from "../../services/customUtilities";
     import {searchEmployees, setEmployees} from "../../store/types/employee";
+    import GenericEmployeeAutocomplete from "../../components/generic/EmployeeAutocomplete";
 
     const defaultForm = {
         name: "",
         description: "",
-        selectedDepartmentHead: null,
-        employeeLastName: ""
+        selectedDepartmentHead: null
     };
 
     export default {
         components: {
+            GenericEmployeeAutocomplete,
             GenericBackButton,
             GenericCollegeSelection, GenericFormActionButton, GenericCardBackButton
         },
@@ -86,7 +71,13 @@
                 operation: "create",
                 isLoading: false,
                 isEmployeeListSearchStart: false,
-				employeesLocal: []
+                searchValue: "",
+                searchOptions: [
+                    "employee number",
+                    "last name"
+                ],
+                searchOption: "",
+                employeesLocal: []
             };
         },
 
@@ -106,6 +97,7 @@
             },
 
             employees() {
+                this.isEmployeeListSearchStart = false;
                 return this.$store.state.employee.list;
             }
         },
@@ -122,6 +114,7 @@
                     this.form = Object.assign({}, this.defaultForm);
                     this.$store.commit(setDepartmentError, {});
                     this.$store.commit(setActionName, "");
+                    this.searchOption = "";
                     this.isLoading = false;
                     return;
                 }
@@ -151,28 +144,31 @@
                 this.form.name = department.name;
                 this.form.description = department.description;
                 if (department.head) {
+                    this.searchOption = "last name";
                     this.employeesLocal.push(department.head);
                     this.form.selectedDepartmentHead = department.head;
-				}
+                }
                 this.isLoading = false;
             },
 
-            "form.employeeLastName"(lastName) {
+            searchValue(query) {
                 this.isEmployeeListSearchStart = true;
-                if (lastName) {
-                    const searchConfig = {
-                        option: "last name",
-                        value: lastName
-                    };
-                    return this.$store.dispatch(searchEmployees, searchConfig);
+                if (query && this.searchOption) {
+                    if (query.trim() && ["employee number", "last name"].includes(this.searchOption)) {
+                        const searchConfig = {
+                            option: this.searchOption,
+                            value: query
+                        };
+                        return this.$store.dispatch(searchEmployees, searchConfig);
+                    }
                 }
                 this.isEmployeeListSearchStart = false;
-                this.$store.commit(setEmployees, []);
+                return this.$store.commit(setEmployees, []);
             },
 
-			"$store.state.employee.list"(employees) {
-                this.employeesLocal = employees;
-			}
+            employees(value) {
+                this.employeesLocal = value;
+            }
         },
 
         methods: {
@@ -192,7 +188,7 @@
                     departmentId,
                     details: {
                         name, description, employeeId: selectedDepartmentHead.id
-					}
+                    }
                 });
                 this.isLoading = true;
             }
