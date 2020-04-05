@@ -150,8 +150,10 @@
                 if (Object.keys(department).length <= 0) return this.$router.push({name: "department-list"});
                 this.form.name = department.name;
                 this.form.description = department.description;
-                this.employeesLocal.push(department.head);
-                this.form.selectedDepartmentHead = department.head;
+                if (department.head) {
+                    this.employeesLocal.push(department.head);
+                    this.form.selectedDepartmentHead = department.head;
+				}
                 this.isLoading = false;
             },
 
@@ -175,8 +177,11 @@
 
         methods: {
             create() {
-                this.form.employeeId = this.form.selectedDepartmentHead.id;
-                this.$store.dispatch(createDepartment, this.form);
+                const {name, description, selectedDepartmentHead} = this.form;
+
+                this.$store.dispatch(createDepartment, {
+                    name, description, employeeId: selectedDepartmentHead.id
+                });
                 this.isLoading = true;
             },
 
