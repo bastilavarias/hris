@@ -13,9 +13,10 @@
 				type="table"
 				tile
 				class="mx-auto"
-				v-if="isEmployeeScheduleSearchStart"
+				v-if="isPersonnelScheduleSearchStart"
 		></v-skeleton-loader>
-		<v-data-table :headers="tableHeaders" :items="personnelSchedule" v-else>
+		<v-data-table v-model="selectedScheduleList" :headers="tableHeaders" :items="personnelSchedule" show-select
+					  v-else>
 			<template v-slot:top>
 				<v-card-text>
 					<v-row dense>
@@ -42,11 +43,54 @@
 												:disabled="hasEmployeeSelected"></generic-date-input>
 						</v-col>
 						<v-col cols="12" md="2">
-							<v-btn color="primary" large block @click="searchSchedule" :disabled="!isSearchScheduleFormValid">
+							<v-btn color="primary" large block @click="searchSchedule"
+								   :disabled="!isSearchScheduleFormValid">
 								<span class="mr-1">Search</span>
 								<v-icon>mdi-database-search</v-icon>
 							</v-btn>
 						</v-col>
+					</v-row>
+					<v-row justify="end" align="center">
+						<div class="mr-3">
+							<v-dialog v-model="isUpdateDialogShow" max-width="350">
+								<template v-slot:activator="{ on }">
+									<v-btn fab color="secondary" small
+										   class="mr-2" :disabled="!hasSelectedSchedule" v-on="on">
+										<v-icon>mdi-pencil</v-icon>
+									</v-btn>
+								</template>
+								<v-card>
+									<v-card-title>Change Time Details</v-card-title>
+									<v-card-text>
+										<v-row dense>
+											<v-col cols="12">
+												<v-text-field readonly outlined label="Selected Date"
+															  :value="getSelectedScheduleDateRange"></v-text-field>
+											</v-col>
+											<v-col cols="12">
+												<generic-time-picker :time.sync="selectedStartTime" label="Start Time"
+																	 outlined></generic-time-picker>
+											</v-col>
+											<v-col cols="12">
+												<generic-time-picker :time.sync="selectedEndTime" label="End Time"
+																	 outlined></generic-time-picker>
+											</v-col>
+										</v-row>
+									</v-card-text>
+									<v-card-actions>
+										<v-spacer></v-spacer>
+										<v-btn color="black" text @click="isUpdateDialogShow = false">Close</v-btn>
+										<v-btn color="secondary" @click="updateSchedule" :disabled="!isUpdateFormValid"
+											   :loading="isPersonnelScheduleUpdateStart">
+											Submit
+										</v-btn>
+									</v-card-actions>
+								</v-card>
+							</v-dialog>
+							<v-btn fab color="error" small @click="resetAllFields" :disabled="!hasSelectedSchedule">
+								<v-icon>mdi-trash-can</v-icon>
+							</v-btn>
+						</div>
 					</v-row>
 				</v-card-text>
 			</template>
@@ -58,14 +102,6 @@
 			</template>
 			<template v-slot:item.endTime="{item}">
 				<span class="text-capitalize">{{convertMilitaryTime(item.endTime)}}</span>
-			</template>
-			<template v-slot:item.actions="{item}">
-				<v-btn icon>
-					<v-icon>mdi-pencil</v-icon>
-				</v-btn>
-				<v-btn icon>
-					<v-icon>mdi-trash-can</v-icon>
-				</v-btn>
 			</template>
 		</v-data-table>
 		<v-card-text>
@@ -91,7 +127,7 @@
 		</v-card-text>
 		<v-card-actions>
 			<v-btn color="primary" block @click="tagNewSchedule" :disabled="!isTaggerFormValid"
-				   :loading="isEmployeeTaggingStart">Submit
+				   :loading="isPersonnelTaggingStart">Submit
 			</v-btn>
 		</v-card-actions>
 	</v-card>
@@ -107,7 +143,8 @@
     import {
         createPersonnelSchedule,
         searchPersonnelSchedule,
-        setPersonnelSchedule
+        setPersonnelSchedule,
+        updatePersonnelSchedule
     } from "../../../store/types/schedule";
     import {setActionName} from "../../../store/types/action";
     import customUtilities from "../../../services/customUtilities";
@@ -178,11 +215,6 @@
         {
             text: "End Time",
             value: "endTime"
-        },
-        {
-            text: "Actions",
-            value: "actions",
-            align: "right"
         }
     ];
 
@@ -206,8 +238,8 @@
                 date: null,
                 tableHeaders,
                 isEmployeeListSearchStart: false,
-                isEmployeeTaggingStart: false,
-                isEmployeeScheduleSearchStart: false,
+                isPersonnelTaggingStart: false,
+                isPersonnelScheduleSearchStart: false,
                 searchValue: "",
                 searchOptions: [
                     "employee number",
@@ -221,7 +253,12 @@
                 form: Object.assign({}, defaultForm),
                 defaultForm,
                 months,
-                years
+                years,
+                selectedScheduleList: [],
+                isUpdateDialogShow: false,
+                selectedStartTime: null,
+                selectedEndTime: null,
+                isPersonnelScheduleUpdateStart: false
             };
         },
 
@@ -236,6 +273,10 @@
                 return this.form.monthNumber && this.form.startTime && this.form.endTime;
             },
 
+            isUpdateFormValid() {
+                return this.selectedStartTime && this.selectedEndTime;
+            },
+
             isSearchScheduleFormValid() {
                 return this.fromDate && this.toDate;
             },
@@ -244,8 +285,20 @@
                 return Object.keys(this.selectedEmployee).length === 0;
             },
 
+            hasSelectedSchedule() {
+                return this.selectedScheduleList.length > 0;
+            },
+
             personnelSchedule() {
                 return this.$store.state.schedule.personnelSchedule;
+            },
+
+            getSelectedScheduleDateRange() {
+                const scheduleList = this.selectedScheduleList;
+                const listLength = scheduleList.length;
+                if (listLength === 0) return "";
+                if (listLength === 1) return this.formatDate(scheduleList[0].date);
+                return `${this.formatDate(scheduleList[0].date)} - ${this.formatDate(scheduleList[listLength - 1].date)}`;
             }
         },
 
@@ -272,15 +325,24 @@
 
             "$store.state.action.name"(name) {
                 if (name === createPersonnelSchedule) {
-                    this.isEmployeeTaggingStart = false;
+                    this.isPersonnelTaggingStart = false;
                     this.$store.commit(setActionName, "");
                     this.clearForm();
                     return;
                 }
 
                 if (name === searchPersonnelSchedule) {
-                    this.isEmployeeScheduleSearchStart = false;
+                    this.isPersonnelScheduleSearchStart = false;
                     this.$store.commit(setActionName, "");
+                    return;
+                }
+
+                if (name === updatePersonnelSchedule) {
+                    this.isPersonnelTaggingStart = false;
+                    this.$store.commit(setActionName, "");
+                    this.isUpdateDialogShow = false;
+                    this.isPersonnelScheduleUpdateStart = false;
+                    this.resetAllFields();
                 }
             }
         },
@@ -291,7 +353,7 @@
                     employeeId: this.selectedEmployee.id,
                     ...this.form
                 };
-                this.isEmployeeTaggingStart = true;
+                this.isPersonnelTaggingStart = true;
                 this.$store.dispatch(createPersonnelSchedule, params);
             },
 
@@ -301,8 +363,19 @@
                     fromDate: this.fromDate,
                     toDate: this.toDate
                 };
-                this.isEmployeeScheduleSearchStart = true;
+                this.isPersonnelScheduleSearchStart = true;
                 this.$store.dispatch(searchPersonnelSchedule, params);
+            },
+
+            updateSchedule() {
+                const params = {
+                    employeeId: this.selectedEmployee.id,
+                    scheduleIdList: this.selectedScheduleList.map(schedule => schedule.id),
+                    startTime: this.selectedStartTime,
+                    endTime: this.selectedEndTime
+                };
+                this.isPersonnelScheduleUpdateStart = true;
+                this.$store.dispatch(updatePersonnelSchedule, params);
             },
 
             clearForm() {
@@ -316,6 +389,9 @@
                 this.toDate = null;
                 this.selectedEmployee = Object.assign({}, {});
                 this.$store.commit(setPersonnelSchedule, []);
+                this.selectedStartTime = null;
+                this.selectedEndTime = null;
+                this.selectedScheduleList = [];
             }
         }
     };

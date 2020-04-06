@@ -1,4 +1,9 @@
-import {createPersonnelSchedule, searchPersonnelSchedule, setPersonnelSchedule} from "../types/schedule";
+import {
+    createPersonnelSchedule,
+    searchPersonnelSchedule,
+    setPersonnelSchedule,
+    updatePersonnelSchedule
+} from "../types/schedule";
 import {scheduleService} from "../../services/api";
 import {setNotificationConfig} from "../types/notification";
 import {setActionName} from "../types/action";
@@ -45,6 +50,27 @@ export default {
                 commit(setActionName, createPersonnelSchedule);
                 throw new Error(`[RWV] ApiService ${errors}`);
             }
-        }
+        },
+
+        [updatePersonnelSchedule]: async ({commit}, {employeeId, scheduleIdList, startTime, endTime}) => {
+            try {
+                const result = await scheduleService.updatePersonnelSchedule(employeeId, {
+                    scheduleIdList,
+                    startTime,
+                    endTime
+                });
+                const {message, error} = result.data;
+                if (Object.keys(error).length > 0) {
+                    // commit(setActionName, `${createSubject}-error`);
+                    // commit(setSubjectError, error);
+                    return;
+                }
+                commit(setNotificationConfig, {message, type: "success"});
+                commit(setActionName, updatePersonnelSchedule);
+            } catch (errors) {
+                commit(setActionName, createPersonnelSchedule);
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
     }
 };

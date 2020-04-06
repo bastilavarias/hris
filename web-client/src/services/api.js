@@ -108,5 +108,6 @@ export const personalDataSheetService = {
 
 export const scheduleService = {
     createPersonnelSchedule: (employeeId, details) => apiService.post(`/schedule/create/personnel-schedule/${employeeId}`, details),
-    searchPersonnelSchedule: (employeeId, details) => apiService.post(`/schedule/search/personnel-schedule/${employeeId}`, details)
+    searchPersonnelSchedule: (employeeId, details) => apiService.post(`/schedule/search/personnel-schedule/${employeeId}`, details),
+    updatePersonnelSchedule: (employeeId, details) => apiService.put(`/schedule/update/personnel-schedule/${employeeId}`, details)
 };

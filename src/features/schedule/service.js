@@ -31,7 +31,7 @@ const accountService = {
 
         return {
             message,
-            error:{}
+            error: {}
         };
     },
 
@@ -39,7 +39,28 @@ const accountService = {
         employeeId,
         fromDate,
         toDate
-    })
+    }),
+
+    updatePersonnelSchedule: async ({employeeId, scheduleIdList, startTime, endTime}) => {
+        scheduleIdList.map(async scheduleId => await scheduleModel.updatePersonnelSchedule({
+            employeeId,
+            scheduleId,
+            startTime,
+            endTime
+        }));
+        const gotEmployeeBasicInformation = await employeeModel.getBasicInformation(employeeId);
+        const {lastName} = gotEmployeeBasicInformation.profile;
+        let message = `${lastName} schedule was updated.`;
+
+        return {
+            message,
+            error: {}
+        };
+    },
+
+    deletePersonnelSchedule: async () => {
+
+    }
 };
 
 module.exports = accountService;
