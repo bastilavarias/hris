@@ -45,7 +45,25 @@ module.exports = {
         const endTime = emptyValue(req.body.endTime);
 
         try {
-            const result = await scheduleService.updatePersonnelSchedule({employeeId, scheduleIdList, startTime, endTime});
+            const result = await scheduleService.updatePersonnelSchedule({
+                employeeId,
+                scheduleIdList,
+                startTime,
+                endTime
+            });
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
+    },
+
+    deletePersonnelSchedule: async (req, res) => {
+        const employeeId = toNumber(req.params.employeeId);
+        const scheduleIdList = emptyValue(req.body.scheduleIdList);
+
+        try {
+            const result = await scheduleService.deletePersonnelSchedule(employeeId, scheduleIdList);
             res.status(200).json(result);
         } catch (errors) {
             console.log(errors);

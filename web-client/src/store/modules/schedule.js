@@ -1,5 +1,6 @@
 import {
     createPersonnelSchedule,
+    deletePersonnelSchedule,
     searchPersonnelSchedule,
     setPersonnelSchedule,
     updatePersonnelSchedule
@@ -67,6 +68,25 @@ export default {
                 }
                 commit(setNotificationConfig, {message, type: "success"});
                 commit(setActionName, updatePersonnelSchedule);
+            } catch (errors) {
+                commit(setActionName, createPersonnelSchedule);
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
+
+        [deletePersonnelSchedule]: async ({commit}, {employeeId, scheduleIdList}) => {
+            try {
+                const result = await scheduleService.deletePersonnelSchedule(employeeId, {
+                    scheduleIdList,
+                });
+                const {message, error} = result.data;
+                if (Object.keys(error).length > 0) {
+                    // commit(setActionName, `${createSubject}-error`);
+                    // commit(setSubjectError, error);
+                    return;
+                }
+                commit(setNotificationConfig, {message, type: "error"});
+                commit(setActionName, deletePersonnelSchedule);
             } catch (errors) {
                 commit(setActionName, createPersonnelSchedule);
                 throw new Error(`[RWV] ApiService ${errors}`);

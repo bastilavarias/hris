@@ -23,16 +23,18 @@ module.exports = {
         const query = `update personnel_schedule
                        set start_time = ?,
                            end_time   = ?
-                       where id = ? && employee_id = ?;`;
+                       where id = ?
+                         and employee_id = ?;`;
         const params = [startTime, endTime, scheduleId, employeeId];
         await db.executeQuery(query, params);
     },
 
-    deletePersonnelSchedule: async (scheduleId) => {
+    deletePersonnelSchedule: async (employeeId, scheduleId) => {
         const query = `delete
                        from personnel_schedule
-                       where id = ?;`;
-        const params = [scheduleId];
+                       where id = ?
+                         and employee_id = ?;`;
+        const params = [scheduleId, employeeId];
         await db.executeQuery(query, params);
     }
 };

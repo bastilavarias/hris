@@ -81,13 +81,13 @@
 										<v-spacer></v-spacer>
 										<v-btn color="black" text @click="isUpdateDialogShow = false">Close</v-btn>
 										<v-btn color="secondary" @click="updateSchedule" :disabled="!isUpdateFormValid"
-											   :loading="isPersonnelScheduleUpdateStart">
+											   :loading="isPersonnelScheduleOperationStart">
 											Submit
 										</v-btn>
 									</v-card-actions>
 								</v-card>
 							</v-dialog>
-							<v-btn fab color="error" small @click="resetAllFields" :disabled="!hasSelectedSchedule">
+							<v-btn fab color="error" small @click="isDeleteDialogShow = true" :disabled="!hasSelectedSchedule">
 								<v-icon>mdi-trash-can</v-icon>
 							</v-btn>
 						</div>
@@ -130,6 +130,11 @@
 				   :loading="isPersonnelTaggingStart">Submit
 			</v-btn>
 		</v-card-actions>
+		<generic-confirm-dialog :is-show.sync="isDeleteDialogShow"
+								message="Are you sure you want to delete this schedule?"
+								color="secondary"
+								:is-loading="isPersonnelScheduleOperationStart"
+								:action="deleteSchedule"></generic-confirm-dialog>
 	</v-card>
 </template>
 
@@ -141,13 +146,14 @@
     import {searchEmployees, setEmployees} from "../../../store/types/employee";
     import GenericEmployeeAutocomplete from "../../../components/generic/EmployeeAutocomplete";
     import {
-        createPersonnelSchedule,
+        createPersonnelSchedule, deletePersonnelSchedule,
         searchPersonnelSchedule,
         setPersonnelSchedule,
         updatePersonnelSchedule
     } from "../../../store/types/schedule";
     import {setActionName} from "../../../store/types/action";
     import customUtilities from "../../../services/customUtilities";
+    import GenericConfirmDialog from "../../../components/generic/CustomDialog";
 
     const months = [
         {
@@ -227,6 +233,7 @@
 
     export default {
         components: {
+            GenericConfirmDialog,
             GenericEmployeeAutocomplete,
             GenericSearchToolbar, GenericTimePicker, GenericDateInput, GenericCardBackButton
         },
@@ -256,9 +263,10 @@
                 years,
                 selectedScheduleList: [],
                 isUpdateDialogShow: false,
+				isDeleteDialogShow: false,
                 selectedStartTime: null,
                 selectedEndTime: null,
-                isPersonnelScheduleUpdateStart: false
+                isPersonnelScheduleOperationStart: false
             };
         },
 
@@ -338,10 +346,17 @@
                 }
 
                 if (name === updatePersonnelSchedule) {
-                    this.isPersonnelTaggingStart = false;
                     this.$store.commit(setActionName, "");
                     this.isUpdateDialogShow = false;
-                    this.isPersonnelScheduleUpdateStart = false;
+                    this.isPersonnelScheduleOperationStart = false;
+                    this.resetAllFields();
+                    return;
+                }
+
+                if (name === deletePersonnelSchedule) {
+                    this.$store.commit(setActionName, "");
+                    this.isPersonnelScheduleOperationStart = false;
+                    this.isDeleteDialogShow = false;
                     this.resetAllFields();
                 }
             }
@@ -374,9 +389,18 @@
                     startTime: this.selectedStartTime,
                     endTime: this.selectedEndTime
                 };
-                this.isPersonnelScheduleUpdateStart = true;
+                this.isPersonnelScheduleOperationStart = true;
                 this.$store.dispatch(updatePersonnelSchedule, params);
             },
+
+			deleteSchedule() {
+                const params = {
+                    employeeId: this.selectedEmployee.id,
+                    scheduleIdList: this.selectedScheduleList.map(schedule => schedule.id)
+                };
+                this.isPersonnelScheduleOperationStart = true;
+                this.$store.dispatch(deletePersonnelSchedule, params);
+			},
 
             clearForm() {
                 this.form = Object.assign({}, this.defaultForm);

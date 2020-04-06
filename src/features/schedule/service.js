@@ -58,8 +58,16 @@ const accountService = {
         };
     },
 
-    deletePersonnelSchedule: async () => {
+    deletePersonnelSchedule: async (employeeId, scheduleIdList) => {
+        scheduleIdList.map(async scheduleId => await scheduleModel.deletePersonnelSchedule(employeeId, scheduleId));
+        const gotEmployeeBasicInformation = await employeeModel.getBasicInformation(employeeId);
+        const {lastName} = gotEmployeeBasicInformation.profile;
+        let message = `${lastName} schedule was deleted.`;
 
+        return {
+            message,
+            error: {}
+        };
     }
 };
 
