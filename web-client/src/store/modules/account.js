@@ -21,7 +21,7 @@ const actions = [
     {
         name: "Schedule",
         icon: "calendar-month",
-        route: {name: "personal-schedule"},
+        route: {name: "personal-personnel-schedule"},
         subActions: []
     },
     {

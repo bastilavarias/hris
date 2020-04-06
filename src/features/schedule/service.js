@@ -2,7 +2,7 @@ const moment = require("moment");
 const scheduleModel = require("./model");
 const employeeModel = require("../employee/model");
 
-const accountService = {
+const scheduleService = {
     createPersonnelSchedule: async ({employeeId, monthNumber, startTime, endTime, year}) => {
         const monthNames = [
             "January",
@@ -20,7 +20,6 @@ const accountService = {
         ];
 
         const daysInMonth = moment(`${year}-${monthNumber + 1}`, "YYYY-MM").daysInMonth();
-        console.log(daysInMonth);
         for (let index = 1; index <= daysInMonth; index++) {
             const generatedDate = new Date(`${monthNames[monthNumber]} ${index}, ${year}`);
             await scheduleModel.createPersonnelSchedule({employeeId, currentDate: generatedDate, startTime, endTime});
@@ -68,7 +67,21 @@ const accountService = {
             message,
             error: {}
         };
+    },
+
+    getPersonnelSchedule: async (employeeId, date) => {
+        const givenYear = moment(date).year();
+        const givenMonth = moment(date).month();
+
+        const daysInMonth = moment(`${givenYear}-${givenMonth + 1}`, "YYYY-MM").daysInMonth();
+        const fromDate = new Date(`${givenYear}-${givenMonth + 1}-1`);
+        const toDate = new Date(`${givenYear}-${givenMonth + 1}-${daysInMonth}`);
+        const gotPersonnelSchedule = await scheduleModel.getPersonnelSchedule({employeeId, fromDate, toDate});
+
+        return {
+            schedule: gotPersonnelSchedule
+        };
     }
 };
 
-module.exports = accountService;
+module.exports = scheduleService;

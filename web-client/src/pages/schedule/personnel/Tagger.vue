@@ -417,6 +417,10 @@
                 this.selectedEndTime = null;
                 this.selectedScheduleList = [];
             }
+        },
+
+		created() {
+            this.resetAllFields();
         }
     };
 </script>

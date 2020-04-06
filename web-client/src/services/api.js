@@ -111,4 +111,5 @@ export const scheduleService = {
     searchPersonnelSchedule: (employeeId, details) => apiService.post(`/schedule/search/personnel-schedule/${employeeId}`, details),
     updatePersonnelSchedule: (employeeId, details) => apiService.put(`/schedule/update/personnel-schedule/${employeeId}`, details),
     deletePersonnelSchedule: (employeeId, details) => apiService.put(`/schedule/delete/personnel-schedule/${employeeId}`, details),
+    getPersonnelSchedule: (employeeId, details) => apiService.put(`/schedule/get/personnel-schedule/${employeeId}`, details),
 };

@@ -1,8 +1,8 @@
 export default [
     {
-        path: "personal-schedule",
-        name: "personal-schedule",
-        component: () => import("../../pages/schedule/Personal"),
+        path: "personal-personnel-schedule",
+        name: "personal-personnel-schedule",
+        component: () => import("../../pages/schedule/PersonalPersonnel"),
     },
 
     {

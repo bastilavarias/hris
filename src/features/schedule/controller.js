@@ -69,5 +69,18 @@ module.exports = {
             console.log(errors);
             res.status(400).json(errors);
         }
+    },
+
+    getPersonnelSchedule: async (req, res) => {
+        const employeeId = toNumber(req.params.employeeId);
+        const date = emptyValue(req.params.date);
+
+        try {
+            const result = await scheduleService.getPersonnelSchedule(employeeId, date);
+            res.status(200).json(result);
+        } catch (errors) {
+            console.log(errors);
+            res.status(400).json(errors);
+        }
     }
 };

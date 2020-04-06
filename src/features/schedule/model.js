@@ -36,5 +36,16 @@ module.exports = {
                          and employee_id = ?;`;
         const params = [scheduleId, employeeId];
         await db.executeQuery(query, params);
+    },
+
+    getPersonnelSchedule: async ({employeeId, fromDate, toDate}) => {
+        const query = `select id, curr_date as date, start_time as startTime, end_time as endTime
+                       from personnel_schedule
+                       where employee_id = ?
+                         and (curr_date between ? and ?)
+                       order by id;`;
+        const params = [employeeId, fromDate, toDate];
+        const results = await db.executeQuery(query, params);
+        return results[0] ? results[0] : [];
     }
 };
