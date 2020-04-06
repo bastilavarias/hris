@@ -4,6 +4,6 @@ const scheduleController = require("./controller");
 const router = express.Router();
 
 router.post("/create/personnel-schedule/:employeeId", scheduleController.createPersonnelSchedule);
-router.get("/searchByDateRanges/personnel-schedule/:employeeId", scheduleController.searchPersonnelScheduleByDateRanges);
+router.post("/search/personnel-schedule/:employeeId", scheduleController.searchPersonnelSchedule);
 
 module.exports = router;

@@ -3,7 +3,7 @@ const scheduleModel = require("./model");
 const employeeModel = require("../employee/model");
 
 const accountService = {
-    createPersonnelSchedule: async ({employeeId, monthNumber, startTime, endTime}) => {
+    createPersonnelSchedule: async ({employeeId, monthNumber, startTime, endTime, year}) => {
         const monthNames = [
             "January",
             "February",
@@ -18,11 +18,11 @@ const accountService = {
             "November",
             "December"
         ];
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const daysInMonth = moment(`${currentYear}-${monthNumber + 1}`, "YYYY-MM").daysInMonth();
+
+        const daysInMonth = moment(`${year}-${monthNumber + 1}`, "YYYY-MM").daysInMonth();
+        console.log(daysInMonth);
         for (let index = 1; index <= daysInMonth; index++) {
-            const generatedDate = new Date(`${monthNames[monthNumber]} ${index}, ${currentYear}`);
+            const generatedDate = new Date(`${monthNames[monthNumber]} ${index}, ${year}`);
             await scheduleModel.createPersonnelSchedule({employeeId, currentDate: generatedDate, startTime, endTime});
         }
         const gotEmployeeBasicInformation = await employeeModel.getBasicInformation(employeeId);
@@ -30,11 +30,12 @@ const accountService = {
         let message = `${lastName} schedule for month of ${monthNames[monthNumber]} was created.`;
 
         return {
-            message
+            message,
+            error:{}
         };
     },
 
-    searchPersonnelScheduleByDateRanges: async ({employeeId, fromDate, toDate}) => scheduleModel.searchPersonnelScheduleByDateRanges({
+    searchPersonnelSchedule: async ({employeeId, fromDate, toDate}) => scheduleModel.searchPersonnelSchedule({
         employeeId,
         fromDate,
         toDate

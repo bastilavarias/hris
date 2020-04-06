@@ -18,6 +18,7 @@
 					:solo="solo"
 					v-on="on"
 					:outlined="outlined"
+					:disabled="disabled"
 			></v-text-field>
 		</template>
 		<v-time-picker
@@ -55,6 +56,11 @@
 			outlined: {
 	            type: Boolean,
 				required: false
+			},
+
+			disabled: {
+                type: Boolean,
+                required: false
 			}
 		},
 

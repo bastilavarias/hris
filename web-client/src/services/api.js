@@ -105,3 +105,8 @@ export const personalDataSheetService = {
     update: details => apiService.put(`/personal-data-sheet/update`, details),
     generate: () => Vue.axios.get("/personal-data-sheet/generate", {responseType: "arraybuffer"})
 };
+
+export const scheduleService = {
+    createPersonnelSchedule: (employeeId, details) => apiService.post(`/schedule/create/personnel-schedule/${employeeId}`, details),
+    searchPersonnelSchedule: (employeeId, details) => apiService.post(`/schedule/search/personnel-schedule/${employeeId}`, details)
+};

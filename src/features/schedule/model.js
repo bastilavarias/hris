@@ -8,9 +8,12 @@ module.exports = {
         await db.executeQuery(query, params);
     },
 
-    searchPersonnelScheduleByDateRanges: async ({employeeId, fromDate, toDate}) => {
+    searchPersonnelSchedule: async ({employeeId, fromDate, toDate}) => {
         const query = `select id, curr_date as date, start_time as startTime, end_time as endTime
-                       from personnel_schedule where employee_id = ? AND (curr_date between ? AND ?);`;
+                       from personnel_schedule
+                       where employee_id = ?
+                         and (curr_date between ? and ?)
+                       order by id;`;
         const params = [employeeId, fromDate, toDate];
         const results = await db.executeQuery(query, params);
         return results[0] ? results[0] : [];

@@ -14,6 +14,7 @@
 					@click:clear="dateLocal = null"
 					:solo="solo"
 					:outlined="outlined"
+					:disabled="disabled"
 			></v-text-field>
 		</template>
 		<v-date-picker
@@ -45,6 +46,11 @@
 			},
 
             outlined: {
+                type: Boolean,
+                required: false
+            },
+
+            disabled: {
                 type: Boolean,
                 required: false
             }

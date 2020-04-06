@@ -11,6 +11,7 @@ import notification from "./modules/notification";
 import action from "./modules/action";
 import department from "./modules/department";
 import personalDataSheet from "./modules/personalDataSheet";
+import schedule from "./modules/schedule";
 
 Vue.use(Vuex);
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         notification,
         action,
         department,
-        personalDataSheet
+        personalDataSheet,
+        schedule
     }
 });
