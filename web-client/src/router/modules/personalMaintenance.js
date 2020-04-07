@@ -2,7 +2,7 @@ export default [
     {
         path: "personal-personnel-schedule",
         name: "personal-personnel-schedule",
-        component: () => import("../../pages/schedule/PersonalPersonnel"),
+        component: () => import("../../pages/schedule/personnel/Personal"),
     },
 
     {

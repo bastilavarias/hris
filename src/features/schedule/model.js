@@ -38,7 +38,7 @@ module.exports = {
         await db.executeQuery(query, params);
     },
 
-    getPersonnelSchedule: async ({employeeId, fromDate, toDate}) => {
+    getPersonalPersonnelSchedule: async ({employeeId, fromDate, toDate}) => {
         const query = `select id, curr_date as date, start_time as startTime, end_time as endTime
                        from personnel_schedule
                        where employee_id = ?

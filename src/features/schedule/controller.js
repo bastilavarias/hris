@@ -71,12 +71,12 @@ module.exports = {
         }
     },
 
-    getPersonnelSchedule: async (req, res) => {
-        const employeeId = toNumber(req.params.employeeId);
+    getPersonalPersonnelSchedule: async (req, res) => {
+        const employeeId = toNumber(req.user.id);
         const date = emptyValue(req.params.date);
 
         try {
-            const result = await scheduleService.getPersonnelSchedule(employeeId, date);
+            const result = await scheduleService.getPersonalPersonnelSchedule(employeeId, date);
             res.status(200).json(result);
         } catch (errors) {
             console.log(errors);

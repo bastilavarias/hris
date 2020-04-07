@@ -8,7 +8,6 @@
 			</v-btn>
 		</v-card-title>
 		<v-skeleton-loader
-				boilerplate
 				loading
 				type="table"
 				tile
@@ -87,7 +86,8 @@
 									</v-card-actions>
 								</v-card>
 							</v-dialog>
-							<v-btn fab color="error" small @click="isDeleteDialogShow = true" :disabled="!hasSelectedSchedule">
+							<v-btn fab color="error" small @click="isDeleteDialogShow = true"
+								   :disabled="!hasSelectedSchedule">
 								<v-icon>mdi-trash-can</v-icon>
 							</v-btn>
 						</div>
@@ -146,7 +146,8 @@
     import {searchEmployees, setEmployees} from "../../../store/types/employee";
     import GenericEmployeeAutocomplete from "../../../components/generic/EmployeeAutocomplete";
     import {
-        createPersonnelSchedule, deletePersonnelSchedule,
+        createPersonnelSchedule,
+        deletePersonnelSchedule,
         searchPersonnelSchedule,
         setPersonnelSchedule,
         updatePersonnelSchedule
@@ -263,7 +264,7 @@
                 years,
                 selectedScheduleList: [],
                 isUpdateDialogShow: false,
-				isDeleteDialogShow: false,
+                isDeleteDialogShow: false,
                 selectedStartTime: null,
                 selectedEndTime: null,
                 isPersonnelScheduleOperationStart: false
@@ -393,14 +394,14 @@
                 this.$store.dispatch(updatePersonnelSchedule, params);
             },
 
-			deleteSchedule() {
+            deleteSchedule() {
                 const params = {
                     employeeId: this.selectedEmployee.id,
                     scheduleIdList: this.selectedScheduleList.map(schedule => schedule.id)
                 };
                 this.isPersonnelScheduleOperationStart = true;
                 this.$store.dispatch(deletePersonnelSchedule, params);
-			},
+            },
 
             clearForm() {
                 this.form = Object.assign({}, this.defaultForm);
@@ -419,7 +420,7 @@
             }
         },
 
-		created() {
+        created() {
             this.resetAllFields();
         }
     };

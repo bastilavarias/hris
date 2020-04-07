@@ -69,18 +69,14 @@ const scheduleService = {
         };
     },
 
-    getPersonnelSchedule: async (employeeId, date) => {
+    getPersonalPersonnelSchedule: async (employeeId, date) => {
         const givenYear = moment(date).year();
         const givenMonth = moment(date).month();
 
         const daysInMonth = moment(`${givenYear}-${givenMonth + 1}`, "YYYY-MM").daysInMonth();
         const fromDate = new Date(`${givenYear}-${givenMonth + 1}-1`);
         const toDate = new Date(`${givenYear}-${givenMonth + 1}-${daysInMonth}`);
-        const gotPersonnelSchedule = await scheduleModel.getPersonnelSchedule({employeeId, fromDate, toDate});
-
-        return {
-            schedule: gotPersonnelSchedule
-        };
+        return await scheduleModel.getPersonalPersonnelSchedule({employeeId, fromDate, toDate});
     }
 };
 

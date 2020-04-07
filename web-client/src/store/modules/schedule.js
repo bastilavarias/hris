@@ -1,7 +1,9 @@
 import {
     createPersonnelSchedule,
     deletePersonnelSchedule,
+    getPersonalPersonnelSchedule,
     searchPersonnelSchedule,
+    setPersonalPersonnelSchedule,
     setPersonnelSchedule,
     updatePersonnelSchedule
 } from "../types/schedule";
@@ -11,11 +13,13 @@ import {setActionName} from "../types/action";
 
 export default {
     state: {
-        personnelSchedule: []
+        personnelSchedule: [],
+        personalPersonnelSchedule: []
     },
 
     mutations: {
-        [setPersonnelSchedule]: (state, schedule) => state.personnelSchedule = schedule
+        [setPersonnelSchedule]: (state, schedule) => state.personnelSchedule = schedule,
+        [setPersonalPersonnelSchedule]: (state, schedule) => state.personalPersonnelSchedule = schedule
     },
 
     actions: {
@@ -87,6 +91,18 @@ export default {
                 }
                 commit(setNotificationConfig, {message, type: "error"});
                 commit(setActionName, deletePersonnelSchedule);
+            } catch (errors) {
+                commit(setActionName, createPersonnelSchedule);
+                throw new Error(`[RWV] ApiService ${errors}`);
+            }
+        },
+
+        [getPersonalPersonnelSchedule]: async ({commit}, date) => {
+            try {
+                const result = await scheduleService.getPersonalPersonnelSchedule(date);
+                const schedule = result.data;
+                commit(setPersonalPersonnelSchedule, schedule);
+                commit(setActionName, getPersonalPersonnelSchedule);
             } catch (errors) {
                 commit(setActionName, createPersonnelSchedule);
                 throw new Error(`[RWV] ApiService ${errors}`);
