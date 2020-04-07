@@ -16,11 +16,12 @@
 					<v-text-field label="Description" v-model="form.description" outlined></v-text-field>
 				</v-col>
 			</v-row>
+		</v-card-text>
+		<v-card-actions>
 			<generic-form-action-button :operation="operation" :create="create" :update="update"
 										:disabled="!isFormValid"
 										:is-loading="isLoading"></generic-form-action-button>
-		</v-card-text>
-
+		</v-card-actions>
 	</v-card>
 </template>
 

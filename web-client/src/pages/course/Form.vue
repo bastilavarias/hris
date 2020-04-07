@@ -20,11 +20,12 @@
 											   :college-id.sync="form.collegeId"></generic-college-selection>
 				</v-col>
 			</v-row>
-			<generic-form-action-button :operation="operation" :create="create" :update="update"
-										:disabled="!isFormValid"
-										:is-loading="isLoading"></generic-form-action-button>
 		</v-card-text>
-
+<v-card-actions>
+	<generic-form-action-button :operation="operation" :create="create" :update="update"
+								:disabled="!isFormValid"
+								:is-loading="isLoading"></generic-form-action-button>
+</v-card-actions>
 	</v-card>
 </template>
 

@@ -44,11 +44,11 @@
 														   :weight.sync="form.profile.weight"
 					></generic-form-profile-with-image-input>
 				</v-col>
-				<v-col cols="12">
-					<v-btn :loading="isLoading" color="primary" @click="create" block :disabled="!isFormValid">Save</v-btn>
-				</v-col>
 			</v-row>
 		</v-card-text>
+		<v-card-actions>
+			<v-btn :loading="isLoading" color="primary" @click="create" block :disabled="!isFormValid">Save</v-btn>
+		</v-card-actions>
 	</v-card>
 </template>
 
