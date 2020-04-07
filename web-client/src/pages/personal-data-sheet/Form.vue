@@ -1,234 +1,232 @@
 <template>
-	<div>
-		<span class="d-block font-weight-bold mb-5" style="font-size: 1.25rem;">Personal Data Sheet</span>
-		<v-row dense>
-			<v-col cols="12" md="3">
-				<v-card class="mb-2">
-					<v-card-text>
-						<v-row no-gutters>
-							<v-col cols="12">
-								<div class="text-center">
-									<generic-image-input :photo.sync="form.profile.photo"
-														 :preview.sync="form.profile.photoPreview"></generic-image-input>
-								</div>
-							</v-col>
-							<v-col cols="12">
-								<v-text-field label="Employee Number" outlined readonly
-											  v-model="form.employeeNumber"></v-text-field>
-							</v-col>
-							<v-col cols="12">
-								<v-text-field label="Department" outlined readonly class="text-capitalize"
-											  :value="form.departmentName" style="text-transform: capitalize;">
-								</v-text-field>
-							</v-col>
-							<v-col cols="12">
-								<v-text-field label="Designation" outlined readonly
-											  :value="form.designationName" style="text-transform: capitalize;"></v-text-field>
-							</v-col>
-							<v-col cols="12">
-								<v-text-field label="Appointment Status" outlined readonly
-											  :value="form.isFullTime ? 'Full Time' : 'Part Time'"></v-text-field>
-							</v-col>
-						</v-row>
-					</v-card-text>
-				</v-card>
-				<v-card>
-					<v-card-text>
-						<v-row no-gutters>
-							<v-col cols="12">
-								<generic-subtitle>Actions</generic-subtitle>
-								<v-btn class="mb-2" block @click="generatePersonalDataSheetForm" :loading="isPDSGenerationStart" color="primary">
-									<v-icon class="mr-1">mdi-printer</v-icon>
-									<span>Print PDS</span>
-								</v-btn>
-							</v-col>
-						</v-row>
-					</v-card-text>
-				</v-card>
-			</v-col>
-			<v-col cols="12" md="9">
-				<v-card>
-					<v-tabs v-model="tab" fixed-tabs show-arrows class="mb-5">
-						<template v-for="(item, index) in tabItems">
-							<v-tab :key="index">{{item}}</v-tab>
-						</template>
-					</v-tabs>
-					<v-card-text>
-						<v-tabs-items v-model="tab">
-							<v-tab-item>
-								<v-row dense>
-									<v-col cols="12">
-										<generic-profile
-												:first-name.sync="form.profile.firstName"
-												:middle-name.sync="form.profile.middleName"
-												:last-name.sync="form.profile.lastName"
-												:extension.sync="form.profile.extension"
-												:birth-date.sync="form.profile.birthDate"
-												:birth-place.sync="form.profile.birthPlace"
-												:sex.sync="form.profile.sex"
-												:civil-status.sync="form.profile.civilStatus"
-												:citizenship.sync="form.profile.citizenship"
-												:blood-type.sync="form.profile.bloodType"
-												:height.sync="form.profile.height"
-												:weight.sync="form.profile.weight"
-										></generic-profile>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>Benefits</generic-subtitle>
-										<generic-benefit-form
-												:gsis-id.sync="form.profile.benefit.gsisId"
-												:pagibig-id.sync="form.profile.benefit.pagibigId"
-												:philhealth-id.sync="form.profile.benefit.philhealthId"
-												:sss-number.sync="form.profile.benefit.sssNumber"
-												:tin-number.sync="form.profile.benefit.tinNumber"
-												:agency-employee-number.sync="form.profile.benefit.agencyEmployeeNumber"
-										></generic-benefit-form>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>Contact</generic-subtitle>
-										<generic-contact-form
-												:telephone-number.sync="form.profile.contact.telephoneNumber"
-												:mobile-number.sync="form.profile.contact.mobileNumber"
-												:email-address.sync="form.profile.contact.emailAddress"
-										></generic-contact-form>
-									</v-col>
-								</v-row>
-							</v-tab-item>
-							<v-tab-item>
-								<v-row dense>
-									<v-col cols="12">
-										<generic-subtitle>Permanent Address</generic-subtitle>
-										<generic-address-form
-												:house-number.sync="form.profile.address.permanent.houseNumber"
-												:street.sync="form.profile.address.permanent.street"
-												:subdivision.sync="form.profile.address.permanent.subdivision"
-												:barangay.sync="form.profile.address.permanent.barangay"
-												:city.sync="form.profile.address.permanent.city"
-												:province.sync="form.profile.address.permanent.province"
-												:zip-code.sync="form.profile.address.permanent.zipCode"
-										></generic-address-form>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>Residential Address</generic-subtitle>
-										<generic-address-form
-												:house-number.sync="form.profile.address.residential.houseNumber"
-												:street.sync="form.profile.address.residential.street"
-												:subdivision.sync="form.profile.address.residential.subdivision"
-												:barangay.sync="form.profile.address.residential.barangay"
-												:city.sync="form.profile.address.residential.city"
-												:province.sync="form.profile.address.residential.province"
-												:zip-code.sync="form.profile.address.residential.zipCode"
-										></generic-address-form>
-									</v-col>
-								</v-row>
-							</v-tab-item>
-							<v-tab-item>
-								<v-row dense>
-									<v-col cols="12">
-										<generic-subtitle>Spouse Information</generic-subtitle>
-										<generic-family-form
-												:first-name.sync="form.profile.family.spouse.firstName"
-												:middle-name.sync="form.profile.family.spouse.middleName"
-												:last-name.sync="form.profile.family.spouse.lastName"
-												:extension.sync="form.profile.family.spouse.extension"
-										></generic-family-form>
-									</v-col>
-									<v-col cols="12" md="6">
-										<generic-subtitle>Father Information</generic-subtitle>
-										<generic-family-form
-												:first-name.sync="form.profile.family.father.firstName"
-												:middle-name.sync="form.profile.family.father.middleName"
-												:last-name.sync="form.profile.family.father.lastName"
-												:extension.sync="form.profile.family.father.extension"
-										></generic-family-form>
-									</v-col>
-									<v-col cols="12" md="6">
-										<generic-subtitle>Mother Information</generic-subtitle>
-										<generic-family-form
-												:first-name.sync="form.profile.family.mother.firstName"
-												:middle-name.sync="form.profile.family.mother.middleName"
-												:last-name.sync="form.profile.family.mother.lastName"
-												:extension.sync="form.profile.family.mother.extension"
-										></generic-family-form>
-									</v-col>
-									<v-col cols="12" md="12" class="mb-10">
-										<generic-subtitle>Children Information</generic-subtitle>
-										<generic-children-information-table
-												:children.sync="form.profile.family.children"></generic-children-information-table>
-									</v-col>
-								</v-row>
-							</v-tab-item>
-							<v-tab-item>
-								<v-row dense>
-									<v-col cols="12">
-										<generic-subtitle>Educational Background</generic-subtitle>
-										<generic-educational-background-table
-												:education.sync="form.profile.education"></generic-educational-background-table>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>Civil Service Eligibility</generic-subtitle>
-										<generic-civil-service-eligibility
-												:civil-service-eligibility.sync="form.profile.civilServiceEligibility"></generic-civil-service-eligibility>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>Work Experience</generic-subtitle>
-										<generic-work-experience
-												:work-experiences.sync="form.profile.workExperiences"></generic-work-experience>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>Voluntary Work Experience / Voluntary Organization(s)
-										</generic-subtitle>
-										<generic-voluntary-work-experience
-												:voluntary-work-experiences.sync="form.profile.voluntaryWorkExperiences"></generic-voluntary-work-experience>
-									</v-col>
-									<v-col cols="12" class="mb-10">
-										<generic-subtitle>L & D Interventions / Training Programs Attended</generic-subtitle>
-										<generic-training-table
-												:trainings.sync="form.profile.trainings"></generic-training-table>
-									</v-col>
-								</v-row>
-							</v-tab-item>
-							<v-tab-item>
-								<v-row dense>
-									<v-col cols="12" md="4">
-										<generic-list-input :list.sync="form.profile.hobbies"
-															label="Hobbies"></generic-list-input>
-									</v-col>
-									<v-col cols="12" md="4">
-										<generic-list-input :list.sync="form.profile.recognitions"
-															label="Recognitions"></generic-list-input>
-									</v-col>
-									<v-col cols="12" md="4">
-										<generic-list-input :list.sync="form.profile.organizations"
-															label="Organizations"></generic-list-input>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>References</generic-subtitle>
-										<generic-reference-table
-												:references.sync="form.profile.references"></generic-reference-table>
-									</v-col>
-									<v-col cols="12">
-										<generic-subtitle>Government Issued ID</generic-subtitle>
-										<generic-government-issue-id-form
-												:government-id.sync="form.profile.governmentIssueId.governmentId"
-												:license-number.sync="form.profile.governmentIssueId.licenseNumber"
-												:issuance-place.sync="form.profile.governmentIssueId.issuancePlace"
-												:issuance-date.sync="form.profile.governmentIssueId.issuanceDate"
-										></generic-government-issue-id-form>
-									</v-col>
-								</v-row>
-							</v-tab-item>
-						</v-tabs-items>
-					</v-card-text>
-					<v-card-actions>
-						<v-btn block color="secondary" :disabled="!isFormValid" :loading="isLoading" @click="update">
-							Update
-						</v-btn>
-					</v-card-actions>
-				</v-card>
-			</v-col>
-		</v-row>
-	</div>
+	<v-row dense>
+		<v-col cols="12" md="3">
+			<v-card>
+				<v-card-title>
+					<span class="d-block font-weight-bold mb-5" style="font-size: 1.25rem;">Personal Data Sheet</span>
+				</v-card-title>
+				<v-card-text>
+					<v-row no-gutters>
+						<v-col cols="12">
+							<div class="text-center">
+								<generic-image-input :photo.sync="form.profile.photo"
+													 :preview.sync="form.profile.photoPreview"></generic-image-input>
+							</div>
+						</v-col>
+						<v-col cols="12">
+							<v-text-field label="Employee Number" outlined readonly
+										  v-model="form.employeeNumber"></v-text-field>
+						</v-col>
+						<v-col cols="12">
+							<v-text-field label="Department" outlined readonly class="text-capitalize"
+										  :value="form.departmentName" style="text-transform: capitalize;">
+							</v-text-field>
+						</v-col>
+						<v-col cols="12">
+							<v-text-field label="Designation" outlined readonly
+										  :value="form.designationName"
+										  style="text-transform: capitalize;"></v-text-field>
+						</v-col>
+						<v-col cols="12">
+							<v-text-field label="Appointment Status" outlined readonly
+										  :value="form.isFullTime ? 'Full Time' : 'Part Time'"></v-text-field>
+						</v-col>
+					</v-row>
+				</v-card-text>
+			</v-card>
+		</v-col>
+		<v-col cols="12" md="9">
+			<v-card>
+				<v-card-title>
+					<v-btn fab small color="primary" class="mr-2" @click="generatePersonalDataSheetForm"
+						   :loading="isPDSGenerationStart">
+						<v-icon>mdi-file</v-icon>
+					</v-btn>
+					<v-btn fab small color="primary">
+						<v-icon>mdi-calendar</v-icon>
+					</v-btn>
+				</v-card-title>
+				<v-tabs v-model="tab" fixed-tabs show-arrows class="mb-5">
+					<template v-for="(item, index) in tabItems">
+						<v-tab :key="index">{{item}}</v-tab>
+					</template>
+				</v-tabs>
+				<v-card-text>
+					<v-tabs-items v-model="tab">
+						<v-tab-item>
+							<v-row dense>
+								<v-col cols="12">
+									<generic-profile
+											:first-name.sync="form.profile.firstName"
+											:middle-name.sync="form.profile.middleName"
+											:last-name.sync="form.profile.lastName"
+											:extension.sync="form.profile.extension"
+											:birth-date.sync="form.profile.birthDate"
+											:birth-place.sync="form.profile.birthPlace"
+											:sex.sync="form.profile.sex"
+											:civil-status.sync="form.profile.civilStatus"
+											:citizenship.sync="form.profile.citizenship"
+											:blood-type.sync="form.profile.bloodType"
+											:height.sync="form.profile.height"
+											:weight.sync="form.profile.weight"
+									></generic-profile>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>Benefits</generic-subtitle>
+									<generic-benefit-form
+											:gsis-id.sync="form.profile.benefit.gsisId"
+											:pagibig-id.sync="form.profile.benefit.pagibigId"
+											:philhealth-id.sync="form.profile.benefit.philhealthId"
+											:sss-number.sync="form.profile.benefit.sssNumber"
+											:tin-number.sync="form.profile.benefit.tinNumber"
+											:agency-employee-number.sync="form.profile.benefit.agencyEmployeeNumber"
+									></generic-benefit-form>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>Contact</generic-subtitle>
+									<generic-contact-form
+											:telephone-number.sync="form.profile.contact.telephoneNumber"
+											:mobile-number.sync="form.profile.contact.mobileNumber"
+											:email-address.sync="form.profile.contact.emailAddress"
+									></generic-contact-form>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+						<v-tab-item>
+							<v-row dense>
+								<v-col cols="12">
+									<generic-subtitle>Permanent Address</generic-subtitle>
+									<generic-address-form
+											:house-number.sync="form.profile.address.permanent.houseNumber"
+											:street.sync="form.profile.address.permanent.street"
+											:subdivision.sync="form.profile.address.permanent.subdivision"
+											:barangay.sync="form.profile.address.permanent.barangay"
+											:city.sync="form.profile.address.permanent.city"
+											:province.sync="form.profile.address.permanent.province"
+											:zip-code.sync="form.profile.address.permanent.zipCode"
+									></generic-address-form>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>Residential Address</generic-subtitle>
+									<generic-address-form
+											:house-number.sync="form.profile.address.residential.houseNumber"
+											:street.sync="form.profile.address.residential.street"
+											:subdivision.sync="form.profile.address.residential.subdivision"
+											:barangay.sync="form.profile.address.residential.barangay"
+											:city.sync="form.profile.address.residential.city"
+											:province.sync="form.profile.address.residential.province"
+											:zip-code.sync="form.profile.address.residential.zipCode"
+									></generic-address-form>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+						<v-tab-item>
+							<v-row dense>
+								<v-col cols="12">
+									<generic-subtitle>Spouse Information</generic-subtitle>
+									<generic-family-form
+											:first-name.sync="form.profile.family.spouse.firstName"
+											:middle-name.sync="form.profile.family.spouse.middleName"
+											:last-name.sync="form.profile.family.spouse.lastName"
+											:extension.sync="form.profile.family.spouse.extension"
+									></generic-family-form>
+								</v-col>
+								<v-col cols="12" md="6">
+									<generic-subtitle>Father Information</generic-subtitle>
+									<generic-family-form
+											:first-name.sync="form.profile.family.father.firstName"
+											:middle-name.sync="form.profile.family.father.middleName"
+											:last-name.sync="form.profile.family.father.lastName"
+											:extension.sync="form.profile.family.father.extension"
+									></generic-family-form>
+								</v-col>
+								<v-col cols="12" md="6">
+									<generic-subtitle>Mother Information</generic-subtitle>
+									<generic-family-form
+											:first-name.sync="form.profile.family.mother.firstName"
+											:middle-name.sync="form.profile.family.mother.middleName"
+											:last-name.sync="form.profile.family.mother.lastName"
+											:extension.sync="form.profile.family.mother.extension"
+									></generic-family-form>
+								</v-col>
+								<v-col cols="12" md="12" class="mb-10">
+									<generic-subtitle>Children Information</generic-subtitle>
+									<generic-children-information-table
+											:children.sync="form.profile.family.children"></generic-children-information-table>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+						<v-tab-item>
+							<v-row dense>
+								<v-col cols="12">
+									<generic-subtitle>Educational Background</generic-subtitle>
+									<generic-educational-background-table
+											:education.sync="form.profile.education"></generic-educational-background-table>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>Civil Service Eligibility</generic-subtitle>
+									<generic-civil-service-eligibility
+											:civil-service-eligibility.sync="form.profile.civilServiceEligibility"></generic-civil-service-eligibility>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>Work Experience</generic-subtitle>
+									<generic-work-experience
+											:work-experiences.sync="form.profile.workExperiences"></generic-work-experience>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>Voluntary Work Experience / Voluntary Organization(s)
+									</generic-subtitle>
+									<generic-voluntary-work-experience
+											:voluntary-work-experiences.sync="form.profile.voluntaryWorkExperiences"></generic-voluntary-work-experience>
+								</v-col>
+								<v-col cols="12" class="mb-10">
+									<generic-subtitle>L & D Interventions / Training Programs Attended
+									</generic-subtitle>
+									<generic-training-table
+											:trainings.sync="form.profile.trainings"></generic-training-table>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+						<v-tab-item>
+							<v-row dense>
+								<v-col cols="12" md="4">
+									<generic-list-input :list.sync="form.profile.hobbies"
+														label="Hobbies"></generic-list-input>
+								</v-col>
+								<v-col cols="12" md="4">
+									<generic-list-input :list.sync="form.profile.recognitions"
+														label="Recognitions"></generic-list-input>
+								</v-col>
+								<v-col cols="12" md="4">
+									<generic-list-input :list.sync="form.profile.organizations"
+														label="Organizations"></generic-list-input>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>References</generic-subtitle>
+									<generic-reference-table
+											:references.sync="form.profile.references"></generic-reference-table>
+								</v-col>
+								<v-col cols="12">
+									<generic-subtitle>Government Issued ID</generic-subtitle>
+									<generic-government-issue-id-form
+											:government-id.sync="form.profile.governmentIssueId.governmentId"
+											:license-number.sync="form.profile.governmentIssueId.licenseNumber"
+											:issuance-place.sync="form.profile.governmentIssueId.issuancePlace"
+											:issuance-date.sync="form.profile.governmentIssueId.issuanceDate"
+									></generic-government-issue-id-form>
+								</v-col>
+							</v-row>
+						</v-tab-item>
+					</v-tabs-items>
+				</v-card-text>
+				<v-card-actions>
+					<v-btn block color="secondary" :disabled="!isFormValid" :loading="isLoading" @click="update">
+						Update
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-col>
+	</v-row>
 </template>
 
 <script>
@@ -377,7 +375,7 @@
                 form: Object.assign({}, defaultForm),
                 defaultForm,
                 isLoading: false,
-				isPDSGenerationStart: false,
+                isPDSGenerationStart: false,
                 tabItems
             };
         },
