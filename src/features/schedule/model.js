@@ -13,7 +13,7 @@ module.exports = {
                        from personnel_schedule
                        where employee_id = ?
                          and (curr_date between ? and ?)
-                       order by id;`;
+                       order by curr_date;`;
         const params = [employeeId, fromDate, toDate];
         const results = await db.executeQuery(query, params);
         return results[0] ? results[0] : [];
