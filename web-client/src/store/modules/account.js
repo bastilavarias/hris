@@ -53,6 +53,12 @@ const actions = [
                 route: {name: "personnel-schedule-tagger"},
                 subActions: []
             },
+            {
+                name: "Schedule",
+                icon: "clock",
+                route: {name: "faculty-schedule-list"},
+                subActions: []
+            }
         ]
     },
     {

@@ -1,51 +1,55 @@
 <template>
-	<div>
-		<generic-back-button class-name="mb-5" title="Employee Form"></generic-back-button>
-		<generic-subtitle>Work Information</generic-subtitle>
-		<v-row dense>
-			<v-col cols="12">
-				<v-text-field placeholder="XX-XXXX-XXXX" label="Employee Number" outlined
-							  v-model="form.employeeNumber"
-							  :error="hasError(error.employeeNumber)" :error-messages="error.employeeNumber"
-							  append-outer-icon="mdi-refresh" @click:append-outer="generateEmployeeNumber"
-				></v-text-field>
-			</v-col>
-			<v-col cols="12" md="8">
-				<generic-department-selection :department-id.sync="form.departmentId" label="Department"
-											  outlined></generic-department-selection>
-			</v-col>
-			<v-col cols="12" md="4">
-				<generic-designation-selection :designation-id.sync="form.designationId" label="Designation"
-											   outlined></generic-designation-selection>
-			</v-col>
-			<v-col cols="12">
-				<v-radio-group label="Work Status" row v-model="form.isFullTime">
-					<v-radio labe	l="Full Time" :value="true"></v-radio>
-					<v-radio label="Part Time" :value="false"></v-radio>
-				</v-radio-group>
-			</v-col>
-			<v-col cols="12">
-				<generic-subtitle>Profile</generic-subtitle>
-				<generic-form-profile-with-image-input :first-name.sync="form.profile.firstName"
-													   :middle-name.sync="form.profile.middleName"
-													   :last-name.sync="form.profile.lastName"
-													   :photo.sync="form.profile.photo"
-													   :extension.sync="form.profile.extension"
-													   :birth-date.sync="form.profile.birthDate"
-													   :birth-place.sync="form.profile.birthPlace"
-													   :sex.sync="form.profile.sex"
-													   :civil-status.sync="form.profile.civilStatus"
-													   :citizenship.sync="form.profile.citizenship"
-													   :blood-type.sync="form.profile.bloodType"
-													   :height.sync="form.profile.height"
-													   :weight.sync="form.profile.weight"
-				></generic-form-profile-with-image-input>
-			</v-col>
-			<v-col cols="12">
-				<v-btn :loading="isLoading" color="primary" @click="create" block :disabled="!isFormValid">Save</v-btn>
-			</v-col>
-		</v-row>
-	</div>
+	<v-card>
+		<v-card-title>
+			<generic-back-button title="Employee Form" class-name="mb-5"></generic-back-button>
+		</v-card-title>
+		<v-card-subtitle>Work Information</v-card-subtitle>
+		<v-card-text>
+			<v-row dense>
+				<v-col cols="12">
+					<v-text-field placeholder="XX-XXXX-XXXX" label="Employee Number" outlined
+								  v-model="form.employeeNumber"
+								  :error="hasError(error.employeeNumber)" :error-messages="error.employeeNumber"
+								  append-outer-icon="mdi-refresh" @click:append-outer="generateEmployeeNumber"
+					></v-text-field>
+				</v-col>
+				<v-col cols="12" md="8">
+					<generic-department-selection :department-id.sync="form.departmentId" label="Department"
+												  outlined></generic-department-selection>
+				</v-col>
+				<v-col cols="12" md="4">
+					<generic-designation-selection :designation-id.sync="form.designationId" label="Designation"
+												   outlined></generic-designation-selection>
+				</v-col>
+				<v-col cols="12">
+					<v-radio-group label="Work Status" row v-model="form.isFullTime">
+						<v-radio labe	l="Full Time" :value="true"></v-radio>
+						<v-radio label="Part Time" :value="false"></v-radio>
+					</v-radio-group>
+				</v-col>
+				<v-col cols="12">
+					<generic-subtitle>Profile</generic-subtitle>
+					<generic-form-profile-with-image-input :first-name.sync="form.profile.firstName"
+														   :middle-name.sync="form.profile.middleName"
+														   :last-name.sync="form.profile.lastName"
+														   :photo.sync="form.profile.photo"
+														   :extension.sync="form.profile.extension"
+														   :birth-date.sync="form.profile.birthDate"
+														   :birth-place.sync="form.profile.birthPlace"
+														   :sex.sync="form.profile.sex"
+														   :civil-status.sync="form.profile.civilStatus"
+														   :citizenship.sync="form.profile.citizenship"
+														   :blood-type.sync="form.profile.bloodType"
+														   :height.sync="form.profile.height"
+														   :weight.sync="form.profile.weight"
+					></generic-form-profile-with-image-input>
+				</v-col>
+				<v-col cols="12">
+					<v-btn :loading="isLoading" color="primary" @click="create" block :disabled="!isFormValid">Save</v-btn>
+				</v-col>
+			</v-row>
+		</v-card-text>
+	</v-card>
 </template>
 
 <script>

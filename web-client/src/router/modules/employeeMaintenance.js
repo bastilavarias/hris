@@ -65,5 +65,23 @@ export default [
                 component: () => import("../../pages/schedule/personnel/Tagger")
             }
         ]
+    },
+
+    {
+        path: "faculty-schedule-management",
+        component: () => import("../../layouts/Sub"),
+        children: [
+            {
+                path: "",
+                name: "faculty-schedule-list",
+                component: () => import("../../pages/schedule/faculty/List")
+            },
+            {
+                path: ":operation",
+                name: "faculty-schedule-form",
+                component: () => import("../../pages/schedule/faculty/Form")
+            }
+        ]
     }
+
 ];

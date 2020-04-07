@@ -1,7 +1,7 @@
 <template>
 	<v-tooltip bottom>
 		<template v-slot:activator="{ on }">
-			<v-btn icon :class="`${className}`" v-on="on" :to="to">
+			<v-btn fab color="primary" small :class="`${className}`" v-on="on" :to="to">
 				<v-icon>mdi-{{icon}}</v-icon>
 			</v-btn>
 		</template>

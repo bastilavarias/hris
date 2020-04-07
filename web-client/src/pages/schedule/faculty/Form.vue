@@ -1,19 +1,18 @@
 <template>
 	<v-card>
-		<generic-card-back-button title="Schedule Information"></generic-card-back-button>
-		<v-card-subtitle>The information will automatically inserted in <span
-				class="font-weight-bold">Second Semester</span>, Academic Year: <span
-				class="font-weight-bold">2020-2020</span></v-card-subtitle>
+		<v-card-title>
+			<generic-back-button title="Faculty Schedule Form"></generic-back-button>
+		</v-card-title>
 		<v-card-text>
 			<v-row>
 				<v-col cols="12">
-					<v-autocomplete label="Section"></v-autocomplete>
+					<v-autocomplete label="Section" outlined></v-autocomplete>
 				</v-col>
 				<v-col cols="12">
-					<v-autocomplete label="Subject"></v-autocomplete>
+					<v-autocomplete label="Subject" outlined></v-autocomplete>
 				</v-col>
 				<v-col cols="12">
-					<v-autocomplete label="Faculty"></v-autocomplete>
+					<v-autocomplete label="Faculty" outlined></v-autocomplete>
 				</v-col>
 				<v-col cols="12">
 					<span class="v-label theme--light">Day / Time / Room</span>
@@ -38,13 +37,13 @@
 								<v-icon>mdi-trash-can</v-icon>
 							</v-btn>
 						</v-col>
-						<v-col cols="12">
-							<v-checkbox color="primary"
-							>
-								<template v-slot:label>Is day, time, and room is to be announce?</template>
-							</v-checkbox>
-						</v-col>
 					</v-row>
+				</v-col>
+				<v-col cols="12">
+					<v-checkbox color="primary"
+					>
+						<template v-slot:label>Is day, time, and room is to be announce?</template>
+					</v-checkbox>
 				</v-col>
 			</v-row>
 		</v-card-text>
@@ -57,10 +56,11 @@
 <script>
     import GenericCardBackButton from "../../../components/generic/CardBackButton";
     import GenericTimePicker from "../../../components/generic/TimePicker";
+    import GenericBackButton from "../../../components/generic/BackButton";
 
     export default {
         name: "schedule-schedule-form",
-        components: {GenericTimePicker, GenericCardBackButton},
+        components: {GenericBackButton, GenericTimePicker, GenericCardBackButton},
 
         data() {
             return {
