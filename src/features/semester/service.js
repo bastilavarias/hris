@@ -43,14 +43,16 @@ const semesterService = {
 
   getAll: async () => await semesterModel.getAll(),
 
-  activateSemester: async semesterId => {
-    await semesterService.deactivateSemesters();
-    await semesterModel.activate(semesterId);
-    const { name } = await semesterModel.getCurrent();
-    let message = `Current was semester set to ${name}`;
-    return {
-      message
+  getSingle: async semesterId => await semesterModel.getSingle(semesterId),
+
+  search: async (option, value) => {
+    const options = {
+      name: "name"
     };
+    return await semesterModel.search(
+      options[option],
+      value.trim().toLowerCase()
+    );
   },
 
   delete: async semesterId => {

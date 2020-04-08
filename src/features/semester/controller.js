@@ -40,6 +40,17 @@ module.exports = {
     }
   },
 
+  getSingle: async (req, res) => {
+    const semesterId = toNumber(req.params.semesterId);
+    try {
+      const result = await semesterController.getSingle(semesterId);
+      res.status(200).json(result);
+    } catch (errors) {
+      console.log(errors);
+      res.status(400).json(errors);
+    }
+  },
+
   getAll: async (req, res) => {
     try {
       const result = await semesterController.getAll();
@@ -50,10 +61,11 @@ module.exports = {
     }
   },
 
-  activate: async (req, res) => {
-    const semesterId = toNumber(req.params.semesterId);
+  search: async (req, res) => {
+    const searchOption = req.params.searchOption;
+    const searchValue = req.params.searchValue;
     try {
-      const result = await semesterController.activateSemester(semesterId);
+      const result = await semesterController.search(searchOption, searchValue);
       res.status(200).json(result);
     } catch (errors) {
       console.log(errors);

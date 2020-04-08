@@ -20,17 +20,26 @@ module.exports = {
     return result[0] ? result[0] : [];
   },
 
+  getSingle: async semesterId => {
+    const query = `select id, name, is_current as isCurrent from semester where id = ? AND is_deleted = ?;`;
+    const params = [semesterId, false];
+    const result = await db.executeQuery(query, params);
+    return result[0][0] ? result[0][0] : {};
+  },
+
+  search: async (option, value) => {
+    const query = `select id, name, is_current as isCurrent
+                       from semester where ${option} like '%${value}%' and is_deleted = ?;`;
+    const params = [false];
+    const result = await db.executeQuery(query, params);
+    return result[0] ? result[0] : [];
+  },
+
   getCurrent: async () => {
     const query = `select id, name, is_current as isCurrent from semester where is_current = ?;`;
     const params = [true];
     const result = await db.executeQuery(query, params);
     return result[0][0] ? result[0][0] : {};
-  },
-
-  activate: async semesterId => {
-    const query = `update semester set is_current = ? where id= ?;`;
-    const params = [true, semesterId];
-    await db.executeQuery(query, params);
   },
 
   delete: async semesterId => {

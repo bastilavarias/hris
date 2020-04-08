@@ -109,9 +109,8 @@ export default {
     "$store.state.semester.current"(semester) {
       if (Object.keys(semester).length <= 0)
         return this.$router.push({ name: "semester-list" });
-      this.form.customId = semester.customId;
       this.form.name = semester.name;
-      this.form.description = semester.description;
+      this.form.isCurrent = semester.isCurrent === 1;
       this.isLoading = false;
     }
   },

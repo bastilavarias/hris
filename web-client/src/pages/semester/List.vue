@@ -29,8 +29,16 @@
         <span class="text-capitalize d-block">{{ item.name }}</span>
       </template>
       <template v-slot:item.isCurrent="{ item }">
-        <v-chip :color="item.isCurrent ? 'success' : 'error'" small>
-          {{ item.isCurrent ? "Current Semester" : "N/A" }}
+        <v-chip
+          label
+          small
+          :color="item.isCurrent ? 'success' : 'error'"
+          style="width: 8rem;"
+          depressed
+        >
+          <span class="d-block text-center">{{
+            item.isCurrent ? "Current" : "Not Active"
+          }}</span>
         </v-chip>
       </template>
       <template v-slot:item.actions="{ item }">

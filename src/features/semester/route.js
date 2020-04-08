@@ -23,15 +23,21 @@ router.get(
 );
 
 router.get(
+  "/getSingle/:semesterId",
+  passport.authenticate("jwt", { session: false }),
+  semesterController.getSingle
+);
+
+router.get(
+  "/search/:searchOption/:searchValue",
+  passport.authenticate("jwt", { session: false }),
+  semesterController.search
+);
+
+router.get(
   "/getAll",
   passport.authenticate("jwt", { session: false }),
   semesterController.getAll
-);
-
-router.put(
-  "/activate/:semesterId",
-  passport.authenticate("jwt", { session: false }),
-  semesterController.activate
 );
 
 router.delete(
