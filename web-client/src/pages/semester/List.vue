@@ -37,7 +37,7 @@
           depressed
         >
           <span class="d-block text-center">{{
-            item.isCurrent ? "Current" : "Not Active"
+            item.isCurrent ? "Current Semester" : "Not Active"
           }}</span>
         </v-chip>
       </template>

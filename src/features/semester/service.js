@@ -1,5 +1,6 @@
 const semesterModel = require("./model");
 const helper = require("../../helper");
+const { formatData } = require("../../customUtilities");
 
 const semesterService = {
   create: async ({ name, isCurrent }) => {
@@ -8,7 +9,7 @@ const semesterService = {
     const isSemesterExists = await helper.checkIfExists(
       "semester",
       "name",
-      name.toLowerCase()
+      formatData(name)
     );
     if (isSemesterExists) {
       error.name = "Semester name was already used.";
@@ -20,7 +21,8 @@ const semesterService = {
     if (isCurrent) {
       await semesterService.deactivateSemesters();
     }
-    await semesterModel.create({ name, isCurrent });
+    const formattedName = formatData(name);
+    await semesterModel.create({ name: formattedName, isCurrent });
     message = `${name} was created.`;
     return {
       message,
@@ -32,7 +34,8 @@ const semesterService = {
     if (isCurrent) {
       await semesterService.deactivateSemesters();
     }
-    await semesterModel.update(semesterId, { name, isCurrent });
+    const formattedName = formatData(name);
+    await semesterModel.update(semesterId, { name: formattedName, isCurrent });
     let message = "Semester was updated.";
     return {
       message
@@ -49,10 +52,7 @@ const semesterService = {
     const options = {
       name: "name"
     };
-    return await semesterModel.search(
-      options[option],
-      value.trim().toLowerCase()
-    );
+    return await semesterModel.search(options[option], formatData(value));
   },
 
   delete: async semesterId => {

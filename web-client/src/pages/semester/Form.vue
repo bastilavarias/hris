@@ -13,10 +13,15 @@
             label="Name"
             v-model="form.name"
             outlined
+            :error="hasError(error.name)"
+            :error-messages="error.name"
           ></v-text-field>
         </v-col>
         <v-col cols="12">
-          <v-radio-group v-model="form.isCurrent" label="Is Current Semester">
+          <v-radio-group
+            v-model="form.isCurrent"
+            label="Set as current semester?"
+          >
             <v-radio label="Yes" :value="true"></v-radio>
             <v-radio label="No" :value="false"></v-radio>
           </v-radio-group>
