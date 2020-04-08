@@ -12,22 +12,24 @@ import action from "./modules/action";
 import department from "./modules/department";
 import personalDataSheet from "./modules/personalDataSheet";
 import schedule from "./modules/schedule";
+import semester from "./modules/semester";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: {
-        account,
-        subject,
-        college,
-        course,
-        section,
-        designation,
-        employee,
-        notification,
-        action,
-        department,
-        personalDataSheet,
-        schedule
-    }
+  modules: {
+    account,
+    subject,
+    college,
+    course,
+    section,
+    designation,
+    employee,
+    notification,
+    action,
+    department,
+    personalDataSheet,
+    schedule,
+    semester
+  }
 });
