@@ -29,44 +29,48 @@ const account = require("./modules/account");
 const section = require("./modules/academics/section");
 const departmentHead = require("./modules/departmentHead");
 const personnelSchedule = require("./modules/personnelSchedule");
+const semester = require("./modules/system-settings/semester");
+const schoolYear = require("./modules/system-settings/schoolYear");
 
 module.exports = async () => {
-    let message = "";
-    try {
-        await db.executeQuery(subjectCategory);
-        await db.executeQuery(subject);
-        await db.executeQuery(subjectPrerequisite);
-        await db.executeQuery(college);
-        await db.executeQuery(course);
-        await db.executeQuery(section);
-        await db.executeQuery(department);
-        await db.executeQuery(designation);
-        await db.executeQuery(benefit);
-        await db.executeQuery(contact);
-        await db.executeQuery(address);
-        await db.executeQuery(family);
-        await db.executeQuery(child);
-        await db.executeQuery(photo);
-        await db.executeQuery(governmentIssueId);
-        await db.executeQuery(account);
-        await db.executeQuery(profile);
-        await db.executeQuery(employee);
-        await db.executeQuery(citizenship);
-        await db.executeQuery(education);
-        await db.executeQuery(education);
-        await db.executeQuery(civilServiceEligibility);
-        await db.executeQuery(workExperience);
-        await db.executeQuery(voluntaryWorkExperience);
-        await db.executeQuery(training);
-        await db.executeQuery(hobby);
-        await db.executeQuery(recognition);
-        await db.executeQuery(organization);
-        await db.executeQuery(reference);
-        await db.executeQuery(departmentHead);
-        await db.executeQuery(personnelSchedule);
-        message ="Database tables created.";
-    } catch (errors) {
-        console.log(errors);
-    }
-    return message;
+  let message = "";
+  try {
+    await db.executeQuery(subjectCategory);
+    await db.executeQuery(subject);
+    await db.executeQuery(subjectPrerequisite);
+    await db.executeQuery(college);
+    await db.executeQuery(course);
+    await db.executeQuery(section);
+    await db.executeQuery(department);
+    await db.executeQuery(designation);
+    await db.executeQuery(benefit);
+    await db.executeQuery(contact);
+    await db.executeQuery(address);
+    await db.executeQuery(family);
+    await db.executeQuery(child);
+    await db.executeQuery(photo);
+    await db.executeQuery(governmentIssueId);
+    await db.executeQuery(account);
+    await db.executeQuery(profile);
+    await db.executeQuery(employee);
+    await db.executeQuery(citizenship);
+    await db.executeQuery(education);
+    await db.executeQuery(education);
+    await db.executeQuery(civilServiceEligibility);
+    await db.executeQuery(workExperience);
+    await db.executeQuery(voluntaryWorkExperience);
+    await db.executeQuery(training);
+    await db.executeQuery(hobby);
+    await db.executeQuery(recognition);
+    await db.executeQuery(organization);
+    await db.executeQuery(reference);
+    await db.executeQuery(departmentHead);
+    await db.executeQuery(personnelSchedule);
+    await db.executeQuery(semester);
+    await db.executeQuery(schoolYear);
+    message = "Database tables created.";
+  } catch (errors) {
+    console.log(errors);
+  }
+  return message;
 };

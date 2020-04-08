@@ -1,23 +1,30 @@
 const db = require("../../db");
 
 module.exports = {
-    create: async ({employeeNumber, departmentId, designationId, isFullTime, profileId, accountId}) => {
-        const query = `insert into employee (department_id, designation_id, profile_id, account_id, employee_number,
+  create: async ({
+    employeeNumber,
+    departmentId,
+    designationId,
+    isFullTime,
+    profileId,
+    accountId
+  }) => {
+    const query = `insert into employee (department_id, designation_id, profile_id, account_id, employee_number,
                                              is_full_time)
                        values (?, ?, ?, ?, ?, ?);`;
-        const params = [
-            departmentId,
-            designationId,
-            profileId,
-            accountId,
-            employeeNumber,
-            isFullTime
-        ];
-        await db.executeQuery(query, params);
-    },
+    const params = [
+      departmentId,
+      designationId,
+      profileId,
+      accountId,
+      employeeNumber,
+      isFullTime
+    ];
+    await db.executeQuery(query, params);
+  },
 
-    getAll: async () => {
-        const query = `select mainEmployee.id,
+  getAll: async () => {
+    const query = `select mainEmployee.id,
                               mainEmployee.employee_number               as employeeNumber,
                               mainEmployee.is_deleted                    as isDeleted,
                               mainEmployee.created_at                    as createdAt,
@@ -32,14 +39,15 @@ module.exports = {
                                from profile p
                                where p.id = mainEmployee.profile_id)     as profile
                        from employee mainEmployee;`;
-        const params = [];
-        const results = await db.executeQuery(query, params);
-        return results[0] ? results[0] : [];
-    },
+    const params = [];
+    const result = await db.executeQuery(query, params);
+    return result[0] ? result[0] : [];
+  },
 
-    search: async (option, value) => {
-        const targetTable = option === "employee_number" ? `mainEmployee` : `mainProfile`;
-        const query = `select mainEmployee.id,
+  search: async (option, value) => {
+    const targetTable =
+      option === "employee_number" ? `mainEmployee` : `mainProfile`;
+    const query = `select mainEmployee.id,
                               mainEmployee.employee_number               as employeeNumber,
                               mainEmployee.is_deleted                    as isDeleted,
                               mainEmployee.created_at                    as createdAt,
@@ -54,13 +62,13 @@ module.exports = {
                                from profile p
                                where p.id = mainEmployee.profile_id)     as profile
                        from employee mainEmployee join profile mainProfile on mainEmployee.profile_id = mainProfile.id where ${targetTable}.${option} like '%${value}%';`;
-        const params = [];
-        const results = await db.executeQuery(query, params);
-        return results[0] ? results[0] : [];
-    },
+    const params = [];
+    const result = await db.executeQuery(query, params);
+    return result[0] ? result[0] : [];
+  },
 
-    getSingle: async (employeeId) => {
-        const query = `select e.id,
+  getSingle: async employeeId => {
+    const query = `select e.id,
                               e.employee_number             as employeeNumber,
                               e.is_full_time                as isFullTime,
                               (select json_object('id', id, 'name', name)
@@ -265,23 +273,23 @@ module.exports = {
                        from employee e
                                 join profile p on e.profile_id = p.id
                        where e.id = ?;`;
-        const params = [employeeId];
-        const results = await db.executeQuery(query, params);
-        return results[0][0] ? results[0][0] : {};
-    },
+    const params = [employeeId];
+    const result = await db.executeQuery(query, params);
+    return result[0][0] ? result[0][0] : {};
+  },
 
-    update: async (employeeId, {departmentId, designationId, isFullTime}) => {
-        const query = `update employee
+  update: async (employeeId, { departmentId, designationId, isFullTime }) => {
+    const query = `update employee
                        set department_id  = ?,
                            designation_id = ?,
                            is_full_time   = ?
                        where id = ?;`;
-        const params = [departmentId, designationId, isFullTime, employeeId];
-        await db.executeQuery(query, params);
-    },
+    const params = [departmentId, designationId, isFullTime, employeeId];
+    await db.executeQuery(query, params);
+  },
 
-    getRaw: async (employeeId) => {
-        const query = `select id,
+  getRaw: async employeeId => {
+    const query = `select id,
                               department_id,
                               designation_id,
                               profile_id as profileId,
@@ -292,13 +300,13 @@ module.exports = {
                               deleted_at
                        from employee
                        where id = ?;`;
-        const params = [employeeId];
-        const results = await db.executeQuery(query, params);
-        return results[0][0] ? results[0][0] : {};
-    },
+    const params = [employeeId];
+    const result = await db.executeQuery(query, params);
+    return result[0][0] ? result[0][0] : {};
+  },
 
-    getSingleByAccountId: async (accountId) => {
-        const query = `select e.id,
+  getSingleByAccountId: async accountId => {
+    const query = `select e.id,
                               e.employee_number             as employeeNumber,
                               e.created_at                  as createdAt,
                               e.is_full_time                as isFullTime,
@@ -324,13 +332,13 @@ module.exports = {
                                 join profile p on e.profile_id = p.id
                        where e.account_id = ?
                          AND e.is_deleted = ?;`;
-        const params = [accountId, false];
-        const results = await db.executeQuery(query, params);
-        return results[0][0] ? results[0][0] : {};
-    },
+    const params = [accountId, false];
+    const result = await db.executeQuery(query, params);
+    return result[0][0] ? result[0][0] : {};
+  },
 
-    getBasicInformation: async (employeeId) => {
-        const query = `select e.id,
+  getBasicInformation: async employeeId => {
+    const query = `select e.id,
                               e.employee_number             as employeeNumber,
                               e.created_at                  as createdAt,
                               e.is_full_time                as isFullTime,
@@ -356,8 +364,8 @@ module.exports = {
                                 join profile p on e.profile_id = p.id
                        where e.id = ?
                          AND e.is_deleted = ?;`;
-        const params = [employeeId, false];
-        const results = await db.executeQuery(query, params);
-        return results[0][0] ? results[0][0] : {};
-    }
+    const params = [employeeId, false];
+    const result = await db.executeQuery(query, params);
+    return result[0][0] ? result[0][0] : {};
+  }
 };

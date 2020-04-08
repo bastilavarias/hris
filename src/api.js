@@ -9,6 +9,7 @@ const departmentRoute = require("./features/department/route");
 const accountRoute = require("./features/account/route");
 const pdsRoute = require("./features/personal-data-sheet/route");
 const scheduleRoute = require("./features/schedule/route");
+const semesterRoute = require("./features/semester/route");
 
 const application = express();
 
@@ -23,5 +24,6 @@ application.use("/department", departmentRoute);
 application.use("/account", accountRoute);
 application.use("/personal-data-sheet", pdsRoute);
 application.use("/schedule", scheduleRoute);
+application.use("/semester", semesterRoute);
 
 module.exports = application;
