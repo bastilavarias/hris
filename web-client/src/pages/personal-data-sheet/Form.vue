@@ -306,23 +306,23 @@
 
 <script>
 import GenericImageInput from "../../components/generic/PhotoInput";
-import GenericDepartmentSelection from "../../components/selection/Department";
-import GenericDesignationSelection from "../../components/selection/Designation";
+import GenericDepartmentSelection from "../../components/generic/selection/Department";
+import GenericDesignationSelection from "../../components/generic/selection/Designation";
 import GenericSubtitle from "../../components/generic/Subtitle";
 import GenericProfile from "../../components/form/Profile";
 import GenericBenefitForm from "../../components/form/Benefit";
 import GenericContactForm from "../../components/form/Contact";
 import GenericAddressForm from "../../components/form/Address";
 import GenericFamilyForm from "../../components/form/Family";
-import GenericChildrenInformationTable from "../../components/table/ChildrenInformation";
-import GenericEducationalBackgroundTable from "../../components/table/EducationalBackground";
-import GenericCivilServiceEligibility from "../../components/table/CivilServiceEligibility";
-import GenericWorkExperience from "../../components/table/WorkExperience";
-import GenericTrainingTable from "../../components/table/Training";
+import GenericChildrenInformationTable from "../../components/generic/table/ChildrenInformation";
+import GenericEducationalBackgroundTable from "../../components/generic/table/EducationalBackground";
+import GenericCivilServiceEligibility from "../../components/generic/table/CivilServiceEligibility";
+import GenericWorkExperience from "../../components/generic/table/WorkExperience";
+import GenericTrainingTable from "../../components/generic/table/Training";
 import GenericListInput from "../../components/generic/ListInput";
 import GenericGovernmentIssueIdForm from "../../components/form/GovernmentIssueId";
-import GenericReferenceTable from "../../components/table/Reference";
-import GenericVoluntaryWorkExperience from "../../components/table/VoluntaryWorkExperience";
+import GenericReferenceTable from "../../components/generic/table/Reference";
+import GenericVoluntaryWorkExperience from "../../components/generic/table/VoluntaryWorkExperience";
 import {
   generatePersonalDataSheet,
   getPersonalDataSheet,

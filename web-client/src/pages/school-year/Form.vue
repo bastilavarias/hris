@@ -43,7 +43,7 @@ import { setActionName } from "../../store/types/action";
 import GenericFormActionButton from "../../components/generic/FormActionButton";
 import GenericBackButton from "../../components/generic/BackButton";
 import customUtilities from "../../services/customUtilities";
-import GenericYearSelection from "../../components/selection/Year";
+import GenericYearSelection from "../../components/generic/selection/Year";
 
 const defaultForm = {
   startYear: null,
