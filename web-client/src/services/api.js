@@ -163,3 +163,8 @@ export const semesterService = {
     apiService.put(`/semester/update/${semesterId}`, details),
   delete: semesterId => apiService.delete(`/semester/delete/${semesterId}`)
 };
+
+export const schoolYearService = {
+  update: details => apiService.put(`/school-year/update`, details),
+  getCurrent: () => apiService.get(`/school-year/getCurrent`)
+};

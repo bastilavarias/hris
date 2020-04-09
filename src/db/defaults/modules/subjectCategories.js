@@ -1,6 +1,6 @@
 module.exports = `
     insert into subject_category (name)
-    VALUES ('General Education'),
+    values ('General Education'),
            ('Common Courses'),
            ('Professional Courses'),
            ('Professional Electives'),

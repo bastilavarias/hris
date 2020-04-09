@@ -13,6 +13,7 @@ import department from "./modules/department";
 import personalDataSheet from "./modules/personalDataSheet";
 import schedule from "./modules/schedule";
 import semester from "./modules/semester";
+import schoolYear from "./modules/schoolYear";
 
 Vue.use(Vuex);
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     department,
     personalDataSheet,
     schedule,
-    semester
+    semester,
+    schoolYear
   }
 });

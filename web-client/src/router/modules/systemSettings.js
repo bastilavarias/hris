@@ -14,5 +14,11 @@ export default [
         component: () => import("../../pages/semester/Form")
       }
     ]
+  },
+
+  {
+    path: "school-year-setting",
+    name: "school-year-form",
+    component: () => import("../../pages/school-year/Form.vue")
   }
 ];
