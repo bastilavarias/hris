@@ -169,7 +169,7 @@ export default {
         return;
       }
 
-      if (name === searchColleges || getAllColleges) {
+      if (name === searchColleges || name === getAllColleges) {
         this.isSearchCollegeStart = false;
         this.$store.commit(setActionName, "");
       }

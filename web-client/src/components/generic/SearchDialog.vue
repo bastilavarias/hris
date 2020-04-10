@@ -153,7 +153,7 @@ export default {
     },
 
     selectValueLocal(val) {
-      if (Object.keys(val)) {
+      if (val && Object.keys(val)) {
         this.selectValue = val;
         this.selectItems.push(val);
       }

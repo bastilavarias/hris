@@ -33,18 +33,60 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12">
-          <generic-college-selection
+          <generic-search-dialog
+            :search-options="collegeSearchOptions"
+            :search-option.sync="collegeSearchOption"
+            :search-value.sync="collegeSearchValue"
+            :action="searchColleges"
+            :items="colleges"
+            :is-loading="isSearchCollegeStart"
             label="College"
-            outlined
-            :college-id.sync="form.collegeId"
-          ></generic-college-selection>
+            title="Search College"
+            item-value="id"
+            :select-value.sync="form.college"
+          >
+            <template v-slot:select-selection="{ item }">
+              <span class="text-capitalize">
+                {{ item.name }}
+              </span>
+            </template>
+            <template v-slot:list-item-subtitle-top="{ item }">
+              <span class="font-weight-bold text-uppercase">
+                {{ item.customId }}
+              </span>
+            </template>
+            <template v-slot:list-item-title="{ item }">
+              <span class="text-capitalize"> {{ item.name }} </span>
+            </template>
+          </generic-search-dialog>
         </v-col>
         <v-col cols="12">
-          <generic-course-selection
+          <generic-search-dialog
+            :search-options="courseSearchOptions"
+            :search-option.sync="courseSearchOption"
+            :search-value.sync="courseSearchValue"
+            :action="searchCourses"
+            :items="courses"
+            :is-loading="isSearchCourseStart"
             label="Course"
-            outlined
-            :course-id.sync="form.courseId"
-          ></generic-course-selection>
+            title="Search Course"
+            item-value="id"
+            :select-value.sync="form.course"
+          >
+            <template v-slot:select-selection="{ item }">
+              <span class="text-capitalize">
+                {{ item.name }}
+              </span>
+            </template>
+            <template v-slot:list-item-subtitle-top="{ item }">
+              <span class="font-weight-bold text-uppercase">
+                {{ item.code }}
+              </span>
+            </template>
+            <template v-slot:list-item-title="{ item }">
+              <span class="text-capitalize"> {{ item.name }} </span>
+            </template>
+          </generic-search-dialog>
         </v-col>
         <v-col cols="12">
           <v-select
@@ -82,23 +124,36 @@ import GenericFormActionButton from "../../components/generic/FormActionButton";
 import GenericBackButton from "../../components/generic/BackButton";
 import customUtilities from "../../services/customUtilities";
 import GenericCollegeSelection from "../../components/generic/selection/College";
-import { getAllColleges } from "../../store/types/college";
-import { getAllCourses } from "../../store/types/course";
+import {
+  getAllColleges,
+  searchColleges,
+  setColleges
+} from "../../store/types/college";
+import {
+  getAllCourses,
+  searchCourses,
+  setCourses
+} from "../../store/types/course";
 import GenericCourseSelection from "../../components/generic/selection/Course";
+import GenericSearchDialog from "../../components/generic/SearchDialog";
 
 const defaultForm = {
   code: "",
   name: "",
   description: "",
-  collegeId: null,
-  courseId: null,
+  college: null,
+  course: null,
   yearLevel: null
 };
 
 const yearLevels = [1, 2, 3, 4, 5];
 
+const collegeSearchOptions = ["all", "custom ID", "name"];
+const courseSearchOptions = ["all", "code", "name"];
+
 export default {
   components: {
+    GenericSearchDialog,
     GenericCourseSelection,
     GenericCollegeSelection,
     GenericBackButton,
@@ -112,7 +167,15 @@ export default {
       defaultForm,
       operation: "create",
       isLoading: false,
-      yearLevels
+      yearLevels,
+      collegeSearchOptions,
+      courseSearchOptions,
+      collegeSearchOption: "all",
+      courseSearchOption: "all",
+      collegeSearchValue: "",
+      courseSearchValue: "",
+      isSearchCollegeStart: false,
+      isSearchCourseStart: false
     };
   },
 
@@ -123,14 +186,22 @@ export default {
       return (
         this.form.code &&
         this.form.name &&
-        this.form.collegeId &&
-        this.form.courseId &&
+        this.form.college &&
+        this.form.course &&
         this.form.yearLevel
       );
     },
 
     error() {
       return this.$store.state.section.error;
+    },
+
+    colleges() {
+      return this.$store.state.college.list;
+    },
+
+    courses() {
+      return this.$store.state.course.list;
     }
   },
 
@@ -155,6 +226,18 @@ export default {
         this.$store.commit(setSectionError, []);
         this.$store.commit(setActionName, "");
         this.$router.push({ name: "section-list" });
+        return;
+      }
+
+      if (name === getAllColleges || name === searchColleges) {
+        this.$store.commit(setActionName, "");
+        this.isSearchCollegeStart = false;
+        return;
+      }
+
+      if (name === searchCourses || name === getAllCourses) {
+        this.$store.commit(setActionName, "");
+        this.isSearchCourseStart = false;
       }
     },
 
@@ -164,32 +247,90 @@ export default {
       this.form.code = section.code;
       this.form.name = section.name;
       this.form.description = section.description;
-      this.form.collegeId = section.college.id;
-      this.form.courseId = section.course.id;
+      this.form.college = section.college;
+      this.form.course = section.course;
       this.form.yearLevel = section.yearLevel;
       this.isLoading = false;
+    },
+
+    collegeSearchOption(opt) {
+      if (opt === "all") return this.$store.dispatch(getAllColleges);
+    },
+
+    courseSearchOption(opt) {
+      if (opt === "all") return this.$store.dispatch(getAllCourses);
     }
   },
 
   methods: {
     create() {
-      this.$store.dispatch(createSection, this.form);
+      const params = {
+        code: this.form.code,
+        name: this.form.name,
+        description: this.form.description,
+        yearLevel: this.form.yearLevel,
+        collegeId: this.form.college.id,
+        courseId: this.form.course.id
+      };
+      this.$store.dispatch(createSection, params);
       this.isLoading = true;
     },
 
     update() {
       const sectionId = this.$route.params.sectionId;
+      const details = {
+        code: this.form.code,
+        name: this.form.name,
+        description: this.form.description,
+        yearLevel: this.form.yearLevel,
+        collegeId: this.form.college.id,
+        courseId: this.form.course.id
+      };
       this.$store.dispatch(updateSection, {
         sectionId,
-        details: this.form
+        details
       });
       this.isLoading = true;
+    },
+
+    searchColleges() {
+      this.isSearchCollegeStart = true;
+      if (this.collegeSearchOption === "all")
+        return this.$store.dispatch(getAllColleges);
+      if (
+        this.collegeSearchValue.trim() &&
+        ["custom ID", "name"].includes(this.collegeSearchOption)
+      ) {
+        const searchConfig = {
+          option: this.collegeSearchOption,
+          value: this.collegeSearchValue
+        };
+        return this.$store.dispatch(searchColleges, searchConfig);
+      }
+      this.isSearchCollegeStart = false;
+      return this.$store.commit(setColleges, []);
+    },
+
+    searchCourses() {
+      this.isSearchCourseStart = true;
+      if (this.courseSearchOption === "all")
+        return this.$store.dispatch(getAllCourses);
+      if (
+        this.courseSearchValue.trim() &&
+        ["code", "name"].includes(this.courseSearchOption)
+      ) {
+        const searchConfig = {
+          option: this.courseSearchOption,
+          value: this.courseSearchValue
+        };
+        return this.$store.dispatch(searchCourses, searchConfig);
+      }
+      this.isSearchCourseStart = false;
+      return this.$store.commit(setCourses, []);
     }
   },
 
   created() {
-    this.$store.dispatch(getAllColleges);
-    this.$store.dispatch(getAllCourses);
     const operation = this.$route.params.operation;
     if (operation === "update") {
       const sectionId = this.$route.params.sectionId;
