@@ -8,7 +8,7 @@
         append-icon="mdi-magnify"
         @click:append="dialogLocal = true"
         :item-value="itemValue"
-        :items="items"
+        :items="selectItems"
         v-model="selectValueLocal"
         clearable
       >
@@ -126,7 +126,8 @@ export default {
       dialogLocal: false,
       searchValueLocal: "",
       searchOptionLocal: "",
-      selectValueLocal: null
+      selectValueLocal: null,
+      selectItems: []
     };
   },
 
@@ -152,13 +153,18 @@ export default {
     },
 
     selectValueLocal(val) {
+      if (Object.keys(val)) {
+        this.selectValue = val;
+        this.selectItems.push(val);
+      }
       this.$emit("update:selectValue", val);
     }
   },
 
   methods: {
     select(item) {
-      this.selectValueLocal = item.id;
+      this.selectValueLocal = item;
+      this.selectItems.push(item);
       this.dialogLocal = false;
     }
   },
@@ -166,7 +172,6 @@ export default {
   created() {
     this.searchValueLocal = this.searchValue;
     this.searchOptionLocal = this.searchOption;
-    this.selectValueLocal = this.selectValue;
   }
 };
 </script>

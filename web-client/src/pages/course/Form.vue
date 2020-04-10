@@ -43,7 +43,7 @@
             label="College"
             title="Search College"
             item-value="id"
-            :select-value.sync="form.collegeId"
+            :select-value.sync="form.college"
           >
             <template v-slot:select-selection="{ item }">
               <span class="text-capitalize">
@@ -101,7 +101,8 @@ const defaultForm = {
   code: "",
   name: "",
   description: "",
-  collegeId: null
+  collegeId: null,
+  college: null
 };
 
 const searchOptions = ["all", "custom ID", "name"];
@@ -132,7 +133,7 @@ export default {
 
   computed: {
     isFormValid() {
-      return this.form.code && this.form.name && this.form.collegeId;
+      return this.form.code && this.form.name;
     },
 
     error() {
@@ -181,6 +182,7 @@ export default {
       this.form.name = course.name;
       this.form.description = course.description;
       this.form.collegeId = course.college.id;
+      this.form.college = course.college;
       this.isLoading = false;
     },
 
