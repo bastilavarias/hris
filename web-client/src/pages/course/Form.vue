@@ -193,15 +193,27 @@ export default {
 
   methods: {
     create() {
-      this.$store.dispatch(createCourse, this.form);
+      const params = {
+        code: this.form.code,
+        name: this.form.name,
+        description: this.form.description,
+        collegeId: this.form.college.id
+      };
+      this.$store.dispatch(createCourse, params);
       this.isLoading = true;
     },
 
     update() {
       const courseId = this.$route.params.courseId;
+      const details = {
+        code: this.form.code,
+        name: this.form.name,
+        description: this.form.description,
+        collegeId: this.form.college.id
+      };
       this.$store.dispatch(updateCourse, {
         courseId,
-        details: this.form
+        details
       });
       this.isLoading = true;
     },
