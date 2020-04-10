@@ -108,6 +108,12 @@ const actions = [
         icon: "chevron-right",
         route: { name: "school-year-form" },
         subActions: []
+      },
+      {
+        name: "Year Level Setting",
+        icon: "chevron-right",
+        route: { name: "year-level-list" },
+        subActions: []
       }
     ]
   }

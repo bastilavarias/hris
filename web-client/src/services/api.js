@@ -168,3 +168,7 @@ export const schoolYearService = {
   update: details => apiService.put(`/school-year/update`, details),
   getCurrent: () => apiService.get(`/school-year/getCurrent`)
 };
+
+export const yearLevelService = {
+
+};

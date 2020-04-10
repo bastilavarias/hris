@@ -1,0 +1,9 @@
+export const createYearLevel = "createYearLevel";
+export const setYearLevelError = "setYearLevelError";
+export const getAllYearLevels = "getAllYearLevels";
+export const setYearLevels = "setYearLevels";
+export const searchYearLevels = "searchYearLevels";
+export const getSingleYearLevel = "getSingleYearLevel";
+export const setCurrentYearLevel = "setCurrentYearLevel";
+export const updateYearLevel = "updateYearLevel";
+export const deleteYearLevel = "deleteYearLevel";
