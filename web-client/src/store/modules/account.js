@@ -98,7 +98,7 @@ const actions = [
     route: {},
     subActions: [
       {
-        name: "Semester Management",
+        name: "Semester Setting",
         icon: "chevron-right",
         route: { name: "semester-list" },
         subActions: []

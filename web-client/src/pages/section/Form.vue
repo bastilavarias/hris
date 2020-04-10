@@ -25,12 +25,20 @@
             outlined
           ></v-text-field>
         </v-col>
-        <v-col cols="12">
+        <v-col cols="12" md="8">
           <v-text-field
             label="Description"
             v-model="form.description"
             outlined
           ></v-text-field>
+        </v-col>
+        <v-col cols="12" md="4">
+          <v-select
+            label="Year Level"
+            outlined
+            v-model="form.yearLevel"
+            :items="yearLevels"
+          ></v-select>
         </v-col>
         <v-col cols="12">
           <generic-search-dialog
@@ -87,14 +95,6 @@
               <span class="text-capitalize"> {{ item.name }} </span>
             </template>
           </generic-search-dialog>
-        </v-col>
-        <v-col cols="12">
-          <v-select
-            label="Year Level"
-            outlined
-            v-model="form.yearLevel"
-            :items="yearLevels"
-          ></v-select>
         </v-col>
       </v-row>
     </v-card-text>

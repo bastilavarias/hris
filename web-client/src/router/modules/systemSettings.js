@@ -1,6 +1,6 @@
 export default [
   {
-    path: "semester-management",
+    path: "semester-setting",
     component: () => import("../../layouts/Sub"),
     children: [
       {

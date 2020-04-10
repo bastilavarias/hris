@@ -11,6 +11,7 @@ const pdsRoute = require("./features/personal-data-sheet/route");
 const scheduleRoute = require("./features/schedule/route");
 const semesterRoute = require("./features/semester/route");
 const schoolYearRoute = require("./features/school-year/route");
+const yearLevel = require("./features/year-level/route");
 
 const application = express();
 
@@ -27,5 +28,6 @@ application.use("/personal-data-sheet", pdsRoute);
 application.use("/schedule", scheduleRoute);
 application.use("/semester", semesterRoute);
 application.use("/school-year", schoolYearRoute);
+application.use("/year-level", yearLevel);
 
 module.exports = application;

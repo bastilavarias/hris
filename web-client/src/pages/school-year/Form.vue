@@ -5,14 +5,14 @@
     </v-card-title>
     <v-card-text>
       <v-row dense>
-        <v-col cols="12" md="6">
+        <v-col cols="12">
           <generic-year-selection
             outlined
             label="Start Year"
             :year.sync="form.startYear"
           ></generic-year-selection>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col cols="12">
           <generic-year-selection
             outlined
             label="End Year"

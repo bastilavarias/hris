@@ -31,6 +31,7 @@ const departmentHead = require("./modules/departmentHead");
 const personnelSchedule = require("./modules/personnelSchedule");
 const semester = require("./modules/system-settings/semester");
 const schoolYear = require("./modules/system-settings/schoolYear");
+const yearLevel = require("./modules/system-settings/yearLevel");
 
 module.exports = async () => {
   let message = "";
@@ -68,6 +69,7 @@ module.exports = async () => {
     await db.executeQuery(personnelSchedule);
     await db.executeQuery(semester);
     await db.executeQuery(schoolYear);
+    await db.executeQuery(yearLevel);
     message = "Database tables created.";
   } catch (errors) {
     console.log(errors);
