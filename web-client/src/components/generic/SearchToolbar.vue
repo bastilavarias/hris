@@ -40,19 +40,22 @@ export default {
   props: {
     searchOptions: {
       type: Array,
-      required: false
+      required: true
     },
+
     searchOption: {
       type: String,
-      required: false
+      required: true
     },
+
     searchValue: {
       type: String,
-      required: false
+      required: true
     },
+
     action: {
       type: Function,
-      required: false
+      required: true
     }
   },
 

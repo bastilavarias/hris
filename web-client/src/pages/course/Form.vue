@@ -33,23 +33,31 @@
           ></v-text-field>
         </v-col>
         <v-col cols="12">
-          <generic-college-selection
+          <generic-search-dialog
+            :search-options="searchOptions"
+            :search-option.sync="searchOption"
+            :search-value.sync="searchValue"
+            :action="searchColleges"
+            :items="colleges"
+            :is-loading="isSearchCollegeStart"
             label="College"
-            outlined
-            :college-id.sync="form.collegeId"
-          ></generic-college-selection>
-        </v-col>
-        <v-col cols="12">
-          <generic-search-dialog>
-            <template v-slot:list-item-subtitle-top="{ item }">{{
-              item.customId
-            }}</template>
-            <template v-slot:list-item-title="{ item }">
-              {{ item.name }}
+            title="Search College"
+            item-value="id"
+            :select-value.sync="form.collegeId"
+          >
+            <template v-slot:select-selection="{ item }">
+              <span class="text-capitalize">
+                {{ item.name }}
+              </span>
             </template>
-            <template v-slot:list-item-subtitle-bottom="{ item }">{{
-              item.department
-            }}</template>
+            <template v-slot:list-item-subtitle-top="{ item }">
+              <span class="font-weight-bold text-uppercase">
+                {{ item.customId }}
+              </span>
+            </template>
+            <template v-slot:list-item-title="{ item }">
+              <span class="text-capitalize"> {{ item.name }} </span>
+            </template>
           </generic-search-dialog>
         </v-col>
       </v-row>
@@ -70,7 +78,9 @@
 import GenericCardBackButton from "../../components/generic/CardBackButton";
 import {
   createCourse,
+  getAllCourses,
   getSingleCourse,
+  searchCourses,
   setCourseError,
   setCourses,
   updateCourse
@@ -80,7 +90,11 @@ import GenericFormActionButton from "../../components/generic/FormActionButton";
 import GenericBackButton from "../../components/generic/BackButton";
 import customUtilities from "../../services/customUtilities";
 import GenericCollegeSelection from "../../components/generic/selection/College";
-import { getAllColleges } from "../../store/types/college";
+import {
+  getAllColleges,
+  searchColleges,
+  setColleges
+} from "../../store/types/college";
 import GenericSearchDialog from "../../components/generic/SearchDialog";
 
 const defaultForm = {
@@ -89,6 +103,8 @@ const defaultForm = {
   description: "",
   collegeId: null
 };
+
+const searchOptions = ["all", "custom ID", "name"];
 
 export default {
   components: {
@@ -104,7 +120,11 @@ export default {
       form: Object.assign({}, defaultForm),
       defaultForm,
       operation: "create",
-      isLoading: false
+      isLoading: false,
+      searchOption: "all",
+      searchOptions,
+      searchValue: "",
+      isSearchCollegeStart: false
     };
   },
 
@@ -117,6 +137,10 @@ export default {
 
     error() {
       return this.$store.state.course.error;
+    },
+
+    colleges() {
+      return this.$store.state.college.list;
     }
   },
 
@@ -141,6 +165,12 @@ export default {
         this.$store.commit(setCourseError, []);
         this.$store.commit(setActionName, "");
         this.$router.push({ name: "course-list" });
+        return;
+      }
+
+      if (name === searchColleges || getAllColleges) {
+        this.isSearchCollegeStart = false;
+        this.$store.commit(setActionName, "");
       }
     },
 
@@ -152,6 +182,10 @@ export default {
       this.form.description = course.description;
       this.form.collegeId = course.college.id;
       this.isLoading = false;
+    },
+
+    searchOption(opt) {
+      if (opt === "all") return this.$store.dispatch(getAllColleges);
     }
   },
 
@@ -168,11 +202,28 @@ export default {
         details: this.form
       });
       this.isLoading = true;
+    },
+
+    searchColleges() {
+      this.isSearchCollegeStart = true;
+      if (this.searchOption === "all")
+        return this.$store.dispatch(getAllColleges);
+      if (
+        this.searchValue.trim() &&
+        ["custom ID", "name"].includes(this.searchOption)
+      ) {
+        const searchConfig = {
+          option: this.searchOption,
+          value: this.searchValue
+        };
+        return this.$store.dispatch(searchColleges, searchConfig);
+      }
+      this.isSearchCollegeStart = false;
+      return this.$store.commit(setColleges, []);
     }
   },
 
   created() {
-    this.$store.dispatch(getAllColleges);
     const operation = this.$route.params.operation;
     if (operation === "update") {
       const courseId = this.$route.params.courseId;
