@@ -27,11 +27,10 @@ export default {
   },
 
   actions: {
-    [createYearLevel]: async ({ commit }, { name, isCurrent }) => {
+    [createYearLevel]: async ({ commit }, { name }) => {
       try {
         const result = await yearLevelService.create({
-          name,
-          isCurrent
+          name
         });
         const { error, message } = result.data;
         if (Object.keys(error).length > 0) {
@@ -86,7 +85,12 @@ export default {
     [updateYearLevel]: async ({ commit }, { yearLevelId, details }) => {
       try {
         const result = await yearLevelService.update(yearLevelId, details);
-        const { message } = result.data;
+        const { message, error } = result.data;
+        if (Object.keys(error).length > 0) {
+          commit(setActionName, `${updateYearLevel}-error`);
+          commit(setYearLevelError, error);
+          return;
+        }
         commit(setNotificationConfig, { message, type: "success" });
         commit(setActionName, updateYearLevel);
       } catch (errors) {

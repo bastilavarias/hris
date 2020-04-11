@@ -29,34 +29,38 @@ module.exports = {
   update: async (yearLevelId, name) => {
     let message;
     let error = {};
-
-    const gotRawYearLevel = await yearLevelModel.getRawByName(formatData(name));
-    const isSameYearLevelId =
-      toNumber(yearLevelId) === toNumber(gotRawYearLevel.id);
-    const isSameYearLevelName =
-      formatData(name) === formatData(gotRawYearLevel.name);
-    if (
-      !isSameYearLevelId &&
-      isSameYearLevelName &&
-      !gotRawYearLevel.isDeleted
-    ) {
-      error.name = "Year level name was already exists.";
-      return {
-        message: "",
-        error
-      };
+    const gotYearLevel = await yearLevelModel.getSingleByName(formatData(name));
+    if (Object.keys(gotYearLevel).length > 1) {
+      const isSameYearLevelId =
+        toNumber(yearLevelId) === toNumber(gotYearLevel.id);
+      const isSameYearLevelName =
+        formatData(name) === formatData(gotYearLevel.name);
+      if (!isSameYearLevelId && isSameYearLevelName) {
+        error.name = "Year level name was already exists.";
+        return {
+          message: "",
+          error
+        };
+      }
     }
-
     await yearLevelModel.update(yearLevelId, formatData(name));
     message = "Year level is updated.";
     return {
-      message
+      message,
+      error
     };
   },
 
   getAll: async () => await yearLevelModel.getAll(),
 
   getSingle: async yearLevelId => await yearLevelModel.getSingle(yearLevelId),
+
+  search: async (option, value) => {
+    const options = {
+      name: "name"
+    };
+    return await yearLevelModel.search(options[option], formatData(value));
+  },
 
   delete: async yearLevelId => {
     let message;

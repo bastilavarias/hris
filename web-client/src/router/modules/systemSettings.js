@@ -32,7 +32,7 @@ export default [
         component: () => import("../../pages/year-level/List")
       },
       {
-        path: ":operation/:collegeId?",
+        path: ":operation/:yearLevelId?",
         name: "year-level-form",
         component: () => import("../../pages/year-level/Form")
       }

@@ -4,10 +4,35 @@ const passport = require("passport");
 
 const router = express.Router();
 
-router.post("/create", yearLevelController.create);
-router.put("/update/:yearLevelId", yearLevelController.update);
-router.get("/getAll", yearLevelController.getAll);
-router.get("/getSingle/:yearLevelId", yearLevelController.getSingle);
-router.delete("/delete/:yearLevelId", yearLevelController.delete);
+router.post(
+  "/create",
+  passport.authenticate("jwt", { session: false }),
+  yearLevelController.create
+);
+router.put(
+  "/update/:yearLevelId",
+  passport.authenticate("jwt", { session: false }),
+  yearLevelController.update
+);
+router.get(
+  "/getAll",
+  passport.authenticate("jwt", { session: false }),
+  yearLevelController.getAll
+);
+router.get(
+  "/getSingle/:yearLevelId",
+  passport.authenticate("jwt", { session: false }),
+  yearLevelController.getSingle
+);
+router.delete(
+  "/delete/:yearLevelId",
+  passport.authenticate("jwt", { session: false }),
+  yearLevelController.delete
+);
+router.get(
+  "/search/:searchOption/:searchValue",
+  passport.authenticate("jwt", { session: false }),
+  yearLevelController.search
+);
 
 module.exports = router;

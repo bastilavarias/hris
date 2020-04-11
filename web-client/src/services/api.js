@@ -170,5 +170,13 @@ export const schoolYearService = {
 };
 
 export const yearLevelService = {
-
+  create: details => apiService.post("/year-level/create", details),
+  getAll: () => apiService.get("/year-level/getAll"),
+  getSingle: yearLevelId =>
+    apiService.get(`/year-level/getSingle/${yearLevelId}`),
+  search: ({ option, value }) =>
+    apiService.get(`/year-level/search/${option}/${value}`),
+  update: (yearLevelId, details) =>
+    apiService.put(`/year-level/update/${yearLevelId}`, details),
+  delete: yearLevelId => apiService.delete(`/year-level/delete/${yearLevelId}`)
 };

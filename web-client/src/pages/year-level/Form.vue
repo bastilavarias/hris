@@ -3,7 +3,7 @@
     <v-card-title>
       <generic-back-button
         class-name="mb-5"
-        title="Year Level Details"
+        title="YearLevel Details"
       ></generic-back-button>
     </v-card-title>
     <v-card-text>
@@ -15,6 +15,7 @@
             outlined
             :error="hasError(error.name)"
             :error-messages="error.name"
+            autofocus
           ></v-text-field>
         </v-col>
       </v-row>
@@ -46,8 +47,7 @@ import GenericBackButton from "../../components/generic/BackButton";
 import customUtilities from "../../services/customUtilities";
 
 const defaultForm = {
-  name: "",
-  isCurrent: false
+  name: ""
 };
 
 export default {
@@ -86,6 +86,12 @@ export default {
         return;
       }
 
+      if (name === `${updateYearLevel}-error`) {
+        this.$store.commit(setActionName, "");
+        this.isLoading = false;
+        return;
+      }
+
       if (name === createYearLevel) {
         this.form = Object.assign({}, this.defaultForm);
         this.$store.commit(setYearLevelError, []);
@@ -98,15 +104,14 @@ export default {
         this.form = Object.assign({}, this.defaultForm);
         this.$store.commit(setYearLevelError, []);
         this.$store.commit(setActionName, "");
-        this.$router.push({ name: "yearLevel-list" });
+        this.$router.push({ name: "year-level-list" });
       }
     },
 
     "$store.state.yearLevel.current"(yearLevel) {
       if (Object.keys(yearLevel).length <= 0)
-        return this.$router.push({ name: "yearLevel-list" });
+        return this.$router.push({ name: "year-level-list" });
       this.form.name = yearLevel.name;
-      this.form.isCurrent = yearLevel.isCurrent === 1;
       this.isLoading = false;
     }
   },

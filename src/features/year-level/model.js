@@ -20,15 +20,22 @@ module.exports = {
     return result[0][0] ? result[0][0] : {};
   },
 
-  getRawByName: async name => {
-    const query = `select id, name, is_deleted as isDeleted from year_level where name = ?;`;
-    const params = [name];
+  getSingleByName: async name => {
+    const query = `select id, name from year_level where name = ? and is_deleted = ?;`;
+    const params = [name, false];
     const result = await db.executeQuery(query, params);
     return result[0][0] ? result[0][0] : {};
   },
 
   getAll: async () => {
     const query = `select id, name from year_level where is_deleted = ?;`;
+    const params = [false];
+    const result = await db.executeQuery(query, params);
+    return result[0] ? result[0] : [];
+  },
+
+  search: async (option, value) => {
+    const query = `select id, name from year_level where ${option} like '%${value}%' and is_deleted = ?;`;
     const params = [false];
     const result = await db.executeQuery(query, params);
     return result[0] ? result[0] : [];

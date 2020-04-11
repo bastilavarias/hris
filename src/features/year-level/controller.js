@@ -47,6 +47,18 @@ module.exports = {
     }
   },
 
+  search: async (req, res) => {
+    const searchOption = req.params.searchOption;
+    const searchValue = req.params.searchValue;
+    try {
+      const result = await yearLevelService.search(searchOption, searchValue);
+      res.status(200).json(result);
+    } catch (errors) {
+      console.log(errors);
+      res.status(400).json(errors);
+    }
+  },
+
   delete: async (req, res) => {
     const yearLevelId = toNumber(req.params.yearLevelId);
     try {

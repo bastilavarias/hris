@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="font-weight-bold">Year Level Management</span>
+      <span class="font-weight-bold">YearLevel Management</span>
       <div class="flex-grow-1"></div>
       <generic-tooltip-button
         icon="plus"
@@ -27,19 +27,6 @@
       </template>
       <template v-slot:item.name="{ item }">
         <span class="text-capitalize d-block">{{ item.name }}</span>
-      </template>
-      <template v-slot:item.isCurrent="{ item }">
-        <v-chip
-          label
-          small
-          :color="item.isCurrent ? 'success' : 'error'"
-          style="width: 8rem;"
-          depressed
-        >
-          <span class="d-block text-center">{{
-            item.isCurrent ? "Current YearLevel" : "Not Active"
-          }}</span>
-        </v-chip>
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn icon @click="update(item)">
@@ -77,11 +64,6 @@ const tableHeaders = [
   {
     text: "Name",
     value: "name"
-  },
-  {
-    text: "Status",
-    value: "isCurrent",
-    align: "center"
   },
   {
     text: "Actions",
@@ -161,7 +143,7 @@ export default {
 
     update({ id }) {
       this.$router.push({
-        name: "yearLevel-form",
+        name: "year-level-form",
         params: {
           operation: "update",
           yearLevelId: id
