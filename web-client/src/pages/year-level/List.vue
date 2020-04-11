@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="font-weight-bold">YearLevel Management</span>
+      <span class="font-weight-bold">Year Level Management</span>
       <div class="flex-grow-1"></div>
       <generic-tooltip-button
         icon="plus"

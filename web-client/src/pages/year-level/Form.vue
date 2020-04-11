@@ -3,7 +3,7 @@
     <v-card-title>
       <generic-back-button
         class-name="mb-5"
-        title="YearLevel Details"
+        title="Year Level Details"
       ></generic-back-button>
     </v-card-title>
     <v-card-text>

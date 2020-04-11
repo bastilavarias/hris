@@ -101,7 +101,6 @@ const defaultForm = {
   code: "",
   name: "",
   description: "",
-  collegeId: null,
   college: null
 };
 
@@ -133,7 +132,9 @@ export default {
 
   computed: {
     isFormValid() {
-      return this.form.code && this.form.name;
+      return (
+        this.form.code && this.form.name && this.isObject(this.form.college)
+      );
     },
 
     error() {
@@ -181,7 +182,6 @@ export default {
       this.form.code = course.code;
       this.form.name = course.name;
       this.form.description = course.description;
-      this.form.collegeId = course.college.id;
       this.form.college = course.college;
       this.isLoading = false;
     },

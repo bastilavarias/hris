@@ -29,14 +29,14 @@ export default {
   actions: {
     [createSection]: async (
       { commit },
-      { code, name, description, yearLevel, collegeId, courseId }
+      { code, name, description, yearLevelId, collegeId, courseId }
     ) => {
       try {
         const result = await sectionService.create({
           code,
           name,
           description,
-          yearLevel,
+          yearLevelId,
           collegeId,
           courseId
         });

@@ -65,6 +65,7 @@
 
 <script>
 import GenericSearchToolbar from "./SearchToolbar";
+import customUtilities from "../../services/customUtilities";
 export default {
   name: "generic-search-dialog",
   components: { GenericSearchToolbar },
@@ -131,6 +132,8 @@ export default {
     };
   },
 
+  mixins: [customUtilities],
+
   watch: {
     searchValue(val) {
       this.searchValueLocal = val;
@@ -153,7 +156,7 @@ export default {
     },
 
     selectValueLocal(val) {
-      if (val && Object.keys(val)) {
+      if (this.isObject(val)) {
         this.selectValue = val;
         this.selectItems.push(val);
       }

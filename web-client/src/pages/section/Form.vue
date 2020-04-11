@@ -36,9 +36,17 @@
           <v-select
             label="Year Level"
             outlined
-            v-model="form.yearLevel"
+            v-model="form.yearLevelId"
             :items="yearLevels"
-          ></v-select>
+            item-value="id"
+          >
+            <template v-slot:item="{ item }">
+              <span class="text-capitalize">{{ item.name }}</span>
+            </template>
+            <template v-slot:selection="{ item }">
+              <span class="text-capitalize">{{ item.name }}</span>
+            </template>
+          </v-select>
         </v-col>
         <v-col cols="12">
           <generic-search-dialog
@@ -136,6 +144,7 @@ import {
 } from "../../store/types/course";
 import GenericCourseSelection from "../../components/generic/selection/Course";
 import GenericSearchDialog from "../../components/generic/SearchDialog";
+import { getAllYearLevels } from "../../store/types/yearLevel";
 
 const defaultForm = {
   code: "",
@@ -143,10 +152,8 @@ const defaultForm = {
   description: "",
   college: null,
   course: null,
-  yearLevel: null
+  yearLevelId: null
 };
-
-const yearLevels = [1, 2, 3, 4, 5];
 
 const collegeSearchOptions = ["all", "custom ID", "name"];
 const courseSearchOptions = ["all", "code", "name"];
@@ -167,7 +174,6 @@ export default {
       defaultForm,
       operation: "create",
       isLoading: false,
-      yearLevels,
       collegeSearchOptions,
       courseSearchOptions,
       collegeSearchOption: "all",
@@ -186,9 +192,9 @@ export default {
       return (
         this.form.code &&
         this.form.name &&
-        this.form.college &&
-        this.form.course &&
-        this.form.yearLevel
+        this.isObject(this.form.college) &&
+        this.isObject(this.form.course) &&
+        this.form.yearLevelId
       );
     },
 
@@ -202,6 +208,10 @@ export default {
 
     courses() {
       return this.$store.state.course.list;
+    },
+
+    yearLevels() {
+      return this.$store.state.yearLevel.list;
     }
   },
 
@@ -249,7 +259,7 @@ export default {
       this.form.description = section.description;
       this.form.college = section.college;
       this.form.course = section.course;
-      this.form.yearLevel = section.yearLevel;
+      this.form.yearLevelId = section.yearLevel.id;
       this.isLoading = false;
     },
 
@@ -264,15 +274,15 @@ export default {
 
   methods: {
     create() {
-      const params = {
+      const payload = {
         code: this.form.code,
         name: this.form.name,
         description: this.form.description,
-        yearLevel: this.form.yearLevel,
+        yearLevelId: this.form.yearLevelId,
         collegeId: this.form.college.id,
         courseId: this.form.course.id
       };
-      this.$store.dispatch(createSection, params);
+      this.$store.dispatch(createSection, payload);
       this.isLoading = true;
     },
 
@@ -282,7 +292,7 @@ export default {
         code: this.form.code,
         name: this.form.name,
         description: this.form.description,
-        yearLevel: this.form.yearLevel,
+        yearLevelId: this.form.yearLevelId,
         collegeId: this.form.college.id,
         courseId: this.form.course.id
       };
@@ -331,6 +341,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch(getAllYearLevels);
     const operation = this.$route.params.operation;
     if (operation === "update") {
       const sectionId = this.$route.params.sectionId;

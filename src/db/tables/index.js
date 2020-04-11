@@ -37,6 +37,7 @@ module.exports = async () => {
   let message = "";
   try {
     await db.executeQuery(subjectCategory);
+    await db.executeQuery(yearLevel);
     await db.executeQuery(subject);
     await db.executeQuery(subjectPrerequisite);
     await db.executeQuery(college);
@@ -69,7 +70,6 @@ module.exports = async () => {
     await db.executeQuery(personnelSchedule);
     await db.executeQuery(semester);
     await db.executeQuery(schoolYear);
-    await db.executeQuery(yearLevel);
     message = "Database tables created.";
   } catch (errors) {
     console.log(errors);

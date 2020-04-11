@@ -5,11 +5,11 @@ module.exports = {
     code,
     name,
     description,
-    yearLevel,
+    yearLevelId,
     collegeId,
     courseId
   }) => {
-    const query = `insert into section (college_id, course_id, code, name, description, year_level)
+    const query = `insert into section (college_id, course_id, code, name, description, year_level_id)
                        values (?, ?, ?, ?, ?, ?);`;
     const params = [
       collegeId,
@@ -17,26 +17,26 @@ module.exports = {
       code.toLowerCase(),
       name.toLowerCase(),
       description.toLowerCase(),
-      yearLevel
+      yearLevelId
     ];
     await db.executeQuery(query, params);
   },
 
   update: async (
     sectionId,
-    { name, description, yearLevel, collegeId, courseId }
+    { name, description, yearLevelId, collegeId, courseId }
   ) => {
     const query = `update section
                        set name        = ?,
                            description = ?,
-                           year_level  = ?,
+                           year_level_id  = ?,
                            college_id  = ?,
                            course_id   = ?
                        where id = ?;`;
     const params = [
       name.toLowerCase(),
       description.toLowerCase(),
-      yearLevel,
+      yearLevelId,
       collegeId,
       courseId,
       sectionId
@@ -49,7 +49,7 @@ module.exports = {
                               s.code,
                               s.name,
                               s.description,
-                              s.year_level              as yearLevel,
+                              (select json_object('id', id, 'name', name) from year_level where id = s.year_level_id) as yearLevel,
                               (select json_object('id', id, 'name', name)
                                from college
                                where id = s.college_id) as college,
@@ -68,7 +68,7 @@ module.exports = {
                               s.code,
                               s.name,
                               s.description,
-                              s.year_level              as yearLevel,
+                                              (select json_object('id', id, 'name', name) from year_level where id = s.year_level_id) as yearLevel,
                               (select json_object('id', id, 'name', name)
                                from college
                                where id = s.college_id) as college,
@@ -88,7 +88,7 @@ module.exports = {
                               s.code,
                               s.name,
                               s.description,
-                              s.year_level              as yearLevel,
+                                              (select json_object('id', id, 'name', name) from year_level where id = s.year_level_id) as yearLevel,
                               (select json_object('id', id, 'name', name)
                                from college
                                where id = s.college_id) as college,
