@@ -1,0 +1,9 @@
+export const createBuilding = "createBuilding";
+export const setBuildingError = "setBuildingError";
+export const getAllBuildings = "getAllBuildings";
+export const setBuildings = "setBuildings";
+export const searchBuildings = "searchBuildings";
+export const getSingleBuilding = "getSingleBuilding";
+export const updateBuilding = "updateBuilding";
+export const deleteBuilding = "deleteBuilding";
+export const setCurrentBuilding = "setCurrentBuilding";

@@ -6,6 +6,7 @@ import personalMaintenance from "./modules/personalMaintenance";
 import employeeMaintenance from "./modules/employeeMaintenance";
 import academicMaintenance from "./modules/academicMaintenance";
 import systemSettings from "./modules/systemSettings";
+import utilities from "./modules/utulities";
 
 Vue.use(VueRouter);
 
@@ -26,7 +27,8 @@ const routes = [
       ...personalMaintenance,
       ...employeeMaintenance,
       ...academicMaintenance,
-      ...systemSettings
+      ...systemSettings,
+      ...utilities
     ]
   }
 ];

@@ -180,3 +180,14 @@ export const yearLevelService = {
     apiService.put(`/year-level/update/${yearLevelId}`, details),
   delete: yearLevelId => apiService.delete(`/year-level/delete/${yearLevelId}`)
 };
+
+export const buildingService = {
+  create: details => apiService.post("/building/create", details),
+  getAll: () => apiService.get("/building/getAll"),
+  getSingle: buildingId => apiService.get(`/building/getSingle/${buildingId}`),
+  search: ({ option, value }) =>
+    apiService.get(`/building/search/${option}/${value}`),
+  update: (buildingId, details) =>
+    apiService.put(`/building/update/${buildingId}`, details),
+  delete: buildingId => apiService.delete(`/building/delete/${buildingId}`)
+};

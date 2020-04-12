@@ -116,6 +116,19 @@ const actions = [
         subActions: []
       }
     ]
+  },
+  {
+    name: "Utilities",
+    icon: "cog-transfer",
+    route: {},
+    subActions: [
+      {
+        name: "Building",
+        icon: "chevron-right",
+        route: { name: "building-list" },
+        subActions: []
+      }
+    ]
   }
 ];
 

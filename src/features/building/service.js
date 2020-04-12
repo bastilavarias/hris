@@ -1,6 +1,6 @@
 const buildingModel = require("./model");
 const helper = require("../../helper");
-const { formatData } = require("../../customUtilities");
+const { formatData, toNumber } = require("../../customUtilities");
 
 const semesterService = {
   create: async name => {
@@ -32,7 +32,7 @@ const semesterService = {
     const gotBuilding = await buildingModel.getSingleByName(formatData(name));
     if (Object.keys(gotBuilding).length > 1) {
       const isSameBuildingId =
-        toNumber(yearLevelId) === toNumber(gotBuilding.id);
+        toNumber(buildingId) === toNumber(gotBuilding.id);
       const isSameBuildingName =
         formatData(name) === formatData(gotBuilding.name);
       if (!isSameBuildingId && isSameBuildingName) {
