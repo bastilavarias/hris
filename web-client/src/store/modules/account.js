@@ -63,7 +63,7 @@ const actions = [
   },
   {
     name: "Academic Maintenance",
-    icon: "file-settings",
+    icon: "folder-settings",
     route: {},
     subActions: [
       {
@@ -93,8 +93,27 @@ const actions = [
     ]
   },
   {
+    name: "Utilities",
+    icon: "tools",
+    route: {},
+    subActions: [
+      {
+        name: "Building Management",
+        icon: "chevron-right",
+        route: { name: "building-list" },
+        subActions: []
+      },
+      {
+        name: "Room Management",
+        icon: "chevron-right",
+        route: { name: "room-list" },
+        subActions: []
+      }
+    ]
+  },
+  {
     name: "System Settings",
-    icon: "cog-transfer",
+    icon: "cog-transfer-outline",
     route: {},
     subActions: [
       {
@@ -113,19 +132,6 @@ const actions = [
         name: "Year Level Setting",
         icon: "chevron-right",
         route: { name: "year-level-list" },
-        subActions: []
-      }
-    ]
-  },
-  {
-    name: "Utilities",
-    icon: "cog-transfer",
-    route: {},
-    subActions: [
-      {
-        name: "Building",
-        icon: "chevron-right",
-        route: { name: "building-list" },
         subActions: []
       }
     ]
