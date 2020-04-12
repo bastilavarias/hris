@@ -78,9 +78,7 @@
 import GenericCardBackButton from "../../components/generic/CardBackButton";
 import {
   createCourse,
-  getAllCourses,
   getSingleCourse,
-  searchCourses,
   setCourseError,
   setCourses,
   updateCourse
