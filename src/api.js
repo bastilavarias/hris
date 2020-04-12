@@ -13,6 +13,7 @@ const semesterRoute = require("./features/semester/route");
 const schoolYearRoute = require("./features/school-year/route");
 const yearLevel = require("./features/year-level/route");
 const building = require("./features/building/route");
+const room = require("./features/room/route");
 
 const application = express();
 
@@ -31,5 +32,6 @@ application.use("/semester", semesterRoute);
 application.use("/school-year", schoolYearRoute);
 application.use("/year-level", yearLevel);
 application.use("/building", building);
+application.use("/room", room);
 
 module.exports = application;

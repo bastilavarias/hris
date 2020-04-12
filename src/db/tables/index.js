@@ -33,6 +33,7 @@ const semester = require("./modules/system-settings/semester");
 const schoolYear = require("./modules/system-settings/schoolYear");
 const yearLevel = require("./modules/system-settings/yearLevel");
 const building = require("./modules/utilities/building");
+const room = require("./modules/utilities/room");
 
 module.exports = async () => {
   let message = "";
@@ -72,6 +73,7 @@ module.exports = async () => {
     await db.executeQuery(semester);
     await db.executeQuery(schoolYear);
     await db.executeQuery(building);
+    await db.executeQuery(room);
     message = "Database tables created.";
   } catch (errors) {
     console.log(errors);

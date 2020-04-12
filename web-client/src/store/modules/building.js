@@ -86,7 +86,6 @@ export default {
       try {
         const result = await buildingService.update(buildingId, details);
         const { message, error } = result.data;
-        console.log({ message, error });
         if (Object.keys(error).length > 0) {
           commit(setActionName, `${updateBuilding}-error`);
           commit(setBuildingError, error);

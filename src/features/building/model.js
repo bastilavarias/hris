@@ -8,8 +8,8 @@ module.exports = {
   },
 
   getSingle: async buildingId => {
-    const query = `select id, name from building where id = ?;`;
-    const params = [buildingId];
+    const query = `select id, name from building where id = ? && is_deleted = ?;`;
+    const params = [buildingId, false];
     const result = await db.executeQuery(query, params);
     return result[0][0] ? result[0][0] : {};
   },

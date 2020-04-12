@@ -1,11 +1,12 @@
-const buildingService = require("./service");
+const roomService = require("./service");
 const { toNumber, emptyValue } = require("../../customUtilities");
 
 module.exports = {
   create: async (req, res) => {
+    const buildingId = toNumber(req.body.buildingId);
     const name = emptyValue(req.body.name);
     try {
-      const result = await buildingService.create(name);
+      const result = await roomService.create(buildingId, name);
       res.status(200).json(result);
     } catch (errors) {
       console.log(errors);
@@ -14,10 +15,11 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    const buildingId = toNumber(req.params.buildingId);
+    const roomId = toNumber(req.params.roomId);
+    const buildingId = toNumber(req.body.buildingId);
     const name = emptyValue(req.body.name);
     try {
-      const result = await buildingService.update(buildingId, name);
+      const result = await roomService.update(roomId, buildingId, name);
       res.status(200).json(result);
     } catch (errors) {
       console.log(errors);
@@ -26,9 +28,9 @@ module.exports = {
   },
 
   getSingle: async (req, res) => {
-    const buildingId = toNumber(req.params.buildingId);
+    const roomId = toNumber(req.params.roomId);
     try {
-      const result = await buildingService.getSingle(buildingId);
+      const result = await roomService.getSingle(roomId);
       res.status(200).json(result);
     } catch (errors) {
       console.log(errors);
@@ -38,7 +40,7 @@ module.exports = {
 
   getAll: async (req, res) => {
     try {
-      const result = await buildingService.getAll();
+      const result = await roomService.getAll();
       res.status(200).json(result);
     } catch (errors) {
       console.log(errors);
@@ -50,7 +52,7 @@ module.exports = {
     const searchOption = req.params.searchOption;
     const searchValue = req.params.searchValue;
     try {
-      const result = await buildingService.search(searchOption, searchValue);
+      const result = await roomService.search(searchOption, searchValue);
       res.status(200).json(result);
     } catch (errors) {
       console.log(errors);
@@ -59,9 +61,9 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const buildingId = toNumber(req.params.buildingId);
+    const roomId = toNumber(req.params.roomId);
     try {
-      const result = await buildingService.delete(buildingId);
+      const result = await roomService.delete(roomId);
       res.status(200).json(result);
     } catch (errors) {
       console.log(errors);
