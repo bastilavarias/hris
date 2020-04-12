@@ -12,6 +12,7 @@ const scheduleRoute = require("./features/schedule/route");
 const semesterRoute = require("./features/semester/route");
 const schoolYearRoute = require("./features/school-year/route");
 const yearLevel = require("./features/year-level/route");
+const building = require("./features/building/route");
 
 const application = express();
 
@@ -29,5 +30,6 @@ application.use("/schedule", scheduleRoute);
 application.use("/semester", semesterRoute);
 application.use("/school-year", schoolYearRoute);
 application.use("/year-level", yearLevel);
+application.use("/building", building);
 
 module.exports = application;

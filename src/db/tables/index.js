@@ -4,10 +4,10 @@ const subject = require("./modules/academics/subject/subject");
 const subjectPrerequisite = require("./modules/academics/subject/subjectPrerequisite");
 const college = require("./modules/academics/college");
 const course = require("./modules/academics/course");
-const designation = require("./modules/designation");
+const designation = require("./modules/employe-management/designation");
 const profile = require("./modules/profile/profile");
-const department = require("./modules/department");
-const employee = require("./modules/employee");
+const department = require("./modules/employe-management/department");
+const employee = require("./modules/employe-management/employee");
 const citizenship = require("./modules/profile/citizenship");
 const benefit = require("./modules/profile/benefit");
 const contact = require("./modules/profile/contact");
@@ -25,13 +25,14 @@ const organization = require("./modules/profile/organization");
 const reference = require("./modules/profile/reference");
 const governmentIssueId = require("./modules/profile/governmentIssueId");
 const photo = require("./modules/profile/photo");
-const account = require("./modules/account");
+const account = require("./modules/employe-management/account");
 const section = require("./modules/academics/section");
-const departmentHead = require("./modules/departmentHead");
+const departmentHead = require("./modules/employe-management/departmentHead");
 const personnelSchedule = require("./modules/personnelSchedule");
 const semester = require("./modules/system-settings/semester");
 const schoolYear = require("./modules/system-settings/schoolYear");
 const yearLevel = require("./modules/system-settings/yearLevel");
+const building = require("./modules/utilities/building");
 
 module.exports = async () => {
   let message = "";
@@ -70,6 +71,7 @@ module.exports = async () => {
     await db.executeQuery(personnelSchedule);
     await db.executeQuery(semester);
     await db.executeQuery(schoolYear);
+    await db.executeQuery(building);
     message = "Database tables created.";
   } catch (errors) {
     console.log(errors);

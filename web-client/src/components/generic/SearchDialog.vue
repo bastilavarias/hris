@@ -51,7 +51,11 @@
                   <slot name="list-item-subtitle-bottom" :item="item"></slot>
                 </v-list-item-subtitle>
               </v-list-item-content>
+              <v-list-item-action>
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-list-item-action>
             </v-list-item>
+            <v-divider v-if="index < items.length - 1"></v-divider>
           </template>
         </div>
       </v-list>

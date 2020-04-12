@@ -33,11 +33,10 @@
           label
           small
           :color="item.isCurrent ? 'success' : 'error'"
-          style="width: 8rem;"
           depressed
         >
           <span class="d-block text-center">{{
-            item.isCurrent ? "Current Semester" : "Not Active"
+            item.isCurrent ? "Active" : "Not Active"
           }}</span>
         </v-chip>
       </template>
@@ -80,8 +79,7 @@ const tableHeaders = [
   },
   {
     text: "Status",
-    value: "isCurrent",
-    align: "center"
+    value: "isCurrent"
   },
   {
     text: "Actions",

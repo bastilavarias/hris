@@ -2,18 +2,13 @@
   <v-card>
     <v-card-title>
       <generic-back-button title="Faculty Schedule Form"></generic-back-button>
+      <div class="flex-grow-1"></div>
+      <v-btn icon>
+        <v-icon>mdi-information</v-icon>
+      </v-btn>
     </v-card-title>
     <v-card-text>
       <v-row dense>
-        <v-col cols="12" md="6">
-          <v-select label="Semester" outlined></v-select>
-        </v-col>
-        <v-col cols="12" md="3">
-          <v-select label="Academic Year Start" outlined></v-select>
-        </v-col>
-        <v-col cols="12" md="3">
-          <v-select label="Academic Year End" outlined></v-select>
-        </v-col>
         <v-col cols="12">
           <v-autocomplete label="Section" outlined></v-autocomplete>
         </v-col>
