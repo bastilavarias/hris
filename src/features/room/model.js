@@ -60,7 +60,7 @@ module.exports = {
     const query = `select r.id,
                               r.name,
                               (select json_object('id', id, 'name', name) from building where id = r.building_id) as building
-                       from room r where r.${option} like r.'%${value}%' and r.is_deleted = ?;`;
+                       from room r where r.${option} like '%${value}%' and r.is_deleted = ?;`;
     const params = [false];
     const result = await db.executeQuery(query, params);
     return result[0] ? result[0] : [];

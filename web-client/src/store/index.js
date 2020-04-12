@@ -16,6 +16,7 @@ import semester from "./modules/semester";
 import schoolYear from "./modules/schoolYear";
 import yearLevel from "./modules/yearLevel";
 import building from "./modules/building";
+import room from "./modules/room";
 
 Vue.use(Vuex);
 
@@ -36,6 +37,7 @@ export default new Vuex.Store({
     semester,
     schoolYear,
     yearLevel,
-    building
+    building,
+    room
   }
 });

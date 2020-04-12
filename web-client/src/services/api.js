@@ -191,3 +191,14 @@ export const buildingService = {
     apiService.put(`/building/update/${buildingId}`, details),
   delete: buildingId => apiService.delete(`/building/delete/${buildingId}`)
 };
+
+export const roomService = {
+  create: details => apiService.post("/room/create", details),
+  getAll: () => apiService.get("/room/getAll"),
+  getSingle: roomId => apiService.get(`/room/getSingle/${roomId}`),
+  search: ({ option, value }) =>
+    apiService.get(`/room/search/${option}/${value}`),
+  update: (roomId, details) =>
+    apiService.put(`/room/update/${roomId}`, details),
+  delete: roomId => apiService.delete(`/room/delete/${roomId}`)
+};

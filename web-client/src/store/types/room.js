@@ -1,0 +1,9 @@
+export const createRoom = "createRoom";
+export const setRoomError = "setRoomError";
+export const getAllRooms = "getAllRooms";
+export const setRooms = "setRooms";
+export const searchRooms = "searchRooms";
+export const getSingleRoom = "getSingleRoom";
+export const updateRoom = "updateRoom";
+export const deleteRoom = "deleteRoom";
+export const setCurrentRoom = "setCurrentRoom";
