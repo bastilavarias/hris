@@ -129,14 +129,35 @@ const scheduleService = {
     dayTimeRoom,
     isToBeAnnounce
   }) => {
-    const gotCurrentSemester = await semesterModel.getCurrent();
-    const gotCurrentSchoolYear = await schoolYearModel.getCurrent();
     let message = "";
     let error = {};
+    const gotCurrentSemester = await semesterModel.getCurrent();
+    const gotCurrentSchoolYear = await schoolYearModel.getCurrent();
+
+    const isScheduleExists = await scheduleModel.checkIfFacultyScheduleExists({
+      sectionId,
+      subjectId,
+      semesterId: gotCurrentSemester.id,
+      schoolYear: gotCurrentSchoolYear
+    });
+    if (isScheduleExists) {
+      error.section = "Schedule is already exists.";
+      return {
+        message,
+        error
+      };
+    }
+    const createdScheduleId = await scheduleModel.createFacultySchedule({
+      sectionId,
+      subjectId,
+      employeeId,
+      semesterId: gotCurrentSemester.id,
+      schoolYear: gotCurrentSchoolYear
+    });
 
     if (dayTimeRoom.length > 0 && !isToBeAnnounce) {
       error.dayTimeRoom = [];
-      error.dayTimeRoom = scheduleService.validateDayTimeRoom({
+      error.dayTimeRoom = await scheduleService.validateDayTimeRoom({
         dayTimeRoom,
         semesterId: gotCurrentSemester.id,
         schoolYear: gotCurrentSchoolYear
@@ -148,6 +169,33 @@ const scheduleService = {
         };
       }
     }
+
+    for (const { startTime, endTime, dayId, roomId } of dayTimeRoom) {
+      await scheduleModel.addDayTimeRoom({
+        scheduleId: createdScheduleId,
+        dayId,
+        roomId,
+        startTime,
+        endTime
+      });
+    }
+    message = "Schedule is created.";
+    return {
+      message,
+      error
+    };
+  },
+
+  updateFacultySchedule: async ({
+    scheduleId,
+    facultyId,
+    dayTimeRoom,
+    isToBeAnnounce
+  }) => {
+    let message = "";
+    let error = {};
+    const gotCurrentSemester = await semesterModel.getCurrent();
+    const gotCurrentSchoolYear = await schoolYearModel.getCurrent();
   },
 
   validateDayTimeRoom: async ({ dayTimeRoom, semesterId, schoolYear }) => {
@@ -161,11 +209,12 @@ const scheduleService = {
         semesterId,
         schoolYear
       });
-      if (hasTimeConflict) {
+      if (hasTimeConflict === 1) {
         const errorMessage = `Room is occupied.`;
         errors.push(errorMessage);
       }
     }
+    return errors;
   }
 };
 
