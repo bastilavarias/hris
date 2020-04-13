@@ -2,7 +2,7 @@ const db = require("../../db");
 
 module.exports = {
   getCurrent: async () => {
-    const query = `select start_year as startYear, end_year as endYear from school_year where id = ?;`;
+    const query = `select id, start_year as startYear, end_year as endYear from school_year where id = ?;`;
     const currentSchoolYearId = 1;
     const params = [currentSchoolYearId];
     const result = await db.executeQuery(query, params);

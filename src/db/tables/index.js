@@ -28,12 +28,15 @@ const photo = require("./modules/profile/photo");
 const account = require("./modules/employe-management/account");
 const section = require("./modules/academics/section");
 const departmentHead = require("./modules/employe-management/departmentHead");
-const personnelSchedule = require("./modules/personnelSchedule");
+const personnelSchedule = require("./modules/employe-management/schedule/personnelSchedule");
 const semester = require("./modules/system-settings/semester");
 const schoolYear = require("./modules/system-settings/schoolYear");
 const yearLevel = require("./modules/system-settings/yearLevel");
 const building = require("./modules/utilities/building");
 const room = require("./modules/utilities/room");
+const day = require("./modules/employe-management/schedule/day");
+const facultySchedule = require("./modules/employe-management/schedule/facultySchedule");
+const dayTimeRoom = require("./modules/employe-management/schedule/day_time_room");
 
 module.exports = async () => {
   let message = "";
@@ -74,6 +77,9 @@ module.exports = async () => {
     await db.executeQuery(schoolYear);
     await db.executeQuery(building);
     await db.executeQuery(room);
+    await db.executeQuery(day);
+    await db.executeQuery(facultySchedule);
+    await db.executeQuery(dayTimeRoom);
     message = "Database tables created.";
   } catch (errors) {
     console.log(errors);

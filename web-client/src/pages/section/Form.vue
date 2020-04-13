@@ -58,7 +58,6 @@
             :is-loading="isSearchCollegeStart"
             label="College"
             title="Search College"
-            item-value="id"
             :select-value.sync="form.college"
           >
             <template v-slot:select-selection="{ item }">
