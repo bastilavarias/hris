@@ -7,7 +7,7 @@
         icon="plus"
         color="primary"
         title="Create New College"
-        :to="{ name: 'college-form', params: { operation: 'create' } }"
+        :to="{ name: 'college-form', params: { operation: 'view' } }"
       ></generic-tooltip-button>
     </v-card-title>
     <v-data-table
@@ -52,6 +52,7 @@
       :is-loading="isLoading"
       :action="deleteItem"
     ></generic-confirm-dialog>
+    <router-view></router-view>
   </v-card>
 </template>
 
@@ -63,7 +64,7 @@ import {
   getAllColleges,
   searchColleges,
   setCollegeError,
-  setColleges
+  setColleges,
 } from "../../store/types/college";
 import { setActionName } from "../../store/types/action";
 import GenericConfirmDialog from "../../components/generic/CustomDialog";
@@ -71,21 +72,21 @@ import GenericConfirmDialog from "../../components/generic/CustomDialog";
 const tableHeaders = [
   {
     text: "ID",
-    value: "customId"
+    value: "customId",
   },
   {
     text: "Name",
-    value: "name"
+    value: "name",
   },
   {
     text: "Description",
-    value: "description"
+    value: "description",
   },
   {
     text: "Actions",
     value: "actions",
-    align: "right"
-  }
+    align: "right",
+  },
 ];
 
 const searchOptions = ["all", "custom ID", "name"];
@@ -94,7 +95,7 @@ export default {
   components: {
     GenericConfirmDialog,
     GenericTooltipButton,
-    GenericSearchToolbar
+    GenericSearchToolbar,
   },
 
   data() {
@@ -105,14 +106,14 @@ export default {
       searchOption: "all",
       searchValue: "",
       isConfirmDialogShow: false,
-      selectedItem: {}
+      selectedItem: {},
     };
   },
 
   computed: {
     colleges() {
       return this.$store.state.college.list;
-    }
+    },
   },
 
   watch: {
@@ -139,7 +140,7 @@ export default {
 
     searchOption(opt) {
       if (opt === "all") return this.$store.dispatch(getAllColleges);
-    }
+    },
   },
 
   methods: {
@@ -153,7 +154,7 @@ export default {
       ) {
         const searchConfig = {
           option: this.searchOption,
-          value: this.searchValue
+          value: this.searchValue,
         };
         return this.$store.dispatch(searchColleges, searchConfig);
       }
@@ -166,8 +167,8 @@ export default {
         name: "college-form",
         params: {
           operation: "update",
-          collegeId: id
-        }
+          collegeId: id,
+        },
       });
     },
 
@@ -186,7 +187,7 @@ export default {
       this.$store.commit(setColleges, []);
       this.$store.commit(setCollegeError, []);
       this.$store.commit(setActionName, "");
-    }
-  }
+    },
+  },
 };
 </script>

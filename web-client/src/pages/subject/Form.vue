@@ -1,77 +1,80 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <generic-back-button
-        title="Subject Details"
-        class-name="mb-5"
-      ></generic-back-button>
-    </v-card-title>
-    <v-card-text>
-      <v-row dense>
-        <v-col cols="12">
-          <v-text-field
-            label="Code"
-            v-model="form.code"
-            autofocus
-            :readonly="operation === 'update'"
-            outlined
-            :error="hasError(error.code)"
-            :error-messages="error.code"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12">
-          <v-text-field
-            label="Title"
-            v-model="form.title"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" md="8">
-          <v-text-field
-            label="Description"
-            v-model="form.description"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" md="4">
-          <v-select
-            type="number"
-            label="Units"
-            :items="subjectUnitsOptions"
-            v-model="form.units"
-            outlined
-          ></v-select>
-        </v-col>
-        <v-col cols="12">
-          <v-select
-            label="Category"
-            :items="subjectCategories"
-            item-text="name"
-            item-value="id"
-            v-model="form.categoryId"
-            outlined
-          ></v-select>
-        </v-col>
-        <v-col cols="12">
-          <generic-subject-selection
-            label="Prerequisite"
-            :subjects="subjects"
-            :subject-id.sync="form.prerequisiteSubjectId"
-            outlined
-          ></generic-subject-selection>
-        </v-col>
-      </v-row>
-    </v-card-text>
-    <v-card-actions>
-      <generic-form-action-button
-        :operation="operation"
-        :create="create"
-        :update="update"
-        :disabled="!isFormValid"
-        :is-loading="isLoading"
-      ></generic-form-action-button>
-    </v-card-actions>
-  </v-card>
+  <v-dialog width="800" v-model="isShow">
+    <v-card>
+      <v-card-title>
+        <span class="font-weight-bold">Subject Information</span>
+        <div class="flex-grow-1"></div>
+        <v-btn icon @click="isShow = false">
+          <v-icon color="black">mdi-close</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text>
+        <v-row dense>
+          <v-col cols="12">
+            <v-text-field
+              label="Code"
+              v-model="form.code"
+              autofocus
+              :readonly="operation === 'update'"
+              outlined
+              :error="hasError(error.code)"
+              :error-messages="error.code"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              label="Title"
+              v-model="form.title"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="8">
+            <v-text-field
+              label="Description"
+              v-model="form.description"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-select
+              type="number"
+              label="Units"
+              :items="subjectUnitsOptions"
+              v-model="form.units"
+              outlined
+            ></v-select>
+          </v-col>
+          <v-col cols="12">
+            <v-select
+              label="Category"
+              :items="subjectCategories"
+              item-text="name"
+              item-value="id"
+              v-model="form.categoryId"
+              outlined
+            ></v-select>
+          </v-col>
+          <v-col cols="12">
+            <generic-subject-selection
+              label="Prerequisite"
+              :subjects="subjects"
+              :subject-id.sync="form.prerequisiteSubjectId"
+              outlined
+            ></generic-subject-selection>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <generic-form-action-button
+          :operation="operation"
+          :create="create"
+          :update="update"
+          :disabled="!isFormValid"
+          :is-loading="isLoading"
+        ></generic-form-action-button>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -83,7 +86,7 @@ import {
   getSubjectCategories,
   setSubjectError,
   setSubjects,
-  updateSubject
+  updateSubject,
 } from "../../store/types/subject";
 import { setActionName } from "../../store/types/action";
 import GenericSubjectSelection from "../../components/generic/selection/Subject";
@@ -98,10 +101,10 @@ const defaultForm = {
   description: "",
   units: 0,
   categoryId: null,
-  prerequisiteSubjectId: null
+  prerequisiteSubjectId: null,
 };
 
-const subjectUnitsOptions = [2, 3, 5];
+const subjectUnitsOptions = [5, 3, 2];
 
 export default {
   components: {
@@ -109,7 +112,7 @@ export default {
     GenericConfirmDialog,
     GenericFormActionButton,
     GenericSubjectSelection,
-    GenericCardBackButton
+    GenericCardBackButton,
   },
 
   data() {
@@ -118,7 +121,9 @@ export default {
       defaultForm,
       subjectUnitsOptions,
       operation: "create",
-      isLoading: false
+      isLoading: false,
+
+      isShow: false,
     };
   },
 
@@ -144,7 +149,7 @@ export default {
 
     subjects() {
       return this.$store.state.subject.list;
-    }
+    },
   },
 
   watch: {
@@ -183,7 +188,11 @@ export default {
         ? subject.prerequisite.id
         : null;
       this.isLoading = false;
-    }
+    },
+
+    isShow(isShow) {
+      if (!isShow) this.$router.push({ name: "subject-list" });
+    },
   },
 
   methods: {
@@ -196,18 +205,22 @@ export default {
       const subjectId = this.$route.params.subjectId;
       this.$store.dispatch(updateSubject, {
         subjectId,
-        details: this.form
+        details: this.form,
       });
       this.isLoading = true;
-    }
+    },
+  },
+
+  mounted() {
+    this.isShow = true;
   },
 
   created() {
     this.$store.dispatch(getSubjectCategories);
-    this.$store.dispatch(getAllSubjects);
+    // this.$store.dispatch(getAllSubjects);
 
     const operation = this.$route.params.operation;
-    if (operation === "update") {
+    if (operation === "view") {
       const subjectId = this.$route.params.subjectId;
       this.operation = operation;
       this.$store.dispatch(getSingleSubject, subjectId);
@@ -216,9 +229,9 @@ export default {
   },
 
   destroyed() {
-    this.$store.commit(setSubjects, []);
     this.$store.commit(setSubjectError, {});
     this.$store.commit(setActionName, "");
-  }
+    this.isShow = false;
+  },
 };
 </script>

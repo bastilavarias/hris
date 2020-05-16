@@ -13,6 +13,7 @@
 
 <style>
 	#app {
+		background-color: #e9ebee;
 		font-family: 'Roboto Condensed', sans-serif;
 	}
 </style>

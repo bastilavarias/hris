@@ -1,49 +1,51 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <generic-back-button
-        class-name="mb-5"
-        title="College Details"
-      ></generic-back-button>
-    </v-card-title>
-    <v-card-text>
-      <v-row dense>
-        <v-col cols="12">
-          <v-text-field
-            label="Custom ID"
-            v-model="form.customId"
-            :readonly="operation === 'update'"
-            outlined
-            :error="hasError(error.customId)"
-            :error-messages="error.customId"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12">
-          <v-text-field
-            label="Name"
-            v-model="form.name"
-            outlined
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12">
-          <v-text-field
-            label="Description"
-            v-model="form.description"
-            outlined
-          ></v-text-field>
-        </v-col>
-      </v-row>
-    </v-card-text>
-    <v-card-actions>
-      <generic-form-action-button
-        :operation="operation"
-        :create="create"
-        :update="update"
-        :disabled="!isFormValid"
-        :is-loading="isLoading"
-      ></generic-form-action-button>
-    </v-card-actions>
-  </v-card>
+  <v-dialog width="800" v-model="isShow">
+    <v-card>
+      <v-card-title>
+        <generic-back-button
+          class-name="mb-5"
+          title="College Details"
+        ></generic-back-button>
+      </v-card-title>
+      <v-card-text>
+        <v-row dense>
+          <v-col cols="12">
+            <v-text-field
+              label="Custom ID"
+              v-model="form.customId"
+              :readonly="operation === 'update'"
+              outlined
+              :error="hasError(error.customId)"
+              :error-messages="error.customId"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              label="Name"
+              v-model="form.name"
+              outlined
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field
+              label="Description"
+              v-model="form.description"
+              outlined
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <generic-form-action-button
+          :operation="operation"
+          :create="create"
+          :update="update"
+          :disabled="!isFormValid"
+          :is-loading="isLoading"
+        ></generic-form-action-button>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -53,7 +55,7 @@ import {
   getSingleCollege,
   setCollegeError,
   setColleges,
-  updateCollege
+  updateCollege,
 } from "../../store/types/college";
 import { setActionName } from "../../store/types/action";
 import GenericFormActionButton from "../../components/generic/FormActionButton";
@@ -63,14 +65,14 @@ import customUtilities from "../../services/customUtilities";
 const defaultForm = {
   customId: "",
   name: "",
-  description: ""
+  description: "",
 };
 
 export default {
   components: {
     GenericBackButton,
     GenericFormActionButton,
-    GenericCardBackButton
+    GenericCardBackButton,
   },
 
   data() {
@@ -78,7 +80,8 @@ export default {
       form: Object.assign({}, defaultForm),
       defaultForm,
       operation: "create",
-      isLoading: false
+      isLoading: false,
+      isShow: false,
     };
   },
 
@@ -91,7 +94,7 @@ export default {
 
     error() {
       return this.$store.state.college.error;
-    }
+    },
   },
 
   watch: {
@@ -125,7 +128,11 @@ export default {
       this.form.name = college.name;
       this.form.description = college.description;
       this.isLoading = false;
-    }
+    },
+
+    isShow(isShow) {
+      if (!isShow) this.$router.push({ name: "college-list" });
+    },
   },
 
   methods: {
@@ -138,15 +145,19 @@ export default {
       const collegeId = this.$route.params.collegeId;
       this.$store.dispatch(updateCollege, {
         collegeId,
-        details: this.form
+        details: this.form,
       });
       this.isLoading = true;
-    }
+    },
+  },
+
+  mounted() {
+    this.isShow = true;
   },
 
   created() {
     const operation = this.$route.params.operation;
-    if (operation === "update") {
+    if (operation === "view") {
       const collegeId = this.$route.params.collegeId;
       this.operation = operation;
       this.$store.dispatch(getSingleCollege, collegeId);
@@ -155,9 +166,9 @@ export default {
   },
 
   destroyed() {
-    this.$store.commit(setColleges, []);
     this.$store.commit(setCollegeError, []);
     this.$store.commit(setActionName, "");
-  }
+    this.isShow = false;
+  },
 };
 </script>

@@ -22,7 +22,8 @@
   "homepage": "https://github.com/Baste111/HRIS#readme",
   "devDependencies": {
     "concurrently": "^5.1.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "prettier": "^2.0.5"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

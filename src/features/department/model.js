@@ -17,7 +17,7 @@ module.exports = {
     const params = [
       name.toLowerCase(),
       description.toLowerCase(),
-      departmentId
+      departmentId,
     ];
     await db.executeQuery(query, params);
   },
@@ -25,19 +25,7 @@ module.exports = {
   getAll: async () => {
     const query = `select d.id,
                               d.name,
-                              d.description,
-                              (select json_object('id', e.id,
-                                                  'employeeNumber', e.employee_number,
-                                                  'isDeleted', e.is_deleted,
-                                                  'createdAt', e.created_at,
-                                                  'profile',
-                                                  (select json_object('firstName', first_name, 'middleName',
-                                                                      middle_name, 'lastName', last_name)
-                                                   from profile
-                                                   where id = e.profile_id)
-                                          )
-                               from employee e
-                               where id = dh.employee_id) as head
+                              d.description
                        from department d
                                 join department_head dh on d.id = dh.department_id
                        where d.is_deleted = ?;`;
@@ -46,26 +34,10 @@ module.exports = {
     return result[0] ? result[0] : [];
   },
 
-  getSingle: async departmentId => {
+  getSingle: async (departmentId) => {
     const query = `select d.id,
                               d.name,
-                              d.description,
-                              (select json_object('id', e.id,
-                                                  'employeeNumber', e.employee_number,
-                                                  'profile',
-                                                  (select json_object('firstName', first_name, 'middleName',
-                                                                      middle_name, 'lastName', last_name)
-                                                   from profile
-                                                   where id = e.profile_id),
-                                                  'department', (select json_object('id', d.id, 'name', d.name)
-                                                                 from department d
-                                                                 where d.id = e.department_id),
-                                                  'designation', (select json_object('id', d.id, 'name', d.name)
-                                                                  from designation d
-                                                                  where d.id = e.designation_id)
-                                          )
-                               from employee e
-                               where id = dh.employee_id) as head
+                              d.description
                        from department d
                                 join department_head dh on d.id = dh.department_id
                        where d.id = ?
@@ -75,7 +47,7 @@ module.exports = {
     return result[0][0] ? result[0][0] : {};
   },
 
-  getSingleByName: async name => {
+  getSingleByName: async (name) => {
     const query = `select id, name, description
                        from department
                        where name = ?
@@ -88,22 +60,7 @@ module.exports = {
   search: async (option, value) => {
     const query = `select d.id,
                               d.name,
-                              d.description,
-                              (select json_object('id', e.id,
-                                                  'profile',
-                                                  (select json_object('firstName', first_name, 'middleName',
-                                                                      middle_name, 'lastName', last_name)
-                                                   from profile
-                                                   where id = e.profile_id),
-                                                  'department', (select json_object('id', d.id, 'name', d.name)
-                                                                 from department d
-                                                                 where d.id = e.department_id),
-                                                  'designation', (select json_object('id', d.id, 'name', d.name)
-                                                                  from designation d
-                                                                  where d.id = e.designation_id)
-                                          )
-                               from employee e
-                               where id = dh.employee_id) as head
+                              d.description
                         from department d
                                 join department_head dh on d.id = dh.department_id where d.${option} like '%${value}%' and d.is_deleted = ?;`;
     const params = [false];
@@ -111,7 +68,7 @@ module.exports = {
     return result[0] ? result[0] : [];
   },
 
-  delete: async departmentId => {
+  delete: async (departmentId) => {
     const query = `update department
                        set is_deleted = ?,
                            deleted_at = now()
@@ -133,5 +90,5 @@ module.exports = {
                        where department_id = ?;`;
     const params = [employeeId, departmentId];
     await db.executeQuery(query, params);
-  }
+  },
 };

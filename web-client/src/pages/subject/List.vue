@@ -45,7 +45,7 @@
         }}</span>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-btn icon @click="update(item)">
+        <v-btn icon @click="view(item)">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
         <v-btn icon @click="selectItem(item)">
@@ -60,6 +60,7 @@
       :is-loading="isLoading"
       :action="deleteItem"
     ></generic-confirm-dialog>
+    <router-view></router-view>
   </v-card>
 </template>
 
@@ -71,7 +72,7 @@ import {
   getAllSubjects,
   searchSubjects,
   setSubjectError,
-  setSubjects
+  setSubjects,
 } from "../../store/types/subject";
 import { setActionName } from "../../store/types/action";
 import GenericConfirmDialog from "../../components/generic/CustomDialog";
@@ -79,33 +80,33 @@ import GenericConfirmDialog from "../../components/generic/CustomDialog";
 const tableHeaders = [
   {
     text: "Code",
-    value: "code"
+    value: "code",
   },
   {
     text: "Title",
-    value: "title"
+    value: "title",
   },
   {
     text: "Description",
-    value: "description"
+    value: "description",
   },
   {
     text: "Units",
-    value: "units"
+    value: "units",
   },
   {
     text: "Category",
-    value: "category"
+    value: "category",
   },
   {
     text: "Prerequisite",
-    value: "prerequisite"
+    value: "prerequisite",
   },
   {
     text: "Actions",
     value: "actions",
-    align: "right"
-  }
+    align: "right",
+  },
 ];
 const searchOptions = ["all", "code", "title"];
 
@@ -113,7 +114,7 @@ export default {
   components: {
     GenericConfirmDialog,
     GenericTooltipButton,
-    GenericSearchToolbar
+    GenericSearchToolbar,
   },
 
   data() {
@@ -124,14 +125,14 @@ export default {
       searchOption: "all",
       searchValue: "",
       isConfirmDialogShow: false,
-      selectedItem: {}
+      selectedItem: {},
     };
   },
 
   computed: {
     subjects() {
       return this.$store.state.subject.list;
-    }
+    },
   },
 
   watch: {
@@ -158,7 +159,7 @@ export default {
 
     searchOption(opt) {
       if (opt === "all") return this.$store.dispatch(getAllSubjects);
-    }
+    },
   },
 
   methods: {
@@ -172,7 +173,7 @@ export default {
       ) {
         const searchConfig = {
           option: this.searchOption,
-          value: this.searchValue
+          value: this.searchValue,
         };
         return this.$store.dispatch(searchSubjects, searchConfig);
       }
@@ -180,13 +181,13 @@ export default {
       return this.$store.commit(setSubjects, []);
     },
 
-    update({ id }) {
+    view({ id }) {
       this.$router.push({
         name: "subject-form",
         params: {
-          operation: "update",
-          subjectId: id
-        }
+          operation: "view",
+          subjectId: id,
+        },
       });
     },
 
@@ -199,13 +200,13 @@ export default {
       const { id } = this.selectedItem;
       this.isLoading = true;
       this.$store.dispatch(deleteSubject, id);
-    }
+    },
   },
 
   destroyed() {
     this.$store.commit(setSubjects, []);
     this.$store.commit(setSubjectError, []);
     this.$store.commit(setActionName, "");
-  }
+  },
 };
 </script>

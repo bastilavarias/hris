@@ -24,20 +24,20 @@
             outlined
           ></v-text-field>
         </v-col>
-        <v-col cols="12">
-          <generic-employee-autocomplete
-            label="Department Head"
-            outlined
-            :employee.sync="form.selectedDepartmentHead"
-            :search-options.sync="searchOptions"
-            :search-value.sync="searchValue"
-            :search-option.sync="searchOption"
-            :is-loading="isEmployeeListSearchStart"
-            :employees="employeesLocal"
-            :search-options-column="3"
-            :search-bar-column="9"
-          ></generic-employee-autocomplete>
-        </v-col>
+        <!--        <v-col cols="12">-->
+        <!--          <generic-employee-autocomplete-->
+        <!--            label="Department Head"-->
+        <!--            outlined-->
+        <!--            :employee.sync="form.selectedDepartmentHead"-->
+        <!--            :search-options.sync="searchOptions"-->
+        <!--            :search-value.sync="searchValue"-->
+        <!--            :search-option.sync="searchOption"-->
+        <!--            :is-loading="isEmployeeListSearchStart"-->
+        <!--            :employees="employeesLocal"-->
+        <!--            :search-options-column="3"-->
+        <!--            :search-bar-column="9"-->
+        <!--          ></generic-employee-autocomplete>-->
+        <!--        </v-col>-->
       </v-row>
     </v-card-text>
     <v-card-actions>
@@ -59,7 +59,7 @@ import {
   getSingleDepartment,
   setDepartmentError,
   setDepartments,
-  updateDepartment
+  updateDepartment,
 } from "../../store/types/department";
 import { setActionName } from "../../store/types/action";
 import GenericFormActionButton from "../../components/generic/FormActionButton";
@@ -72,7 +72,7 @@ import GenericEmployeeAutocomplete from "../../components/generic/EmployeeAutoco
 const defaultForm = {
   name: "",
   description: "",
-  selectedDepartmentHead: null
+  selectedDepartmentHead: null,
 };
 
 export default {
@@ -81,7 +81,7 @@ export default {
     GenericBackButton,
     GenericCollegeSelection,
     GenericFormActionButton,
-    GenericCardBackButton
+    GenericCardBackButton,
   },
 
   data() {
@@ -94,7 +94,7 @@ export default {
       searchValue: "",
       searchOptions: ["employee number", "last name"],
       searchOption: "",
-      employeesLocal: []
+      employeesLocal: [],
     };
   },
 
@@ -116,7 +116,7 @@ export default {
     employees() {
       this.isEmployeeListSearchStart = false;
       return this.$store.state.employee.list;
-    }
+    },
   },
 
   watch: {
@@ -178,7 +178,7 @@ export default {
         ) {
           const searchConfig = {
             option: this.searchOption,
-            value: query
+            value: query,
           };
           return this.$store.dispatch(searchEmployees, searchConfig);
         }
@@ -189,7 +189,7 @@ export default {
 
     employees(value) {
       this.employeesLocal = value;
-    }
+    },
   },
 
   methods: {
@@ -199,7 +199,7 @@ export default {
       this.$store.dispatch(createDepartment, {
         name,
         description,
-        employeeId: selectedDepartmentHead.id
+        employeeId: 1,
       });
       this.isLoading = true;
     },
@@ -212,11 +212,11 @@ export default {
         details: {
           name,
           description,
-          employeeId: selectedDepartmentHead.id
-        }
+          employeeId: 1,
+        },
       });
       this.isLoading = true;
-    }
+    },
   },
 
   created() {
@@ -233,6 +233,6 @@ export default {
     this.$store.commit(setDepartments, []);
     this.$store.commit(setDepartmentError, {});
     this.$store.commit(setActionName, "");
-  }
+  },
 };
 </script>
