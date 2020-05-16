@@ -9,6 +9,24 @@ const routes = [
     name: "login",
     component: () => import("../pages/Login"),
   },
+
+  {
+    path: "/home",
+    component: () => import("../layouts/Home"),
+    children: [
+      {
+        path: "employee-management",
+        component: () => import("../layouts/partials/Sub"),
+        children: [
+          {
+            path: "",
+            name: "employee-list",
+            component: () => import("../pages/employee/List"),
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
