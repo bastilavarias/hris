@@ -89,6 +89,42 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "designation-management",
+        name: "designation-list",
+        component: () => import("../pages/designation/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Designation List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "designation-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "designation-form",
+            component: () => import("../pages/designation/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Designation List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "designation-list" },
+                },
+                {
+                  text: "Designation Form",
+                  icon: "mdi-form-select",
+                  to: { name: "designation-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];

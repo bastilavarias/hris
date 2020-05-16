@@ -40,14 +40,20 @@ export default {
       actions: [
         {
           text: "Employee Management",
-          icon: "mdi-account",
+          icon: "mdi-account-tie",
           to: { name: "employee-list" },
         },
 
         {
           text: "Department Management",
-          icon: "mdi-account",
+          icon: "mdi-account-group",
           to: { name: "department-list" },
+        },
+
+        {
+          text: "Designation Management",
+          icon: "mdi-account-box",
+          to: { name: "designation-list" },
         },
       ],
     };
