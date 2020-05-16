@@ -1,0 +1,24 @@
+{
+  "name": "hris",
+  "version": "1.0.0",
+  "description": "Human Resource Information System",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bastilavarias/hris.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bastilavarias/hris/issues"
+  },
+  "homepage": "https://github.com/bastilavarias/hris#readme"
+}
