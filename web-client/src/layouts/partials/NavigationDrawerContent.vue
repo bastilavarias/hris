@@ -1,5 +1,5 @@
 <template>
-  <v-list>
+  <v-list color="white">
     <v-list-item three-line>
       <v-list-item-avatar>
         <v-img
