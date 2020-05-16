@@ -20,7 +20,11 @@
     <v-divider></v-divider>
     <v-subheader>Available Actions</v-subheader>
     <template v-for="(action, index) in actions">
-      <v-list-item :key="index" :to="action.to" active-class="primary--text">
+      <v-list-item
+        :key="index"
+        :to="action.to"
+        active-class="primary--text active-action-item"
+      >
         <v-list-item-icon>
           <v-icon>{{ action.icon }}</v-icon>
         </v-list-item-icon>
@@ -60,3 +64,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.active-action-item {
+  border-right: 0.2rem solid #327726;
+}
+</style>
