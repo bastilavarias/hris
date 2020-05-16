@@ -53,6 +53,42 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "department-management",
+        name: "department-list",
+        component: () => import("../pages/department/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Department List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "department-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "department-form",
+            component: () => import("../pages/department/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Department List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "department-list" },
+                },
+                {
+                  text: "Department Form",
+                  icon: "mdi-form-select",
+                  to: { name: "department-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];

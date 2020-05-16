@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Employee Form</v-card-title>
+    <v-card-title class="font-weight-bold">Employee Form</v-card-title>
     <v-card-text>
       <v-row dense>
         <v-col cols="12">

@@ -24,7 +24,9 @@
         <v-list-item-icon>
           <v-icon>{{ action.icon }}</v-icon>
         </v-list-item-icon>
-        <v-list-item-subtitle>{{ action.text }}</v-list-item-subtitle>
+        <v-list-item-subtitle class="font-weight-bold black--text">{{
+          action.text
+        }}</v-list-item-subtitle>
       </v-list-item>
     </template>
   </v-list>
@@ -40,6 +42,12 @@ export default {
           text: "Employee Management",
           icon: "mdi-account",
           to: { name: "employee-list" },
+        },
+
+        {
+          text: "Department Management",
+          icon: "mdi-account",
+          to: { name: "department-list" },
         },
       ],
     };

@@ -1,7 +1,9 @@
 <template>
   <v-card>
     <v-toolbar flat>
-      <v-toolbar-title class="font-weight-bold">Employee List</v-toolbar-title>
+      <v-toolbar-title class="font-weight-bold"
+        >Department List</v-toolbar-title
+      >
       <v-spacer></v-spacer>
       <v-text-field
         hide-details
@@ -13,11 +15,12 @@
       <v-btn icon>
         <v-icon>mdi-sort</v-icon>
       </v-btn>
-      <v-btn icon :to="{ name: 'employee-form' }">
+      <v-btn icon :to="{ name: 'department-form' }">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
     <v-data-table :headers="headers"></v-data-table>
+    <router-view></router-view>
   </v-card>
 </template>
 
@@ -27,19 +30,15 @@ export default {
     return {
       headers: [
         {
-          text: "Employee Number",
-        },
-
-        {
           text: "Name",
         },
 
         {
-          text: "Department",
+          text: "Description",
         },
 
         {
-          text: "Designation",
+          text: "Head",
         },
 
         {
