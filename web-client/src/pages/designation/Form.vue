@@ -2,7 +2,7 @@
   <v-dialog width="800" v-model="isShow">
     <v-card>
       <v-card-title class="font-weight-bold">
-        <span>Department Form</span>
+        <span>Designation Form</span>
         <div class="flex-grow-1"></div>
         <v-btn icon @click="isShow = false">
           <v-icon>mdi-close</v-icon>
@@ -15,9 +15,6 @@
           </v-col>
           <v-col cols="12">
             <v-text-field label="Description" outlined></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-autocomplete label="Head" outlined></v-autocomplete>
           </v-col>
         </v-row>
       </v-card-text>

@@ -15,7 +15,7 @@
       <v-btn icon>
         <v-icon>mdi-sort</v-icon>
       </v-btn>
-      <v-btn icon :to="{ name: 'department-form' }">
+      <v-btn icon :to="{ name: 'designation-form' }">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
