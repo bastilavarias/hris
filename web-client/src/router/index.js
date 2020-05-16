@@ -32,6 +32,25 @@ const routes = [
               ],
             },
           },
+          {
+            path: "create",
+            name: "employee-form",
+            component: () => import("../pages/employee/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Employee List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "employee-list" },
+                },
+                {
+                  text: "Employee Form",
+                  icon: "mdi-form-select",
+                  to: { name: "employee-form" },
+                },
+              ],
+            },
+          },
         ],
       },
     ],

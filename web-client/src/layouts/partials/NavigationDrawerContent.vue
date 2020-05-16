@@ -20,20 +20,11 @@
     <v-divider></v-divider>
     <v-subheader>Available Actions</v-subheader>
     <template v-for="(action, index) in actions">
-      <v-list-item
-        :key="index"
-        :to="action.to"
-        active-class="primary white--text"
-      >
+      <v-list-item :key="index" :to="action.to" active-class="primary--text">
         <v-list-item-icon>
           <v-icon>{{ action.icon }}</v-icon>
         </v-list-item-icon>
-        <v-list-item-subtitle
-          :class="`${
-            action.to.name === currentRouteName ? 'white--text' : 'black--text'
-          }`"
-          >{{ action.text }}</v-list-item-subtitle
-        >
+        <v-list-item-subtitle>{{ action.text }}</v-list-item-subtitle>
       </v-list-item>
     </template>
   </v-list>
@@ -52,13 +43,6 @@ export default {
         },
       ],
     };
-  },
-
-  computed: {
-    currentRouteName() {
-      const name = this.$route.name;
-      return name ? name : "";
-    },
   },
 };
 </script>

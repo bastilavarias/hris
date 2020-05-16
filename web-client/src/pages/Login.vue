@@ -24,17 +24,13 @@
               <v-btn color="primary" block :to="{ name: 'employee-list' }"
                 >Login</v-btn
               >
+              <p class="body-2 font-weight-bold d-block text-center mt-10">
+                Copyright © UDM Dev Team {{ new Date().getFullYear() }}.
+              </p>
             </div>
           </v-col>
         </v-row>
       </v-container>
     </v-content>
-    <footer-layout></footer-layout>
   </v-app>
 </template>
-<script>
-import FooterLayout from "../layouts/partials/Footer";
-export default {
-  components: { FooterLayout },
-};
-</script>

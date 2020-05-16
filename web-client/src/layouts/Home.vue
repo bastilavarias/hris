@@ -15,15 +15,14 @@
         <custom-breadcrumbs
           :routes="breadcrumbsRoutes"
           v-if="breadcrumbsRoutes.length > 0"
+          class-name="mb-2"
         ></custom-breadcrumbs>
         <router-view></router-view>
       </v-container>
     </v-content>
-    <footer-layout></footer-layout>
   </v-app>
 </template>
 <script>
-import FooterLayout from "./partials/Footer";
 import NavigationDrawerContent from "./partials/NavigationDrawerContent";
 import ToolbarMenu from "./partials/ToolbarMenu";
 import CustomBreadcrumbs from "../components/CustomBreadcrumbs";
@@ -32,7 +31,6 @@ export default {
     CustomBreadcrumbs,
     ToolbarMenu,
     NavigationDrawerContent,
-    FooterLayout,
   },
 
   data() {

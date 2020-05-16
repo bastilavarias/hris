@@ -1,5 +1,9 @@
 <template>
-  <v-breadcrumbs :items="routes" style="padding-left: 0 !important;">
+  <v-breadcrumbs
+    :items="routes"
+    style="padding-left: 0 !important;"
+    :class="className"
+  >
     <template v-slot:item="{ item }">
       <router-link :to="item.to" class="black--text route">
         <div class="d-flex align-center">
@@ -17,6 +21,11 @@ export default {
   props: {
     routes: {
       type: Array,
+      required: true,
+    },
+
+    className: {
+      type: String,
       required: true,
     },
   },
