@@ -22,6 +22,15 @@ const routes = [
             path: "",
             name: "employee-list",
             component: () => import("../pages/employee/List"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Employee List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "employee-list" },
+                },
+              ],
+            },
           },
         ],
       },

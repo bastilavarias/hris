@@ -12,6 +12,10 @@
     </v-navigation-drawer>
     <v-content>
       <v-container>
+        <custom-breadcrumbs
+          :routes="breadcrumbsRoutes"
+          v-if="breadcrumbsRoutes.length > 0"
+        ></custom-breadcrumbs>
         <router-view></router-view>
       </v-container>
     </v-content>
@@ -22,13 +26,26 @@
 import FooterLayout from "./partials/Footer";
 import NavigationDrawerContent from "./partials/NavigationDrawerContent";
 import ToolbarMenu from "./partials/ToolbarMenu";
+import CustomBreadcrumbs from "../components/CustomBreadcrumbs";
 export default {
-  components: { ToolbarMenu, NavigationDrawerContent, FooterLayout },
+  components: {
+    CustomBreadcrumbs,
+    ToolbarMenu,
+    NavigationDrawerContent,
+    FooterLayout,
+  },
 
   data() {
     return {
       isSideDrawerShow: true,
     };
+  },
+
+  computed: {
+    breadcrumbsRoutes() {
+      const breadcrumbs = this.$route.meta.breadcrumbs;
+      return breadcrumbs ? breadcrumbs : [];
+    },
   },
 };
 </script>
