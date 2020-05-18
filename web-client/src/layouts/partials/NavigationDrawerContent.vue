@@ -59,6 +59,12 @@ export default {
           icon: "mdi-account-box",
           to: { name: "designation-list" },
         },
+
+        {
+          text: "Faculty Teaching Assignment",
+          icon: "mdi-calendar-multiple-check",
+          to: { name: "faculty-teaching-assignment-adder" },
+        },
       ],
     };
   },

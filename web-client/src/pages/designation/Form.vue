@@ -40,7 +40,7 @@ export default {
 
   watch: {
     isShow(isShow) {
-      if (!isShow) return this.$router.push({ name: "department-list" });
+      if (!isShow) return this.$router.push({ name: "designation-list" });
     },
   },
 

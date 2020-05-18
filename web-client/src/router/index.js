@@ -125,6 +125,21 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "faculty-teaching-assignment",
+        name: "faculty-teaching-assignment-adder",
+        component: () => import("../pages/faculty-taching-assignment/Adder"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Faculty Teaching Assignment Adder",
+              icon: "mdi-file-table-box-outline",
+              to: { name: "faculty-teaching-assignment-adder" },
+            },
+          ],
+        },
+      },
     ],
   },
 ];
