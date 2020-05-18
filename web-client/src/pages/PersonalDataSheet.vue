@@ -91,6 +91,31 @@
                 <v-col cols="12">
                   <personal-data-sheet-work-experience-list></personal-data-sheet-work-experience-list>
                 </v-col>
+                <v-col cols="12">
+                  <personal-data-sheet-voluntary-work-experience-list></personal-data-sheet-voluntary-work-experience-list>
+                </v-col>
+                <v-col cols="12">
+                  <personal-data-sheet-training-program-list></personal-data-sheet-training-program-list>
+                </v-col>
+              </v-row>
+            </v-tab-item>
+            <v-tab-item>
+              <v-row dense>
+                <v-col cols="12">
+                  <personal-data-sheet-hobby-list></personal-data-sheet-hobby-list>
+                </v-col>
+                <v-col cols="12">
+                  <personal-data-sheet-recognition-list></personal-data-sheet-recognition-list>
+                </v-col>
+                <v-col cols="12">
+                  <personal-data-sheet-organization-list></personal-data-sheet-organization-list>
+                </v-col>
+                <v-col cols="12">
+                  <personal-data-sheet-reference-list></personal-data-sheet-reference-list>
+                </v-col>
+                <v-col cols="12">
+                  <personal-data-sheet-issued-id-form></personal-data-sheet-issued-id-form>
+                </v-col>
               </v-row>
             </v-tab-item>
           </v-tabs-items>
@@ -113,8 +138,22 @@ import PersonalDataSheetChildList from "../components/personal-data-sheet/ChildL
 import PersonalDataSheetEducationList from "../components/personal-data-sheet/EducationList";
 import PersonalDataSheetCivilServiceList from "../components/personal-data-sheet/CivilServiceList";
 import PersonalDataSheetWorkExperienceList from "../components/personal-data-sheet/WorkExperienceList";
+import PersonalDataSheetVoluntaryWorkExperienceList from "../components/personal-data-sheet/VoluntaryWorkExperience";
+import PersonalDataSheetTrainingProgramList from "../components/personal-data-sheet/TrainingProgramList";
+import PersonalDataSheetHobbyList from "../components/personal-data-sheet/HobbyList";
+import PersonalDataSheetOrganizationList from "../components/personal-data-sheet/OrganizationList";
+import PersonalDataSheetRecognitionList from "../components/personal-data-sheet/RecognitionList";
+import PersonalDataSheetReferenceList from "../components/personal-data-sheet/ReferenceList";
+import PersonalDataSheetIssuedIdForm from "../components/personal-data-sheet/IssuedIdForm";
 export default {
   components: {
+    PersonalDataSheetIssuedIdForm,
+    PersonalDataSheetReferenceList,
+    PersonalDataSheetRecognitionList,
+    PersonalDataSheetOrganizationList,
+    PersonalDataSheetHobbyList,
+    PersonalDataSheetTrainingProgramList,
+    PersonalDataSheetVoluntaryWorkExperienceList,
     PersonalDataSheetWorkExperienceList,
     PersonalDataSheetCivilServiceList,
     PersonalDataSheetEducationList,
