@@ -67,7 +67,7 @@
       <v-col cols="12" md="7">
         <v-card min-height="250">
           <v-card-title class="font-weight-bold"
-            >Faculty Load Overview</v-card-title
+            >Faculty Teaching Assignment Overview</v-card-title
           >
           <v-card-subtitle>First Semester, SY: 2020-2021</v-card-subtitle>
           <v-data-table

@@ -140,6 +140,21 @@ const routes = [
           ],
         },
       },
+
+      {
+        path: "personal-data-sheet",
+        name: "personal-data-sheet",
+        component: () => import("../pages/PersonalDataSheet"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Personal Data Sheet",
+              icon: "mdi-form-select",
+              to: { name: "personal-data-sheet" },
+            },
+          ],
+        },
+      },
     ],
   },
 ];

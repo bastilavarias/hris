@@ -65,6 +65,12 @@ export default {
           icon: "mdi-calendar-multiple-check",
           to: { name: "faculty-teaching-assignment-adder" },
         },
+
+        {
+          text: "Personal Data Sheet",
+          icon: "mdi-file-account",
+          to: { name: "personal-data-sheet" },
+        },
       ],
     };
   },
