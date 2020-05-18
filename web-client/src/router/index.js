@@ -129,7 +129,7 @@ const routes = [
       {
         path: "faculty-teaching-assignment",
         name: "faculty-teaching-assignment-adder",
-        component: () => import("../pages/faculty-taching-assignment/Adder"),
+        component: () => import("../pages/faculty-teaching-assignment/Adder"),
         meta: {
           breadcrumbs: [
             {
@@ -151,6 +151,21 @@ const routes = [
               text: "Personal Data Sheet",
               icon: "mdi-form-select",
               to: { name: "personal-data-sheet" },
+            },
+          ],
+        },
+      },
+
+      {
+        path: "employee-schedule-management",
+        name: "employee-schedule-tagger",
+        component: () => import("../pages/employee-schedule/Tagger"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Employee Schedule Tagger",
+              icon: "mdi-file-table-box-outline",
+              to: { name: "employee-schedule-tagger" },
             },
           ],
         },

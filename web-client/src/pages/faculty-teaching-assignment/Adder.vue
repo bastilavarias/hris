@@ -50,8 +50,8 @@
         <v-card min-height="250">
           <v-toolbar flat>
             <v-toolbar-title class="font-weight-bold"
-              >Schedules To Load</v-toolbar-title
-            >
+              >Subject Schedules
+            </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-text-field
               hide-details
@@ -60,6 +60,9 @@
               dense
               placeholder="Search here"
             ></v-text-field>
+            <v-btn icon>
+              <v-icon>mdi-sort</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-data-table :headers="scheduleTableHeaders"></v-data-table>
         </v-card>
@@ -105,7 +108,7 @@ export default {
         },
 
         {
-          text: "Schedule",
+          text: "Day & Time",
         },
 
         {
@@ -131,7 +134,7 @@ export default {
         },
 
         {
-          text: "Schedule",
+          text: "Day & Time",
         },
 
         {

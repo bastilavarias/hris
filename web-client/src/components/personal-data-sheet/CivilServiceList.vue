@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex justify-space-between align-center">
-      <span class="v-card__subtitle pl-0">Civil Service List</span>
+      <span class="v-card__subtitle pl-0">Civil Services</span>
       <v-btn color="primary" small @click="isDialogShow = true">
         Add Civil Service
       </v-btn>

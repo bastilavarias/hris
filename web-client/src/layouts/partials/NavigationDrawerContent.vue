@@ -71,6 +71,12 @@ export default {
           icon: "mdi-file-account",
           to: { name: "personal-data-sheet" },
         },
+
+        {
+          text: "Employee Schedule Tagger",
+          icon: "mdi-calendar-account",
+          to: { name: "employee-schedule-tagger" },
+        },
       ],
     };
   },
