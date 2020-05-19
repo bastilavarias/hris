@@ -91,6 +91,12 @@ export default {
           icon: "mdi-text-subject",
           to: { name: "subject-list" },
         },
+
+        {
+          text: "College Management",
+          icon: "mdi-school",
+          to: { name: "college-list" },
+        },
       ],
     };
   },

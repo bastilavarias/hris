@@ -206,6 +206,42 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "college-management",
+        name: "college-list",
+        component: () => import("../pages/college/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "College List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "college-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "college-form",
+            component: () => import("../pages/college/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "College List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "college-list" },
+                },
+                {
+                  text: "College Form",
+                  icon: "mdi-form-select",
+                  to: { name: "college-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];
