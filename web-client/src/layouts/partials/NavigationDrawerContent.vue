@@ -97,6 +97,12 @@ export default {
           icon: "mdi-school",
           to: { name: "college-list" },
         },
+
+        {
+          text: "Course Management",
+          icon: "mdi-book-multiple",
+          to: { name: "course-list" },
+        },
       ],
     };
   },

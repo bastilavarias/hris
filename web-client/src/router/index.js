@@ -242,6 +242,42 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "course-management",
+        name: "course-list",
+        component: () => import("../pages/course/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Course List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "course-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "course-form",
+            component: () => import("../pages/course/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Course List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "course-list" },
+                },
+                {
+                  text: "Course Form",
+                  icon: "mdi-form-select",
+                  to: { name: "course-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];
