@@ -170,6 +170,42 @@ const routes = [
           ],
         },
       },
+
+      {
+        path: "subject-management",
+        name: "subject-list",
+        component: () => import("../pages/subject/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Subject List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "subject-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "subject-form",
+            component: () => import("../pages/subject/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Subject List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "subject-list" },
+                },
+                {
+                  text: "Subject Form",
+                  icon: "mdi-form-select",
+                  to: { name: "subject-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];

@@ -19,6 +19,14 @@
     </v-list-item>
     <v-divider></v-divider>
     <v-subheader>Available Actions</v-subheader>
+    <v-container class="py-0">
+      <v-text-field
+        outlined
+        single-line
+        placeholder="Search actions"
+        dense
+      ></v-text-field>
+    </v-container>
     <template v-for="(action, index) in actions">
       <v-list-item
         :key="index"
@@ -76,6 +84,12 @@ export default {
           text: "Employee Schedule Tagger",
           icon: "mdi-calendar-account",
           to: { name: "employee-schedule-tagger" },
+        },
+
+        {
+          text: "Subject Management",
+          icon: "mdi-text-subject",
+          to: { name: "subject-list" },
         },
       ],
     };
