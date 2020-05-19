@@ -278,6 +278,42 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "section-management",
+        name: "section-list",
+        component: () => import("../pages/section/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Section List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "section-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "section-form",
+            component: () => import("../pages/section/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Section List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "section-list" },
+                },
+                {
+                  text: "Section Form",
+                  icon: "mdi-form-select",
+                  to: { name: "section-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];

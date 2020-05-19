@@ -103,6 +103,12 @@ export default {
           icon: "mdi-book-multiple",
           to: { name: "course-list" },
         },
+
+        {
+          text: "Section Management",
+          icon: "mdi-google-classroom",
+          to: { name: "section-list" },
+        },
       ],
     };
   },
