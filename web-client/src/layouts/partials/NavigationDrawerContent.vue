@@ -109,6 +109,36 @@ export default {
           icon: "mdi-google-classroom",
           to: { name: "section-list" },
         },
+
+        {
+          text: "Building Management",
+          icon: "mdi-domain",
+          to: { name: "building-list" },
+        },
+
+        {
+          text: "Room Management",
+          icon: "mdi-door",
+          to: { name: "room-list" },
+        },
+
+        {
+          text: "Semester Management",
+          icon: "mdi-chair-school",
+          to: { name: "semester-list" },
+        },
+
+        {
+          text: "School Year Management",
+          icon: "mdi-calendar-range",
+          to: { name: "school-year-list" },
+        },
+
+        {
+          text: "Year Level Management",
+          icon: "mdi-filter-variant",
+          to: { name: "year-level-list" },
+        },
       ],
     };
   },

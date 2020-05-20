@@ -2,7 +2,7 @@
   <v-dialog width="800" v-model="isShow">
     <v-card>
       <v-card-title class="font-weight-bold">
-        <span>Section Form</span>
+        <span>Year Level Form</span>
         <div class="flex-grow-1"></div>
         <v-btn icon @click="isShow = false">
           <v-icon>mdi-close</v-icon>
@@ -10,23 +10,17 @@
       </v-card-title>
       <v-card-text>
         <v-row dense>
-          <v-col cols="12">
-            <v-text-field label="Code" outlined></v-text-field>
+          <v-col cols="12" md="6">
+            <v-text-field label="Year From" outlined></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field label="Year To" outlined></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-text-field label="Name" outlined></v-text-field>
-          </v-col>
-          <v-col cols="12" md="10">
-            <v-text-field label="Description" outlined></v-text-field>
-          </v-col>
-          <v-col cols="10" md="2">
-            <v-select label="Year Level" outlined></v-select>
-          </v-col>
-          <v-col cols="12">
-            <v-autocomplete label="College" outlined></v-autocomplete>
-          </v-col>
-          <v-col cols="12">
-            <v-autocomplete label="Course" outlined></v-autocomplete>
+            <v-radio-group label="Set as current school year?">
+              <v-radio label="Yes"></v-radio>
+              <v-radio label="No"></v-radio>
+            </v-radio-group>
           </v-col>
         </v-row>
       </v-card-text>
@@ -49,7 +43,7 @@ export default {
 
   watch: {
     isShow(isShow) {
-      if (!isShow) return this.$router.push({ name: "section-list" });
+      if (!isShow) return this.$router.push({ name: "school-year-list" });
     },
   },
 

@@ -314,6 +314,186 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "building-management",
+        name: "building-list",
+        component: () => import("../pages/building/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Building List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "building-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "building-form",
+            component: () => import("../pages/building/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Building List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "building-list" },
+                },
+                {
+                  text: "Building Form",
+                  icon: "mdi-form-select",
+                  to: { name: "building-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        path: "room-management",
+        name: "room-list",
+        component: () => import("../pages/room/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Room List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "room-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "room-form",
+            component: () => import("../pages/room/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Room List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "room-list" },
+                },
+                {
+                  text: "Room Form",
+                  icon: "mdi-form-select",
+                  to: { name: "room-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        path: "semester-management",
+        name: "semester-list",
+        component: () => import("../pages/semester/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Semester List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "semester-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "semester-form",
+            component: () => import("../pages/semester/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Semester List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "semester-list" },
+                },
+                {
+                  text: "Semester Form",
+                  icon: "mdi-form-select",
+                  to: { name: "semester-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        path: "school-year-management",
+        name: "school-year-list",
+        component: () => import("../pages/school-year/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "School Year List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "school-year-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "school-year-form",
+            component: () => import("../pages/school-year/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "School Year List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "school-year-list" },
+                },
+                {
+                  text: "School Year Form",
+                  icon: "mdi-form-select",
+                  to: { name: "school-year-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        path: "year-level-management",
+        name: "year-level-list",
+        component: () => import("../pages/year-level/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Year Level List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "year-level-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "year-level-form",
+            component: () => import("../pages/year-level/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Year Level List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "year-level-list" },
+                },
+                {
+                  text: "Year Level Form",
+                  icon: "mdi-form-select",
+                  to: { name: "year-level-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];
