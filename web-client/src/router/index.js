@@ -494,6 +494,78 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "salary-grade-management",
+        name: "salary-grade-list",
+        component: () => import("../pages/salary-grade/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Salary Grade List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "salary-grade-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "salary-grade-form",
+            component: () => import("../pages/salary-grade/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Salary Grade List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "salary-grade-list" },
+                },
+                {
+                  text: "Salary Grade Form",
+                  icon: "mdi-form-select",
+                  to: { name: "salary-grade-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        path: "leave-management",
+        name: "leave-list",
+        component: () => import("../pages/leave/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Leave List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "leave-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "leave-form",
+            component: () => import("../pages/leave/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Leave List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "leave-list" },
+                },
+                {
+                  text: "Leave Form",
+                  icon: "mdi-form-select",
+                  to: { name: "leave-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];

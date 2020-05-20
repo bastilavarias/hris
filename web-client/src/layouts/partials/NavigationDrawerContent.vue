@@ -139,6 +139,18 @@ export default {
           icon: "mdi-filter-variant",
           to: { name: "year-level-list" },
         },
+
+        {
+          text: "Salary Grade Management",
+          icon: "mdi-cash-multiple",
+          to: { name: "salary-grade-list" },
+        },
+
+        {
+          text: "Leave Management",
+          icon: "mdi-account-arrow-right-outline",
+          to: { name: "leave-list" },
+        },
       ],
     };
   },
