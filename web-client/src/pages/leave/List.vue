@@ -13,9 +13,6 @@
       <v-btn icon>
         <v-icon>mdi-sort</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
     </v-toolbar>
     <v-data-table :headers="headers" :items="testData">
       <template v-slot:item.action>

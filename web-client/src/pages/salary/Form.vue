@@ -39,7 +39,7 @@
               <v-row dense>
                 <template v-for="(salaryGradeItem, index) in props.items">
                   <v-col cols="6" md="2" :key="index">
-                    <v-card>
+                    <v-card :elevation="20">
                       <v-card-title>
                         <span>Grade {{ salaryGradeItem.grade }}</span>
                         <div class="flex-grow-1"></div>
