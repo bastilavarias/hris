@@ -141,7 +141,7 @@ export default {
         },
 
         {
-          text: "Salary Management",
+          text: "Salary Maintenance",
           icon: "mdi-cash-multiple",
           to: { name: "salary-list" },
         },

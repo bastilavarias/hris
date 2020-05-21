@@ -17,7 +17,7 @@
           <v-autocomplete label="Department" outlined></v-autocomplete>
         </v-col>
         <v-col cols="12" md="4">
-          <v-select label="Appointment Status" outlined></v-select>
+          <v-select label="Status" outlined></v-select>
         </v-col>
         <v-col cols="12" md="10">
           <v-autocomplete label="Designation" outlined></v-autocomplete>

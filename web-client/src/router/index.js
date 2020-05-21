@@ -523,7 +523,7 @@ const routes = [
       },
 
       {
-        path: "salary-management",
+        path: "salary-maintenance",
         component: () => import("../layouts/partials/Sub.vue"),
         children: [
           {
