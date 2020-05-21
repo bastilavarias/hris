@@ -1,9 +1,7 @@
 <template>
   <v-card>
     <v-toolbar flat>
-      <v-toolbar-title class="font-weight-bold"
-        >Salary Grade List</v-toolbar-title
-      >
+      <v-toolbar-title class="font-weight-bold">Salary List</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
         hide-details
@@ -15,7 +13,7 @@
       <v-btn icon>
         <v-icon>mdi-sort</v-icon>
       </v-btn>
-      <v-btn icon :to="{ name: 'salary-grade-form' }">
+      <v-btn icon :to="{ name: 'salary-form' }">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>

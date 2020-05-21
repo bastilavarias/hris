@@ -52,7 +52,7 @@ export default {
 
         {
           text: "Status",
-          value: "span",
+          value: "status",
         },
 
         {
@@ -66,6 +66,7 @@ export default {
           employeeNumber: "1000-000-1000",
           name: "Employee Name",
           span: "May 21, 2020 - May 22, 2020",
+          status: "Pending",
         },
       ],
     };

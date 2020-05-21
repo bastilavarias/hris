@@ -496,34 +496,38 @@ const routes = [
       },
 
       {
-        path: "salary-grade-management",
-        name: "salary-grade-list",
-        component: () => import("../pages/salary-grade/List"),
-        meta: {
-          breadcrumbs: [
-            {
-              text: "Salary Grade List",
-              icon: "mdi-clipboard-list-outline",
-              to: { name: "salary-grade-list" },
-            },
-          ],
-        },
+        path: "salary-management",
+        component: () => import("../layouts/partials/Sub.vue"),
         children: [
           {
-            path: "create",
-            name: "salary-grade-form",
-            component: () => import("../pages/salary-grade/Form"),
+            path: "",
+            name: "salary-list",
+            component: () => import("../pages/salary/List"),
             meta: {
               breadcrumbs: [
                 {
-                  text: "Salary Grade List",
+                  text: "Salary List",
                   icon: "mdi-clipboard-list-outline",
-                  to: { name: "salary-grade-list" },
+                  to: { name: "salary-list" },
+                },
+              ],
+            },
+          },
+          {
+            path: "create",
+            name: "salary-form",
+            component: () => import("../pages/salary/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Salary List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "salary-list" },
                 },
                 {
-                  text: "Salary Grade Form",
+                  text: "Salary Form",
                   icon: "mdi-form-select",
-                  to: { name: "salary-grade-form" },
+                  to: { name: "salary-form" },
                 },
               ],
             },

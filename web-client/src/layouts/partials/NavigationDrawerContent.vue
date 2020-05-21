@@ -141,9 +141,9 @@ export default {
         },
 
         {
-          text: "Salary Grade Management",
+          text: "Salary Management",
           icon: "mdi-cash-multiple",
-          to: { name: "salary-grade-list" },
+          to: { name: "salary-list" },
         },
 
         {

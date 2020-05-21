@@ -13,14 +13,17 @@
             placeholder="XX-XXXX-XXXX"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" md="6">
+        <v-col cols="12" md="8">
           <v-autocomplete label="Department" outlined></v-autocomplete>
         </v-col>
         <v-col cols="12" md="4">
+          <v-select label="Appointment Status" outlined></v-select>
+        </v-col>
+        <v-col cols="12" md="10">
           <v-autocomplete label="Designation" outlined></v-autocomplete>
         </v-col>
         <v-col cols="12" md="2">
-          <v-select label="Appointment Status" outlined></v-select>
+          <v-autocomplete label="Step Increment" outlined></v-autocomplete>
         </v-col>
         <v-col cols="12" md="6">
           <v-row dense>

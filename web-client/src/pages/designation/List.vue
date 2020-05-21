@@ -38,6 +38,10 @@ export default {
         },
 
         {
+          text: "Salary Grade",
+        },
+
+        {
           text: "Actions",
         },
       ],
