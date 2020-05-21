@@ -12,25 +12,64 @@
           <v-text-field label="Description" outlined></v-text-field>
         </v-col>
         <v-col cols="12">
-          <custom-form-subtitle>
-            <span>
-              Salary Grade Table
-            </span>
-            <div class="flex-grow-1"></div>
-            <v-btn color="primary">
-              <v-icon class="mr-1">
-                mdi-plus
-              </v-icon>
-              <span>Add Salary Grade</span>
+          <v-toolbar flat>
+            <v-toolbar-title>
+              <custom-form-subtitle>Salary Grade Table</custom-form-subtitle>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-text-field
+              hide-details
+              prepend-inner-icon="mdi-magnify"
+              outlined
+              dense
+              placeholder="Search here"
+            ></v-text-field>
+            <v-btn icon>
+              <v-icon>mdi-sort</v-icon>
             </v-btn>
-          </custom-form-subtitle>
-
-          <v-data-table
-            :headers="salaryGradeTableHeaders"
-            hide-default-footer
-            :items="salaryGradeItems"
-          >
-          </v-data-table>
+            <v-btn icon>
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+            <v-btn icon>
+              <v-icon>mdi-application-import</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-data-iterator :items="salaryGradeItems">
+            <template v-slot:default="props">
+              <v-row dense>
+                <template v-for="(salaryGradeItem, index) in props.items">
+                  <v-col cols="6" md="2" :key="index">
+                    <v-card>
+                      <v-card-title>
+                        <span>Grade {{ salaryGradeItem.grade }}</span>
+                        <div class="flex-grow-1"></div>
+                        <v-btn icon>
+                          <v-icon>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                      </v-card-title>
+                      <v-list>
+                        <template
+                          v-for="(stepIncrement,
+                          index2) in salaryGradeItem.stepIncrements"
+                        >
+                          <v-list-item :key="index2">
+                            <v-list-item-content
+                              >Step
+                              {{ stepIncrement.step }}:</v-list-item-content
+                            >
+                            <v-list-item-content class="align-end"
+                              >&#8369;
+                              {{ stepIncrement.salary }}</v-list-item-content
+                            >
+                          </v-list-item>
+                        </template>
+                      </v-list>
+                    </v-card>
+                  </v-col>
+                </template>
+              </v-row>
+            </template>
+          </v-data-iterator>
         </v-col>
       </v-row>
     </v-card-text>
@@ -68,16 +107,37 @@ export default {
 
       salaryGradeItems: [
         {
-          grade: "1",
-          stepIncrementCount: 8,
+          grade: 1,
           stepIncrements: [
             {
               step: 1,
               salary: 10000,
             },
+
+            {
+              step: 2,
+              salary: 10000,
+            },
+
+            {
+              step: 3,
+              salary: 10000,
+            },
+
+            {
+              step: 4,
+              salary: 10000,
+            },
+
+            {
+              step: 5,
+              salary: 10000,
+            },
           ],
         },
       ],
+
+      isSalaryGradeDialogShow: false,
     };
   },
 };

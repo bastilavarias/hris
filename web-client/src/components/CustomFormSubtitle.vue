@@ -1,5 +1,5 @@
 <template>
-  <p class="v-card__subtitle pl-0 d-flex align-center justify-space-between">
+  <p class="v-card__subtitle px-0 d-flex align-center justify-space-between">
     <slot></slot>
   </p>
 </template>
