@@ -1,28 +1,5 @@
 <template>
   <v-row>
-    <v-col cols="12">
-      <v-card>
-        <v-card-text class="pb-md-0">
-          <v-row dense>
-            <v-col cols="12" md="4">
-              <v-autocomplete outlined label="Department"></v-autocomplete>
-            </v-col>
-            <v-col cols="12" md="3">
-              <v-select outlined label="Date From"></v-select>
-            </v-col>
-            <v-col cols="12" md="3">
-              <v-select outlined label="Date To"></v-select>
-            </v-col>
-            <v-col cols="12" md="2">
-              <v-btn color="primary" large block>
-                <v-icon class="mr-1">mdi-magnify</v-icon>
-                <span>Search</span>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-col>
     <v-col cols="12" md="4">
       <v-card>
         <v-toolbar flat>

@@ -71,7 +71,7 @@ export default {
         {
           text: "Faculty Teaching Assignment",
           icon: "mdi-calendar-multiple-check",
-          to: { name: "faculty-teaching-assignment-adder" },
+          to: { name: "faculty-teaching-assignment-list" },
         },
 
         {

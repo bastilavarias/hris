@@ -128,17 +128,44 @@ const routes = [
 
       {
         path: "faculty-teaching-assignment",
-        name: "faculty-teaching-assignment-adder",
-        component: () => import("../pages/faculty-teaching-assignment/Adder"),
-        meta: {
-          breadcrumbs: [
-            {
-              text: "Faculty Teaching Assignment Adder",
-              icon: "mdi-file-table-box-outline",
-              to: { name: "faculty-teaching-assignment-adder" },
+        component: () => import("../layouts/partials/Sub"),
+        children: [
+          {
+            path: "",
+            name: "faculty-teaching-assignment-list",
+            component: () =>
+              import("../pages/faculty-teaching-assignment/List"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Faculty Teaching Assignment List",
+                  icon: "mdi-file-table-box-outline",
+                  to: { name: "faculty-teaching-assignment-list" },
+                },
+              ],
             },
-          ],
-        },
+          },
+          {
+            path: "adder",
+            name: "faculty-teaching-assignment-adder",
+            component: () =>
+              import("../pages/faculty-teaching-assignment/Adder"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Faculty Teaching Assignment List",
+                  icon: "mdi-file-table-box-outline",
+                  to: { name: "faculty-teaching-assignment-list" },
+                },
+                {
+                  text: "Faculty Teaching Assignment Adder",
+                  icon: "mdi-file-table-box-outline",
+                  to: { name: "faculty-teaching-assignment-adder" },
+                },
+              ],
+            },
+          },
+        ],
       },
 
       {
