@@ -11,7 +11,7 @@ application.use(bodyParser.json());
 application.use(bodyParser.urlencoded({ extended: true }));
 application.use(cors());
 
-application.use("/api", api);
+application.use("/api/v1", api);
 application.use(passport.initialize());
 jsonWebTokenService.init(passport);
 

@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import apiService from "./common/api-service";
 
 Vue.config.productionTip = false;
 
@@ -15,6 +16,8 @@ Vue.config.warnHandler = (message, vm, componentTrace) => {
     console.error(message + componentTrace);
   }
 };
+
+apiService.init();
 
 new Vue({
   router,

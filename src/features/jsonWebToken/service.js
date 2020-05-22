@@ -8,7 +8,10 @@ opts.secretOrKey = process.env.AUTH_SECRET_OR_KEY;
 const jsonWebTokenService = {
   init: (passport) =>
     passport.use(
-      new JwtStrategy(opts, (jwt_payload, done) => done(null, jwt_payload))
+      new JwtStrategy(opts, (jwtPayload, done) => {
+        console.log(jwtPayload);
+        return done(null, jwtPayload);
+      })
     ),
 };
 

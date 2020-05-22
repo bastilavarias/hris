@@ -3,7 +3,7 @@
     <v-content>
       <v-container>
         <v-row justify="center">
-          <v-col cols="12" sm="8" md="6" lg="4">
+          <v-col cols="12" sm="8" lg="6">
             <div class="mb-10 text-center">
               <v-avatar :size="100" class="text-center mb-5">
                 <v-img
@@ -15,15 +15,37 @@
             </div>
             <div class="mb-10">
               <span class="overline d-block mb-2">Login your credentials.</span>
-              <v-text-field outlined label="Username"></v-text-field>
-              <v-text-field
-                outlined
-                label="Username"
-                type="password"
-              ></v-text-field>
-              <v-btn color="primary" block :to="{ name: 'employee-list' }"
-                >Login</v-btn
-              >
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field
+                    outlined
+                    label="Username"
+                    v-model="form.username"
+                    :error="hasError(accountError.username)"
+                    :error-messages="accountError.username"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    outlined
+                    label="Password"
+                    type="password"
+                    v-model="form.password"
+                    :error="hasError(accountError.password)"
+                    :error-messages="accountError.password"
+                  ></v-text-field>
+                </v-col>
+
+                <v-col cols="12">
+                  <v-btn
+                    color="primary"
+                    block
+                    @click="login"
+                    :loading="isLoading"
+                    >Login</v-btn
+                  >
+                </v-col>
+              </v-row>
               <p class="body-2 font-weight-bold d-block text-center mt-10">
                 Copyright © UDM Dev Team {{ new Date().getFullYear() }}.
               </p>
@@ -34,3 +56,51 @@
     </v-content>
   </v-app>
 </template>
+
+<script>
+import { ACCOUNT_LOGIN } from "../store/types/account";
+import customUtilities from "../common/customUtilities";
+
+const defaultForm = {
+  username: "",
+  password: "",
+};
+
+export default {
+  data() {
+    return {
+      isLoading: false,
+      form: Object.assign({}, defaultForm),
+      defaultForm,
+    };
+  },
+
+  mixins: [customUtilities],
+
+  computed: {
+    accountError() {
+      return this.$store.state.account.error;
+    },
+  },
+
+  watch: {
+    "$store.state.account.isAuthenticated"(isAuthenticated) {
+      if (isAuthenticated) {
+        this.$router.push({ name: "employee-list" });
+      }
+    },
+  },
+
+  methods: {
+    async login() {
+      this.isLoading = true;
+      const payload = {
+        username: this.form.username,
+        password: this.form.password,
+      };
+      await this.$store.dispatch(ACCOUNT_LOGIN, payload);
+      this.isLoading = false;
+    },
+  },
+};
+</script>

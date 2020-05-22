@@ -1,5 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "../store";
+import { CHECK_ACCOUNT_AUTHENTICATION } from "../store/types/account";
 
 Vue.use(VueRouter);
 
@@ -13,6 +15,9 @@ const routes = [
   {
     path: "/home",
     component: () => import("../layouts/Home"),
+    meta: {
+      requiresAuth: true,
+    },
     children: [
       {
         path: "employee-management",
@@ -605,6 +610,17 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  await store.dispatch(CHECK_ACCOUNT_AUTHENTICATION);
+  const isAuthenticated = store.state.account.isAuthenticated;
+  const isProtectedRoute = to.matched.some(
+    (record) => record.meta.requiresAuth
+  );
+  console.log(isProtectedRoute, isAuthenticated);
+  if (isProtectedRoute && !isAuthenticated) return next({ name: "login" });
+  next();
 });
 
 export default router;

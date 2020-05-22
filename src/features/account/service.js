@@ -12,7 +12,7 @@ const accountService = {
     const gotRawAccount = await helperService.getRaw(
       ACCOUNT_TABLE_NAME,
       ACCOUNT_TABLE_USERNAME_COLUMN_NAME,
-      username.trim().toLowerCase()
+      username.trim()
     );
     if (Object.keys(gotRawAccount).length === 0) {
       error.username = "Account username was not found.";
@@ -30,10 +30,9 @@ const accountService = {
         error,
       };
     }
-    const token = accountService.getToken({ username });
+    const token = accountService.getToken({ username, password });
     return {
       error,
-      message: "",
       token,
     };
   },
@@ -43,6 +42,7 @@ const accountService = {
   },
 
   getToken: (payload) => {
+    // move to jsonWebToken Service
     const signedjwt = jwt.sign(
       JSON.parse(JSON.stringify(payload)),
       process.env.AUTH_SECRET_OR_KEY
