@@ -1,4 +1,5 @@
 const helperService = require("../helper/service");
+const jsonWebTokenService = require("../jsonWebToken/service");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {
@@ -12,7 +13,7 @@ const accountService = {
     const gotRawAccount = await helperService.getRaw(
       ACCOUNT_TABLE_NAME,
       ACCOUNT_TABLE_USERNAME_COLUMN_NAME,
-      username.trim()
+      username
     );
     if (Object.keys(gotRawAccount).length === 0) {
       error.username = "Account username was not found.";
@@ -30,7 +31,23 @@ const accountService = {
         error,
       };
     }
-    const token = accountService.getToken({ username, password });
+    const currentAccount = {
+      username,
+      password,
+      employeeNumber: "XXX-xxxx-XXX",
+      designation: {
+        title: "Human Resource Staff",
+      },
+      profile: {
+        firstName: "Test",
+        middleName: "Test",
+        lastName: "Account",
+        extension: "",
+        imageUrl: "https://i.redd.it/sgratkx3xj731.png",
+      },
+      actions: accountService.getUserActions(username),
+    };
+    const token = jsonWebTokenService.getBearerToken(currentAccount);
     return {
       error,
       token,
@@ -41,13 +58,320 @@ const accountService = {
     return await bcrypt.compare(plainTextPassword, hashedPassword);
   },
 
-  getToken: (payload) => {
-    // move to jsonWebToken Service
-    const signedjwt = jwt.sign(
-      JSON.parse(JSON.stringify(payload)),
-      process.env.AUTH_SECRET_OR_KEY
-    );
-    return `Bearer ${signedjwt}`;
+  // This code is temporary
+  getUserActions: (username) => {
+    let actions = [];
+    switch (username) {
+      case "encoder":
+        actions = [
+          {
+            text: "Subject Management",
+            icon: "mdi-text-subject",
+            to: { name: "subject-list" },
+          },
+
+          {
+            text: "College Management",
+            icon: "mdi-school",
+            to: { name: "college-list" },
+          },
+
+          {
+            text: "Course Management",
+            icon: "mdi-book-multiple",
+            to: { name: "course-list" },
+          },
+
+          {
+            text: "Section Management",
+            icon: "mdi-google-classroom",
+            to: { name: "section-list" },
+          },
+
+          {
+            text: "Building Management",
+            icon: "mdi-domain",
+            to: { name: "building-list" },
+          },
+
+          {
+            text: "Room Management",
+            icon: "mdi-door",
+            to: { name: "room-list" },
+          },
+        ];
+        break;
+      case "faculty":
+        actions = [
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+        ];
+        break;
+
+      case "personnel":
+        actions = [
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+        ];
+        break;
+
+      case "dean":
+        actions = [
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Faculty Teaching Assignment",
+            icon: "mdi-calendar-multiple-check",
+            to: { name: "faculty-teaching-assignment-list" },
+          },
+        ];
+        break;
+
+      case "personnel_head":
+        actions = [
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Employee Schedule Tagger",
+            icon: "mdi-calendar-account",
+            to: { name: "employee-schedule-tagger" },
+          },
+        ];
+        break;
+
+      case "hr":
+        actions = [
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Employee Management",
+            icon: "mdi-account-tie",
+            to: { name: "employee-list" },
+          },
+
+          {
+            text: "Department Management",
+            icon: "mdi-account-group",
+            to: { name: "department-list" },
+          },
+
+          {
+            text: "Designation Management",
+            icon: "mdi-account-box",
+            to: { name: "designation-list" },
+          },
+
+          {
+            text: "Leave Management",
+            icon: "mdi-account-arrow-right-outline",
+            to: { name: "leave-list" },
+          },
+        ];
+        break;
+
+      case "hr_head":
+        actions = [
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Employee Management",
+            icon: "mdi-account-tie",
+            to: { name: "employee-list" },
+          },
+
+          {
+            text: "Department Management",
+            icon: "mdi-account-group",
+            to: { name: "department-list" },
+          },
+
+          {
+            text: "Designation Management",
+            icon: "mdi-account-box",
+            to: { name: "designation-list" },
+          },
+
+          {
+            text: "Leave Management",
+            icon: "mdi-account-arrow-right-outline",
+            to: { name: "leave-list" },
+          },
+        ];
+        break;
+
+      case "accountant":
+        actions = [
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Salary Maintenance",
+            icon: "mdi-cash-multiple",
+            to: { name: "salary-list" },
+          },
+        ];
+        break;
+
+      case "vpaa":
+        actions = [
+          {
+            text: "personal data sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "semester management",
+            icon: "mdi-chair-school",
+            to: { name: "semester-list" },
+          },
+
+          {
+            text: "school year management",
+            icon: "mdi-calendar-range",
+            to: { name: "school-year-list" },
+          },
+
+          {
+            text: "year level management",
+            icon: "mdi-filter-variant",
+            to: { name: "year-level-list" },
+          },
+        ];
+        break;
+
+      case "developer":
+        actions = [
+          {
+            text: "Subject Management",
+            icon: "mdi-text-subject",
+            to: { name: "subject-list" },
+          },
+
+          {
+            text: "College Management",
+            icon: "mdi-school",
+            to: { name: "college-list" },
+          },
+
+          {
+            text: "Course Management",
+            icon: "mdi-book-multiple",
+            to: { name: "course-list" },
+          },
+
+          {
+            text: "Section Management",
+            icon: "mdi-google-classroom",
+            to: { name: "section-list" },
+          },
+
+          {
+            text: "Building Management",
+            icon: "mdi-domain",
+            to: { name: "building-list" },
+          },
+
+          {
+            text: "Room Management",
+            icon: "mdi-door",
+            to: { name: "room-list" },
+          },
+
+          {
+            text: "Personal Data Sheet",
+            icon: "mdi-file-account",
+            to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Faculty Teaching Assignment",
+            icon: "mdi-calendar-multiple-check",
+            to: { name: "faculty-teaching-assignment-list" },
+          },
+
+          {
+            text: "Employee Schedule Tagger",
+            icon: "mdi-calendar-account",
+            to: { name: "employee-schedule-tagger" },
+          },
+
+          {
+            text: "Employee Management",
+            icon: "mdi-account-tie",
+            to: { name: "employee-list" },
+          },
+
+          {
+            text: "Department Management",
+            icon: "mdi-account-group",
+            to: { name: "department-list" },
+          },
+
+          {
+            text: "Designation Management",
+            icon: "mdi-account-box",
+            to: { name: "designation-list" },
+          },
+
+          {
+            text: "Leave Management",
+            icon: "mdi-account-arrow-right-outline",
+            to: { name: "leave-list" },
+          },
+
+          {
+            text: "Salary Maintenance",
+            icon: "mdi-cash-multiple",
+            to: { name: "salary-list" },
+          },
+
+          {
+            text: "Semester Management",
+            icon: "mdi-chair-school",
+            to: { name: "semester-list" },
+          },
+
+          {
+            text: "School Year Management",
+            icon: "mdi-calendar-range",
+            to: { name: "school-year-list" },
+          },
+
+          {
+            text: "Year Level Management",
+            icon: "mdi-filter-variant",
+            to: { name: "year-level-list" },
+          },
+        ];
+        break;
+    }
+    return actions;
   },
 };
 

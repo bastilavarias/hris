@@ -9,10 +9,26 @@ import Account from "../../common/api-service/modules/account";
 import tokenService from "../../common/tokenService";
 import apiService from "../../common/api-service";
 
+const defaultCurrentAccount = {
+  employeeNumber: "",
+  profile: {
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    extension: "",
+    imageUrl: "",
+  },
+  designation: {
+    title: "",
+  },
+  actions: [],
+};
+
 export default {
   state: {
     isAuthenticated: false,
-    user: {},
+    current: Object.assign({}, defaultCurrentAccount),
+    defaultCurrentAccount,
     error: {},
   },
 
@@ -20,14 +36,14 @@ export default {
     [SET_ACCOUNT_AUTHENTICATION]: (state, token) => {
       state.isAuthenticated = true;
       tokenService.insert(token);
-      state.user = tokenService.getDecodedToken();
+      state.current = tokenService.getDecodedToken();
       apiService.setHeader();
     },
     [SET_ACCOUNT_ERROR]: (state, error) => (state.error = error),
     [SET_PURGE_ACCOUNT_AUTHENTICATION]: (state, token) => {
       state.isAuthenticated = false;
       tokenService.remove();
-      state.user = {};
+      state.current = Object.assign({}, state.defaultCurrentAccount);
     },
   },
 

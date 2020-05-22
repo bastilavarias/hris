@@ -3,7 +3,7 @@ const accountService = require("./service");
 const accountController = {
   login: async (req, res) => {
     try {
-      const username = req.body.username;
+      const username = req.body.username.trim();
       const password = req.body.password;
       const result = await accountService.login(username, password);
       if (Object.keys(result.error).length > 0) throw result.error;

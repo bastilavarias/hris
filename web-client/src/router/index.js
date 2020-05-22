@@ -618,7 +618,6 @@ router.beforeEach(async (to, from, next) => {
   const isProtectedRoute = to.matched.some(
     (record) => record.meta.requiresAuth
   );
-  console.log(isProtectedRoute, isAuthenticated);
   if (isProtectedRoute && !isAuthenticated) return next({ name: "login" });
   next();
 });

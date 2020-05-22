@@ -8,13 +8,15 @@
         ></v-img>
       </v-list-item-avatar>
       <v-list-item-content>
-        <v-list-item-title class="font-weight-bold"
-          >Sebastian C. Lavarias</v-list-item-title
-        >
+        <v-list-item-title class="font-weight-bold text-capitalize">{{
+          formatFullName(currentAccountProfile)
+        }}</v-list-item-title>
         <v-list-item-subtitle class="font-weight-bold"
-          >38-2020-0000
+          >{{ currentAccountEmployeeNumber }}
         </v-list-item-subtitle>
-        <v-list-item-subtitle>Human Resource Staff </v-list-item-subtitle>
+        <v-list-item-subtitle class="text-capitalize"
+          >{{ currentAccountDesignation.title }}
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
     <v-divider></v-divider>
@@ -27,7 +29,7 @@
         dense
       ></v-text-field>
     </v-container>
-    <template v-for="(action, index) in actions">
+    <template v-for="(action, index) in currentAccountActions">
       <v-list-item
         :key="index"
         :to="action.to"
@@ -44,115 +46,29 @@
   </v-list>
 </template>
 <script>
+import customUtilities from "../../common/customUtilities";
+
 export default {
   name: "navigation-drawer-content",
 
-  data() {
-    return {
-      actions: [
-        {
-          text: "Employee Management",
-          icon: "mdi-account-tie",
-          to: { name: "employee-list" },
-        },
+  mixins: [customUtilities],
 
-        {
-          text: "Department Management",
-          icon: "mdi-account-group",
-          to: { name: "department-list" },
-        },
+  computed: {
+    currentAccountEmployeeNumber() {
+      return this.$store.state.account.current.employeeNumber;
+    },
 
-        {
-          text: "Designation Management",
-          icon: "mdi-account-box",
-          to: { name: "designation-list" },
-        },
+    currentAccountDesignation() {
+      return this.$store.state.account.current.designation;
+    },
 
-        {
-          text: "Faculty Teaching Assignment",
-          icon: "mdi-calendar-multiple-check",
-          to: { name: "faculty-teaching-assignment-list" },
-        },
+    currentAccountActions() {
+      return this.$store.state.account.current.actions;
+    },
 
-        {
-          text: "Personal Data Sheet",
-          icon: "mdi-file-account",
-          to: { name: "personal-data-sheet" },
-        },
-
-        {
-          text: "Employee Schedule Tagger",
-          icon: "mdi-calendar-account",
-          to: { name: "employee-schedule-tagger" },
-        },
-
-        {
-          text: "Subject Management",
-          icon: "mdi-text-subject",
-          to: { name: "subject-list" },
-        },
-
-        {
-          text: "College Management",
-          icon: "mdi-school",
-          to: { name: "college-list" },
-        },
-
-        {
-          text: "Course Management",
-          icon: "mdi-book-multiple",
-          to: { name: "course-list" },
-        },
-
-        {
-          text: "Section Management",
-          icon: "mdi-google-classroom",
-          to: { name: "section-list" },
-        },
-
-        {
-          text: "Building Management",
-          icon: "mdi-domain",
-          to: { name: "building-list" },
-        },
-
-        {
-          text: "Room Management",
-          icon: "mdi-door",
-          to: { name: "room-list" },
-        },
-
-        {
-          text: "Semester Management",
-          icon: "mdi-chair-school",
-          to: { name: "semester-list" },
-        },
-
-        {
-          text: "School Year Management",
-          icon: "mdi-calendar-range",
-          to: { name: "school-year-list" },
-        },
-
-        {
-          text: "Year Level Management",
-          icon: "mdi-filter-variant",
-          to: { name: "year-level-list" },
-        },
-
-        {
-          text: "Salary Maintenance",
-          icon: "mdi-cash-multiple",
-          to: { name: "salary-list" },
-        },
-
-        {
-          text: "Leave Management",
-          icon: "mdi-account-arrow-right-outline",
-          to: { name: "leave-list" },
-        },
-      ],
-    };
+    currentAccountProfile() {
+      return this.$store.state.account.current.profile;
+    },
   },
 };
 </script>

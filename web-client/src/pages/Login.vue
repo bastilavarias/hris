@@ -3,7 +3,7 @@
     <v-content>
       <v-container>
         <v-row justify="center">
-          <v-col cols="12" sm="8" lg="6">
+          <v-col cols="12" sm="8" md="6" lg="4">
             <div class="mb-10 text-center">
               <v-avatar :size="100" class="text-center mb-5">
                 <v-img
@@ -42,6 +42,7 @@
                     block
                     @click="login"
                     :loading="isLoading"
+                    :disabled="!isFormValid"
                     >Login</v-btn
                   >
                 </v-col>
@@ -80,6 +81,10 @@ export default {
   computed: {
     accountError() {
       return this.$store.state.account.error;
+    },
+
+    isFormValid() {
+      return this.form.username && this.form.password;
     },
   },
 
