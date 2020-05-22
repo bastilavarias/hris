@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { ACCOUNT_LOGIN } from "../store/types/account";
+import { ACCOUNT_LOGIN, SET_ACCOUNT_ERROR } from "../store/types/account";
 import customUtilities from "../common/customUtilities";
 
 const defaultForm = {
@@ -86,12 +86,18 @@ export default {
     isFormValid() {
       return this.form.username && this.form.password;
     },
+
+    currentAccountActions() {
+      return this.$store.state.account.current.actions;
+    },
   },
 
   watch: {
     "$store.state.account.isAuthenticated"(isAuthenticated) {
       if (isAuthenticated) {
-        this.$router.push({ name: "employee-list" });
+        const redirectTo = this.currentAccountActions[0].to;
+        this.$router.push(redirectTo);
+        this.$store.commit(SET_ACCOUNT_ERROR, {});
       }
     },
   },

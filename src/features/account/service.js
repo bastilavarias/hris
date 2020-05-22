@@ -45,7 +45,7 @@ const accountService = {
         extension: "",
         imageUrl: "https://i.redd.it/sgratkx3xj731.png",
       },
-      actions: accountService.getUserActions(username),
+      actions: accountService.getCurrentAccountactions(username),
     };
     const token = jsonWebTokenService.getBearerToken(currentAccount);
     return {
@@ -59,7 +59,7 @@ const accountService = {
   },
 
   // This code is temporary
-  getUserActions: (username) => {
+  getCurrentAccountactions: (username) => {
     let actions = [];
     switch (username) {
       case "encoder":
@@ -240,25 +240,25 @@ const accountService = {
       case "vpaa":
         actions = [
           {
-            text: "personal data sheet",
+            text: "Personal Data Sheet",
             icon: "mdi-file-account",
             to: { name: "personal-data-sheet" },
           },
 
           {
-            text: "semester management",
+            text: "Semester Management",
             icon: "mdi-chair-school",
             to: { name: "semester-list" },
           },
 
           {
-            text: "school year management",
+            text: "School Year Management",
             icon: "mdi-calendar-range",
             to: { name: "school-year-list" },
           },
 
           {
-            text: "year level management",
+            text: "Year Level Management",
             icon: "mdi-filter-variant",
             to: { name: "year-level-list" },
           },
