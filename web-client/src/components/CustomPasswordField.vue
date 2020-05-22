@@ -8,6 +8,7 @@
     :error="error"
     :error-messages="errorMessages"
     v-model="passwordLocal"
+    @keyup.enter="customAction"
   ></v-text-field>
 </template>
 
@@ -16,6 +17,11 @@ export default {
   name: "custom-password-field",
 
   props: {
+    customAction: {
+      type: Function,
+      required: false,
+    },
+
     error: {
       type: Boolean,
       required: false,
@@ -38,7 +44,7 @@ export default {
 
     password: {
       type: String,
-      required: false,
+      required: true,
     },
   },
 

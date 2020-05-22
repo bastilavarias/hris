@@ -130,7 +130,7 @@ const accountService = {
           },
 
           {
-            text: "Faculty Teaching Assignment",
+            text: "FTA Management",
             icon: "mdi-calendar-multiple-check",
             to: { name: "faculty-teaching-assignment-list" },
           },
@@ -310,7 +310,7 @@ const accountService = {
           },
 
           {
-            text: "Faculty Teaching Assignment",
+            text: "FTA Management",
             icon: "mdi-calendar-multiple-check",
             to: { name: "faculty-teaching-assignment-list" },
           },

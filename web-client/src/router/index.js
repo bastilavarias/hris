@@ -139,7 +139,7 @@ const routes = [
             path: "",
             name: "faculty-teaching-assignment-list",
             component: () =>
-              import("../pages/faculty-teaching-assignment/List"),
+              import("../pages/faculty-teaching-assignment-management/List"),
             meta: {
               breadcrumbs: [
                 {
@@ -154,7 +154,7 @@ const routes = [
             path: "adder",
             name: "faculty-teaching-assignment-adder",
             component: () =>
-              import("../pages/faculty-teaching-assignment/Adder"),
+              import("../pages/faculty-teaching-assignment-management/Adder"),
             meta: {
               breadcrumbs: [
                 {
@@ -619,6 +619,11 @@ router.beforeEach(async (to, from, next) => {
     (record) => record.meta.requiresAuth
   );
   if (isProtectedRoute && !isAuthenticated) return next({ name: "login" });
+  if (to.name === "login" && isAuthenticated) {
+    const currentAccount = store.state.account.current;
+    const redirectTo = currentAccount.actions[0].to;
+    return next(redirectTo);
+  }
   next();
 });
 

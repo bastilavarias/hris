@@ -33,6 +33,7 @@
                     :password.sync="form.password"
                     :error="hasError(accountError.password)"
                     :error-messages="accountError.password"
+                    :custom-action="login"
                   ></custom-password-field>
                 </v-col>
 
