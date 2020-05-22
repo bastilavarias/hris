@@ -144,7 +144,7 @@ const routes = [
               breadcrumbs: [
                 {
                   text: "Faculty Teaching Assignment List",
-                  icon: "mdi-file-table-box-outline",
+                  icon: "mdi-clipboard-list-outline",
                   to: { name: "faculty-teaching-assignment-list" },
                 },
               ],
@@ -159,7 +159,7 @@ const routes = [
               breadcrumbs: [
                 {
                   text: "Faculty Teaching Assignment List",
-                  icon: "mdi-file-table-box-outline",
+                  icon: "mdi-clipboard-list-outline",
                   to: { name: "faculty-teaching-assignment-list" },
                 },
                 {

@@ -26,14 +26,14 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field
+                  <custom-password-field
                     outlined
                     label="Password"
                     type="password"
-                    v-model="form.password"
+                    :password.sync="form.password"
                     :error="hasError(accountError.password)"
                     :error-messages="accountError.password"
-                  ></v-text-field>
+                  ></custom-password-field>
                 </v-col>
 
                 <v-col cols="12">
@@ -61,6 +61,7 @@
 <script>
 import { ACCOUNT_LOGIN, SET_ACCOUNT_ERROR } from "../store/types/account";
 import customUtilities from "../common/customUtilities";
+import CustomPasswordField from "../components/CustomPasswordField";
 
 const defaultForm = {
   username: "",
@@ -68,6 +69,7 @@ const defaultForm = {
 };
 
 export default {
+  components: { CustomPasswordField },
   data() {
     return {
       isLoading: false,
