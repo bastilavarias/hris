@@ -20,4 +20,9 @@ module.exports = {
       directory: __dirname + "/src/db/seeds",
     },
   },
+
+  production: {
+    client: "pg",
+    connection: process.env.DATABASE_URL,
+  },
 };
