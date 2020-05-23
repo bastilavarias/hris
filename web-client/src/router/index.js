@@ -132,7 +132,7 @@ const routes = [
       },
 
       {
-        path: "faculty-teaching-assignment",
+        path: "faculty-teaching-assignment-management",
         component: () => import("../layouts/partials/Sub"),
         children: [
           {
@@ -596,6 +596,52 @@ const routes = [
                   text: "Leave Form",
                   icon: "mdi-form-select",
                   to: { name: "leave-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        path: "personal-faculty-teaching-assignment-management",
+        component: () => import("../layouts/partials/Sub"),
+        children: [
+          {
+            path: "",
+            name: "personal-faculty-teaching-assignment-list",
+            component: () =>
+              import(
+                "../pages/personal-faculty-teaching-assignment-management/List"
+              ),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Personal FTA List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "personal-faculty-teaching-assignment-list" },
+                },
+              ],
+            },
+          },
+          {
+            path: "adder",
+            name: "personal-faculty-teaching-assignment-adder",
+            component: () =>
+              import(
+                "../pages/personal-faculty-teaching-assignment-management/Adder"
+              ),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Personal FTA List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "personal-faculty-teaching-assignment-list" },
+                },
+                {
+                  text: "Personal FTA Adder",
+                  icon: "mdi-file-table-box-outline",
+                  to: { name: "personal-faculty-teaching-assignment-adder" },
                 },
               ],
             },

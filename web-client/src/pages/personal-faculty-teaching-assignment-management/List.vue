@@ -30,10 +30,6 @@ export default {
     return {
       headers: [
         {
-          text: "Name",
-        },
-
-        {
           text: "Load",
         },
 
@@ -41,6 +37,13 @@ export default {
           text: "Semester & School Year",
         },
 
+        {
+          text: "Version",
+        },
+
+        {
+          text: "Status",
+        },
         {
           text: "Actions",
         },

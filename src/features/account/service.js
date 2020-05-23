@@ -101,12 +101,19 @@ const accountService = {
           },
         ];
         break;
+
       case "faculty":
         actions = [
           {
             text: "Personal Data Sheet",
             icon: "mdi-file-account",
             to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Personal FTA Management",
+            icon: "mdi-calendar-multiple-check",
+            to: { name: "personal-faculty-teaching-assignment-list" },
           },
         ];
         break;
