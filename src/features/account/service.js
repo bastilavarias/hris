@@ -137,6 +137,12 @@ const accountService = {
           },
 
           {
+            text: "Personal FTA Management",
+            icon: "mdi-calendar-multiple-check",
+            to: { name: "personal-faculty-teaching-assignment-list" },
+          },
+
+          {
             text: "FTA Management",
             icon: "mdi-calendar-multiple-check",
             to: { name: "faculty-teaching-assignment-list" },
