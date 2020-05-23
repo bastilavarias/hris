@@ -15,7 +15,7 @@
       <v-btn icon>
         <v-icon>mdi-sort</v-icon>
       </v-btn>
-      <v-btn icon :to="{ name: 'faculty-teaching-assignment-adder' }">
+      <v-btn icon :to="{ name: 'personal-faculty-teaching-assignment-adder' }">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
