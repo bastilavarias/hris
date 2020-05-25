@@ -194,7 +194,7 @@ const accountService = {
 
           {
             text: "Leave Management",
-            icon: "mdi-account-arrow-right-outline",
+            icon: "mdi-account-arrow-right",
             to: { name: "leave-list" },
           },
 
@@ -234,7 +234,7 @@ const accountService = {
 
           {
             text: "Leave Management",
-            icon: "mdi-account-arrow-right-outline",
+            icon: "mdi-account-arrow-right",
             to: { name: "leave-list" },
           },
 
@@ -366,7 +366,7 @@ const accountService = {
 
           {
             text: "Leave Management",
-            icon: "mdi-account-arrow-right-outline",
+            icon: "mdi-account-arrow-right",
             to: { name: "leave-list" },
           },
 
