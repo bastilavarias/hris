@@ -405,6 +405,12 @@ const accountService = {
             icon: "mdi-filter-variant",
             to: { name: "year-level-list" },
           },
+
+          {
+            text: "Account Action Management",
+            icon: "mdi-account-details",
+            to: { name: "account-action-list" },
+          },
         ];
         break;
     }

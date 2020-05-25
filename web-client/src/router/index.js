@@ -678,6 +678,42 @@ const routes = [
           ],
         },
       },
+
+      {
+        path: "account-action-management",
+        name: "account-action-list",
+        component: () => import("../pages/account-action/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Account Action List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "account-action-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "account-action-form",
+            component: () => import("../pages/account-action/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Account Action List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "account-action-list" },
+                },
+                {
+                  text: "Account Action Form",
+                  icon: "mdi-form-select",
+                  to: { name: "account-action-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];
