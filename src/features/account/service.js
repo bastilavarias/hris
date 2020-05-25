@@ -125,6 +125,12 @@ const accountService = {
             icon: "mdi-file-account",
             to: { name: "personal-data-sheet" },
           },
+
+          {
+            text: "Schedule Viewer",
+            icon: "mdi-calendar",
+            to: { name: "personnel-schedule-viewer" },
+          },
         ];
         break;
 
@@ -156,6 +162,12 @@ const accountService = {
             text: "Personal Data Sheet",
             icon: "mdi-file-account",
             to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Schedule Viewer",
+            icon: "mdi-calendar",
+            to: { name: "personnel-schedule-viewer" },
           },
 
           {

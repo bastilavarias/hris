@@ -663,6 +663,21 @@ const routes = [
           ],
         },
       },
+
+      {
+        path: "personnel-schedule-viewer",
+        name: "personnel-schedule-viewer",
+        component: () => import("../pages/PersonnelScheduleViewer"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Schedule Viewer",
+              icon: "mdi-calendar-outline",
+              to: { name: "personnel-schedule-viewer" },
+            },
+          ],
+        },
+      },
     ],
   },
 ];
