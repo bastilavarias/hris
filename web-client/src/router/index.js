@@ -648,6 +648,21 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "/activity-log",
+        name: "activity-log",
+        component: () => import("../pages/ActivityLog"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Activity Log",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "activity-log" },
+            },
+          ],
+        },
+      },
     ],
   },
 ];

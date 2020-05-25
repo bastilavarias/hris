@@ -197,6 +197,12 @@ const accountService = {
             icon: "mdi-account-arrow-right-outline",
             to: { name: "leave-list" },
           },
+
+          {
+            text: "Activity Log",
+            icon: "mdi-post",
+            to: { name: "activity-log" },
+          },
         ];
         break;
 
@@ -230,6 +236,12 @@ const accountService = {
             text: "Leave Management",
             icon: "mdi-account-arrow-right-outline",
             to: { name: "leave-list" },
+          },
+
+          {
+            text: "Activity Log",
+            icon: "mdi-post",
+            to: { name: "activity-log" },
           },
         ];
         break;
