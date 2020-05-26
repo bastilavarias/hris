@@ -411,6 +411,12 @@ const accountService = {
             icon: "mdi-account-details",
             to: { name: "account-action-list" },
           },
+
+          {
+            text: "Authorization Management",
+            icon: "mdi-badge-account-horizontal",
+            to: { name: "authorization-list" },
+          },
         ];
         break;
     }

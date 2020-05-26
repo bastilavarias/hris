@@ -714,6 +714,42 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "authorization-management",
+        name: "authorization-list",
+        component: () => import("../pages/authorization/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Authorization List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "authorization-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "authorization-form",
+            component: () => import("../pages/authorization/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Authorization List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "authorization-list" },
+                },
+                {
+                  text: "Authorization Form",
+                  icon: "mdi-form-select",
+                  to: { name: "authorization-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];
