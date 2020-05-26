@@ -36,7 +36,7 @@ export default {
         },
 
         {
-          text: "Description",
+          text: "Dean",
         },
 
         {

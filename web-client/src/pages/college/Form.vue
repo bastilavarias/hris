@@ -19,6 +19,9 @@
           <v-col cols="12">
             <v-text-field label="Description" outlined></v-text-field>
           </v-col>
+          <v-col cols="12">
+            <v-autocomplete label="Dean" outlined></v-autocomplete>
+          </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>

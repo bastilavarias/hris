@@ -71,12 +71,6 @@ const accountService = {
           },
 
           {
-            text: "College Management",
-            icon: "mdi-school",
-            to: { name: "college-list" },
-          },
-
-          {
             text: "Course Management",
             icon: "mdi-book-multiple",
             to: { name: "course-list" },
@@ -193,6 +187,12 @@ const accountService = {
           },
 
           {
+            text: "College Management",
+            icon: "mdi-school",
+            to: { name: "college-list" },
+          },
+
+          {
             text: "Department Management",
             icon: "mdi-account-group",
             to: { name: "department-list" },
@@ -230,6 +230,12 @@ const accountService = {
             text: "Employee Management",
             icon: "mdi-account-tie",
             to: { name: "employee-list" },
+          },
+
+          {
+            text: "College Management",
+            icon: "mdi-school",
+            to: { name: "college-list" },
           },
 
           {
