@@ -14,7 +14,7 @@
             <v-text-field label="Name" outlined></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-select label="Building" outlined></v-select>
+            <v-select label="Building" outlined :items="buildings"></v-select>
           </v-col>
         </v-row>
       </v-card-text>
@@ -32,6 +32,8 @@ export default {
   data() {
     return {
       isShow: false,
+
+      buildings: ["Building - 1", "Building - 2"],
     };
   },
 
