@@ -11,33 +11,31 @@
       <v-card-text>
         <v-row dense>
           <v-col cols="10">
-            <v-text-field
-              label="Search college name or description"
-              solo
-            ></v-text-field>
+            <v-text-field label="Search here" solo></v-text-field>
           </v-col>
           <v-col cols="2">
             <v-btn color="primary" large block>Search</v-btn>
           </v-col>
         </v-row>
       </v-card-text>
-      <v-data-table :headers="headers" :items="items">
-        <template v-slot:item.customId="{ item }">
-          <span class="font-weight-bold text-uppercase">{{
-            item.customId
-          }}</span>
+      <v-list three-line>
+        <template v-for="(item, index) in items">
+          <v-list-item :key="index">
+            <v-list-item-content>
+              <v-list-item-subtitle>
+                <slot name="item-subtitle-top" :item="item"></slot>
+              </v-list-item-subtitle>
+              <v-list-item-title>
+                <slot name="item-title" :item="item"></slot>
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                <slot name="item-subtitle-bottom" :item="item"></slot>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider v-if="!isItemsInLastItem(index)"></v-divider>
         </template>
-
-        <template v-slot:item.name="{ item }">
-          <span class="text-capitalize">{{ item.name }}</span>
-        </template>
-
-        <template v-slot:item.dean="{ item }">
-          <span class="text-capitalize">{{
-            formatFullName(item.dean.profile)
-          }}</span>
-        </template>
-      </v-data-table>
+      </v-list>
     </v-card>
   </v-dialog>
 </template>
@@ -59,11 +57,6 @@ export default {
       required: true,
     },
 
-    headers: {
-      type: Array,
-      required: true,
-    },
-
     items: {
       type: Array,
       required: true,
@@ -76,8 +69,6 @@ export default {
     };
   },
 
-  mixins: [customUtilities],
-
   watch: {
     isShow(val) {
       this.isShowLocal = val;
@@ -85,6 +76,12 @@ export default {
 
     isShowLocal(val) {
       this.$emit("update:isShow", val);
+    },
+  },
+
+  methods: {
+    isItemsInLastItem(index) {
+      return this.items.length - 1 === index;
     },
   },
 

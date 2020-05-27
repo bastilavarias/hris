@@ -1,10 +1,10 @@
 <template>
-  <v-dialog width="1000" v-model="isShow">
+  <v-dialog width="1000" v-model="isCourseFormDialogShow">
     <v-card>
       <v-card-title class="font-weight-bold">
         <span>Course Form</span>
         <div class="flex-grow-1"></div>
-        <v-btn icon @click="isShow = false">
+        <v-btn icon @click="isCourseFormDialogShow = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -35,22 +35,38 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
     <generic-search-dialog
       :is-show.sync="isCollegeDialogShow"
       title="Colleges"
-      :headers="collegeHeaders"
       :items="colleges"
-    ></generic-search-dialog>
+    >
+      <template v-slot:item-title="{ item }">
+        <span class="text-capitalize">{{ item.name }}</span>
+      </template>
+
+      <template v-slot:item-subtitle-top="{ item }">
+        <span class="text-uppercase font-weight-bold">{{ item.customId }}</span>
+      </template>
+
+      <template v-slot:item-subtitle-bottom="{ item }">
+        <span class="text-capitalize">{{
+          formatFullName(item.dean.profile)
+        }}</span>
+      </template>
+    </generic-search-dialog>
   </v-dialog>
 </template>
 
 <script>
 import GenericSearchDialog from "../../components/generic/GenericSearchDialog";
+import customUtilities from "../../common/customUtilities";
 export default {
   components: { GenericSearchDialog },
+
   data() {
     return {
-      isShow: false,
+      isCourseFormDialogShow: false,
       isCollegeDialogShow: false,
       collegeHeaders: [
         {
@@ -85,14 +101,17 @@ export default {
     };
   },
 
+  mixins: [customUtilities],
+
   watch: {
-    isShow(isShow) {
-      if (!isShow) return this.$router.push({ name: "course-list" });
+    isCourseFormDialogShow(isCourseFormDialogShow) {
+      if (!isCourseFormDialogShow)
+        return this.$router.push({ name: "course-list" });
     },
   },
 
   mounted() {
-    this.isShow = true;
+    this.isCourseFormDialogShow = true;
   },
 };
 </script>
