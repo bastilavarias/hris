@@ -20,10 +20,14 @@
             <v-text-field label="Description" outlined></v-text-field>
           </v-col>
           <v-col cols="12" md="2">
-            <v-text-field label="Units" outlined></v-text-field>
+            <v-select label="Units" :items="avaiableUnits" outlined></v-select>
           </v-col>
           <v-col cols="12">
-            <v-autocomplete outlined label="Category"></v-autocomplete>
+            <v-autocomplete
+              outlined
+              label="Category"
+              :items="categories"
+            ></v-autocomplete>
           </v-col>
         </v-row>
       </v-card-text>
@@ -41,6 +45,14 @@ export default {
   data() {
     return {
       isShow: false,
+      avaiableUnits: [2, 3, 5],
+      categories: [
+        "Category 1",
+        "Category 2",
+        "Category 3",
+        "Category 4",
+        "Category 5",
+      ],
     };
   },
 

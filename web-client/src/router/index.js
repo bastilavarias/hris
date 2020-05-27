@@ -139,7 +139,7 @@ const routes = [
             path: "",
             name: "faculty-teaching-assignment-list",
             component: () =>
-              import("../pages/faculty-teaching-assignment-management/List"),
+              import("../pages/faculty-teaching-assignment/List"),
             meta: {
               breadcrumbs: [
                 {
@@ -154,7 +154,7 @@ const routes = [
             path: "adder",
             name: "faculty-teaching-assignment-adder",
             component: () =>
-              import("../pages/faculty-teaching-assignment-management/Adder"),
+              import("../pages/faculty-teaching-assignment/Adder"),
             meta: {
               breadcrumbs: [
                 {
@@ -611,9 +611,7 @@ const routes = [
             path: "",
             name: "personal-faculty-teaching-assignment-list",
             component: () =>
-              import(
-                "../pages/personal-faculty-teaching-assignment-management/List"
-              ),
+              import("../pages/personal-faculty-teaching-assignment/List"),
             meta: {
               breadcrumbs: [
                 {
@@ -628,9 +626,7 @@ const routes = [
             path: "adder",
             name: "personal-faculty-teaching-assignment-adder",
             component: () =>
-              import(
-                "../pages/personal-faculty-teaching-assignment-management/Adder"
-              ),
+              import("../pages/personal-faculty-teaching-assignment/Adder"),
             meta: {
               breadcrumbs: [
                 {
