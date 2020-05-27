@@ -29,7 +29,7 @@
   </v-row>
 </template>
 <script>
-import GenericCalendar from "../../components/GenericCalendar";
+import GenericCalendar from "../../components/generic/GenericCalendar";
 export default {
   components: { GenericCalendar },
 };

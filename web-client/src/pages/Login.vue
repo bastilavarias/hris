@@ -62,7 +62,7 @@
 <script>
 import { ACCOUNT_LOGIN, SET_ACCOUNT_ERROR } from "../store/types/account";
 import customUtilities from "../common/customUtilities";
-import CustomPasswordField from "../components/CustomPasswordField";
+import CustomPasswordField from "../components/custom/CustomPasswordField";
 
 const defaultForm = {
   username: "",

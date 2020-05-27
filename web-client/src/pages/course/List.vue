@@ -17,7 +17,24 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers"></v-data-table>
+    <v-data-table :headers="headers" :items="items">
+      <template v-slot:item.code="{ item }">
+        <span class="font-weight-bold text-uppercase">{{ item.code }}</span>
+      </template>
+
+      <template v-slot:item.name="{ item }">
+        <span class="text-capitalize">{{ item.name }}</span>
+      </template>
+
+      <template v-slot:item.college="{ item }">
+        <span class="text-capitalize">{{ item.college.name }}</span>
+      </template>
+
+      <template v-slot:item.actions="{ item }">
+        <v-btn icon><v-icon>mdi-pencil</v-icon></v-btn>
+        <v-btn icon><v-icon>mdi-trash-can</v-icon></v-btn>
+      </template>
+    </v-data-table>
     <router-view></router-view>
   </v-card>
 </template>
@@ -29,18 +46,34 @@ export default {
       headers: [
         {
           text: "Code",
+          value: "code",
         },
 
         {
           text: "Name",
+          value: "name",
         },
 
         {
           text: "College",
+          value: "college",
         },
 
         {
           text: "Actions",
+          align: "right",
+          value: "actions",
+        },
+      ],
+
+      items: [
+        {
+          code: "code-1",
+          name: "name-1",
+          college: {
+            id: 1,
+            name: "college-1",
+          },
         },
       ],
     };

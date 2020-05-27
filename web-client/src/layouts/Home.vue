@@ -25,7 +25,7 @@
 <script>
 import NavigationDrawerContent from "./partials/NavigationDrawerContent";
 import ToolbarMenu from "./partials/ToolbarMenu";
-import CustomBreadcrumbs from "../components/CustomBreadcrumbs";
+import CustomBreadcrumbs from "../components/custom/CustomBreadcrumbs";
 export default {
   components: {
     CustomBreadcrumbs,

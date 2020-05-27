@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import CustomFormSubtitle from "../../components/CustomFormSubtitle";
+import CustomFormSubtitle from "../../components/custom/CustomFormSubtitle";
 export default {
   components: { CustomFormSubtitle },
 

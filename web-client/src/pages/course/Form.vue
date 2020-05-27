@@ -20,7 +20,12 @@
             <v-text-field label="Description" outlined></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-autocomplete label="College" outlined></v-autocomplete>
+            <v-autocomplete
+              label="College"
+              outlined
+              readonly
+              @click="isCollegeDialogShow = true"
+            ></v-autocomplete>
           </v-col>
         </v-row>
       </v-card-text>
@@ -30,14 +35,36 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <generic-search-dialog
+      :is-show.sync="isCollegeDialogShow"
+      title="Colleges"
+      :headers="collegeHeaders"
+    ></generic-search-dialog>
   </v-dialog>
 </template>
 
 <script>
+import GenericSearchDialog from "../../components/generic/GenericSearchDialog";
 export default {
+  components: { GenericSearchDialog },
   data() {
     return {
       isShow: false,
+      isCollegeDialogShow: false,
+      collegeHeaders: [
+        {
+          text: "ID",
+        },
+
+        {
+          text: "Name",
+        },
+
+        {
+          text: "Dean",
+        },
+      ],
+      colleges: [],
     };
   },
 

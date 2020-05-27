@@ -21,9 +21,11 @@
       <template v-slot:item.code="{ item }">
         <span class="font-weight-bold text-uppercase">{{ item.code }}</span>
       </template>
+
       <template v-slot:item.title="{ item }">
         <span class="text-capitalize">{{ item.title }}</span>
       </template>
+
       <template v-slot:item.actions="{ item }">
         <v-btn icon><v-icon>mdi-pencil</v-icon></v-btn>
         <v-btn icon><v-icon>mdi-trash-can</v-icon></v-btn>
