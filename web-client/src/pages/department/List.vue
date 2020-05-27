@@ -67,6 +67,7 @@ export default {
 
         {
           text: "Actions",
+          align: "right",
           value: "actions",
         },
       ],
