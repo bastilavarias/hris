@@ -4,13 +4,7 @@
       <v-col cols="12">
         <v-card>
           <v-card-title class="font-weight-bold">
-            <span>
-              Personal FTA Adder
-            </span>
-            <div class="flex-grow-1"></div>
-            <v-btn icon>
-              <v-icon>mdi-account-search</v-icon>
-            </v-btn>
+            Personal FTA Adder
           </v-card-title>
           <v-card-subtitle>First Semester, SY: 2020-2021</v-card-subtitle>
           <v-card-text>
@@ -47,10 +41,21 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-data-table
-            hide-default-footer
-            :headers="facultyLoadOverviewTableHeaders"
-          ></v-data-table>
+          <v-data-table hide-default-footer :headers="scheduleHeaders">
+            <template v-slot:top>
+              <v-card-text>
+                <v-toolbar flat>
+                  <v-spacer></v-spacer>
+                  <v-btn icon>
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                  <v-btn icon>
+                    <v-icon>mdi-text-box-check</v-icon>
+                  </v-btn>
+                </v-toolbar>
+              </v-card-text>
+            </template>
+          </v-data-table>
           <v-card-actions>
             <v-btn color="primary" block>Submit(0)</v-btn>
           </v-card-actions>
@@ -64,7 +69,7 @@
 export default {
   data() {
     return {
-      scheduleTableHeaders: [
+      scheduleHeaders: [
         {
           text: "Code",
         },
@@ -82,37 +87,20 @@ export default {
         },
 
         {
-          text: "Day & Time",
+          text: "Day & Time & Room",
         },
 
         {
-          text: "Actions",
-        },
-      ],
-
-      facultyLoadOverviewTableHeaders: [
-        {
-          text: "Code",
+          text: "Credited Unit",
         },
 
         {
-          text: "Title",
+          text: "College",
         },
 
         {
-          text: "Units",
-        },
-
-        {
-          text: "Section",
-        },
-
-        {
-          text: "Day & Time",
-        },
-
-        {
-          text: "Actions",
+          text: "Extra Load",
+          align: "right",
         },
       ],
     };

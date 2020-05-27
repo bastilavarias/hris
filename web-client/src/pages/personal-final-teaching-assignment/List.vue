@@ -2,7 +2,7 @@
   <v-card>
     <v-toolbar flat>
       <v-toolbar-title class="font-weight-bold"
-        >Faculty Teaching Assignment List</v-toolbar-title
+        >Final Teaching Assignment List</v-toolbar-title
       >
       <v-spacer></v-spacer>
       <v-text-field
@@ -15,7 +15,7 @@
       <v-btn icon>
         <v-icon>mdi-sort</v-icon>
       </v-btn>
-      <v-btn icon :to="{ name: 'personal-faculty-teaching-assignment-adder' }">
+      <v-btn icon :to="{ name: 'personal-final-teaching-assignment-adder' }">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
@@ -30,7 +30,11 @@ export default {
     return {
       headers: [
         {
-          text: "Load",
+          text: "Summary Of Schedule",
+        },
+
+        {
+          text: "Summary Of Teaching Load",
         },
 
         {
@@ -45,7 +49,8 @@ export default {
           text: "Status",
         },
         {
-          text: "Actions",
+          text: "Action",
+          align: "right",
         },
       ],
     };

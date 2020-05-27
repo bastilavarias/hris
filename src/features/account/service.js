@@ -105,9 +105,9 @@ const accountService = {
           },
 
           {
-            text: "Personal FTA Management",
+            text: "Personal FTA Maintenance",
             icon: "mdi-calendar-multiple-check",
-            to: { name: "personal-faculty-teaching-assignment-list" },
+            to: { name: "personal-final-teaching-assignment-list" },
           },
         ];
         break;
@@ -355,7 +355,7 @@ const accountService = {
           {
             text: "FTA Management",
             icon: "mdi-calendar-multiple-check",
-            to: { name: "faculty-teaching-assignment-list" },
+            to: { name: "final-teaching-assignment-list" },
           },
 
           {

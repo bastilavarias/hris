@@ -1,10 +1,10 @@
 <template>
-  <v-dialog width="800" v-model="isShow">
+  <v-dialog width="1000" v-model="isCollegeFormDialogShow">
     <v-card>
       <v-card-title class="font-weight-bold">
         <span>College Form</span>
         <div class="flex-grow-1"></div>
-        <v-btn icon @click="isShow = false">
+        <v-btn icon @click="isCollegeFormDialogShow = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
@@ -20,7 +20,12 @@
             <v-text-field label="Description" outlined></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-autocomplete label="Dean" outlined></v-autocomplete>
+            <v-autocomplete
+              label="Dean"
+              outlined
+              readonly
+              @click="isSearchFacultyDialogShow = true"
+            ></v-autocomplete>
           </v-col>
         </v-row>
       </v-card-text>
@@ -30,25 +35,68 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <generic-search-dialog
+      :is-show.sync="isSearchFacultyDialogShow"
+      title="Faculties"
+      :items="faculties"
+    >
+      <template v-slot:item-title="{ item }">
+        <span class="text-capitalize">{{ formatFullName(item.profile) }}</span>
+      </template>
+
+      <template v-slot:item-subtitle-top="{ item }">
+        <span class="text-uppercase font-weight-bold">{{
+          item.employeeNumber
+        }}</span>
+      </template>
+    </generic-search-dialog>
   </v-dialog>
 </template>
 
 <script>
+import GenericSearchDialog from "../../components/generic/GenericSearchDialog";
+import customUtilities from "../../common/customUtilities";
 export default {
+  components: { GenericSearchDialog },
   data() {
     return {
-      isShow: false,
+      isCollegeFormDialogShow: false,
+      isSearchFacultyDialogShow: false,
+      faculties: [
+        {
+          employeeNumber: "Faculty-1",
+          profile: {
+            firstName: "Faculty-1",
+            middleName: "Faculty-1",
+            lastName: "Faculty-1",
+            extension: "Faculty-1",
+          },
+        },
+
+        {
+          employeeNumber: "Faculty-2",
+          profile: {
+            firstName: "Faculty-2",
+            middleName: "Faculty-2",
+            lastName: "Faculty-2",
+            extension: "Faculty-2",
+          },
+        },
+      ],
     };
   },
 
+  mixins: [customUtilities],
+
   watch: {
-    isShow(isShow) {
-      if (!isShow) return this.$router.push({ name: "college-list" });
+    isCollegeFormDialogShow(isCollegeFormDialogShow) {
+      if (!isCollegeFormDialogShow)
+        return this.$router.push({ name: "college-list" });
     },
   },
 
   mounted() {
-    this.isShow = true;
+    this.isCollegeFormDialogShow = true;
   },
 };
 </script>

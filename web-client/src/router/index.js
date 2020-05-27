@@ -132,7 +132,7 @@ const routes = [
       },
 
       {
-        path: "faculty-teaching-assignment-management",
+        path: "final-teaching-assignment-management",
         component: () => import("../layouts/partials/Sub"),
         children: [
           {
@@ -604,40 +604,40 @@ const routes = [
       },
 
       {
-        path: "personal-faculty-teaching-assignment-management",
+        path: "personal-final-teaching-assignment-maintenance",
         component: () => import("../layouts/partials/Sub"),
         children: [
           {
             path: "",
-            name: "personal-faculty-teaching-assignment-list",
+            name: "personal-final-teaching-assignment-list",
             component: () =>
-              import("../pages/personal-faculty-teaching-assignment/List"),
+              import("../pages/personal-final-teaching-assignment/List"),
             meta: {
               breadcrumbs: [
                 {
                   text: "Personal FTA List",
                   icon: "mdi-clipboard-list-outline",
-                  to: { name: "personal-faculty-teaching-assignment-list" },
+                  to: { name: "personal-final-teaching-assignment-list" },
                 },
               ],
             },
           },
           {
             path: "adder",
-            name: "personal-faculty-teaching-assignment-adder",
+            name: "personal-final-teaching-assignment-adder",
             component: () =>
-              import("../pages/personal-faculty-teaching-assignment/Adder"),
+              import("../pages/personal-final-teaching-assignment/Adder"),
             meta: {
               breadcrumbs: [
                 {
                   text: "Personal FTA List",
                   icon: "mdi-clipboard-list-outline",
-                  to: { name: "personal-faculty-teaching-assignment-list" },
+                  to: { name: "personal-final-teaching-assignment-list" },
                 },
                 {
                   text: "Personal FTA Adder",
                   icon: "mdi-file-table-box-outline",
-                  to: { name: "personal-faculty-teaching-assignment-adder" },
+                  to: { name: "personal-final-teaching-assignment-adder" },
                 },
               ],
             },
