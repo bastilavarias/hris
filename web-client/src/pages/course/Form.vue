@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="800" v-model="isShow">
+  <v-dialog width="1000" v-model="isShow">
     <v-card>
       <v-card-title class="font-weight-bold">
         <span>Course Form</span>
@@ -39,6 +39,7 @@
       :is-show.sync="isCollegeDialogShow"
       title="Colleges"
       :headers="collegeHeaders"
+      :items="colleges"
     ></generic-search-dialog>
   </v-dialog>
 </template>
@@ -54,17 +55,33 @@ export default {
       collegeHeaders: [
         {
           text: "ID",
+          value: "customId",
         },
 
         {
           text: "Name",
+          value: "name",
         },
 
         {
           text: "Dean",
+          value: "dean",
         },
       ],
-      colleges: [],
+      colleges: [
+        {
+          customId: "ID-1",
+          name: "College-1",
+          dean: {
+            profile: {
+              firstName: "Dean",
+              middleName: "Dean",
+              lastName: "Dean",
+              extension: "Dean",
+            },
+          },
+        },
+      ],
     };
   },
 

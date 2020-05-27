@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="800" v-model="isShow">
+  <v-dialog width="1000" v-model="isShow">
     <v-card>
       <v-card-title class="font-weight-bold">
         <span>Subject Form</span>
