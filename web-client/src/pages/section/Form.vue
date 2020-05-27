@@ -31,7 +31,7 @@
               label="College"
               outlined
               readonly
-              @click="isCollegeDialogShow = true"
+              @click="isSearchCollegeDialogShow = true"
             ></v-autocomplete>
           </v-col>
           <v-col cols="12">
@@ -39,7 +39,7 @@
               label="Course"
               outlined
               readonly
-              @click="isCourseDialogShow = true"
+              @click="isSearchCourseDialogShow = true"
             ></v-autocomplete>
           </v-col>
         </v-row>
@@ -51,7 +51,7 @@
       </v-card-actions>
     </v-card>
     <generic-search-dialog
-      :is-show.sync="isCollegeDialogShow"
+      :is-show.sync="isSearchCollegeDialogShow"
       title="Colleges"
       :items="colleges"
     >
@@ -71,7 +71,7 @@
     </generic-search-dialog>
 
     <generic-search-dialog
-      :is-show.sync="isCourseDialogShow"
+      :is-show.sync="isSearchCourseDialogShow"
       title="Courses"
       :items="courses"
     >
@@ -100,7 +100,7 @@ export default {
     return {
       isSectionFormDialogShow: false,
       yearLevels: ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"],
-      isCollegeDialogShow: false,
+      isSearchCollegeDialogShow: false,
       collegeHeaders: [
         {
           text: "ID",
@@ -144,7 +144,7 @@ export default {
           },
         },
       ],
-      isCourseDialogShow: false,
+      isSearchCourseDialogShow: false,
       courseHeaders: [
         {
           text: "Code",

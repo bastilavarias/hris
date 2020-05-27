@@ -24,7 +24,7 @@
               label="College"
               outlined
               readonly
-              @click="isCollegeDialogShow = true"
+              @click="isSearchCollegeDialogShow = true"
             ></v-autocomplete>
           </v-col>
         </v-row>
@@ -37,7 +37,7 @@
     </v-card>
 
     <generic-search-dialog
-      :is-show.sync="isCollegeDialogShow"
+      :is-show.sync="isSearchCollegeDialogShow"
       title="Colleges"
       :items="colleges"
     >
@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       isCourseFormDialogShow: false,
-      isCollegeDialogShow: false,
+      isSearchCollegeDialogShow: false,
       collegeHeaders: [
         {
           text: "ID",
