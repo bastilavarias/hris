@@ -19,33 +19,75 @@
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-data-table :headers="headers"></v-data-table>
+    <v-data-table :headers="headers" :items="items">
+      <template v-slot:item.name="{ item }">
+        <span class="text-capitalize">{{ item.name }}</span>
+      </template>
+
+      <template v-slot:item.description="{ item }">
+        <span class="text-capitalize">{{ item.description }}</span>
+      </template>
+
+      <template v-slot:item.head="{ item }">
+        <span class="text-capitalize">{{
+          formatFullName(item.head.profile)
+        }}</span>
+      </template>
+
+      <template v-slot:item.actions="{ item }">
+        <v-btn icon><v-icon>mdi-pencil</v-icon></v-btn>
+        <v-btn icon><v-icon>mdi-trash-can</v-icon></v-btn>
+      </template>
+    </v-data-table>
     <router-view></router-view>
   </v-card>
 </template>
 
 <script>
+import customUtilities from "../../common/customUtilities";
+
 export default {
   data() {
     return {
       headers: [
         {
           text: "Name",
+          value: "name",
         },
 
         {
           text: "Description",
+          value: "description",
         },
 
         {
           text: "Head",
+          value: "head",
         },
 
         {
           text: "Actions",
+          value: "actions",
+        },
+      ],
+
+      items: [
+        {
+          name: "Department 1",
+          description: "Department 1",
+          head: {
+            profile: {
+              firstName: "Head 1",
+              middleName: "Head 1",
+              lastName: "Head 1",
+              extension: "Head 1",
+            },
+          },
         },
       ],
     };
   },
+
+  mixins: [customUtilities],
 };
 </script>

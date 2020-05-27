@@ -23,6 +23,7 @@
                     v-model="form.username"
                     :error="hasError(accountError.username)"
                     :error-messages="accountError.username"
+                    autofocus
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
