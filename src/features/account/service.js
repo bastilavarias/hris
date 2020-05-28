@@ -125,6 +125,12 @@ const accountService = {
             icon: "mdi-calendar",
             to: { name: "personnel-schedule-viewer" },
           },
+
+          {
+            text: "Daily Attendance",
+            icon: "mdi-calendar",
+            to: { name: "daily-attendance-search" },
+          },
         ];
         break;
 

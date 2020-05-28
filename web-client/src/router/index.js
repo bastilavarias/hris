@@ -746,6 +746,42 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "daily-attendance",
+        name: "daily-attendance-search",
+        component: () => import("../pages/daily-attendance/Search"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Search Employee",
+              icon: "mdi-file-search-outline",
+              to: { name: "daily-attendance-search" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "authorization-form",
+            component: () => import("../pages/authorization/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Authorization List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "authorization-list" },
+                },
+                {
+                  text: "Authorization Form",
+                  icon: "mdi-form-select",
+                  to: { name: "authorization-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
     ],
   },
 ];
