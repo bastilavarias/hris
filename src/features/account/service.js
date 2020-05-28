@@ -127,9 +127,9 @@ const accountService = {
           },
 
           {
-            text: "Daily Attendance",
-            icon: "mdi-calendar",
-            to: { name: "daily-attendance-search" },
+            text: "Bundy Clock",
+            icon: "mdi-account-clock",
+            to: { name: "bundy-clock-search" },
           },
         ];
         break;

@@ -1,5 +1,5 @@
 <template>
-  <v-card min-height="500">
+  <v-card min-height="700">
     <v-card-title class="primary white--text">
       <div class="flex-grow-1"></div>
       <span class="font-weight-bold">UDM - Employee Digital Bundy Clock</span>
@@ -20,7 +20,7 @@
           </div>
           <v-list>
             <template v-for="n in 3">
-              <v-list-item :key="n">
+              <v-list-item :key="n" @click="viewEmployee(1)">
                 <v-list-item-avatar>
                   <v-img src="https://i.redd.it/sgratkx3xj731.png"></v-img>
                 </v-list-item-avatar>
@@ -37,11 +37,21 @@
         </v-col>
       </v-row>
     </v-container>
+    <router-view> </router-view>
   </v-card>
 </template>
 <script>
 import GenericClock from "../../components/generic/GenericClock";
 export default {
   components: { GenericClock },
+
+  methods: {
+    viewEmployee(employeeId) {
+      this.$router.push({
+        name: "bundy-clock-form",
+        params: { employeeId },
+      });
+    },
+  },
 };
 </script>

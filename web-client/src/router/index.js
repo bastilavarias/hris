@@ -748,34 +748,35 @@ const routes = [
       },
 
       {
-        path: "daily-attendance",
-        name: "daily-attendance-search",
-        component: () => import("../pages/daily-attendance/Search"),
+        path: "bundy-clock",
+        name: "bundy-clock-search",
+        component: () => import("../pages/bundy-clock/Search"),
         meta: {
           breadcrumbs: [
             {
               text: "Search Employee",
-              icon: "mdi-file-search-outline",
-              to: { name: "daily-attendance-search" },
+              icon: "mdi-account-search-outline",
+              to: { name: "bundy-clock-search" },
             },
           ],
         },
         children: [
           {
-            path: "create",
-            name: "authorization-form",
-            component: () => import("../pages/authorization/Form"),
+            path: ":employeeId",
+            name: "bundy-clock-form",
+            component: () => import("../pages/bundy-clock/Form"),
             meta: {
               breadcrumbs: [
                 {
-                  text: "Authorization List",
-                  icon: "mdi-clipboard-list-outline",
-                  to: { name: "authorization-list" },
+                  text: "Search Employee",
+                  icon: "mdi-account-search-outline",
+                  to: { name: "bundy-clock-search" },
                 },
+
                 {
-                  text: "Authorization Form",
+                  text: "Employee Form",
                   icon: "mdi-form-select",
-                  to: { name: "authorization-form" },
+                  to: { name: "bundy-clock-form" },
                 },
               ],
             },
