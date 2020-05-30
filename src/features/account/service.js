@@ -391,6 +391,18 @@ const accountService = {
           },
 
           {
+            text: "Personal Leave Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "personal-leave-list" },
+          },
+
+          {
+            text: "Personal Schedule Viewer",
+            icon: "mdi-calendar",
+            to: { name: "personnel-schedule-viewer" },
+          },
+
+          {
             text: "Semester Maintenance",
             icon: "mdi-chair-school",
             to: { name: "semester-list" },
@@ -406,6 +418,24 @@ const accountService = {
             text: "Year Level Management",
             icon: "mdi-filter-variant",
             to: { name: "year-level-list" },
+          },
+
+          {
+            text: "Faculty Management",
+            icon: "mdi-account-tie",
+            to: { name: "faculty-list" },
+          },
+
+          {
+            text: "Faculty Leave Management",
+            icon: "mdi-account-multiple-minus",
+            to: { name: "faculty-leave-list" },
+          },
+
+          {
+            text: "FTA Management",
+            icon: "mdi-calendar-multiple-check",
+            to: { name: "faculty-teaching-assignment-list" },
           },
         ];
         break;
