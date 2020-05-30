@@ -915,34 +915,34 @@ const routes = [
       },
 
       {
-        path: "authorization-management",
-        name: "authorization-list",
-        component: () => import("../pages/authorization/List"),
+        path: "user-role-management",
+        name: "user-role-list",
+        component: () => import("../pages/user-role/List"),
         meta: {
           breadcrumbs: [
             {
-              text: "Authorization List",
+              text: "User Role List",
               icon: "mdi-clipboard-list-outline",
-              to: { name: "authorization-list" },
+              to: { name: "user-role-list" },
             },
           ],
         },
         children: [
           {
             path: "create",
-            name: "authorization-form",
-            component: () => import("../pages/authorization/Form"),
+            name: "user-role-form",
+            component: () => import("../pages/user-role/Form"),
             meta: {
               breadcrumbs: [
                 {
-                  text: "Authorization List",
+                  text: "User Role List",
                   icon: "mdi-clipboard-list-outline",
-                  to: { name: "authorization-list" },
+                  to: { name: "user-role-list" },
                 },
                 {
-                  text: "Authorization Form",
+                  text: "User Role Form",
                   icon: "mdi-form-select",
-                  to: { name: "authorization-form" },
+                  to: { name: "user-role-form" },
                 },
               ],
             },

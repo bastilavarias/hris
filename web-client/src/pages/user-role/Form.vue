@@ -2,7 +2,7 @@
   <v-dialog width="800" v-model="isShow">
     <v-card>
       <v-card-title class="font-weight-bold">
-        <span>Authorization Form</span>
+        <span>User Role Form</span>
         <div class="flex-grow-1"></div>
         <v-btn icon @click="isShow = false">
           <v-icon>mdi-close</v-icon>
@@ -37,7 +37,7 @@ export default {
 
   watch: {
     isShow(isShow) {
-      if (!isShow) return this.$router.push({ name: "authorization-list" });
+      if (!isShow) return this.$router.push({ name: "user-role-list" });
     },
   },
 

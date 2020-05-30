@@ -479,30 +479,6 @@ const accountService = {
           },
 
           {
-            text: "Personal Data Sheet",
-            icon: "mdi-file-account",
-            to: { name: "personal-data-sheet" },
-          },
-
-          {
-            text: "FTA Management",
-            icon: "mdi-calendar-multiple-check",
-            to: { name: "final-teaching-assignment-list" },
-          },
-
-          {
-            text: "Personnel Schedule Tagger",
-            icon: "mdi-calendar-account",
-            to: { name: "personnel-schedule-tagger" },
-          },
-
-          {
-            text: "Employee Management",
-            icon: "mdi-account-tie",
-            to: { name: "employee-list" },
-          },
-
-          {
             text: "Department Management",
             icon: "mdi-account-group",
             to: { name: "department-list" },
@@ -515,25 +491,19 @@ const accountService = {
           },
 
           {
-            text: "Leave Management",
-            icon: "mdi-account-arrow-right",
-            to: { name: "leave-list" },
-          },
-
-          {
             text: "Salary Maintenance",
             icon: "mdi-cash-multiple",
             to: { name: "salary-list" },
           },
 
           {
-            text: "Semester Management",
+            text: "Semester Maintenance",
             icon: "mdi-chair-school",
             to: { name: "semester-list" },
           },
 
           {
-            text: "School Year Management",
+            text: "School Year Maintenance",
             icon: "mdi-calendar-range",
             to: { name: "school-year-list" },
           },
@@ -551,9 +521,9 @@ const accountService = {
           },
 
           {
-            text: "Authorization Management",
+            text: "User Role Management",
             icon: "mdi-badge-account-horizontal",
-            to: { name: "authorization-list" },
+            to: { name: "user-role-list" },
           },
         ];
         break;
