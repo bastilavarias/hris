@@ -27,10 +27,10 @@
             <v-btn icon>
               <v-icon>mdi-sort</v-icon>
             </v-btn>
-            <v-btn icon>
+            <v-btn icon @click="isSalaryGradeFormDialogShow = true">
               <v-icon>mdi-plus</v-icon>
             </v-btn>
-            <v-btn icon>
+            <v-btn icon @click="isSearchSalaryGradeDialogShow = true">
               <v-icon>mdi-application-import</v-icon>
             </v-btn>
           </v-toolbar>
@@ -78,13 +78,55 @@
         Submit
       </v-btn>
     </v-card-actions>
+    <v-dialog width="800" v-model="isSalaryGradeFormDialogShow">
+      <v-card>
+        <v-card-title class="font-weight-bold">
+          <span>Salary Grade Form</span>
+          <div class="flex-grow-1"></div>
+          <v-btn icon @click="isTimeDateRangeDialogShow = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-row dense>
+            <v-col cols="12">
+              <v-text-field label="Grade" outlined></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field label="Step 1" outlined></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field label="Step 2" outlined></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field label="Step 3" outlined></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field label="Step 4" outlined></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field label="Step 5" outlined></v-text-field>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" block>Add </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <generic-search-dialog
+      :is-show.sync="isSearchSalaryGradeDialogShow"
+      title="Salary Grades"
+      :items="[]"
+    ></generic-search-dialog>
   </v-card>
 </template>
 
 <script>
 import CustomFormSubtitle from "../../components/custom/CustomFormSubtitle";
+import GenericSearchDialog from "../../components/generic/GenericSearchDialog";
 export default {
-  components: { CustomFormSubtitle },
+  components: { GenericSearchDialog, CustomFormSubtitle },
 
   data() {
     return {
@@ -137,7 +179,8 @@ export default {
         },
       ],
 
-      isSalaryGradeDialogShow: false,
+      isSalaryGradeFormDialogShow: false,
+      isSearchSalaryGradeDialogShow: false,
     };
   },
 };

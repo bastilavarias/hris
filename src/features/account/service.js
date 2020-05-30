@@ -351,6 +351,18 @@ const accountService = {
           },
 
           {
+            text: "Personal Leave Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "personal-leave-list" },
+          },
+
+          {
+            text: "Personal Schedule Viewer",
+            icon: "mdi-calendar",
+            to: { name: "personnel-schedule-viewer" },
+          },
+
+          {
             text: "Salary Maintenance",
             icon: "mdi-cash-multiple",
             to: { name: "salary-list" },
