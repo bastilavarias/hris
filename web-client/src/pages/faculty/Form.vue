@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title class="font-weight-bold">Personnel Form</v-card-title>
+    <v-card-title class="font-weight-bold">Faculty Form</v-card-title>
     <v-tabs v-model="tab" fixed-tabs>
       <template v-for="(tabName, index) in tabs">
         <v-tab :key="index">{{ tabName }}</v-tab>
@@ -11,14 +11,14 @@
         <v-tab-item>
           <v-row dense>
             <v-col cols="12">
-              <personnel-form-information></personnel-form-information>
+              <faculty-form-information></faculty-form-information>
             </v-col>
           </v-row>
         </v-tab-item>
         <v-tab-item>
           <v-row dense>
             <v-col cols="12">
-              <personnel-form-schedule></personnel-form-schedule>
+              <faculty-form-schedule></faculty-form-schedule>
             </v-col>
           </v-row>
         </v-tab-item>
@@ -29,12 +29,12 @@
 
 <script>
 import CustomFormSubtitle from "../../components/custom/CustomFormSubtitle";
-import PersonnelFormInformation from "./FormInformation";
-import PersonnelFormSchedule from "./FormSchedule";
+import FacultyFormInformation from "./FormInformation";
+import FacultyFormSchedule from "./FormSchedule";
 export default {
   components: {
-    PersonnelFormSchedule,
-    PersonnelFormInformation,
+    FacultyFormSchedule,
+    FacultyFormInformation,
     CustomFormSubtitle,
   },
 

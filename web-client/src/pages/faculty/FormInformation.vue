@@ -73,7 +73,7 @@
 <script>
 import CustomFormSubtitle from "../../components/custom/CustomFormSubtitle";
 export default {
-  name: "personnel-form-information",
+  name: "faculty-form-information",
   components: { CustomFormSubtitle },
 };
 </script>

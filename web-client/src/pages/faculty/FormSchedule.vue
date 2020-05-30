@@ -6,7 +6,7 @@
 import CustomFormSubtitle from "../../components/custom/CustomFormSubtitle";
 import GenericCalendar from "../../components/generic/GenericCalendar";
 export default {
-  name: "personnel-form-schedule",
+  name: "faculty-form-schedule",
   components: { GenericCalendar, CustomFormSubtitle },
 };
 </script>

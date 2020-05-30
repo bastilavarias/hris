@@ -167,9 +167,21 @@ const accountService = {
           },
 
           {
+            text: "Faculty Management",
+            icon: "mdi-account-tie",
+            to: { name: "faculty-list" },
+          },
+
+          {
             text: "Faculty Leave Management",
             icon: "mdi-account-multiple-minus",
             to: { name: "faculty-leave-list" },
+          },
+
+          {
+            text: "Class Schedule Management",
+            icon: "mdi-google-classroom",
+            to: { name: "class-schedule-list" },
           },
 
           {

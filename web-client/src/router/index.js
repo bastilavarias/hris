@@ -100,6 +100,46 @@ const routes = [
       },
 
       {
+        path: "faculty-management",
+        component: () => import("../layouts/partials/Sub"),
+        children: [
+          {
+            path: "",
+            name: "faculty-list",
+            component: () => import("../pages/faculty/List"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Faculty List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "faculty-list" },
+                },
+              ],
+            },
+          },
+          {
+            path: "create",
+            name: "faculty-form",
+            component: () => import("../pages/faculty/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Faculty List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "faculty-list" },
+                },
+                {
+                  text: "Faculty Form",
+                  icon: "mdi-form-select",
+                  to: { name: "faculty-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
         path: "department-management",
         name: "department-list",
         component: () => import("../pages/department/List"),
@@ -925,6 +965,42 @@ const routes = [
                   text: "Employee Form",
                   icon: "mdi-form-select",
                   to: { name: "bundy-clock-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
+        path: "class-schedule-management",
+        name: "class-schedule-list",
+        component: () => import("../pages/class-schedule/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Class Schedule List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "class-schedule-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "class-schedule-form",
+            component: () => import("../pages/class-schedule/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Class Schedule List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "class-schedule-list" },
+                },
+                {
+                  text: "Class Schedule Form",
+                  icon: "mdi-form-select",
+                  to: { name: "class-schedule-form" },
                 },
               ],
             },

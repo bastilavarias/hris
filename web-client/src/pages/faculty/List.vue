@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-toolbar flat>
-      <v-toolbar-title class="font-weight-bold">Personnel List</v-toolbar-title>
+      <v-toolbar-title class="font-weight-bold">Faculty List</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
         hide-details
@@ -34,7 +34,7 @@
       </template>
 
       <template v-slot:item.action="{ item }">
-        <v-btn icon @click="viewPersonnel"><v-icon>mdi-eye</v-icon></v-btn>
+        <v-btn icon @click="viewFaculty"><v-icon>mdi-eye</v-icon></v-btn>
       </template>
     </v-data-table>
   </v-card>
@@ -77,10 +77,10 @@ export default {
         {
           employeeNumber: "employee-1",
           profile: {
-            firstName: "Personnel",
-            middleName: "Personnel",
-            lastName: "Personnel",
-            extension: "Personnel",
+            firstName: "Faculty",
+            middleName: "Faculty",
+            lastName: "Faculty",
+            extension: "Faculty",
           },
           department: {
             name: "department",
@@ -96,8 +96,8 @@ export default {
   mixins: [customUtilities],
 
   methods: {
-    viewPersonnel() {
-      this.$router.push({ name: "personnel-form" });
+    viewFaculty() {
+      this.$router.push({ name: "faculty-form" });
     },
   },
 };
