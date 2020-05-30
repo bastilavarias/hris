@@ -25,6 +25,14 @@
         <span class="text-capitalize">{{ formatFullName(item.profile) }}</span>
       </template>
 
+      <template v-slot:item.department="{ item }">
+        <span class="text-capitalize">{{ item.department.name }}</span>
+      </template>
+
+      <template v-slot:item.designation="{ item }">
+        <span class="text-capitalize">{{ item.designation.name }}</span>
+      </template>
+
       <template v-slot:item.action="{ item }">
         <v-btn icon @click="viewPersonnel"><v-icon>mdi-eye</v-icon></v-btn>
       </template>
