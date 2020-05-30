@@ -46,10 +46,15 @@
               <v-card-text>
                 <v-toolbar flat>
                   <v-spacer></v-spacer>
-                  <v-btn icon>
+                  <v-btn icon @click="isSearchClassScheduleDialogShow = true">
                     <v-icon>mdi-plus</v-icon>
                   </v-btn>
-                  <v-btn icon>
+                  <v-btn
+                    icon
+                    @click="
+                      isFinalTeachingingAssignmentSummaryDialogShow = true
+                    "
+                  >
                     <v-icon>mdi-text-box-check</v-icon>
                   </v-btn>
                 </v-toolbar>
@@ -62,11 +67,25 @@
         </v-card>
       </v-col>
     </v-row>
+    <generic-search-dialog
+      :is-show.sync="isSearchClassScheduleDialogShow"
+      title="Class Schedules"
+      :items="[]"
+    ></generic-search-dialog>
+    <custom-final-teaching-assignment-summary-dialog
+      :is-show.sync="isFinalTeachingingAssignmentSummaryDialogShow"
+    ></custom-final-teaching-assignment-summary-dialog>
   </div>
 </template>
 
 <script>
+import GenericSearchDialog from "../../components/generic/GenericSearchDialog";
+import CustomFinalTeachingAssignmentSummaryDialog from "../../components/custom/CustomFinalTeachingAssignmentSummaryDialog";
 export default {
+  components: {
+    CustomFinalTeachingAssignmentSummaryDialog,
+    GenericSearchDialog,
+  },
   data() {
     return {
       scheduleHeaders: [
@@ -103,6 +122,9 @@ export default {
           align: "right",
         },
       ],
+
+      isSearchClassScheduleDialogShow: false,
+      isFinalTeachingingAssignmentSummaryDialogShow: false,
     };
   },
 };
