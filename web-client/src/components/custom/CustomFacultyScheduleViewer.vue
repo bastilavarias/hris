@@ -73,7 +73,7 @@ const stylings = {
 };
 
 export default {
-  name: "custom-faculty-schedule-viewer",
+  name: "custom-faculty-schedule-calendar",
   data: () => ({
     dark: false,
     startMenu: false,
