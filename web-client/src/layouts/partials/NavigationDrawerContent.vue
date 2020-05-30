@@ -27,9 +27,10 @@
         single-line
         placeholder="Search actions"
         dense
+        v-model="actionTextQuery"
       ></v-text-field>
     </v-container>
-    <template v-for="(action, index) in currentAccountActions">
+    <template v-for="(action, index) in filteredAccountActions">
       <v-list-item
         :key="index"
         :to="action.to"
@@ -43,13 +44,23 @@
         }}</v-list-item-subtitle>
       </v-list-item>
     </template>
+    <div class="text-center" v-if="filteredAccountActions.length === 0">
+      <span class="overline grey--text">No Actions</span>
+    </div>
   </v-list>
 </template>
 <script>
 import customUtilities from "../../common/customUtilities";
+import CustomFormSubtitle from "../../components/custom/CustomFormSubtitle";
 
 export default {
   name: "navigation-drawer-content",
+  components: { CustomFormSubtitle },
+  data() {
+    return {
+      actionTextQuery: "",
+    };
+  },
 
   mixins: [customUtilities],
 
@@ -68,6 +79,17 @@ export default {
 
     currentAccountProfile() {
       return this.$store.state.account.current.profile;
+    },
+
+    filteredAccountActions() {
+      if (this.actionTextQuery === "") return this.currentAccountActions;
+      return this.currentAccountActions.filter((action) => {
+        const actionText = action.text.toLowerCase().replace(/ /g, "");
+        const actionTextQuery = this.actionTextQuery
+          .toLowerCase()
+          .replace(/ /g, "");
+        return actionText.includes(actionTextQuery);
+      });
     },
   },
 };
