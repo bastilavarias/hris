@@ -1022,6 +1022,21 @@ const routes = [
           },
         ],
       },
+
+      {
+        path: "attendance-management",
+        name: "attendance-list",
+        component: () => import("../pages/AttendanceList"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Attendance List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "attendance-list" },
+            },
+          ],
+        },
+      },
     ],
   },
 ];

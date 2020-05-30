@@ -259,6 +259,18 @@ const accountService = {
           },
 
           {
+            text: "Personal Leave Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "personal-leave-list" },
+          },
+
+          {
+            text: "Personal Schedule Viewer",
+            icon: "mdi-calendar",
+            to: { name: "personnel-schedule-viewer" },
+          },
+
+          {
             text: "Employee Management",
             icon: "mdi-account-tie",
             to: { name: "employee-list" },
@@ -289,9 +301,9 @@ const accountService = {
           },
 
           {
-            text: "Activity Log",
-            icon: "mdi-post",
-            to: { name: "activity-log" },
+            text: "Attendance Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "attendance-list" },
           },
         ];
         break;
