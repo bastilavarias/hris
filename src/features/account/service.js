@@ -187,6 +187,12 @@ const accountService = {
             icon: "mdi-calendar-account",
             to: { name: "personnel-schedule-tagger" },
           },
+
+          {
+            text: "Bundy Clock",
+            icon: "mdi-account-clock",
+            to: { name: "bundy-clock-search" },
+          },
         ];
         break;
 
