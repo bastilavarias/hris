@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="1000" v-model="isCollegeFormDialogShow">
+  <v-dialog width="1000" v-model="isShow">
     <v-card>
       <v-card-title class="font-weight-bold">
         <span>Personal Leave Form</span>
@@ -33,68 +33,25 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-    <generic-search-dialog
-      :is-show.sync="isSearchFacultyDialogShow"
-      title="Faculties"
-      :items="faculties"
-    >
-      <template v-slot:item-title="{ item }">
-        <span class="text-capitalize">{{ formatFullName(item.profile) }}</span>
-      </template>
-
-      <template v-slot:item-subtitle-top="{ item }">
-        <span class="text-uppercase font-weight-bold">{{
-          item.employeeNumber
-        }}</span>
-      </template>
-    </generic-search-dialog>
   </v-dialog>
 </template>
 
 <script>
-import GenericSearchDialog from "../../components/generic/GenericSearchDialog";
-import customUtilities from "../../common/customUtilities";
 export default {
-  components: { GenericSearchDialog },
   data() {
     return {
-      isCollegeFormDialogShow: false,
-      isSearchFacultyDialogShow: false,
-      faculties: [
-        {
-          employeeNumber: "Faculty-1",
-          profile: {
-            firstName: "Faculty-1",
-            middleName: "Faculty-1",
-            lastName: "Faculty-1",
-            extension: "Faculty-1",
-          },
-        },
-
-        {
-          employeeNumber: "Faculty-2",
-          profile: {
-            firstName: "Faculty-2",
-            middleName: "Faculty-2",
-            lastName: "Faculty-2",
-            extension: "Faculty-2",
-          },
-        },
-      ],
+      isShow: false,
     };
   },
 
-  mixins: [customUtilities],
-
   watch: {
-    isCollegeFormDialogShow(isCollegeFormDialogShow) {
-      if (!isCollegeFormDialogShow)
-        return this.$router.push({ name: "college-list" });
+    isShow(isShow) {
+      if (!isShow) return this.$router.push({ name: "personal-leave-list" });
     },
   },
 
   mounted() {
-    this.isCollegeFormDialogShow = true;
+    this.isShow = true;
   },
 };
 </script>
