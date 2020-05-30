@@ -307,13 +307,13 @@ const accountService = {
           },
 
           {
-            text: "Semester Management",
+            text: "Semester Maintenance",
             icon: "mdi-chair-school",
             to: { name: "semester-list" },
           },
 
           {
-            text: "School Year Management",
+            text: "School Year Maintenance",
             icon: "mdi-calendar-range",
             to: { name: "school-year-list" },
           },
