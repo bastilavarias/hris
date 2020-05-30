@@ -13,7 +13,7 @@
           <v-btn icon>
             <v-icon>mdi-sort</v-icon>
           </v-btn>
-          <v-btn icon :to="{ name: 'department-form' }">
+          <v-btn icon @click="isTimeDateRangeDialogShow = true">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-toolbar>
@@ -42,11 +42,41 @@
         </v-card-text>
       </v-card>
     </v-col>
+    <v-dialog width="800" v-model="isTimeDateRangeDialogShow">
+      <v-card>
+        <v-card-title class="font-weight-bold">
+          <span>Time & Date Ranges Form</span>
+          <div class="flex-grow-1"></div>
+          <v-btn icon @click="isTimeDateRangeDialogShow = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text>
+          <v-row dense>
+            <v-col cols="12" md="6">
+              <v-select outlined label="Date From"></v-select>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-select outlined label="Date To"></v-select>
+            </v-col>
+            <v-col cols="12">
+              <v-select outlined label="Time"></v-select>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 <script>
 import GenericCalendar from "../components/generic/GenericCalendar";
 export default {
   components: { GenericCalendar },
+
+  data() {
+    return {
+      isTimeDateRangeDialogShow: false,
+    };
+  },
 };
 </script>
