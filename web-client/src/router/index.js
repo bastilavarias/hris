@@ -731,7 +731,7 @@ const routes = [
             meta: {
               breadcrumbs: [
                 {
-                  text: "Personal FTA List",
+                  text: "Personal Final Teaching Assignment List",
                   icon: "mdi-clipboard-list-outline",
                   to: { name: "personal-final-teaching-assignment-list" },
                 },
@@ -746,12 +746,12 @@ const routes = [
             meta: {
               breadcrumbs: [
                 {
-                  text: "Personal FTA List",
+                  text: "Personal Final Teaching Assignment List",
                   icon: "mdi-clipboard-list-outline",
                   to: { name: "personal-final-teaching-assignment-list" },
                 },
                 {
-                  text: "Personal FTA Adder",
+                  text: "Personal Final Teaching Assignment Adder",
                   icon: "mdi-file-table-box-outline",
                   to: { name: "personal-final-teaching-assignment-adder" },
                 },
@@ -783,9 +783,24 @@ const routes = [
         meta: {
           breadcrumbs: [
             {
-              text: "Schedule Viewer",
+              text: "Personnel Schedule Viewer",
               icon: "mdi-calendar-outline",
               to: { name: "personnel-schedule-viewer" },
+            },
+          ],
+        },
+      },
+
+      {
+        path: "faculty-schedule-viewer",
+        name: "faculty-schedule-viewer",
+        component: () => import("../pages/FacultyScheduleViewer"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Faculty Schedule Viewer",
+              icon: "mdi-calendar-outline",
+              to: { name: "faculty-schedule-viewer" },
             },
           ],
         },

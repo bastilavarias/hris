@@ -167,6 +167,12 @@ const accountService = {
           },
 
           {
+            text: "Personal Schedule Viewer",
+            icon: "mdi-calendar",
+            to: { name: "faculty-schedule-viewer" },
+          },
+
+          {
             text: "Faculty Management",
             icon: "mdi-account-tie",
             to: { name: "faculty-list" },
@@ -207,7 +213,7 @@ const accountService = {
           },
 
           {
-            text: "Schedule Viewer",
+            text: "Personal Schedule Viewer",
             icon: "mdi-calendar",
             to: { name: "personnel-schedule-viewer" },
           },
