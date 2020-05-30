@@ -783,7 +783,7 @@ const routes = [
         meta: {
           breadcrumbs: [
             {
-              text: "Personnel Schedule Viewer",
+              text: "Personal Schedule Viewer",
               icon: "mdi-calendar-outline",
               to: { name: "personnel-schedule-viewer" },
             },
@@ -798,7 +798,7 @@ const routes = [
         meta: {
           breadcrumbs: [
             {
-              text: "Faculty Schedule Viewer",
+              text: "Personal Schedule Viewer",
               icon: "mdi-calendar-outline",
               to: { name: "faculty-schedule-viewer" },
             },

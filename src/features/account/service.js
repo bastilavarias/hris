@@ -115,6 +115,12 @@ const accountService = {
             icon: "mdi-account-arrow-right",
             to: { name: "personal-leave-list" },
           },
+
+          {
+            text: "Personal Schedule Viewer",
+            icon: "mdi-calendar",
+            to: { name: "faculty-schedule-viewer" },
+          },
         ];
         break;
 
