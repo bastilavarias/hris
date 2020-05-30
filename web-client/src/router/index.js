@@ -604,6 +604,42 @@ const routes = [
       },
 
       {
+        path: "personal-leave-management",
+        name: "personal-leave-list",
+        component: () => import("../pages/personal-leave/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Personal Leave List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "personal-leave-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "personal-leave-form",
+            component: () => import("../pages/personal-leave/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Personal Leave List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "personal-leave-list" },
+                },
+                {
+                  text: "Personal Leave Form",
+                  icon: "mdi-form-select",
+                  to: { name: "personal-leave-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
         path: "personal-final-teaching-assignment-maintenance",
         component: () => import("../layouts/partials/Sub"),
         children: [

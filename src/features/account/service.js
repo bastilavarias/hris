@@ -109,6 +109,12 @@ const accountService = {
             icon: "mdi-calendar-multiple-check",
             to: { name: "personal-final-teaching-assignment-list" },
           },
+
+          {
+            text: "Personal Leave Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "personal-leave-list" },
+          },
         ];
         break;
 
