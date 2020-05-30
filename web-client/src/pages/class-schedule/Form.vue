@@ -11,23 +11,21 @@
       <v-card-text>
         <v-row dense>
           <v-col cols="12">
-            <v-text-field label="Code" outlined></v-text-field>
+            <v-text-field label="Section" outlined></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-text-field label="Title" outlined></v-text-field>
-          </v-col>
-          <v-col cols="12" md="10">
-            <v-text-field label="Description" outlined></v-text-field>
-          </v-col>
-          <v-col cols="12" md="2">
-            <v-select label="Units" :items="avaiableUnits" outlined></v-select>
+            <v-text-field label="Subject" outlined></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-autocomplete
-              outlined
-              label="Category"
-              :items="categories"
-            ></v-autocomplete>
+            <v-text-field label="Faculty" outlined></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <custom-form-subtitle>Day / Time / Room</custom-form-subtitle>
+            <v-data-table
+              :headers="dayTimeRoomTableHeaders"
+              hide-default-footer
+            >
+            </v-data-table>
           </v-col>
         </v-row>
       </v-card-text>
@@ -41,17 +39,29 @@
 </template>
 
 <script>
+import CustomFormSubtitle from "../../components/custom/CustomFormSubtitle";
 export default {
+  components: { CustomFormSubtitle },
   data() {
     return {
       isShow: false,
-      avaiableUnits: [2, 3, 5],
-      categories: [
-        "Category 1",
-        "Category 2",
-        "Category 3",
-        "Category 4",
-        "Category 5",
+
+      dayTimeRoomTableHeaders: [
+        {
+          text: "Day",
+        },
+
+        {
+          text: "Time",
+        },
+
+        {
+          text: "Room",
+        },
+
+        {
+          text: "Action",
+        },
       ],
     };
   },
