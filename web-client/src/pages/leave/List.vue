@@ -15,6 +15,11 @@
       </v-btn>
     </v-toolbar>
     <v-data-table :headers="headers" :items="testData">
+      <template v-slot:item.date="{ item }">
+        <span class="text-capitalize"
+          >{{ item.date.from }} - {{ item.date.to }}</span
+        >
+      </template>
       <template v-slot:item.action>
         <v-btn icon :to="{ name: 'leave-form' }">
           <v-icon>
@@ -43,8 +48,8 @@ export default {
         },
 
         {
-          text: "Span",
-          value: "span",
+          text: "Date",
+          value: "date",
         },
 
         {
@@ -62,7 +67,10 @@ export default {
         {
           employeeNumber: "1000-000-1000",
           name: "Employee Name",
-          span: "May 21, 2020 - May 22, 2020",
+          date: {
+            from: "May 21, 2020",
+            to: "May 22, 2020",
+          },
           status: "Pending",
         },
       ],

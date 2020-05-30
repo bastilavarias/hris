@@ -127,6 +127,12 @@ const accountService = {
           },
 
           {
+            text: "Personal Leave Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "personal-leave-list" },
+          },
+
+          {
             text: "Schedule Viewer",
             icon: "mdi-calendar",
             to: { name: "personnel-schedule-viewer" },
