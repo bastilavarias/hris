@@ -302,7 +302,7 @@ const accountService = {
 
           {
             text: "Attendance Management",
-            icon: "mdi-account-arrow-right",
+            icon: "mdi-file-clock",
             to: { name: "attendance-list" },
           },
         ];
