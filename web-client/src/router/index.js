@@ -788,6 +788,42 @@ const routes = [
       },
 
       {
+        path: "faculty-leave-management",
+        name: "faculty-leave-list",
+        component: () => import("../pages/faculty-leave/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Faculty Leave List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "faculty-leave-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "faculty-leave-form",
+            component: () => import("../pages/faculty-leave/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Faculty Leave List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "faculty-leave-list" },
+                },
+                {
+                  text: "Faculty Leave Form",
+                  icon: "mdi-form-select",
+                  to: { name: "faculty-leave-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
         path: "account-action-management",
         name: "account-action-list",
         component: () => import("../pages/account-action/List"),

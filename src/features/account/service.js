@@ -155,15 +155,21 @@ const accountService = {
           },
 
           {
-            text: "Personal FTA Management",
+            text: "Personal FTA Maintenance",
             icon: "mdi-calendar-multiple-check",
-            to: { name: "personal-faculty-teaching-assignment-list" },
+            to: { name: "personal-final-teaching-assignment-list" },
           },
 
           {
             text: "Personal Leave Management",
             icon: "mdi-account-arrow-right",
             to: { name: "personal-leave-list" },
+          },
+
+          {
+            text: "Faculty Leave Management",
+            icon: "mdi-account-multiple-minus",
+            to: { name: "faculty-leave-list" },
           },
 
           {
