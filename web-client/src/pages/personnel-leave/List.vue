@@ -1,7 +1,9 @@
 <template>
   <v-card>
     <v-toolbar flat>
-      <v-toolbar-title class="font-weight-bold">Leave List</v-toolbar-title>
+      <v-toolbar-title class="font-weight-bold"
+        >Personnel Leave List</v-toolbar-title
+      >
       <v-spacer></v-spacer>
       <v-text-field
         hide-details
@@ -21,7 +23,7 @@
         >
       </template>
       <template v-slot:item.action>
-        <v-btn icon :to="{ name: 'leave-form' }">
+        <v-btn icon :to="{ name: 'personnel-leave-form' }">
           <v-icon>
             mdi-eye
           </v-icon>

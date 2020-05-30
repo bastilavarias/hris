@@ -195,21 +195,27 @@ const accountService = {
           },
 
           {
+            text: "Personnel Management",
+            icon: "mdi-account-tie",
+            to: { name: "personnel-list" },
+          },
+
+          {
             text: "Personnel Schedule Tagger",
             icon: "mdi-calendar-account",
             to: { name: "personnel-schedule-tagger" },
           },
 
           {
-            text: "Bundy Clock",
-            icon: "mdi-account-clock",
-            to: { name: "bundy-clock-search" },
+            text: "Personnel Leave Management",
+            icon: "mdi-account-multiple-minus",
+            to: { name: "personnel-leave-list" },
           },
 
           {
-            text: "Personnel Management",
-            icon: "mdi-account-tie",
-            to: { name: "personnel-list" },
+            text: "Bundy Clock",
+            icon: "mdi-account-clock",
+            to: { name: "bundy-clock-search" },
           },
         ];
         break;
@@ -247,9 +253,9 @@ const accountService = {
           },
 
           {
-            text: "Leave Management",
+            text: "Employee Leave Management",
             icon: "mdi-account-arrow-right",
-            to: { name: "leave-list" },
+            to: { name: "employee-leave-list" },
           },
 
           {

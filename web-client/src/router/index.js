@@ -608,34 +608,34 @@ const routes = [
       },
 
       {
-        path: "leave-management",
-        name: "leave-list",
-        component: () => import("../pages/leave/List"),
+        path: "employee-leave-management",
+        name: "employee-leave-list",
+        component: () => import("../pages/employee-leave/List"),
         meta: {
           breadcrumbs: [
             {
-              text: "Leave List",
+              text: "Employee Leave List",
               icon: "mdi-clipboard-list-outline",
-              to: { name: "leave-list" },
+              to: { name: "employee-leave-list" },
             },
           ],
         },
         children: [
           {
             path: "create",
-            name: "leave-form",
-            component: () => import("../pages/leave/Form"),
+            name: "employee-leave-form",
+            component: () => import("../pages/employee-leave/Form"),
             meta: {
               breadcrumbs: [
                 {
-                  text: "Leave List",
+                  text: "Employee Leave List",
                   icon: "mdi-clipboard-list-outline",
-                  to: { name: "leave-list" },
+                  to: { name: "employee-leave-list" },
                 },
                 {
-                  text: "Leave Form",
+                  text: "Employee Leave Form",
                   icon: "mdi-form-select",
-                  to: { name: "leave-form" },
+                  to: { name: "employee-leave-form" },
                 },
               ],
             },
@@ -749,6 +749,42 @@ const routes = [
             },
           ],
         },
+      },
+
+      {
+        path: "personnel-leave-management",
+        name: "personnel-leave-list",
+        component: () => import("../pages/personnel-leave/List"),
+        meta: {
+          breadcrumbs: [
+            {
+              text: "Personnel Leave List",
+              icon: "mdi-clipboard-list-outline",
+              to: { name: "personnel-leave-list" },
+            },
+          ],
+        },
+        children: [
+          {
+            path: "create",
+            name: "personnel-leave-form",
+            component: () => import("../pages/personnel-leave/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Personnel Leave List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "personnel-leave-list" },
+                },
+                {
+                  text: "Personnel Leave Form",
+                  icon: "mdi-form-select",
+                  to: { name: "personnel-leave-form" },
+                },
+              ],
+            },
+          },
+        ],
       },
 
       {
