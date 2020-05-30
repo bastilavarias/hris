@@ -189,15 +189,15 @@ const routes = [
       },
 
       {
-        path: "employee-schedule-management",
-        name: "employee-schedule-tagger",
-        component: () => import("../pages/employee-schedule/Tagger"),
+        path: "personnel-schedule-tagger",
+        name: "personnel-schedule-tagger",
+        component: () => import("../pages/personnel-schedule/Tagger"),
         meta: {
           breadcrumbs: [
             {
-              text: "Employee Schedule Tagger",
+              text: "Personnel Schedule Tagger",
               icon: "mdi-file-table-box-outline",
-              to: { name: "employee-schedule-tagger" },
+              to: { name: "personnel-schedule-tagger" },
             },
           ],
         },

@@ -183,9 +183,9 @@ const accountService = {
           },
 
           {
-            text: "Employee Schedule Tagger",
+            text: "Personnel Schedule Tagger",
             icon: "mdi-calendar-account",
-            to: { name: "employee-schedule-tagger" },
+            to: { name: "personnel-schedule-tagger" },
           },
         ];
         break;
@@ -377,9 +377,9 @@ const accountService = {
           },
 
           {
-            text: "Employee Schedule Tagger",
+            text: "Personnel Schedule Tagger",
             icon: "mdi-calendar-account",
-            to: { name: "employee-schedule-tagger" },
+            to: { name: "personnel-schedule-tagger" },
           },
 
           {

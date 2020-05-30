@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import customUtilities from "../../common/customUtilities";
-
 export default {
   name: "generic-search-dialog",
 
