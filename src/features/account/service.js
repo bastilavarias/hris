@@ -106,7 +106,7 @@ const accountService = {
 
           {
             text: "Personal FTA Maintenance",
-            icon: "mdi-calendar-multiple-check",
+            icon: "mdi-calendar-check",
             to: { name: "personal-final-teaching-assignment-list" },
           },
 
@@ -156,7 +156,7 @@ const accountService = {
 
           {
             text: "Personal FTA Maintenance",
-            icon: "mdi-calendar-multiple-check",
+            icon: "mdi-calendar-check",
             to: { name: "personal-final-teaching-assignment-list" },
           },
 

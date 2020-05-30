@@ -3,12 +3,12 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-card-title class="font-weight-bold">
-            <span>
-              Faculty Teaching Assignment Adder
+          <v-card-title>
+            <span class="font-weight-bold">
+              Faculty FTA Adder
             </span>
             <div class="flex-grow-1"></div>
-            <v-btn icon>
+            <v-btn icon @click="isSearchFacultyDialogShow = true">
               <v-icon>mdi-account-search</v-icon>
             </v-btn>
           </v-card-title>
@@ -47,24 +47,59 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-data-table
-            hide-default-footer
-            :headers="facultyLoadOverviewTableHeaders"
-          ></v-data-table>
+          <v-data-table hide-default-footer :headers="scheduleHeaders">
+            <template v-slot:top>
+              <v-card-text>
+                <v-toolbar flat>
+                  <v-spacer></v-spacer>
+                  <v-btn icon @click="isSearchClassScheduleDialogShow = true">
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                  <v-btn
+                    icon
+                    @click="
+                      isFinalTeachingingAssignmentSummaryDialogShow = true
+                    "
+                  >
+                    <v-icon>mdi-text-box-check</v-icon>
+                  </v-btn>
+                </v-toolbar>
+              </v-card-text>
+            </template>
+          </v-data-table>
           <v-card-actions>
             <v-btn color="primary" block>Submit(0)</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
+    <generic-search-dialog
+      :is-show.sync="isSearchFacultyDialogShow"
+      title="Faculties"
+      :items="[]"
+    ></generic-search-dialog>
+    <generic-search-dialog
+      :is-show.sync="isSearchClassScheduleDialogShow"
+      title="Class Schedules"
+      :items="[]"
+    ></generic-search-dialog>
+    <custom-final-teaching-assignment-summary-dialog
+      :is-show.sync="isFinalTeachingingAssignmentSummaryDialogShow"
+    ></custom-final-teaching-assignment-summary-dialog>
   </div>
 </template>
 
 <script>
+import GenericSearchDialog from "../../components/generic/GenericSearchDialog";
+import CustomFinalTeachingAssignmentSummaryDialog from "../../components/custom/CustomFinalTeachingAssignmentSummaryDialog";
 export default {
+  components: {
+    CustomFinalTeachingAssignmentSummaryDialog,
+    GenericSearchDialog,
+  },
   data() {
     return {
-      scheduleTableHeaders: [
+      scheduleHeaders: [
         {
           text: "Code",
         },
@@ -82,39 +117,26 @@ export default {
         },
 
         {
-          text: "Day & Time",
+          text: "Day & Time & Room",
         },
 
         {
-          text: "Actions",
+          text: "Credited Unit",
+        },
+
+        {
+          text: "College",
+        },
+
+        {
+          text: "Extra Load",
+          align: "right",
         },
       ],
 
-      facultyLoadOverviewTableHeaders: [
-        {
-          text: "Code",
-        },
-
-        {
-          text: "Title",
-        },
-
-        {
-          text: "Units",
-        },
-
-        {
-          text: "Section",
-        },
-
-        {
-          text: "Day & Time",
-        },
-
-        {
-          text: "Actions",
-        },
-      ],
+      isSearchClassScheduleDialogShow: false,
+      isSearchFacultyDialogShow: false,
+      isFinalTeachingingAssignmentSummaryDialogShow: false,
     };
   },
 };

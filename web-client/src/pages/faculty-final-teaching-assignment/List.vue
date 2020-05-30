@@ -1,9 +1,7 @@
 <template>
   <v-card>
     <v-toolbar flat>
-      <v-toolbar-title class="font-weight-bold"
-        >Faculty Teaching Assignment List</v-toolbar-title
-      >
+      <v-toolbar-title class="font-weight-bold">FTA List</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
         hide-details

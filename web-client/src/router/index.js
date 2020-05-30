@@ -179,7 +179,7 @@ const routes = [
             path: "",
             name: "faculty-teaching-assignment-list",
             component: () =>
-              import("../pages/faculty-teaching-assignment/List"),
+              import("../pages/faculty-final-teaching-assignment/List"),
             meta: {
               breadcrumbs: [
                 {
@@ -194,7 +194,7 @@ const routes = [
             path: "adder",
             name: "faculty-teaching-assignment-adder",
             component: () =>
-              import("../pages/faculty-teaching-assignment/Adder"),
+              import("../pages/faculty-final-teaching-assignment/Adder"),
             meta: {
               breadcrumbs: [
                 {
