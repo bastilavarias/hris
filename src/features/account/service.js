@@ -139,7 +139,7 @@ const accountService = {
           },
 
           {
-            text: "Schedule Viewer",
+            text: "Personal Schedule Viewer",
             icon: "mdi-calendar",
             to: { name: "personnel-schedule-viewer" },
           },
