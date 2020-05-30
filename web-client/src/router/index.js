@@ -60,6 +60,46 @@ const routes = [
       },
 
       {
+        path: "personnel-management",
+        component: () => import("../layouts/partials/Sub"),
+        children: [
+          {
+            path: "",
+            name: "personnel-list",
+            component: () => import("../pages/personnel/List"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Personnel List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "personnel-list" },
+                },
+              ],
+            },
+          },
+          {
+            path: "create",
+            name: "personnel-form",
+            component: () => import("../pages/personnel/Form"),
+            meta: {
+              breadcrumbs: [
+                {
+                  text: "Personnel List",
+                  icon: "mdi-clipboard-list-outline",
+                  to: { name: "personnel-list" },
+                },
+                {
+                  text: "Personnel Form",
+                  icon: "mdi-form-select",
+                  to: { name: "personnel-form" },
+                },
+              ],
+            },
+          },
+        ],
+      },
+
+      {
         path: "department-management",
         name: "department-list",
         component: () => import("../pages/department/List"),
@@ -191,7 +231,7 @@ const routes = [
       {
         path: "personnel-schedule-tagger",
         name: "personnel-schedule-tagger",
-        component: () => import("../pages/personnel-schedule/Tagger"),
+        component: () => import("../pages/PersonnelScheduleTagger"),
         meta: {
           breadcrumbs: [
             {

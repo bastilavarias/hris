@@ -161,6 +161,12 @@ const accountService = {
           },
 
           {
+            text: "Personal Leave Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "personal-leave-list" },
+          },
+
+          {
             text: "FTA Management",
             icon: "mdi-calendar-multiple-check",
             to: { name: "faculty-teaching-assignment-list" },
@@ -174,6 +180,12 @@ const accountService = {
             text: "Personal Data Sheet",
             icon: "mdi-file-account",
             to: { name: "personal-data-sheet" },
+          },
+
+          {
+            text: "Personal Leave Management",
+            icon: "mdi-account-arrow-right",
+            to: { name: "personal-leave-list" },
           },
 
           {
@@ -192,6 +204,12 @@ const accountService = {
             text: "Bundy Clock",
             icon: "mdi-account-clock",
             to: { name: "bundy-clock-search" },
+          },
+
+          {
+            text: "Personnel Management",
+            icon: "mdi-account-tie",
+            to: { name: "personnel-list" },
           },
         ];
         break;

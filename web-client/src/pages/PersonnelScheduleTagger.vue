@@ -28,7 +28,7 @@
                   >Employee-123</v-list-item-subtitle
                 >
                 <v-list-item-title>Employee Name</v-list-item-title>
-                <v-list-item-subtitle>Department 1</v-list-item-subtitle>
+                <v-list-item-subtitle>Designation 1</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </template>
@@ -45,7 +45,7 @@
   </v-row>
 </template>
 <script>
-import GenericCalendar from "../../components/generic/GenericCalendar";
+import GenericCalendar from "../components/generic/GenericCalendar";
 export default {
   components: { GenericCalendar },
 };
