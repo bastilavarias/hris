@@ -28,6 +28,7 @@
         placeholder="Search actions"
         dense
         v-model="actionTextQuery"
+        autofocus
       ></v-text-field>
     </v-container>
     <template v-for="(action, index) in filteredAccountActions">
