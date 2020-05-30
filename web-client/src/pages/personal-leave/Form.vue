@@ -2,7 +2,7 @@
   <v-dialog width="1000" v-model="isCollegeFormDialogShow">
     <v-card>
       <v-card-title class="font-weight-bold">
-        <span>Personal Leave List</span>
+        <span>Personal Leave Form</span>
         <div class="flex-grow-1"></div>
         <v-btn icon @click="isCollegeFormDialogShow = false">
           <v-icon>mdi-close</v-icon>
@@ -11,21 +11,19 @@
       <v-card-text>
         <v-row dense>
           <v-col cols="12">
-            <v-text-field label="ID" outlined></v-text-field>
+            <v-select label="Type" outlined></v-select>
+          </v-col>
+          <v-col cols="12" md="5">
+            <v-select label="Date From" outlined></v-select>
+          </v-col>
+          <v-col cols="12" md="5">
+            <v-select label="Date To" outlined></v-select>
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-text-field label="No Of Days" readonly outlined></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-text-field label="Name" outlined></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-text-field label="Description" outlined></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-autocomplete
-              label="Dean"
-              outlined
-              readonly
-              @click="isSearchFacultyDialogShow = true"
-            ></v-autocomplete>
+            <v-textarea label="Reason" outlined></v-textarea>
           </v-col>
         </v-row>
       </v-card-text>
