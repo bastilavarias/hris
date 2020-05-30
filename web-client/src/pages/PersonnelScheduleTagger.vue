@@ -13,7 +13,7 @@
           <v-btn icon>
             <v-icon>mdi-sort</v-icon>
           </v-btn>
-          <v-btn icon @click="isTimeDateRangeDialogShow = true">
+          <v-btn icon @click="isTimeDateRangeFormDialogShow = true">
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-toolbar>
@@ -42,12 +42,12 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <v-dialog width="800" v-model="isTimeDateRangeDialogShow">
+    <v-dialog width="800" v-model="isTimeDateRangeFormDialogShow">
       <v-card>
         <v-card-title class="font-weight-bold">
           <span>Time & Date Ranges Form</span>
           <div class="flex-grow-1"></div>
-          <v-btn icon @click="isTimeDateRangeDialogShow = false">
+          <v-btn icon @click="isTimeDateRangeFormDialogShow = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -75,7 +75,7 @@ export default {
 
   data() {
     return {
-      isTimeDateRangeDialogShow: false,
+      isTimeDateRangeFormDialogShow: false,
     };
   },
 };

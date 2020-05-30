@@ -345,12 +345,6 @@ const accountService = {
             icon: "mdi-account-arrow-right",
             to: { name: "leave-list" },
           },
-
-          {
-            text: "Activity Log",
-            icon: "mdi-post",
-            to: { name: "activity-log" },
-          },
         ];
         break;
 
@@ -524,6 +518,12 @@ const accountService = {
             text: "User Role Management",
             icon: "mdi-badge-account-horizontal",
             to: { name: "user-role-list" },
+          },
+
+          {
+            text: "Activity Log",
+            icon: "mdi-post",
+            to: { name: "activity-log-list" },
           },
         ];
         break;
